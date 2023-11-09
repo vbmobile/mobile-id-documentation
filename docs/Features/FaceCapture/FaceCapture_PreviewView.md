@@ -3,7 +3,7 @@
 When the showPreview flag is set to true in the BiometricFaceCaptureParameters class, then at the end of the flow, a preview screen will be shown so that the user can check its selfie.
 You can either customize this screen to your branding or set the flag to false and handle the preview in your own activity.
 
-![Biometric Match Example](Assets/FC_Preview.PNG "Biometric Match Default Loading Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
+![Biometric Match Example](Assets/FC_Preview.png "Biometric Match Default Loading Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
 
 It contains a title(1), a message(2), a frame (3), a retry button (4), a continue button(5) and a background that can be customized. 
 

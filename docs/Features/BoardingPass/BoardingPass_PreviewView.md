@@ -2,8 +2,8 @@
 
 If the flag **showPreview** is set to true, then, when the boarding pass is parsed successfully, the preview view is going to show the details of the boarding pass.
 
-![Boarding Pass Example](Assets/BP_Detail_Frame_Labeled.png "Boarding Pass Default Preview Screen"){: style="height:600px;width:300px"}
-![Boarding Pass Details](Assets/BP_Detail_Card_Labeled.png "Boarding Pass Default Detail Card"){: style="height:300px;width:300px"}
+![Boarding Pass Example](Assets/BP_Detail.png "Boarding Pass Default Preview Screen"){: style="height:600px;width:300px"}
+![Boarding Pass Details](Assets/BP_Detail_Card.png "Boarding Pass Default Detail Card"){: style="height:300px;width:300px"}
 
 It contains a title(1), a message(2), a subview(3) containing all boarding pass information, a button(4) to finish the flow and a background that can be customized.
 

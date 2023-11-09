@@ -1,0 +1,156 @@
+# Error handling
+
+**From version 7 onwards, the errors management changed in the SDK to make it easier to integrate.**
+
+## Handle errors with SDK Errors Screens
+
+In every feature of our SDK, there is a default error view that contains a message, a try again button and another button to close the feature.
+You can use our screens by passing true in the **showErrors** flag of the feature parameters.
+
+You can find additional branding to our errors screens by navigating to the feature -> customization tab -> error view.
+
+
+The FeatureError has the following structure:
+
+=== "Android"
+
+    ```kotlin
+    /***
+    * @param errorType - Enum that classifies the error type
+    * @param errorCode - Error code that identifies the error
+    * @param description - Error description for log purposes
+    * @param publicMessage - Error message suggestion to display in error screens
+    */
+    @Parcelize
+    data class FeatureError(
+        val errorType: ErrorType,
+        val errorCode: Int,
+        val description : String,
+        val publicMessage : String = ""
+    ) : Parcelable
+    ```
+
+    ```kotlin
+    enum class ErrorType {
+        InternalError,
+        CommunicationError,
+        PermissionNotGrantedError,
+        TermsAndConditionsRejected,
+        UserRepeated,
+        UserCanceled,
+        ScanError,
+        ScanTimeout,
+        BoardingPassInvalidError,
+        FaceCaptureError,
+        FaceMatchError,
+        SubjectError,
+        UnknownError
+    }
+    ```
+
+=== "iOS"
+
+    ```swift
+    ///
+    /// - Parameters:
+    ///     - errorType: Enum that classifies the error type
+    ///     - errorCode: Error code that identifies the error
+    ///     - description: Error description for log purposes
+    ///     - publicMessage: Error message suggestion to display in error screens
+    
+    public class FeatureError: Error {
+        public let errorType: ErrorType
+        public let errorCode: Int
+        public let description: String
+        public let publicMessage: String
+
+        init(errorType: ErrorType, errorCode: Int, description: String, publicMessage: String, name: String) 
+    }
+    
+    public enum ErrorType {
+        case internalError
+        case communicationError
+        case termsAndConditionsRejected
+        case userRepeated
+        case permissionNotGrantedError
+        case scanError
+        case scanTimeout
+        case boardingPassInvalid
+        case faceCaptureError
+        case faceMatchError
+        case subjectError
+        case unknownError
+    }
+    ```
+
+There's a new property inside **FeatureError**, called **errorType** that classifies the type of error.
+Alongside with the error code and description that are useful for logging and tracing, we also provide a publicErrorMessage that is a suggestion of what you can show the final user as an error message.
+
+The value of publicErrorMessage is filled depending on the error type and you can change the default texts or provide additional translations by overriding these strings:
+
+=== "Android"
+
+    ```xml
+    <string name="error_internal_sdk_enrolment">Oops! There was an unexpected error, please contact support.</string>
+    <string name="error_communication_sdk_enrolment">There was an error while communicating with the server, please try again.</string>
+    <string name="error_android_permission_sdk_enrolment">The required permission was not given.</string>
+    <string name="error_scan_failed_sdk_enrolment">There was an error with the scan, please try again.</string>
+    <string name="error_document_reader_timeout_sdk_enrolment">Oops! You took too long, please try again.</string>
+    <string name="error_boarding_pass_invalid_sdk_enrolment">The boarding pass is invalid.</string>
+    <string name="error_face_capture_failed_sdk_enrolment">We were unable to detect a face, please try again.</string>
+    <string name="error_face_match_failed_sdk_enrolment">The images don\'t match, please redo the process.</string>
+    <string name="error_subject_failed_sdk_enrolment">We were unable to identify the related subject.</string>
+    <string name="error_canceled_sdk_enrolment">The user chose to cancel the operation.</string>
+    <string name="error_repeated_sdk_enrolment">The user repeated the operation.</string>
+    <string name="error_terms_and_conditions_rejected_sdk_enrolment">Unfortunately, since you did not accept the terms and conditions we can\'t proceed.</string>
+    <string name="error_unknown_sdk_enrolment">Oops! An unidentified problem occurred, please try again.</string>
+    ```
+
+=== "iOS"
+
+    ```swift
+    //internalError
+    Theme.shared.strings.errorsPublicMessages.internalError
+    //communicationError
+    Theme.shared.strings.errorsPublicMessages.communicationError
+    //termsAndConditionsRejected
+    Theme.shared.strings.errorsPublicMessages.termsAndConditionsRejected
+    //userRepeated
+    Theme.shared.strings.errorsPublicMessages.userRepeated
+    //permissionNotGrantedError
+    Theme.shared.strings.errorsPublicMessages.permissionNotGrantedError
+    //scanError
+    Theme.shared.strings.errorsPublicMessages.scanError
+    //scanTimeout
+    Theme.shared.strings.errorsPublicMessages.scanTimeout
+    //boardingPassInvalid
+    Theme.shared.strings.errorsPublicMessages.boardingPassInvalid
+    //faceCaptureError
+    Theme.shared.strings.errorsPublicMessages.faceCaptureError
+    //faceMatchError
+    Theme.shared.strings.errorsPublicMessages.faceMatchError
+    //subjectError
+    Theme.shared.strings.errorsPublicMessages.subjectError
+    //unknownError
+    Theme.shared.strings.errorsPublicMessages.unknownError
+    ```
+
+## Handle errors in your own activities
+
+When you call one of our facade methods, then you will need to pass a completion handler, and it will be called when the result is ready, either successfully or with an error.
+
+**You can check more details how to obtain the FeatureError object on the "Handle result" section of the overview page of each feature.**
+
+If you choose to use your own activities, then we suggest to handle the errors by type as well:
+
+- When it's an internal error, you have to contact VisionBox and share some stacktrace or way to replicate the bug. It usually means that there is some invalid configuration or missing property from our backoffice.
+- Communication errors are mostly caused by internet connection issues, so trying again can solve the problem, it's recommended to allow the user to re-send the request. It can also mean an invalid url of some sort, so if the problem persists you can contact VisionBox.
+- PermissionNotGrantedError means that the user didn't grant permission to use some part of the hardware that is required, as recommended you should have a rationale to explain why that permission is required and block the user from proceeding until he grants the permission.
+- TermsAndConditionsRejected as the name suggests happens when the user rejects the terms and conditions, should be presented a rationale explaining why it's needed.
+- User repeated and user canceled are not exactly errors, they are just warnings to inform that the user wants to try again or canceled the operation.
+- Scan error happens when there is a regula error or any error with the scan of the boarding pass, this usually requires debugging, so it's recommended to share the stacktrace and communicate to VisionBox.
+- Scan timeout it means that the timer of document reader reached the end and it wasn't possible to capture the document, you can inform the user of that, suggesting how he should scan the document (on the table, with a high contrast from the table, with the proper angle etc..) and let the user try again.
+- Boarding pass invalid means that the scan or parse of the boarding pass was correct but some issues were found. Can be the format that is not supported by us, or simply it's not actually a boarding pass barcode.
+- FaceCaptureError means that the feature failed, either due to our quality tests failing, and in that case you will receive a report saying which tests failed, or liveness service failed due to the quality of the image or being a image of an image and not a real person.
+- SubjectError happens when the subject action the user was trying to make failed. eg: User tried to add an invalid subject.
+- Unknown errors should not happen but any error that we have unmapped will return unknown error and must be reported for investigation.

@@ -3,7 +3,7 @@
 The first view of the document reader flow is the loading view, it appears when the feature is initializing.
 In this step, if the regula database is not yet downloaded or it's outdated, the download will begin automatically.
 
-![Document Reader Example](Assets/DR_Loading_Screen.PNG "Document Reader Default Loading Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
+![Document Reader Example](Assets/DR_Loading.png "Document Reader Default Loading Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
 
 It contains a title(1), a message(2), an animation(3) and a background that can be customized. 
 

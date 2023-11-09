@@ -1,8 +1,8 @@
 # Error View
 
-In case any error happens in the Boarding pass flow and the flag **showErrros** is active, the Error View will appear in order to give the final user feedback as to may have gone wrong, allowing them to retry or cancel.
+In case any error happens in the Boarding pass flow and the flag **showErrors** is active, the Error View will appear in order to give the final user feedback as to may have gone wrong, allowing them to retry or cancel.
 
-![Boarding Pass Example](Assets/BP_Error_Frame_Labeled.png "Boarding Pass Default Error Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
+![Boarding Pass Example](Assets/BP_Error.png "Boarding Pass Default Error Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
 
 It contains a close button(1), a title(2), a message(3), an image(4), a retry button (5) and a background that can be customized.
 
@@ -19,20 +19,6 @@ You can apply your own branding to our screens by overriding the resources we us
     You can add your own texts and localization by overriding the following string resources:
     ```xml
     <string name="feature_failure_title_sdk_enrolment">There\'s something wrong</string>
-    <!-- List of possible errors -->
-    <string name="error_boarding_pass_error_empty_sdk_enrolment">Boarding Pass barcode is empty</string>
-    <string name="error_boarding_pass_error_format_not_supported_sdk_enrolment">Boarding Pass format not supported</string>
-    <string name="error_boarding_pass_error_configuration_sdk_enrolment">Error reading Boarding Pass</string>
-    <string name="error_boarding_pass_error_parser_sdk_enrolment">Boarding Pass parser error</string>
-    <string name="error_boarding_pass_error_invalid_sdk_enrolment">Boarding Pass not valid</string>
-    <string name="error_boarding_pass_error_camera_permission_sdk_enrolment">Camera permission was NOT granted by the user</string>
-    <string name="error_boarding_pass_error_camera_not_ready_sdk_enrolment">Camera failed to initialize</string>
-    <string name="error_boarding_pass_error_unknown_sdk_enrolment">Unknown Boarding Pass Error</string>
-    <string name="error_boarding_pass_error_scan_failed_sdk_enrolment">Boarding Pass error scanning</string>
-    <string name="error_boarding_pass_error_permission_not_granted_sdk_enrolment">Permission not granted for Boarding Pass feature</string>
-    <string name="error_boarding_pass_error_boarding_pass_null_sdk_enrolment">Boarding Pass Parser boarding pass is null</string>
-    <string name="error_boarding_pass_error_terms_and_conditions_rejected_sdk_enrolment">Boarding Pass user rejected terms and conditions</string>
-    <string name="error_boarding_pass_error_transaction_failed_sdk_enrolment">Boarding Pass Transaction service failed</string>
 
     <!-- Button text (Used in multiple places) -->
     <string name="try_again_sdk_enrolment">Try again</string>

@@ -2,7 +2,7 @@
 
 If the flag **showPreview** is set to true, then, when the Document is read successfully, the preview view is going to show the details of the document.
 
-![Document Reader Example](Assets/DR_Chip_Preview_All_Cases.PNG "Document Reader Default Preview Screen"){: style="display: block; margin: 0 auto"}
+![Document Reader Example](Assets/DR_Chip_Preview_Full.png "Document Reader Default Preview Screen"){: style="display: block; margin: 0 auto"}
 
 This screen can have 4 states, in all of them the OCR reading was successful but the chip can have several states from left to right:
 
@@ -13,7 +13,7 @@ This screen can have 4 states, in all of them the OCR reading was successful but
 
 It contains a title(1), a message(2), a subview(3) containing all document information, a retry button(4) to read the document again, a continue button(5) to finish the flow and a background that can be customized.
 
-![Document Reader Details](Assets/DR_Preview_Data.PNG "Document Reader Default Detail Card"){: style="height:734px;width:300px;display: block; margin: 0 auto"}
+![Document Reader Details](Assets/DR_Preview_Data.png "Document Reader Default Detail Card"){: style="height:734px;width:300px;display: block; margin: 0 auto"}
 
 The subview is a group that displays all the information collected from the document. 
 It contains multiple labels, and beneath each label, it will be displayed the corresponding information.

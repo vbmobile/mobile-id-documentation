@@ -3,13 +3,13 @@
 ## 5.2.2
 ### Improvements
 
-- Improved the fetching of needed resources in the **DocumentReader** feature. 
+- Improved the fetching of needed resources in the **DocumentReader** feature.
 
 ## 5.2.1
 ### Improvements
 
 - Improved Face capture process by:
-      - Improved multiple faces check to focus on the closer face. 
+  - Improved multiple faces check to focus on the closer face.
 - Added **CameraConfig** to **BiometricFaceCaptureParameters** to control if the toggle camera button should appear and the initial camera facing (Front or back camera)
 
 ## 5.2.0

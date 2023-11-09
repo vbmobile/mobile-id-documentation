@@ -1,12 +1,13 @@
 # Migration Guide
 
+## From 5.2.2 to 7.x.x
+### Required Changes
+- Replace the signatures that do not use the ActivityLauncher contract
+- Remove the `get`, `update` and `delete` `Subject` operations. You should now save the `Subject` locally if you want to have a copy to check later. Updating a `Subject` is no longer supported as well so, you must create a new one if you want to for example, add a boarding pass.
+
 ## From 5.2.1 to 5.2.2
 #### Required Changes
 - Contact Vision-Box to update apiKey used before testing new version. (Threshold values changed)
-
-## From 5.2.0 to 5.2.1
-#### Required Changes
-- Add **CameraConfig** to **BiometricFaceCaptureParameters**
 
 ## From 5.1.0 to 5.2.0
 #### Required Changes

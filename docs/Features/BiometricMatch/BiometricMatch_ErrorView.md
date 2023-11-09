@@ -4,7 +4,8 @@ When the showErrors flag is set to true in the BiometricMatchParameters class, t
 You can either customize this screen to your branding or set the flag to false and handle the error in your own activity.
 
 
-![Biometric Face Capture Example](Assets/FC_Error.PNG "Biometric Face Capture Default Error Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
+[//]: # (TODO - DELETE COMMENT AFTER INSERTING IMAGE)
+[//]: # (![Biometric Face Capture Example]&#40;Assets/BM_Error.PNG "Biometric Face Match Default Error Screen"&#41;{: style="height:600px;width:300px;display: block; margin: 0 auto"})
 
 It contains a title(1), a message(2), an image(3), a warning icon(4), a list item layout(5), a retry button(6) and a background that can be customized. 
 
@@ -19,14 +20,7 @@ You can apply your own branding to our screens by overriding the resources we us
     You can add your own texts and localization by overriding the following string resources:
     ```xml
     <string name="feature_failure_title_sdk_enrolment">There\'s something wrong</string>
-    <string name="feature_failure_subtitle_sdk_enrolment">Check the items below:</string>
-
-    <!-- Face Match Errors -->
-    <string name="error_face_match_error_transaction_failed_sdk_enrolment">Face Match transaction service failed</string>
-    <string name="error_face_match_error_terms_and_conditions_rejected_sdk_enrolment">Face Match user rejected terms and conditions</string>
-    <string name="error_face_match_error_match_failed_sdk_enrolment">Face Match failed</string>
-    <string name="error_face_match_error_loading_images_sdk_enrolment">Face Match loading images from app client failed</string>
-    <string name="error_face_match_error_generic_error_sdk_enrolment">Face Match unknown error</string>
+    <string name="feature_failure_subtitle_sdk_enrolment">Check the items below:</string> 
     ```
 
 === "iOS"

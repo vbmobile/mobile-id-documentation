@@ -2,7 +2,7 @@
 
 The only view of the Subject flow is the loading view, appears when the SDK is doing an operation on the subject and communicates it to the server
 
-![Subject Example](Assets/SubjectManagement_Loading.png "Subject Default Loading Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
+![Subject Example](Assets/SM_Loading.png "Subject Default Loading Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
 
 It contains a title(1), a message(2), an image(3) and a background that can be customized.
 

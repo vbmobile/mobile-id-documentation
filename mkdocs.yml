@@ -28,49 +28,53 @@ extra:
 extra_css:
   - stylesheets/extra.css
 nav:
-  - Getting Started: index.md
+  - Getting started: index.md
   - Features:
-    - Document Reader:
+    - Common:
+        - How to handle errors: Features/Common/HandleErrors.md
+    - Document reader:
         - Overview: Features/DocumentReader/DocumentReader_Index.md
         - Regula database update methods: Features/DocumentReader/DocumentReader_DBUpdateMethods.md
         - Customization:
-            - Loading View: Features/DocumentReader/DocumentReader_LoadingView.md
-            - Scan View: Features/DocumentReader/DocumentReader_ScanView.md
-            - RFID Read View: Features/DocumentReader/DocumentReader_RFIDReadView.md
-            - Chip Reading:
+            - Loading view: Features/DocumentReader/DocumentReader_LoadingView.md
+            - Scan view: Features/DocumentReader/DocumentReader_ScanView.md
+            - RFID read view: Features/DocumentReader/DocumentReader_RFIDReadView.md
+            - Chip reading:
                 - iOS:
-                    - Read Chip View: Features/DocumentReader/DocumentReader_ReadChipView_iOS.md
+                    - Read chip view: Features/DocumentReader/DocumentReader_ReadChipView_iOS.md
                 - Android:
-                    - Find Chip View: Features/DocumentReader/DocumentReader_FindChipView_Android.md
-                    - Read Chip View: Features/DocumentReader/DocumentReader_ReadChipView_Android.md
-            - Preview View: Features/DocumentReader/DocumentReader_PreviewView.md
-            - Error View: Features/DocumentReader/DocumentReader_ErrorView.md
-    - Face Capture:
+                    - Find chip view: Features/DocumentReader/DocumentReader_FindChipView_Android.md
+                    - Read chip view: Features/DocumentReader/DocumentReader_ReadChipView_Android.md
+            - Preview view: Features/DocumentReader/DocumentReader_PreviewView.md
+            - Error view: Features/DocumentReader/DocumentReader_ErrorView.md
+    - Face capture:
         - Overview: Features/FaceCapture/FaceCapture_Index.md
         - Customization:
-            - Loading View: Features/FaceCapture/FaceCapture_LoadingView.md
-            - Scan View: Features/FaceCapture/FaceCapture_ScanView.md
-            - Preview View: Features/FaceCapture/FaceCapture_PreviewView.md
-            - Error View: Features/FaceCapture/FaceCapture_ErrorView.md
-    - Biometric Match:
+            - Loading view: Features/FaceCapture/FaceCapture_LoadingView.md
+            - Scan view: Features/FaceCapture/FaceCapture_ScanView.md
+            - Preview view: Features/FaceCapture/FaceCapture_PreviewView.md
+            - Error view: Features/FaceCapture/FaceCapture_ErrorView.md
+    - Biometric match:
         - Overview: Features/BiometricMatch/BiometricMatch_Index.md
         - Customization:
-            - Loading View: Features/BiometricMatch/BiometricMatch_LoadingView.md
-    - Boarding Pass Reader:
+            - Loading view: Features/BiometricMatch/BiometricMatch_LoadingView.md
+            - Error view: Features/BiometricMatch/BiometricMatch_ErrorView.md
+    - Boarding pass reader:
         - Overview: Features/BoardingPass/BoardingPass_Index.md
         - Customization:
-            - Loading View: Features/BoardingPass/BoardingPass_LoadingView.md
-            - Scan View: Features/BoardingPass/BoardingPass_ScanView.md
-            - Preview View: Features/BoardingPass/BoardingPass_PreviewView.md
-            - Error View: Features/BoardingPass/BoardingPass_ErrorView.md
-    - Subject Management:
+            - Loading view: Features/BoardingPass/BoardingPass_LoadingView.md
+            - Scan view: Features/BoardingPass/BoardingPass_ScanView.md
+            - Preview view: Features/BoardingPass/BoardingPass_PreviewView.md
+            - Error view: Features/BoardingPass/BoardingPass_ErrorView.md
+    - Subject management:
         - Overview: Features/SubjectManagement/SubjectManagement_Index.md
         - Customization:
-            - Loading View: Features/SubjectManagement/SubjectManagement_LoadingView.md
-  - Release Notes:
+            - Loading view: Features/SubjectManagement/SubjectManagement_LoadingView.md
+            - Error view: Features/SubjectManagement/SubjectManagement_ErrorView.md
+  - Release notes:
     - Android: ReleaseNotes/ReleaseNotes_Android.md
     - iOS: ReleaseNotes/ReleaseNotes_iOS.md
-  - Migration Guide:
+  - Migration guide:
     - Android: MigrationGuide/MigrationGuide_Android.md
     - iOS: MigrationGuide/MigrationGuide_iOS.md
 markdown_extensions:
@@ -78,8 +82,9 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.details
   - admonition
-  - def_list
   - pymdownx.tabbed:
       alternate_style: true
-repo_url: https://github.com/vbmobile/mobileid-android-sample
-repo_name: Android Sample App
+  - toc:
+      permalink: true
+repo_url: https://github.com/vbmobile?tab=repositories
+repo_name: Sample Apps

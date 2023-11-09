@@ -74,26 +74,27 @@ travel documents from different countries, by calling the readDocument method.
 
 === "Android"
 
-    This method is now deprecated and will be removed in the future
     ```kotlin
-    override fun readDocument(activity: Activity, params: DocumentReaderParameters) {
-        enrolment.readDocument(activity, params)
-    }
-    ```
-    The new method contains a new parameter that's responsible to receive the result of this feature
-    ```kotlin
-    override fun readDocument(context: Context, params: DocumentReaderParameters) {
-        // More info on the documentReaderResultLauncher in the how to get the result section
-        enrolment.readDocument(context, params, documentReaderResultLauncher)
-    }
+    /**
+     * Reads the information contained in a personal document.     *
+     *
+     * @param context Context
+     * @param params [DocumentReaderParameters] with some configurations for the document reader feature.
+     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results.
+     */
+    fun readDocument(
+        context: Context,
+        params: DocumentReaderParameters,
+        resultLauncher: ActivityResultLauncher<Intent>
+    )
     ```
 
 === "iOS"
 
     ``` swift
-    func readDocument(parameters: ReadDocumentParameters,
-                      viewController: UIViewController,
-                      completionHandler: @escaping (Result<DocumentReaderReport, DocumentReaderError>) -> Void) throws
+        func readDocument(parameters: ReadDocumentParameters, 
+                          viewController: UIViewController, 
+                          completionHandler: @escaping (Result<DocumentReaderReport, DocumentReaderError>) -> Void) throws
     ```
 
 This method can perform a full travel document read in two steps:
@@ -135,12 +136,14 @@ This method can perform a full travel document read in two steps:
         public let showRFIDStatus: Bool
         public let scannerTimeout: TimeInterval
         public let rfidTimeout: TimeInterval
+        public let showErrors: Bool
     
         public init(showPreview: Bool,
                     readRFID: Bool,
                     showRFIDStatus: Bool = false,
                     scannerTimeout: TimeInterval = 30,
-                    rfidTimeout: TimeInterval = 30)
+                    rfidTimeout: TimeInterval = 30,
+                    showErrors: Bool)
     }
     ```
 
@@ -166,7 +169,6 @@ Here is how you can get the document reader report and handle the result for doc
 
 === "Android"
 
-    When using the new document reader method, it's no longer needed to override the onActivityResult.
     You can get the result by using the result launcher that's passed as the final parameter:
     ```kotlin
     private val documentReaderResultLauncher = registerForActivityResult(DocumentReaderResultLauncher())
@@ -179,28 +181,8 @@ Here is how you can get the document reader report and handle the result for doc
         }
     }
     ```
-    Here is how you can get the report when using the deprecated method and handle the onActivityResult:
-    ```kotlin
-    private val documentReadResultHandler by lazy { DocumentReaderResultHandler() }
     
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-    
-        when (requestCode) {
-            EnrolmentSDKRequestCode.READ_DOCUMENT_REQUEST_CODE -> {
-                val result = documentReadResultHandler.parseResult(resultCode, data)
-                when {
-                    result.success -> onSuccess(result.documentReaderReport)
-                    result.documentReaderError?.userCanceled == true -> userCancelled()
-                    result.documentReaderError?.termsAndConditionsAccepted == false -> onTermsAndConditionsRejected()
-                    else -> onDocumentReaderError()
-                }
-            }
-        }
-    }
-    ```
-    
-    You should use the DocumentReaderResultHandler class to parse the result. You will receive a model of the type DocumentReaderActivityResult that will contain the success data (in this case a DocumentReaderReport) or the error data.
+    You will receive a model of the type DocumentReaderActivityResult that will contain the success data (in this case a DocumentReaderReport) or the error data.
     
     ```kotlin
     data class DocumentReaderActivityResult(
@@ -220,25 +202,7 @@ Here is how you can get the document reader report and handle the result for doc
         val featureError: FeatureError?,
     )
     ```
-    The FeatureError has the following structure:
-    ```kotlin
-    data class FeatureError(
-        val errorMessage : String,
-        val apiError: ApiError?
-    ) : Parcelable
-    ```
-    The ApiError has the following structure:
-    ```kotlin
-    data class ApiError(
-        val errors: Map<String, String>?,
-        val type: String,
-        val title: String,
-        val status: Int,
-        val detail: String?,
-        val instance: String?,
-    ) : Parcelable
-    ```
-    
+
 === "iOS"
 
     ``` swift
@@ -249,13 +213,11 @@ Here is how you can get the document reader report and handle the result for doc
                 
             case .failure(let error):
                 EnrolmentData.shared.documentReaderReport = nil
-                switch error {
-                    case .cancelled:
-                        print("onUserCancel")
-                    case .configNotFound:
-                        print("Document Reader config not found")
-                    default:
-                        print("Document read: \(error.localizedDescription)")
+                if error.userCanceled {
+                    print("onUserCancel")
+                } else {
+                    print(error.featureError.publicMessage)
+                }
             }
         }
     }
@@ -263,84 +225,14 @@ Here is how you can get the document reader report and handle the result for doc
     The DocumentReaderError has the following structure:
     
     ```swift
-    public enum DocumentReaderError: Error {
-        /// [DocumentReaderError] that occurs when there's an error in the parameters `ReadDocumentParameters`
-        case invalidParameter(String?)
-        /// [DocumentReaderError] that occurs when there's an error while reading OCR or MRZ.
-        case mrzOcr
-        /// [DocumentReaderError] that occurs when there's a timeout while reading OCR or MRZ.
-        case mrzOcrTimeout
-        /// [DocumentReaderError] that occurs when there's an error initializing the Document Reader.
-        case docReaderInitFailed
-        /// [DocumentReaderError] that occurs when there's an error requesting the resources endpoint.
-        case fetchingResources
-        /// [DocumentReaderError] that occurs when Document Reader isn't ready.
-        case notReady
-        /// [DocumentReaderError] that occurs when there's an error reading the document.
-        case regulaError
-        /// [DocumentReaderError] that occurs when user cancels document reading.
-        case cancelled
-        /// [DocumentReaderError] that occurs when config wasn't provided.
-        case configNotFound
-        /// [DocumentReaderError] that occurs when license wasn't provided.
-        case licenseNotFound
-        /// [DocumentReaderError] that occurs when there is an invalid databaseId and a local database file was not provided.
-        case invalidDatabaseState(String?)
-        /// [DocumentReaderError] that occurs when there are no CSCA certificates configured for the APIKey.
-        case missingCSCACertificates
-        /// [DocumentReaderError] that occurs when the certificate for document reader is invalid.
-        case invalidCertificate(error: InvalidDSCertificateError)
-        /// [DocumentReaderError] that occurs when there's an error during a pre/pos feature process.
-        case feature(error: FeatureError)
-        /// [DocumentReaderError] that occurs when there's an error during a register transaction process.
+    public class DocumentReaderError: Error {
+        public var userCanceled: Bool
+        public var termsAndConditionsAccepted: Bool
+        public var featureError: FeatureError
     }
     ```
-    
-    The InvalidDSCertificateError has the following structure:
-        
-    ```swift
-    public enum InvalidDSCertificateError: Error {
-        /// Data was not found.
-        case invalidData
-        /// File has unsuported extension.
-        case invalidExtension
-    }
-    ```
-    
-    The FeatureError has the following structure:
-    
-    ```swift
-    public enum FeatureError: Error {
-        /// [FeatureError] that wraps a message error a controlled error occurs at the server.
-        case server(error: EnrolmentServerError?)
-        /// [FeatureError] that occurs when there's an unexpected error.
-        case unexpected(message: String)
-        /// [FeatureError] that wraps a `FeatureOperationErrorType` indicating the underlying cause for the error.
-        case feature(operationType: FeatureOperationErrorType)
-    }
-    ```
-    The EnrolmentServerError has the following structure:
-    ```swift
-    public struct EnrolmentServerError {
-        public let type: String
-        public let statusCode: Int
-        public let title: String
-        public let detail: String?
-        public let instance: String?
-        public let traceId: String?
-        public let errors: [String: [String]]?
-    }
-    ```
-    The FeatureOperationErrorType has the following structure:
-    ```swift
-    public enum FeatureOperationErrorType {
-        case rgpd
-        case permission
-        case registerTransaction
-    }
-    ```
-    
-The document reader report has the following structure:
+
+### Document Reader Report
 
 === "Android"
 
@@ -460,17 +352,17 @@ The DocumentData contains the document data. You can check the structure here:
 
     ```kotlin
     enum class DocumentDataStatus {
-        OK, // No problem found in document.
-        VALIDATION_ERROR, // Some field.
-        EXPIRED_DOCUMENT, // Date of expiration is already in the past.
-        RFID_PASSIVE_AUTHENTICATION, // Document ID is not present in the current master list associated with yout api key.
-        MRZ_RFID_MISMATCH, // Regula error stating that the mrz and rfid information do not match (user might have scanned one document and read chip from another).
-        RFID_TIMEOUT, // Chip couldn't be read in due time.
-        RFID_PERMISSION_NOT_GRANTED, // User did not concede permission to use NFC.
-        RFID_TAG_NOT_FOUND, // Warning stating that the document scanned is not eletronic or rfid tag was not detected.
-        RFID_NFC_NOT_SUPPORTED, // Smartphone used in scan does not support NFC operations.
-        RFID_GENERIC_ERROR, // Unknown error while rfid read was occuring (Usually a break in the reading process due to the user moved the phone too much).
-        USER_SKIPPED_RFID // Warning mentioning that rfid was available but user decided to skip it.
+        OK, 
+        VALIDATION_ERROR, 
+        EXPIRED_DOCUMENT,
+        RFID_PASSIVE_AUTHENTICATION,
+        MRZ_RFID_MISMATCH, 
+        RFID_TIMEOUT, 
+        RFID_PERMISSION_NOT_GRANTED, 
+        RFID_TAG_NOT_FOUND, 
+        RFID_NFC_NOT_SUPPORTED, 
+        RFID_GENERIC_ERROR, 
+        USER_SKIPPED_RFID
     }
     ```
     ```kotlin
@@ -644,11 +536,13 @@ The DocumentData contains the document data. You can check the structure here:
 ## DocumentReaderCustomViews
 The SDK provides default UI solutions for the document reader feature flow, as
 shown in the following images:
-![Document Reader Flow](Assets/DocumentReaderFlow.PNG "Document Reader Flow"){: style="display: block; margin: 0 auto"}
+![Document Reader Flow](Assets/DR_Flow.png "Document Reader Flow"){: style="display: block; margin: 0 auto"}
 
 The use of the preview layout depends on the **showPreview** flag in the DocumentReaderParameters.
 
 The use of the rfid related layouts depends on the **rfidRead** flag in the DocumentReaderParameters.
+
+The use of the error layout depends on the **showErrors** flag in the DocumentReaderParameters.
 
 You can also apply your app’s colors and fonts to these layout solutions, to keep your brand’s image consistent.
 Check Customization tab to learn more about branding of each view.

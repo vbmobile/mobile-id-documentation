@@ -17,18 +17,21 @@ you can use the method biometricFaceCapture.
 
 === "Android"
 
-    This method is now deprecated and will be removed in the future
     ```kotlin
-    override fun biometricFaceCapture(activity: Activity, params: BiometricFaceCaptureParameters) {
-        enrolment.biometricFaceCapture(activity, params)
-    }
-    ```
-    The new method contains a new parameter that's responsible to receive the result of this feature
-    ```kotlin
-    override fun biometricFaceCapture(activity: Activity, params: BoardingPassParserParameters) {
-        // More info on the biometricFaceCaptureResultLauncher in the how to get the result section
-        enrolment.biometricFaceCapture(context, params, faceCaptureResultLauncher)
-    }
+    /**
+     * Uses the device camera to capture a photo of the user face (selfie).
+     *
+     * Some tests will be run against this photo to ensure the photo quality and a liveness check verification.
+     *
+     * @param context Context
+     * @param params [BiometricFaceCaptureParameters] configurations parameters.
+     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results.
+     */
+    fun biometricFaceCapture(
+        context: Context,
+        params: BiometricFaceCaptureParameters,
+        resultLauncher: ActivityResultLauncher<Intent>
+    )
     ```
 
 === "iOS"
@@ -43,8 +46,8 @@ you can use the method biometricFaceCapture.
     ///
     ///     Result<BiometricFaceCaptureReport, BiometricFaceCaptureError>
     ///     Where `BiometricFaceCaptureReport` contains  the results of the face capture
-    ///     operation and `BiometricFaceCaptureError` the possible errors that may occur during the process.
-    func biometricFaceCapture(parameters: BiometricFaceCaptureParameters, viewController: UIViewController, completionHandler: @escaping (Result<BiometricFaceCaptureReport, BiometricFaceCaptureError>) -> Void)
+    ///     operation and `FaceCaptureReportError` the possible errors that may occur during the process.
+        func biometricFaceCapture(parameters: BiometricFaceCaptureParameters, viewController: UIViewController, completionHandler: @escaping (Result<BiometricFaceCaptureReport, FaceCaptureReportError>) -> Void)
     ```
 
 The SDK provides UI solutions for the capture process and photo preview, as shown in the images
@@ -58,18 +61,8 @@ biometricFaceCapture method. Below is an example of that object:
     data class BiometricFaceCaptureParameters(
         val showPreview: Boolean,
         val showErrors Boolean,
-        val frameFormat: FaceCaptureFrameFormat = FaceCaptureFrameFormat.OVAL,
-        val cameraConfig: CameraConfig
+        val frameFormat: FaceCaptureFrameFormat = FaceCaptureFrameFormat.OVAL
     ) : Parcelable
-    ```
-
-    ```kotlin
-    import androidx.camera.core.CameraSelector
-    
-    data class CameraConfig(
-        val enableCameraToggle: Boolean,
-        val defaultCamera: CameraSelector,
-    )
     ```
 
     The **FaceCaptureFrameFormat** is an enum that shapes the frame where the face must be centered to take the selfie. Currently it has two options:
@@ -87,13 +80,10 @@ biometricFaceCapture method. Below is an example of that object:
         public let showPreview: Bool
         public let frameShape: BiometricFaceCaptureFrameOptions
         public let showErrors: Bool
-        public let cameraConfig: CameraConfig
-
 
         public init(showPreview: Bool,
                 frameShape:BiometricFaceCaptureFrameOptions = .oval,
-                showErrors: Bool,
-                cameraConfig: CameraConfig = CameraConfig())
+                showErrors: Bool)
     ```
 
     The **BiometricFaceCaptureFrameOptions** is an enum that shapes the frame where the face must be centered to take the selfie. Currently it has two options:
@@ -102,15 +92,6 @@ biometricFaceCapture method. Below is an example of that object:
     public enum BiometricFaceCaptureFrameOptions {
         case oval
         case square
-    }
-    ```
-
-    The **CameraConfig** is the camera related configurations.
-
-    ```swift
-    public struct CameraConfig {
-        public let toggleCameraEnable: Bool
-        public let defaultCamera: AVCaptureDevice.Position
     }
     ```
 
@@ -143,29 +124,6 @@ not too far away, or too close.
         }
     }
     ```
-    Here is how you can get the report when using the deprecated method and handle the onActivityResult:
-
-    ```kotlin
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-    
-        if (requestCode == EnrolmentSDKRequestCode.BIOMETRIC_FACE_CAPTURE_REQUEST_CODE) {
-            val result = faceCaptureResultHandler.parseResult(resultCode, data)
-    
-            when {
-                result.success -> onSuccess(result.faceCaptureReportSuccess)
-                result.faceCaptureReportError?.userCanceled == true -> onUserCanceled()
-                result.faceCaptureReportError?.termsAndConditionsAccepted == false -> onUserTermsAndConditionsRejected()
-                result.faceCaptureReportError?.failedTests != null && result.faceCaptureReportError?.performedTests != null ->
-                    onFailedTests(
-                        result.faceCaptureReportError!!.performedTests!!,
-                        result.faceCaptureReportError!!.failedTests!!
-                    )
-                else -> onBiometricFaceCaptureError()
-            }
-        }
-    }
-    ```
 
 === "iOS"
 
@@ -181,19 +139,18 @@ not too far away, or too close.
         case .failure(let biometricFaceCaptureError):
             EnrolmentData.biometricFaceCaptureReport = nil
                 
-            if case .cancelled = biometricFaceCaptureError {
+            if biometricFaceCaptureError.userCanceled {
                 print("Face capture cancelled by user.")
-                let error = BiometricFaceCaptureError.unexpected(message: "Face capture cancelled by user.")
-                completion(.failure(error))
+                completion(.failure(biometricFaceCaptureError))
             } else {
-                print("Face capture error: " + biometricFaceCaptureError.localizedDescription)
+                print(biometricFaceCaptureError.featureError.publicMessage)
                 completion(.failure(biometricFaceCaptureError))
             }
         }
     }
     ```
 
-You should use the FaceCaptureResultHandler class to parse the result. You will receive a model of the type FaceCaptureActivityResult that will contain the success data (in this case a FaceCaptureReportSuccess) or the error data.
+You will receive a model of the type FaceCaptureActivityResult that will contain the success data (in this case a FaceCaptureReportSuccess) or the error data.
 
 === "Android"
 
@@ -244,62 +201,12 @@ The FaceCaptureReportError has the following structure:
 === "iOS"
 
     ```swift
-    public enum BiometricFaceCaptureError: Error {
-        /// [BiometricFaceCaptureError] that wraps a message error a controlled error occurs at the service.
-        case service(message: String)
-        /// [BiometricFaceCaptureError] that occurs when there's an error on the request.
-        case client(error: EnrolmentServerError?)
-        /// [BiometricFaceCaptureError] that occurs when there's an error on the server.
-        case server(error: EnrolmentServerError?)
-        /// [BiometricFaceCaptureError] Unexpected error.
-        case unexpected(message: String)
-        /// [BiometricFaceCaptureError] Unreachable error.
-        case unreachable(message: String)
-        /// [BiometricFaceCaptureError] that occurs when there's an error with the pinned certificate.
-        case serverCertificatePinning(message: String)
-        /// [BiometricFaceCaptureError] Biometric process completed, but biometric tests were failed.
-        case biometricTestsFailed(failedTests: [CheckLivenessTest], performedTests: [CheckLivenessTest])
-        /// [BiometricFaceCaptureError] Biometric process operation was cancelled by the user.
-        case cancelled
-        /// [BiometricFaceCaptureError] that occurs when there's an error during a pre/pos feature process.
-        case feature(error: FeatureError)
-    }
-    ```
-
-The FeatureError has the following structure:
-
-=== "Android"
-
-    ```kotlin
-    data class FeatureError(
-        val errorMessage : String,
-        val apiError: ApiError?
-    ) : Parcelable
-    ```
-
-    The ApiError has the following structure:
-
-    ```kotlin
-    data class ApiError(
-        val errors: Map<String, String>?,
-        val type: String,
-        val title: String,
-        val status: Int,
-        val detail: String?,
-        val instance: String?,
-    ) : Parcelable
-    ```
-    
-=== "iOS"
-
-    ```swift
-    public enum FeatureError: Error {
-        /// [FeatureError] that wraps a message error a controlled error occurs at the server.
-        case server(error: EnrolmentServerError?)
-        /// [FeatureError] that occurs when there's an unexpected error.
-        case unexpected(message: String)
-        /// [FeatureError] that wraps a `FeatureOperationErrorType` indicating the underlying cause for the error.
-        case feature(operationType: FeatureOperationErrorType)
+    public class FaceCaptureReportError: Error {
+        public var userCanceled: Bool
+        public var termsAndConditionsAccepted: Bool
+        public var featureError: FeatureError
+        public var failedTests: [String]?
+        public var performedTests: [String]?
     }
     ```
 
@@ -326,7 +233,7 @@ The failed tests might include one or more of the following tests:
 ## BiometricFaceCaptureCustomViews
 The SDK provides default UI solutions for the document reader feature flow, as shown in the following images:
 
-![Biometric Face Capture Example](Assets/FaceCaptureFlow.PNG "Biometric Face Capture Default Error Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
+![Biometric Face Capture Example](Assets/FC_Flow.png "Biometric Face Capture Default Error Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
 
 The use of the preview layout depends on the showPreview flag in the BiometricFaceCaptureParameters.
 

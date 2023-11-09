@@ -2,7 +2,7 @@
 
 The third view of the document reader flow is the RFID Read View, this screen only appears if it is an e-Document and the variable **readRFID** from **ReadDocumentParameters** is active. This screen allows the user to prepare for the chip reading or skip this feature.
 
-![RFID Read Example](Assets/DR_Skip_Chip_Screen.PNG "Document Reader Default RFID Read Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
+![RFID Read Example](Assets/DR_Skip_Chip.png "Document Reader Default RFID Read Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
 
 It contains a title(1), a message(2), an image(3), a read button(4), a skip button(5) and a background that can be customized. 
 

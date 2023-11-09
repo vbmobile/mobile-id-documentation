@@ -24,24 +24,25 @@ start the barcode scanner, you must call the following method:
 
 === "Android"
 
-    This method is now deprecated and will be removed in the future
-    ``` kotlin
-    override fun scanBoardingPass(activity: Activity, params: BoardingPassScanParameters) {
-        enrolment.scanBoardingPass(activity, params)
-    }
-    ```
-    The new method contains a new parameter that's responsible to receive the result of this feature
     ```kotlin
-    override fun scanBoardingPass(activity: Activity, params: BoardingPassScanParameters) {
-        // More info on the boardingPassResultLauncher in the how to get the result section
-        enrolment.scanBoardingPass(context, params, boardingPassResultLauncher)
-    }
+    /**
+    * Scans a Bar Coded Boarding Pass (BCBP).
+    *
+    * @param context [Context] Activity holder
+    * @param params [BoardingPassScanParameters] required to start the boarding pass scan feature.
+    * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results.
+    */
+    fun scanBoardingPass(
+        context: Context,
+        params: BoardingPassScanParameters,
+        resultLauncher: ActivityResultLauncher<Intent>
+    )
     ```
 
 === "iOS"
 
     ``` swift
-    func scanBoardingPass(parameters: ScanBoardingPassParameters, viewController: UIViewController, completionHandler: @escaping (Result<BoardingPass, BoardingPassScanError>) -> Void)
+    func scanBoardingPass(parameters: ScanBoardingPassParameters, viewController: UIViewController, completionHandler: @escaping (Result<BoardingPassFull, BoardingPassError>) -> Void)
     ```   
 
 The BoardingPassScanParameters has the following structure:
@@ -77,20 +78,36 @@ If you want to use your own boarding pass scanner, you can also provide the raw 
 BoardingPass object. The raw result must be passed to the BoardingPassData, which has to be included
 in the BoardingPassParserParameters.
 
+From version 7 onwards there is a new way to parse a boarding pass, by giving us an image URI and if the boarding pass is detected in it, it will be parsed and you will receive a BoardingPass object without requiring to provide us the format.
+
 === "Android"
 
-    This method is now deprecated and will be removed in the future
     ```kotlin
-    override fun parseBoardingPass(activity: Activity, params: BoardingPassParserParameters) {
-        enrolment.parseBoardingPass(activity, params)
-    }
-    ```
-    The new method contains a new parameter that's responsible to receive the result of this feature
-    ```kotlin
-    override fun parseBoardingPass(activity: Activity, params: BoardingPassParserParameters) {
-        // More info on the boardingPassResultLauncher in the how to get the result section
-        enrolment.parseBoardingPass(context, params, boardingPassResultLauncher)
-    }
+    /**
+     * Parses a Bar Coded Boarding Pass (BCBP).
+     *
+     * @param context
+     * @param params [BoardingPassStringParserParameters] required to start the boarding pass parser feature.
+     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results.
+     */
+    fun parseBoardingPass(
+        context: Context,
+        params: BoardingPassStringParserParameters,
+        resultLauncher: ActivityResultLauncher<Intent>
+    )
+
+    /**
+     * Parses an image of a Bar Coded Boarding Pass (BCBP).
+     *
+     * @param context
+     * @param params [BoardingPassImageParserParameters] required to start the boarding pass image parser feature.
+     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results.
+     */
+    fun parseBoardingPass(
+        context: Context,
+        params: BoardingPassImageParserParameters,
+        resultLauncher: ActivityResultLauncher<Intent>
+    )
     ```
 
 === "iOS"
@@ -103,13 +120,53 @@ The BoardingPassParserParameters object has the following structure:
 === "Android"
 
     ```kotlin
+    /**
+    * Parameters for each [BoardingPass] parser operation.
+    *
+    * @param showPreview if true, it will show a preview of [BoardingPass].
+    * @param showErrors if true, it will show a error screen that contains information regarding any error that happened during this feature.
+    * @param validate if true, it will perform validation of the [BoardingPass] fields.
+    */
     @Parcelize
-    data class BoardingPassParserParameters(
-        val boardingPassData: BoardingPassData,
-        val showPreview: Boolean,
-        val showErrors: Boolean,
-        val validate: Boolean
+    open class BoardingPassParserParameters(
+        open val showPreview: Boolean,
+        open val showErrors: Boolean,
+        open val validate: Boolean
     ) : Parcelable
+
+    /**
+    * Parameters for each [BoardingPass] parser operation.
+    *
+    * @param boardingPassData [BoardingPassData] that will that has the barcode raw data and format to be parsed to a [BoardingPass].
+    */
+    @Parcelize
+    data class BoardingPassStringParserParameters(
+        val boardingPassData: BoardingPassData,
+        override val showPreview: Boolean,
+        override val showErrors: Boolean,
+        override val validate: Boolean
+    ) : BoardingPassParserParameters(
+        showPreview,
+        showErrors,
+        validate
+    )
+    
+    /**
+    * Parameters for each [BoardingPass] parser operation.
+    *
+    * @param uri URI to an image file of a [BoardingPass] that will be analyzed and parsed.
+    */
+    @Parcelize
+    data class BoardingPassImageParserParameters(
+        val uri: Uri,
+        override val showPreview: Boolean,
+        override val showErrors: Boolean,
+        override val validate: Boolean
+    ) : BoardingPassParserParameters(
+        showPreview,
+        showErrors,
+        validate
+    )
     ```
 
 === "iOS"
@@ -120,11 +177,13 @@ The BoardingPassParserParameters object has the following structure:
         public let showErrors: Bool
         public let validateBoardingPass: Bool
         public let boardingPassData: BoardingPassData
+        public let boardingPassImage: UIImage?
     
         public init(showPreview: Bool,
                     showErrors: Bool,
                     validateBoardingPass: Bool,
-                    boardingPassData: BoardingPassData)
+                    boardingPassData: BoardingPassData,
+                    boardingPassImage: UIImage?)
     }
     ```
 
@@ -192,28 +251,7 @@ BarcodeFormat is an enumeration and it contains the following cases.
     }
     ```
 
-    Here is how you can get the report when using the deprecated method and handle the onActivityResult:
-
-    ```kotlin
-    private val boardingPassScanResultHandler by lazy { BoardingPassScanResultHandler() }
-    
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            EnrolmentSDKRequestCode.BOARDING_PASS_REQUEST_CODE -> {
-                val result = boardingPassScanResultHandler.parseResult(resultCode, data)
-                when {
-                    result.success -> presenter.storeBoardingPass(result.boardingPass)
-                    result.boardingPassError?.userCanceled == true -> onUserCanceled()
-                    result.boardingPassError?.termsAndConditionsAccepted == true -> onTermsAndConditionsRejecetd()
-                    else -> onBoardingPassScanError()
-                }
-            }
-        }
-    }
-    ```
-
-    You should use the BoardingPassScanResultHandler class to parse the result. You will receive a model of the type BoardingPassActivityResult that will contain the success data (in this case a BoardingPass) or the error data.
+    You will receive a model of the type BoardingPassActivityResult that will contain the success data (in this case a BoardingPass) or the error data.
 
     ```kotlin
     data class BoardingPassActivityResult(
@@ -234,28 +272,6 @@ BarcodeFormat is an enumeration and it contains the following cases.
     )
     ```
 
-    The FeatureError has the following structure:
-
-    ```kotlin
-    data class FeatureError(
-        val errorMessage : String,
-        val apiError: ApiError?
-    ) : Parcelable
-    ```
-
-    The ApiError has the following structure:
-
-    ```kotlin
-    data class ApiError(
-        val errors: Map<String, String>?,
-        val type: String,
-        val title: String,
-        val status: Int,
-        val detail: String?,
-        val instance: String?,
-    ) : Parcelable
-    ```
-    
 === "iOS"
 
     These method’s completion handler passes a result <BoardingPass, BoardingPassScanError>, where the BoardingPass contains the boarding pass data and BoardingPassScanError contains the possible errors that may occur during the process.
@@ -270,93 +286,21 @@ BarcodeFormat is an enumeration and it contains the following cases.
             case .success(let boardingPass):
                 // Handle Success
             case .failure(let error):
-                switch error {
-                case .feature(let featureError):
-                    switch featureError {
-                    case .server(let serverError):
-                        // Handle server error  msg: serverError?.title ?? featureError.localizedDescription
-                    case .feature(let operationType):
-                        switch operationType {
-                        case .rgpd:
-                            // Handle error
-                        case .permission:
-                            // Handle error
-                        case .registerTransaction:
-                            // handle error
-                        @unknown default:
-                           // handle error featureError.localizedDescription
-                        }
-                    case .unexpected:
-                         // handle error featureError.localizedDescription
-                    @unknown default:
-                        // handle error featureError.localizedDescription
-                        )
-                    }
-                    
-                case .cancelled:
-                 // user canceled the scan
-                case .configNotFound:
-                default:
-                       // handle error.localizedDescription
+                if error.userCanceled {
+                    print("onUserCancel")
+                } else {
+                    print(error.featureError.publicMessage)
                 }
             }
         }
     ```
-    The BoardingPassScanError and BoardingPassParserError has the following structure:
+    The BoardingPassScanError and BoardingPassError has the following structure:
     
     ```swift
-    public enum BoardingPassScanError: Error {
-        /// [BoardingPassScanError] that occurs when the user cancels boarding pass scan.
-        case cancelled
-        /// [BoardingPassScanError] that occurs when there's an error with pre/pos feature process.
-        case feature(error: FeatureError)
-        /// [BoardingPassScanError] that occurs when reading an empty bar code.
-        case emptyBarcode
-        /// [BoardingPassScanError] that occurs when reading a boarding pass with invalid format.
-        case unsupportedBarcodeFormat
-        /// [BoardingPassScanError] that occurs when parsing fails for one field.
-        case itemParsingFailed(item: String)
-        /// [BoardingPassScanError] that occurs while validating boarding pass fields.
-        case itemsValidationFailed(items: [String])
-        /// [BoardingPassScanError] that occurs when the expirationInDays config value is not valid.
-        case configNotFound
-        /// [BoardingPassParserError] that occurs when there's an error with pre/pos feature process.
-        case configError
-        /// [BoardingPassScanError] unexpected error that occurs when parsing the boarding pass.
-        case unexpected
-    }
-    ```
-    
-    The FeatureError has the following structure:
-    
-    ```swift
-    public enum FeatureError: Error {
-        /// [FeatureError] that wraps a message error a controlled error occurs at the server.
-        case server(error: EnrolmentServerError?)
-        /// [FeatureError] that occurs when there's an unexpected error.
-        case unexpected(message: String)
-        /// [FeatureError] that wraps a `FeatureOperationErrorType` indicating the underlying cause for the error.
-        case feature(operationType: FeatureOperationErrorType)
-    }
-    ```
-    The EnrolmentServerError has the following structure:
-    ```swift
-    public struct EnrolmentServerError {
-        public let type: String
-        public let statusCode: Int
-        public let title: String
-        public let detail: String?
-        public let instance: String?
-        public let traceId: String?
-        public let errors: [String: [String]]?
-    }
-    ```
-    The FeatureOperationErrorType has the following structure:
-    ```swift
-    public enum FeatureOperationErrorType {
-        case rgpd
-        case permission
-        case registerTransaction
+    public class BoardingPassError: Error {
+        public var userCanceled: Bool
+        public var termsAndConditionsAccepted: Bool
+        public var featureError: FeatureError
     }
     ```
     
@@ -477,7 +421,7 @@ The Leg has the following structure:
 The SDK provides default UI solutions for the boarding pass feature flow, as 
 shown in the following images:
 
-![Boarding Pass Example](Assets/BoardingPassFlow_Frame.PNG "Boarding Pass Flow"){: style="display: block; margin: 0 auto"}
+![Boarding Pass Example](Assets/BP_Flow.png "Boarding Pass Flow"){: style="display: block; margin: 0 auto"}
 
 The use of the preview layout depends on the **showPreview** flag in the BoardingPassScanParameters. 
 

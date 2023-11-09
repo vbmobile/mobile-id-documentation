@@ -30,10 +30,12 @@ is the BiometricMatchParameters structure:
         public let candidate: Data
         public let reference: Data
         public let includeTemplate: TemplateOptions
+        public let showErrors: Bool
     
         public init(candidate: Data,
                 reference: Data,
-                includeTemplate: TemplateOptions = .none) 
+                includeTemplate: TemplateOptions = .none,
+                showErrors:Bool) 
     }
     ```
 
@@ -64,24 +66,27 @@ You can expect either a MatchError response or a MatchReport response. To start 
 
 === "Android"
 
-    This method is now deprecated and will be removed in the future
     ```kotlin
-    override fun matchBiometrics(activity: Activity, params: BiometricMatchParameters) {
-        enrolment.matchBiometrics(activity, params)
-    }
-    ```
-    The new method contains a new parameter that's responsible to receive the result of this feature
-    ```kotlin
-    override fun matchBiometrics(activity: Activity, params: BiometricMatchParameters) {
-        // More info on the matchResultLauncher in the how to get the result section
-        enrolment.matchBiometrics(context, params, matchResultLauncher)
-    }
+    /**
+     * Matches two face photos to check if they're from the same person.
+     *
+     * Used to match the user face photo against the photo contained in the chip from the personal document.
+     *
+     * @param context [Context] that contains the user photo, the photo from the document.
+     * @param params [BiometricMatchParameters] that contains the user photo, the photo from the document.
+     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results.
+     */
+    fun matchBiometrics(
+        context: Context,
+        params: BiometricMatchParameters,
+        resultLauncher: ActivityResultLauncher<Intent>
+    )
     ```
 
 === "iOS"
 
     ``` swift
-    func matchBiometrics(parameters: BiometricMatchParameters, viewController: UIViewController, completionHandler: @escaping (Result<MatchReport, BiometricMatchError>) -> Void)
+    func matchBiometrics(parameters: BiometricMatchParameters, viewController: UIViewController, completionHandler: @escaping (Result<MatchReport, MatchReportError>) -> Void)
     ```
     
 A successful MatchReport response means that matching analysis was successfully computed in the
@@ -106,27 +111,6 @@ information on the request’s duration and also the templates, if they were req
     }
     ```
     
-    Here is how you can get the report when using the deprecated method and handle the onActivityResult:
-
-    ```kotlin
-    private val faceMatchResultHandler by lazy { FaceMatchResultHandler() }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            EnrolmentSDKRequestCode.BIOMETRIC_FACE_MATCH_REQUEST_CODE -> {
-                val result = faceMatchResultHandler.parseResult(resultCode, data)
-                when {
-                    result.success -> onMatch(result.matchReportSuccess)
-                    result.matchReportError?.userCanceled == true -> userCanceled()
-                    result.matchReportError?.termsAndConditionsAccepted == false -> termsAndConditionsNotAccepted()
-                    else -> onMatchFailed()
-                }
-            }
-        }
-    }
-    ```
-    
     The MatchReportError has the following structure:
 
     ```kotlin
@@ -137,31 +121,9 @@ information on the request’s duration and also the templates, if they were req
     )
     ```
     
-    The FeatureError has the following structure:
-
-    ```kotlin
-    data class FeatureError(
-        val errorMessage : String,
-        val apiError: ApiError?
-    ) : Parcelable
-    ```
-    
-    The ApiError has the following structure:
-    
-    ```kotlin
-    data class ApiError(
-        val errors: Map<String, String>?,
-        val type: String,
-        val title: String,
-        val status: Int,
-        val detail: String?,
-        val instance: String?,
-    ) : Parcelable
-    ``` 
-    
 === "iOS"
 
-    These method’s completion handler passes a result , where the MatchReport contains the Match information and BiometricMatchError contains the possible errors that may occur during the process. Below is an example of usage:
+    These method’s completion handler passes a result , where the MatchReport contains the Match information and MatchReportError contains the possible errors that may occur during the process. Below is an example of usage:
 
     ```swift
     self.enrolment.matchBiometrics(
@@ -175,92 +137,22 @@ information on the request’s duration and also the templates, if they were req
                 self?.view?.onMatchFailed()
             }
         case .failure(let error):
-            switch error {
-            case .service(let errorInfo):
-                self?.view?.onServiceError(message: errorInfo.type)
-            case .client, .unexpected, .server, .unreachable:
-                self?.view?.onServerError()
-            case .serverCertificatePinning:
-                self?.view?.onCertificatePinningError()
-            case .feature(let featureError):
-                self?.view?.onFeatureError(error: featureError)
-            @unknown default:
-                self?.view?.onServerError()
+            if error.userCanceled {
+                print("onUserCancel")
+            } else {
+                print(error.featureError.publicMessage)
             }
         }
     }
     ```
     
-    The BiometricMatchError has the following structure:
+    The MatchReportError has the following structure:
     
     ```swift
-    public enum BiometricMatchError: Error {
-        /// [BiometricMatchError] that contains an error info about an error that occurs at a Biometric service.
-        case service(info: BiometricMatchErrorInfo)
-        /// [BiometricMatchError] that occurs when there's an error on the request.
-        case client(error: EnrolmentServerError?)
-        /// [BiometricMatchError] that occurs when there's an error on the server.
-        case server(error: EnrolmentServerError?)
-        /// [BiometricMatchError] that occurs when there's an unexpected error.
-        case unexpected(message: String)
-        /// [BiometricMatchError] that occurs when there's an unreachable error.
-        case unreachable(message: String)
-        /// [BiometricMatchError] that occurs when there's an error with the pinned certificate.
-        case serverCertificatePinning(message: String)
-        /// [BiometricMatchError] that occurs when there's an error during a pre/pos feature process.
-        case feature(error: FeatureError)
-    }
-    ```
-    
-    The BiometricMatchErrorInfo has the following structure:
-    
-    ```swift
-    public struct BiometricMatchErrorInfo {
-        public let type: String
-        public let matchResult: BiometricMatchResult
-    
-    }
-    ```
-
-    The BiometricMatchErrorInfo has the following structure:
-    
-    ```swift
-    public struct BiometricMatchResult {
-        public let threshold: Double
-        public let thresholdResult: Double
-    }
-    ```
-    
-    The FeatureError has the following structure:
-    
-    ```swift
-    public enum FeatureError: Error {
-        /// [FeatureError] that wraps a message error a controlled error occurs at the server.
-        case server(error: EnrolmentServerError?)
-        /// [FeatureError] that occurs when there's an unexpected error.
-        case unexpected(message: String)
-        /// [FeatureError] that wraps a `FeatureOperationErrorType` indicating the underlying cause for the error.
-        case feature(operationType: FeatureOperationErrorType)
-    }
-    ```
-    The EnrolmentServerError has the following structure:
-    ```swift
-    public struct EnrolmentServerError {
-        public let type: String
-        public let statusCode: Int
-        public let title: String
-        public let detail: String?
-        public let instance: String?
-        public let traceId: String?
-        public let errors: [String: [String]]?
-    }
-    ```
-    The FeatureOperationErrorType has the following structure:
-    ```swift
-    public enum FeatureOperationErrorType {
-        case rgpd
-        case permission
-        case registerTransaction
+        public class MatchReportError: Error {
+        public var userCanceled: Bool
+        public var termsAndConditionsAccepted: Bool
+        public var featureError: FeatureError
     }
     ```
     
@@ -295,7 +187,7 @@ In case of success, the MatchReport has the following structure:
 The SDK provides default UI solutions for the boarding pass feature flow, as 
 shown in the following images:
 
-![Boarding Pass Example](Assets/BiometricMatchingFlow.PNG "Boarding Pass Flow"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
+![Boarding Pass Example](Assets/BM_Flow.png "Boarding Pass Flow"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
 
 You can also apply your app’s colors and fonts to these layout solutions, to keep your brand’s image consistent.
 Check Customization tab to learn more about branding of each view.

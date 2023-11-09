@@ -2,7 +2,7 @@
 
 The first view of the Boarding pass flow is the loading view, it appears when the boarding pass feature is initializing.
 
-![Boarding Pass Example](Assets/BP_Loading_Frame_Labeled.png "Boarding Pass Default Loading Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
+![Boarding Pass Example](Assets/BP_Loading.png "Boarding Pass Default Loading Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
 
 It contains a title(1), a message(2), an image(3) and a background that can be customized.
 

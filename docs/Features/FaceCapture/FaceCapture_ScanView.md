@@ -3,7 +3,7 @@
 The camera screen is no longer a custom view in order to allow us to better control the user flow.
 You can still apply any branding you want to the screen and change the frame format by using our FaceCaptureFrameFormat enum in the feature parameters.
 
-![Biometric Face Capture Example](Assets/FC_Capture.PNG "Biometric Face Capture Default Scan Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
+![Biometric Face Capture Example](Assets/FC_Capture.png "Biometric Face Capture Default Scan Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
 
 It contains a title(1), a message(2), a cancel button(3), a frame(4) and a rotate camera button(5).
 

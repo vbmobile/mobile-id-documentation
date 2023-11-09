@@ -2,7 +2,7 @@
 
 The only view of the biometric face capture flow is the loading view, it appears when the feature is initializing, when the selfie is being processed and when the liveness service is called.
 
-![Biometric Face Capture Example](Assets/FC_Loading.PNG "Biometric Face Capture Default Loading Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
+![Biometric Face Capture Example](Assets/FC_Loading.png "Biometric Face Capture Default Loading Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
 
 It contains a title(1), a message(2), an image(3) and a background that can be customized. 
 

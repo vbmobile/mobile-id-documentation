@@ -11,7 +11,7 @@ hide:
     To integrate the Mobile ID SDK for Android, the following prerequisites must be met:
 
     - Install or update Android Studio to latest version;
-    - Target API level 23 (Marshmallow) or later;
+    - Target API level 24 (Marshmallow) or later;
     - Use AndroidX, which requires minimum compileSdkVersion 30 or later.
     - Your app needs to have Firebase configured and initialized. For more information, see [https://firebase.google.com/docs/android/setup](https://firebase.google.com/docs/android/setup){target=_blank}.
 
@@ -53,7 +53,7 @@ hide:
     
     1. Add the following to your Podfile, with the latest version:
     ```
-    pod 'MobileIdSDKiOS', '5.2.XX'
+    pod 'MobileIdSDKiOS', '5.1.XX'
     ```
     2. Add Mobile ID’s cocoapods repo as a source in your podfile:
     ```
@@ -79,7 +79,9 @@ hide:
 
 The Enrolment provides access to all the SDK features in a simple way. The app needs to create an instance of the Enrolment interface. We recommend treating this instance as Singleton.
     
-You can also specify the configurations that will be needed depending on the SDK functionalities you intend to use on your app. By using the available EnrolmentBuilder, you can instantiate the enrolment like this:
+You can also specify the configurations that will be needed depending on the SDK functionalities you intend to use on your app. 
+
+By using the available EnrolmentBuilder, you can instantiate the enrolment like this:
 
 === "Android"
 
@@ -275,7 +277,7 @@ pinning for every network request made by the SDK.
                 loadingView = DocumentReaderCustomViewLoading::class.java,
                 rfidInstructionsView = DocumentReaderCustomViewRfidInstructions::class.java,
                 rfidSearchView = DocumentReaderCustomViewRfidSearch::class.java,
-                rfidReadView = DocumentReaderCustomViewRfidRead::class.java,
+                rfidProcessView = DocumentReaderCustomViewRfidProcess::class.java,
             )
         )
         .withBiometricFaceCaptureCustomViews(
@@ -322,91 +324,14 @@ pinning for every network request made by the SDK.
 ### Custom Styles
 
 === "Android"
-    You can apply your app’s own colors and fonts to all the provided SDK layout solutions, which means that the SDK views can adapt to your app’s design. It brings control and allows the maintenance of consistency in terms of brand communication when using the SDK custom views for data presentation. The fonts we are using in the SDK are named enrolment_sdk_medium and enrolment_sdk_regular. If you use fonts with the same name in your app, they will be used, otherwise the SDK will use its own. We do not advise to override strings. Our strings’ names in strings.xml end in _sdk_enrolment precisely to prevent any unexpected behaviors. While strings can still be overridden by client apps like in the previous versions, now the default string values can be defined through the Azure localisations files, as the SDK is prepared to be configured with those defined values. Mobile ID SDK will load all supported translation files associated with your API key, and its UI solutions will automatically adapt to the device’s language in use, if it is one of the supported languages that was loaded. Otherwise, the default English language will be used. Please contact vision-box® if you wish to support a new language or update the text values used in the SDK UI solutions. Please note also that overriding styles will most certainly break our layout solutions. SDK styles’ names all begin with Theme.Sdk.Enrolment. The only exceptions for this are button labels, as we prevent the default allCaps for Android and follow best practices of using capitalized strings with our button labels by specifying that in the defined strings. If you need to change this behavior for any reason, you need to override the strings yourself:
 
-    - ```<string name="bt_retry_sdk_enrolment">RETRY</string>```
-    - ```<string name="bt_retake_sdk_enrolment">RETAKE</string>```
-    - ```<string name="bt_continue_sdk_enrolment">CONTINUE</string>```
+    You can apply your app’s own colors and fonts to all the provided SDK layout solutions, which means that the SDK views can adapt to your app’s design. 
+    It brings control and allows the maintenance of consistency in terms of brand communication when using the SDK custom views for data presentation. 
 
-    Please check the complete list of colors for your reference:
+    The fonts we are using in the SDK are named enrolment_sdk_medium and enrolment_sdk_regular. If you use fonts with the same name in your app, they will be used, otherwise the SDK will use its own. 
+    We do not advise to override strings. Our strings’ names in strings.xml end in _sdk_enrolment precisely to prevent any unexpected behaviors.
 
-    | Name                                                  | Screen                               |
-    |:------------------------------------------------------|:-------------------------------------|
-    | colorDocumentReadMRZBgSdkEnrolment                    | Document Reader: MRZ                 |
-    | colorDocumentReadRFIDBgSdkEnrolment                   | Document Reader: RFID                |
-    | colorDocumentReadRFIDTxtSdkEnrolment                  | Document Reader: RFID                |
-    | colorDocumentReadRFIDSubtitleTxtSdkEnrolment          | Document Reader: RFID                |
-    | colorDocumentReadProcessingSkipTextSdkEnrolment       | Document Reader: RFID                |
-    | colorDocumentReadProcessingBgSdkEnrolment             | Document Reader: Processing          |
-    | colorDocumentReadProcessingTxtSdkEnrolment            | Document Reader: Processing          |
-    | colorDocumentReadProcessingSubtitleTxtSdkEnrolment    | Document Reader: Processing          |
-    | colorDocumentReadProcessingAnimationSdkEnrolment      | Document Reader: Processing          |
-    | colorDocumentDataBgSdkEnrolment                       | Document Reader Preview              |
-    | colorDocumentDataHeaderTxtSdkEnrolment                | Document Reader Preview              |
-    | colorDocumentDataHeaderSubtitleTxtSdkEnrolment        | Document Reader Preview              |
-    | colorDocumentDataToolbarBgSdkEnrolment                | Document Reader Preview (Toolbar)    |
-    | colorDocumentDataToolbarTxtSdkEnrolment               | Document Reader Preview (Toolbar)    |
-    | colorDocumentDataContinueButtonTxtSdkEnrolment        | Document Reader Preview (Button)     |
-    | colorDocumentDataContinueButtonBgSdkEnrolment         | Document Reader Preview (Button)     |
-    | colorDocumentDataContinueButtonStrokeSdkEnrolment     | Document Reader Preview (Button)     |
-    | colorDocumentDataRetryButtonTxtSdkEnrolment           | Document Reader Preview (Button)     |
-    | colorDocumentDataRetryButtonBgSdkEnrolment            | Document Reader Preview (Button)     |
-    | colorDocumentDataRetryButtonStrokeSdkEnrolment        | Document Reader Preview (Button)     |
-    | colorDocumentDataArrowUpSdkEnrolment                  | Document Reader Preview (Arrow)      |
-    | colorDocumentDataFormHeaderTxtSdkEnrolment            | Document Reader Preview (Details)    |
-    | colorDocumentDataFormHeaderSeparatorSdkEnrolment      | Document Reader Preview (Details)    |
-    | colorDocumentDataFormFieldHeaderTxtSdkEnrolment       | Document Reader Preview (Details)    |
-    | colorDocumentDataFormFieldTxtSdkEnrolment             | Document Reader Preview (Details)    |
-    | colorDocumentDataFormFieldErrorTxtSdkEnrolment        | Document Reader Preview (Details)    |
-    | colorDocumentDataFormSeparatorSdkEnrolment            | Document Reader Preview (Details)    |
-    | colorDocumentDataDetailsBgSdkEnrolment                | Document Reader Preview (Details)    |
-    | colorBarcodeScanBgSdkEnrolment                        | Boarding Pass Scan                   |
-    | colorBoardingPassBgSdkEnrolment                       | Boarding Pass Preview                |
-    | colorBoardingPassToolbarBgSdkEnrolment                | Boarding Pass Preview                |
-    | colorBoardingPassToolbarTxtSdkEnrolment               | Boarding Pass Preview                |
-    | colorBoardingPassContinueButtonTxtSdkEnrolment        | Boarding Pass Preview (Button)       |
-    | colorBoardingPassContinueButtonBgSdkEnrolment         | Boarding Pass Preview (Button)       |
-    | colorBoardingPassContinueButtonStrokeSdkEnrolment     | Boarding Pass Preview (Button)       |
-    | colorBoardingPassRetryButtonTxtSdkEnrolment           | Boarding Pass Preview (Button)       |
-    | colorBoardingPassRetryButtonBgSdkEnrolment            | Boarding Pass Preview (Button)       |
-    | colorBoardingPassRetryButtonStrokeSdkEnrolment        | Boarding Pass Preview (Button)       |
-    | colorBiometricFaceCaptureBgSdkEnrolment               | Face Capture Background              |
-    | colorFaceCaptureBgSdkEnrolment                        | Face Capture                         |
-    | colorFaceCaptureTxtSdkEnrolment                       | Face Capture                         |
-    | colorFaceCaptureSubtitleTxtSdkEnrolment               | Face Capture                         |
-    | colorFaceCaptureButtonStrokeSdkEnrolment              | Face Capture (Button)                |
-    | colorFaceCaptureButtonBgSdkEnrolment                  | Face Capture (Button)                |
-    | colorFaceCaptureProcessingBgSdkEnrolment              | Face Capture: Processing             |
-    | colorFaceCaptureProcessingTxtSdkEnrolment             | Face Capture: Processing             |
-    | colorFaceCaptureProcessingSubtitleTxtSdkEnrolment     | Face Capture: Processing             |
-    | colorFaceCaptureProcessingAnimationSdkEnrolment       | Face Capture: Processing             |
-    | colorDisplayPhotoBgSdkEnrolment                       | Face Capture Preview                 |
-    | colorDisplayPhotoContinueButtonTxtSdkEnrolment        | Face Capture Preview (Button)        |
-    | colorDisplayPhotoContinueButtonBgSdkEnrolment         | Face Capture Preview (Button)        |
-    | colorDisplayPhotoContinueButtonStrokeSdkEnrolment     | Face Capture Preview (Button)        |
-    | colorDisplayPhotoRetakeButtonTxtSdkEnrolment          | Face Capture Preview (Button)        |
-    | colorDisplayPhotoRetakeButtonBgSdkEnrolment           | Face Capture Preview (Button)        |
-    | colorDisplayPhotoRetakeButtonStrokeSdkEnrolment       | Face Capture Preview (Button)        |
-    | colorTermsConditionsBgSdkEnrolment                    | Terms and Conditions                 |
-    | colorTermsConditionsTxtSdkEnrolment                   | Terms and Conditions                 |
-    | colorTermsConditionsAcceptButtonTxtSdkEnrolment       | Terms and Conditions (Button)        |
-    | colorTermsConditionsAcceptButtonBgSdkEnrolment        | Terms and Conditions (Button)        |
-    | colorTermsConditionsAcceptButtonStrokeSdkEnrolment    | Terms and Conditions (Button)        |
-    | colorTermsConditionsRefuseButtonTxtSdkEnrolment       | Terms and Conditions (Refuse button) |
-    | colorTermsConditionsRefuseButtonBgSdkEnrolment        | Terms and Conditions (Refuse button) |
-    | colorTermsConditionsRefuseButtonStrokeSdkEnrolment    | Terms and Conditions (Refuse button) |
-    | colorOverlayFeedbackBgSdkEnrolment                    | Feedback Overlay                     |
-    | colorOverlayFeedbackTxtSdkEnrolment                   | Feedback Overlay                     |
-    | colorOverlayFeedbackSubtitleTxtSdkEnrolment           | Feedback Overlay                     |
-    | colorOverlayFeedbackPrimaryButtonTxtSdkEnrolment      | Feedback Overlay (Button)            |
-    | colorOverlayFeedbackPrimaryButtonBgSdkEnrolment       | Feedback Overlay (Button)            |
-    | colorOverlayFeedbackPrimaryButtonStrokeSdkEnrolment   | Feedback Overlay (Button stroke)     |
-    | colorOverlayFeedbackSecondaryButtonTxtSdkEnrolment    | Feedback Overlay (Button)            |
-    | colorOverlayFeedbackSecondaryButtonBgSdkEnrolment     | Feedback Overlay (Button)            |
-    | colorOverlayFeedbackSecondaryButtonStrokeSdkEnrolment | Feedback Overlay (Button stroke)     |
-    | colorAlertDialogTxtSdkEnrolment                       | Alert Dialog                         |
-    | colorAlertDialogAccentSdkEnrolment                    | Alert Dialog                         |
-    | colorAlertDialogButtonTxtSdkEnrolment                 | Alert Dialog                         |
+    The list of colors used in each screen will be available on their respective documentation for your reference.
 
 === "iOS"
 
@@ -461,27 +386,23 @@ pinning for every network request made by the SDK.
 ## Dependencies
 
 === "Android"
+
     - MLKit
-        - com.google.mlkit:barcode-scanning:17.0.2
+        - com.google.mlkit:barcode-scanning:17.2.0
         - com.google.mlkit:face-detection:16.1.5
-        - androidx.camera:camera-camera2:1.1.0-rc02
-        - androidx.camera:camera-lifecycle:1.1.0-rc02
-        - androidx.camera:camera-view:1.1.0-rc02
+        - androidx.camera:camera-camera2:1.2.3
+        - androidx.camera:camera-lifecycle:1.2.3
+        - androidx.camera:camera-view:1.2.3
 
     - Regula
         - com.regula.documentreader:api:6.8.8742@aar
         - com.regula.documentreader.core:ocrandmrzrfid:6.8.9154@aar
 
-    - Restring
-        - dev.b3nedikt.restring:restring:5.1.4
-        - dev.b3nedikt.viewpump:viewpump:4.0.10
-        - dev.b3nedikt.reword:reword:4.0.2
-
     - Sentry
-        - io.sentry:sentry-android:5.7.4
+        - io.sentry:sentry-android:6.28.0
 
     - Lottie
-        - com.airbnb.android:lottie:5.1.1
+        - com.airbnb.android:lottie:6.1.0
         
 === "iOS"
 

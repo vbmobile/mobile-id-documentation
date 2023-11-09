@@ -1,19 +1,22 @@
 # MobileID SDK - Release Notes
+## 7.x.x
+- Removed the signatures that use the deprecated `onActivityResult` function
+- Removed the `get`, `delete` and `update` subject signatures. 
 
 ## 5.2.2
 ### Improvements
 
 - Improved Face capture process by:
-      - Fix issue with new mouth open algorithm (requires changes in Backoffice before upgrading)
+  - Fix issue with new mouth open algorithm (requires changes in Backoffice before upgrading)
 
 ## 5.2.1
 ### Improvements
 
 - Improved Face capture process by:
-      - Calculate input frame lightning conditions, contrast and sharpness.
-      - Improved multiple faces check to focus on the closer face. 
-      - Changed mouth open algorithm.
-      - Fixed switch between frontal and back cameras.
+  - Calculate input frame lightning conditions, contrast and sharpness.
+  - Improved multiple faces check to focus on the closer face.
+  - Changed mouth open algorithm.
+  - Fixed switch between frontal and back cameras.
 - Added **CameraConfig** to **BiometricFaceCaptureParameters** to control if the toggle camera button should appear and the initial camera facing (Front or back camera)
 
 ## 5.2.0
@@ -32,7 +35,7 @@
 - Fix timezone bug on preview screen.
 
 ### Warning
-- Functions marked with deprecated will be removed in version 6.0.0, please update following their sugestions.
+- Functions marked with deprecated will be removed in version 6.0.0, please update following their suggestions.
 
 ## 5.1.3
 ### Improvements

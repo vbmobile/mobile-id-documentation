@@ -5,7 +5,7 @@ When the resulting image fails any of the quality tests, then this screen will a
 You can either customize this screen to your branding or set the flag to false and handle the error in your own activity.
 
 
-![Biometric Face Capture Example](Assets/FC_Error.PNG "Biometric Face Capture Default Error Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
+![Biometric Face Capture Example](Assets/FC_Error.png "Biometric Face Capture Default Error Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
 
 It contains a title(1), a message(2), an image(3), a warning icon(4), a list item layout(5), a retry button(6) and a background that can be customized. 
 
@@ -31,23 +31,6 @@ You can apply your own branding to our screens by overriding the resources we us
     <string name="multiple_face_test_desc_sdk_enrolment">Only the document owner should be in the frame.</string>
     <string name="image_blurred_test_desc_sdk_enrolment">The picture was not clear enough.</string>
     <string name="face_capture_liveness_check_test_sdk_enrolment">This seems to be a picture of a picture. It must really be a real-time selfie.</string>
-
-    <!-- Face Capture Errors -->
-    <string name="feature_failure_title_sdk_enrolment">There\'s something wrong</string>
-    <string name="feature_failure_subtitle_sdk_enrolment">Check the items below:</string>
-    <string name="error_face_capture_error_transaction_failed_sdk_enrolment">Biometric FaceCapture transaction service failed</string>
-    <string name="error_face_capture_error_parameters_not_initialized_sdk_enrolment">Biometric FaceCapture parameters not initialized</string>
-    <string name="error_face_capture_error_camera_setup_sdk_enrolment">Camera setup failed</string>
-    <string name="error_face_capture_error_process_tests_sdk_enrolment">Biometric Face Capture quality tests failed</string>
-    <string name="error_face_capture_error_liveness_test_sdk_enrolment">Liveness quality tests failed</string>
-    <string name="error_face_capture_error_camera_permission_sdk_enrolment">Camera permission denied by user</string>
-    <string name="error_face_capture_error_picture_not_found_sdk_enrolment">Face Capture picture not found</string>
-    <string name="error_face_capture_error_picture_path_is_null_sdk_enrolment">Face Capture picture path is null</string>
-    <string name="error_face_capture_error_report_is_null_sdk_enrolment">Face Capture process report is null</string>
-    <string name="error_face_capture_error_terms_and_conditions_rejected_sdk_enrolment">Face Capture user rejected terms and conditions</string>
-    <string name="error_face_capture_error_liveness_service_failed_sdk_enrolment">Face capture liveness service failed</string>
-    <string name="error_face_capture_error_feature_permission_not_granted_sdk_enrolment">Face capture permission not granted</string>
-    <string name="error_face_capture_error_generic_error_sdk_enrolment">Unknown error</string>
     ```
 
 === "iOS"

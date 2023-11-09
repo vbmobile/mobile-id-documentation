@@ -3,7 +3,7 @@
 The only view of the biometric match flow is the loading view, it appears when the feature is initializing.
 In this step, a service is called so that the biometric match is done on the server side.
 
-![Biometric Match Example](Assets/BM_Loading_Frame.PNG "Biometric Match Default Loading Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
+![Biometric Match Example](Assets/BM_Loading.png "Biometric Match Default Loading Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
 
 It contains a title(1), a message(2), an image(3) and a background that can be customized. 
 

@@ -2,7 +2,7 @@
 
 The second view of the Boarding pass flow is the scan view, it's the camera screen that detects the boarding pass barcode.
 
-![Boarding Pass Example](Assets/BP_Scan_Frame_Labeled.png "Boarding Pass Default Scan Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
+![Boarding Pass Example](Assets/BP_Scan.png "Boarding Pass Default Scan Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
 
 It contains a cancel button (1), a title(2), a message(3) and a frame(4) that can be customized.
 

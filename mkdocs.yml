@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 
 site_name: MobileID SDK Documentation
-site_url: ""
+site_url: "https://vbmobile.github.io/mobile-id-documentation/"
 use_directory_urls: false
 theme:
   name: material
@@ -21,7 +21,10 @@ theme:
   palette:
       primary: light blue
       accent: blue
-
+extra:
+  version:
+    provider:
+      mike
 extra_css:
   - stylesheets/extra.css
 nav:

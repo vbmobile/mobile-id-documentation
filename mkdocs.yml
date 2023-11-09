@@ -1,0 +1,82 @@
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
+
+site_name: MobileID SDK Documentation
+site_url: ""
+use_directory_urls: false
+theme:
+  name: material
+  custom_dir: overrides
+  icon:
+    repo: fontawesome/brands/github
+    admonition:
+        info: octicons/info-16
+  logo: assets/vb-logo.png
+  favicon: assets/vb-favicon.png
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - content.tabs.link
+    - content.code.copy
+  palette:
+      primary: light blue
+      accent: blue
+
+extra_css:
+  - stylesheets/extra.css
+nav:
+  - Getting Started: index.md
+  - Features:
+    - Document Reader:
+        - Overview: Features/DocumentReader/DocumentReader_Index.md
+        - Regula database update methods: Features/DocumentReader/DocumentReader_DBUpdateMethods.md
+        - Customization:
+            - Loading View: Features/DocumentReader/DocumentReader_LoadingView.md
+            - Scan View: Features/DocumentReader/DocumentReader_ScanView.md
+            - RFID Read View: Features/DocumentReader/DocumentReader_RFIDReadView.md
+            - Chip Reading:
+                - iOS:
+                    - Read Chip View: Features/DocumentReader/DocumentReader_ReadChipView_iOS.md
+                - Android:
+                    - Find Chip View: Features/DocumentReader/DocumentReader_FindChipView_Android.md
+                    - Read Chip View: Features/DocumentReader/DocumentReader_ReadChipView_Android.md
+            - Preview View: Features/DocumentReader/DocumentReader_PreviewView.md
+            - Error View: Features/DocumentReader/DocumentReader_ErrorView.md
+    - Face Capture:
+        - Overview: Features/FaceCapture/FaceCapture_Index.md
+        - Customization:
+            - Loading View: Features/FaceCapture/FaceCapture_LoadingView.md
+            - Scan View: Features/FaceCapture/FaceCapture_ScanView.md
+            - Preview View: Features/FaceCapture/FaceCapture_PreviewView.md
+            - Error View: Features/FaceCapture/FaceCapture_ErrorView.md
+    - Biometric Match:
+        - Overview: Features/BiometricMatch/BiometricMatch_Index.md
+        - Customization:
+            - Loading View: Features/BiometricMatch/BiometricMatch_LoadingView.md
+    - Boarding Pass Reader:
+        - Overview: Features/BoardingPass/BoardingPass_Index.md
+        - Customization:
+            - Loading View: Features/BoardingPass/BoardingPass_LoadingView.md
+            - Scan View: Features/BoardingPass/BoardingPass_ScanView.md
+            - Preview View: Features/BoardingPass/BoardingPass_PreviewView.md
+            - Error View: Features/BoardingPass/BoardingPass_ErrorView.md
+    - Subject Management:
+        - Overview: Features/SubjectManagement/SubjectManagement_Index.md
+        - Customization:
+            - Loading View: Features/SubjectManagement/SubjectManagement_LoadingView.md
+  - Release Notes:
+    - Android: ReleaseNotes/ReleaseNotes_Android.md
+    - iOS: ReleaseNotes/ReleaseNotes_iOS.md
+  - Migration Guide:
+    - Android: MigrationGuide/MigrationGuide_Android.md
+    - iOS: MigrationGuide/MigrationGuide_iOS.md
+markdown_extensions:
+  - attr_list
+  - pymdownx.superfences
+  - pymdownx.details
+  - admonition
+  - def_list
+  - pymdownx.tabbed:
+      alternate_style: true
+repo_url: https://github.com/vbmobile/mobileid-android-sample
+repo_name: Android Sample App

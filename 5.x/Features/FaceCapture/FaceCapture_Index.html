@@ -1,0 +1,2208 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://vbmobile.github.io/mobile-id-documentation/5.x/Features/FaceCapture/FaceCapture_Index.html">
+      
+      
+        <link rel="prev" href="../DocumentReader/DocumentReader_ErrorView.html">
+      
+      
+        <link rel="next" href="FaceCapture_LoadingView.html">
+      
+      
+      <link rel="icon" href="../../assets/vb-favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.5">
+    
+    
+      
+        <title>Overview - MobileID SDK Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6a10b989.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+  
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#face-capture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+You're not viewing the latest version.
+<a href="../../..">
+    <strong>Click here to go to latest.</strong>
+</a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),outdated=__md_get("__outdated",sessionStorage);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="MobileID SDK Documentation" class="md-header__button md-logo" aria-label="MobileID SDK Documentation" data-md-component="logo">
+      
+  <img src="../../assets/vb-logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MobileID SDK Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/vbmobile/mobileid-android-sample" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Android Sample App
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../index.html" class="md-tabs__link">
+        
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../DocumentReader/DocumentReader_Index.html" class="md-tabs__link">
+          
+  
+  Features
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ReleaseNotes/ReleaseNotes_Android.html" class="md-tabs__link">
+          
+  
+  Release Notes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../MigrationGuide/MigrationGuide_Android.html" class="md-tabs__link">
+          
+  
+  Migration Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="MobileID SDK Documentation" class="md-nav__button md-logo" aria-label="MobileID SDK Documentation" data-md-component="logo">
+      
+  <img src="../../assets/vb-logo.png" alt="logo">
+
+    </a>
+    MobileID SDK Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/vbmobile/mobileid-android-sample" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Android Sample App
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Document Reader
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Document Reader
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DocumentReader/DocumentReader_Index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DocumentReader/DocumentReader_DBUpdateMethods.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Regula database update methods
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Customization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DocumentReader/DocumentReader_LoadingView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Loading View
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DocumentReader/DocumentReader_ScanView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scan View
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DocumentReader/DocumentReader_RFIDReadView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RFID Read View
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3_4" id="__nav_2_1_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Chip Reading
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_1_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Chip Reading
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3_4_1" id="__nav_2_1_3_4_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    iOS
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_2_1_3_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            iOS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DocumentReader/DocumentReader_ReadChipView_iOS.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Read Chip View
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3_4_2" id="__nav_2_1_3_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_2_1_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Android
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DocumentReader/DocumentReader_FindChipView_Android.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Find Chip View
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DocumentReader/DocumentReader_ReadChipView_Android.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Read Chip View
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DocumentReader/DocumentReader_PreviewView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preview View
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DocumentReader/DocumentReader_ErrorView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Error View
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Face Capture
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Face Capture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="FaceCapture_Index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#initiate-face-capture" class="md-nav__link">
+        Initiate Face Capture
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#handle-result" class="md-nav__link">
+        Handle Result
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#biometricfacecapturecustomviews" class="md-nav__link">
+        BiometricFaceCaptureCustomViews
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Customization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="FaceCapture_LoadingView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Loading View
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="FaceCapture_ScanView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scan View
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="FaceCapture_PreviewView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preview View
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="FaceCapture_ErrorView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Error View
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Biometric Match
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Biometric Match
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BiometricMatch/BiometricMatch_Index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Customization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BiometricMatch/BiometricMatch_LoadingView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Loading View
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Boarding Pass Reader
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Boarding Pass Reader
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BoardingPass/BoardingPass_Index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Customization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BoardingPass/BoardingPass_LoadingView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Loading View
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BoardingPass/BoardingPass_ScanView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scan View
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BoardingPass/BoardingPass_PreviewView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preview View
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BoardingPass/BoardingPass_ErrorView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Error View
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Subject Management
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Subject Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SubjectManagement/SubjectManagement_Index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_2" id="__nav_2_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Customization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SubjectManagement/SubjectManagement_LoadingView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Loading View
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Release Notes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Release Notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ReleaseNotes/ReleaseNotes_Android.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ReleaseNotes/ReleaseNotes_iOS.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    iOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Migration Guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Migration Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MigrationGuide/MigrationGuide_Android.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MigrationGuide/MigrationGuide_iOS.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    iOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#initiate-face-capture" class="md-nav__link">
+        Initiate Face Capture
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#handle-result" class="md-nav__link">
+        Handle Result
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#biometricfacecapturecustomviews" class="md-nav__link">
+        BiometricFaceCaptureCustomViews
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="face-capture">Face Capture</h1>
+<p>The Mobile ID SDK provides a functionality that simplifies the process of obtaining a frame for
+biometry checks. To achieve it, we use face detection technology, and capture a frame with the
+user’s face. The live photo is then processed and checked against a liveness algorithm that will try
+to detect specific characteristics of spoofing attempts, returning a score that indicates if the
+person using the app is there or trying to impersonate someone else.</p>
+<h2 id="initiate-face-capture">Initiate Face Capture</h2>
+<p>The Mobile ID SDK provides a complete set of functionalities that allows capturing and processing
+the user’s facial characteristics, and match them against the travel document’s photo. This helps
+ensuring that the user who is enrolling is the document’s owner. The biometric face capture should
+be the final step before creating a Digital ID in a remote system. If you only need to capture a
+frame with the user’s face for biometric quality validation and check against liveness algorithms,
+you can use the method biometricFaceCapture.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Android</label><label for="__tabbed_1_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>This method is now deprecated and will be removed in the future
+<div class="highlight"><pre><span></span><code><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">biometricFaceCapture</span><span class="p">(</span><span class="n">activity</span><span class="p">:</span><span class="w"> </span><span class="n">Activity</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">:</span><span class="w"> </span><span class="n">BiometricFaceCaptureParameters</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">enrolment</span><span class="p">.</span><span class="na">biometricFaceCapture</span><span class="p">(</span><span class="n">activity</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+The new method contains a new parameter that's responsible to receive the result of this feature
+<div class="highlight"><pre><span></span><code><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">biometricFaceCapture</span><span class="p">(</span><span class="n">activity</span><span class="p">:</span><span class="w"> </span><span class="n">Activity</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">:</span><span class="w"> </span><span class="n">BoardingPassParserParameters</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// More info on the biometricFaceCaptureResultLauncher in the how to get the result section</span>
+<span class="w">    </span><span class="n">enrolment</span><span class="p">.</span><span class="na">biometricFaceCapture</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="n">faceCaptureResultLauncher</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1">/// Uses the device camera to capture a photo of the user face (selfie). Some tests will be run against this photo to ensure the photo quality and a liveness check verification.</span>
+<span class="c1">/// - Parameters:</span>
+<span class="c1">///   - parameters: Configures the check liveness step.</span>
+<span class="c1">///   - viewController: View controller that will present the face capture views.</span>
+<span class="c1">///   - completionHandler: The completion handler to call when the face capture feature is finished.</span>
+<span class="c1">///     This completion handler takes the following parameter:</span>
+<span class="c1">///</span>
+<span class="c1">///     Result&lt;BiometricFaceCaptureReport, BiometricFaceCaptureError&gt;</span>
+<span class="c1">///     Where `BiometricFaceCaptureReport` contains  the results of the face capture</span>
+<span class="c1">///     operation and `BiometricFaceCaptureError` the possible errors that may occur during the process.</span>
+<span class="kd">func</span> <span class="nf">biometricFaceCapture</span><span class="p">(</span><span class="n">parameters</span><span class="p">:</span> <span class="n">BiometricFaceCaptureParameters</span><span class="p">,</span> <span class="n">viewController</span><span class="p">:</span> <span class="bp">UIViewController</span><span class="p">,</span> <span class="n">completionHandler</span><span class="p">:</span> <span class="p">@</span><span class="n">escaping</span> <span class="p">(</span><span class="n">Result</span><span class="p">&lt;</span><span class="n">BiometricFaceCaptureReport</span><span class="p">,</span> <span class="n">BiometricFaceCaptureError</span><span class="p">&gt;)</span> <span class="p">-&gt;</span> <span class="nb">Void</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>The SDK provides UI solutions for the capture process and photo preview, as shown in the images
+below. The use of the photo preview depends on the BiometricFaceCaptureParameters passed to the
+biometricFaceCapture method. Below is an example of that object:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Android</label><label for="__tabbed_2_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="nd">@Parcelize</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">BiometricFaceCaptureParameters</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">showPreview</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">showErrors</span><span class="w"> </span><span class="kt">Boolean</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">frameFormat</span><span class="p">:</span><span class="w"> </span><span class="n">FaceCaptureFrameFormat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FaceCaptureFrameFormat</span><span class="p">.</span><span class="na">OVAL</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">cameraConfig</span><span class="p">:</span><span class="w"> </span><span class="n">CameraConfig</span>
+<span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Parcelable</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">androidx.camera.core.CameraSelector</span>
+
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">CameraConfig</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">enableCameraToggle</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">defaultCamera</span><span class="p">:</span><span class="w"> </span><span class="n">CameraSelector</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>The <strong>FaceCaptureFrameFormat</strong> is an enum that shapes the frame where the face must be centered to take the selfie. Currently it has two options:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">enum</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">FaceCaptureFrameFormat</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">SQUARE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">OVAL</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">struct</span> <span class="nc">BiometricFaceCaptureParameters</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">showPreview</span><span class="p">:</span> <span class="nb">Bool</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">frameShape</span><span class="p">:</span> <span class="n">BiometricFaceCaptureFrameOptions</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">showErrors</span><span class="p">:</span> <span class="nb">Bool</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">cameraConfig</span><span class="p">:</span> <span class="n">CameraConfig</span>
+
+
+    <span class="kd">public</span> <span class="kd">init</span><span class="p">(</span><span class="n">showPreview</span><span class="p">:</span> <span class="nb">Bool</span><span class="p">,</span>
+            <span class="n">frameShape</span><span class="p">:</span><span class="n">BiometricFaceCaptureFrameOptions</span> <span class="p">=</span> <span class="p">.</span><span class="n">oval</span><span class="p">,</span>
+            <span class="n">showErrors</span><span class="p">:</span> <span class="nb">Bool</span><span class="p">,</span>
+            <span class="n">cameraConfig</span><span class="p">:</span> <span class="n">CameraConfig</span> <span class="p">=</span> <span class="n">CameraConfig</span><span class="p">())</span>
+</code></pre></div>
+<p>The <strong>BiometricFaceCaptureFrameOptions</strong> is an enum that shapes the frame where the face must be centered to take the selfie. Currently it has two options:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">BiometricFaceCaptureFrameOptions</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">oval</span>
+    <span class="k">case</span> <span class="n">square</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The <strong>CameraConfig</strong> is the camera related configurations.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">struct</span> <span class="nc">CameraConfig</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">toggleCameraEnable</span><span class="p">:</span> <span class="nb">Bool</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">defaultCamera</span><span class="p">:</span> <span class="bp">AVCaptureDevice</span><span class="p">.</span><span class="n">Position</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>The <strong>showPreview</strong> parameter is a boolean that when set to true will show the user’s picture after
+taking it. You can also apply your app’s colors and fonts to these
+layout solutions, to keep your brand’s image consistent. See Custom styles.</p>
+<p>This function is used to acquire a high-resolution selfie with a 9:7 aspect ratio. The photo will
+only be taken if the frame conforms to specific parameters that make sure the face is centered and
+not too far away, or too close.</p>
+<h2 id="handle-result">Handle Result</h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Android</label><label for="__tabbed_3_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Here's how you can get the result by using the result launcher that's passed as the final parameter:
+<div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">faceCaptureResultLauncher</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">registerForActivityResult</span><span class="p">(</span><span class="n">FaceCaptureResultLauncher</span><span class="p">())</span>
+<span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="p">:</span><span class="w"> </span><span class="n">FaceCaptureActivityResult</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">    </span><span class="k">when</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">result</span><span class="p">.</span><span class="na">success</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">onSuccess</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="na">faceCaptureReportSuccess</span><span class="p">)</span>
+<span class="w">        </span><span class="n">result</span><span class="p">.</span><span class="na">faceCaptureReportError</span><span class="o">?.</span><span class="na">userCanceled</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">onUserCanceled</span><span class="p">()</span>
+<span class="w">        </span><span class="n">result</span><span class="p">.</span><span class="na">faceCaptureReportError</span><span class="o">?.</span><span class="na">termsAndConditionsAccepted</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">onUserTermsAndConditionsRejected</span><span class="p">()</span>
+<span class="w">        </span><span class="n">result</span><span class="p">.</span><span class="na">faceCaptureReportError</span><span class="o">?.</span><span class="na">failedTests</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">faceCaptureReportError</span><span class="o">?.</span><span class="na">performedTests</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="n">onFailedTests</span><span class="p">(</span>
+<span class="w">                </span><span class="n">result</span><span class="p">.</span><span class="na">faceCaptureReportError</span><span class="o">!!</span><span class="p">.</span><span class="na">performedTests</span><span class="o">!!</span><span class="p">,</span>
+<span class="w">                </span><span class="n">result</span><span class="p">.</span><span class="na">faceCaptureReportError</span><span class="o">!!</span><span class="p">.</span><span class="na">failedTests</span><span class="o">!!</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">onBiometricFaceCaptureError</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+Here is how you can get the report when using the deprecated method and handle the onActivityResult:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onActivityResult</span><span class="p">(</span><span class="n">requestCode</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="n">resultCode</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">:</span><span class="w"> </span><span class="n">Intent?)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">.</span><span class="na">onActivityResult</span><span class="p">(</span><span class="n">requestCode</span><span class="p">,</span><span class="w"> </span><span class="n">resultCode</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">requestCode</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">EnrolmentSDKRequestCode</span><span class="p">.</span><span class="na">BIOMETRIC_FACE_CAPTURE_REQUEST_CODE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">faceCaptureResultHandler</span><span class="p">.</span><span class="na">parseResult</span><span class="p">(</span><span class="n">resultCode</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">when</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">result</span><span class="p">.</span><span class="na">success</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">onSuccess</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="na">faceCaptureReportSuccess</span><span class="p">)</span>
+<span class="w">            </span><span class="n">result</span><span class="p">.</span><span class="na">faceCaptureReportError</span><span class="o">?.</span><span class="na">userCanceled</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">onUserCanceled</span><span class="p">()</span>
+<span class="w">            </span><span class="n">result</span><span class="p">.</span><span class="na">faceCaptureReportError</span><span class="o">?.</span><span class="na">termsAndConditionsAccepted</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">onUserTermsAndConditionsRejected</span><span class="p">()</span>
+<span class="w">            </span><span class="n">result</span><span class="p">.</span><span class="na">faceCaptureReportError</span><span class="o">?.</span><span class="na">failedTests</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">faceCaptureReportError</span><span class="o">?.</span><span class="na">performedTests</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">onFailedTests</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">result</span><span class="p">.</span><span class="na">faceCaptureReportError</span><span class="o">!!</span><span class="p">.</span><span class="na">performedTests</span><span class="o">!!</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">result</span><span class="p">.</span><span class="na">faceCaptureReportError</span><span class="o">!!</span><span class="p">.</span><span class="na">failedTests</span><span class="o">!!</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">onBiometricFaceCaptureError</span><span class="p">()</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="n">enrolment</span><span class="p">?.</span><span class="n">biometricFaceCapture</span><span class="p">(</span><span class="n">parameters</span><span class="p">:</span> <span class="n">params</span><span class="p">,</span> <span class="n">viewController</span><span class="p">:</span> <span class="n">view</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
+    <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="kd">let</span> <span class="nv">report</span><span class="p">):</span>
+        <span class="bp">print</span><span class="p">(</span><span class="s">&quot;Face capture successful.&quot;</span><span class="p">)</span>
+        <span class="n">EnrolmentData</span><span class="p">.</span><span class="n">faceCapture</span> <span class="p">=</span> <span class="n">report</span><span class="p">.</span><span class="n">photo</span>
+        <span class="n">EnrolmentData</span><span class="p">.</span><span class="n">biometricFaceCaptureReport</span> <span class="p">=</span> <span class="n">report</span>
+        <span class="n">completion</span><span class="p">(.</span><span class="n">success</span><span class="p">(()))</span>
+
+    <span class="k">case</span> <span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="kd">let</span> <span class="nv">biometricFaceCaptureError</span><span class="p">):</span>
+        <span class="n">EnrolmentData</span><span class="p">.</span><span class="n">biometricFaceCaptureReport</span> <span class="p">=</span> <span class="kc">nil</span>
+
+        <span class="k">if</span> <span class="k">case</span> <span class="p">.</span><span class="n">cancelled</span> <span class="p">=</span> <span class="n">biometricFaceCaptureError</span> <span class="p">{</span>
+            <span class="bp">print</span><span class="p">(</span><span class="s">&quot;Face capture cancelled by user.&quot;</span><span class="p">)</span>
+            <span class="kd">let</span> <span class="nv">error</span> <span class="p">=</span> <span class="n">BiometricFaceCaptureError</span><span class="p">.</span><span class="n">unexpected</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="s">&quot;Face capture cancelled by user.&quot;</span><span class="p">)</span>
+            <span class="n">completion</span><span class="p">(.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">))</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="bp">print</span><span class="p">(</span><span class="s">&quot;Face capture error: &quot;</span> <span class="o">+</span> <span class="n">biometricFaceCaptureError</span><span class="p">.</span><span class="n">localizedDescription</span><span class="p">)</span>
+            <span class="n">completion</span><span class="p">(.</span><span class="n">failure</span><span class="p">(</span><span class="n">biometricFaceCaptureError</span><span class="p">))</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>You should use the FaceCaptureResultHandler class to parse the result. You will receive a model of the type FaceCaptureActivityResult that will contain the success data (in this case a FaceCaptureReportSuccess) or the error data.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Android</label><label for="__tabbed_4_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">FaceCaptureActivityResult</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">faceCaptureReportSuccess</span><span class="p">:</span><span class="w"> </span><span class="n">FaceCaptureReportSuccess?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">faceCaptureReportError</span><span class="p">:</span><span class="w"> </span><span class="n">FaceCaptureReportError?</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">success</span><span class="w"> </span><span class="k">get</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">faceCaptureReportSuccess</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">struct</span> <span class="nc">BiometricFaceCaptureReport</span><span class="p">:</span> <span class="n">Codable</span> <span class="p">{</span>
+
+    <span class="c1">/// Contains the list of biometric process tests performed in Orchestra during the biometric face capture process.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">performedTests</span><span class="p">:</span> <span class="p">[</span><span class="n">CheckLivenessTest</span><span class="p">]</span>
+
+    <span class="c1">/// Contains the list of biometric process tests failed in Orchestra during the biometric face capture process.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">failedTests</span><span class="p">:</span> <span class="p">[</span><span class="n">CheckLivenessTest</span><span class="p">]</span>
+
+    <span class="c1">/// Flag indicating if liveness check was performed or not during the biometric face capture process.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">performedLivenessCheck</span><span class="p">:</span> <span class="nb">Bool</span>
+
+    <span class="c1">/// Biometric photo</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">photo</span><span class="p">:</span> <span class="bp">UIImage</span><span class="p">?</span> 
+
+    <span class="kd">public</span> <span class="kd">init</span><span class="p">(</span><span class="n">photo</span><span class="p">:</span> <span class="bp">UIImage</span><span class="p">,</span> <span class="n">performedTests</span><span class="p">:</span> <span class="p">[</span><span class="n">CheckLivenessTest</span><span class="p">],</span> <span class="n">failedTests</span><span class="p">:</span> <span class="p">[</span><span class="nb">String</span><span class="p">],</span> <span class="n">performedLivenessCheck</span><span class="p">:</span> <span class="nb">Bool</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>The FaceCaptureReportError has the following structure:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Android</label><label for="__tabbed_5_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">FaceCaptureReportError</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">userCanceled</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">termsAndConditionsAccepted</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">featureError</span><span class="p">:</span><span class="w"> </span><span class="n">FeatureError?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">failedTests</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;?</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">performedTests</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;?</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">BiometricFaceCaptureError</span><span class="p">:</span> <span class="n">Error</span> <span class="p">{</span>
+    <span class="c1">/// [BiometricFaceCaptureError] that wraps a message error a controlled error occurs at the service.</span>
+    <span class="k">case</span> <span class="n">service</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">String</span><span class="p">)</span>
+    <span class="c1">/// [BiometricFaceCaptureError] that occurs when there&#39;s an error on the request.</span>
+    <span class="k">case</span> <span class="n">client</span><span class="p">(</span><span class="n">error</span><span class="p">:</span> <span class="n">EnrolmentServerError</span><span class="p">?)</span>
+    <span class="c1">/// [BiometricFaceCaptureError] that occurs when there&#39;s an error on the server.</span>
+    <span class="k">case</span> <span class="n">server</span><span class="p">(</span><span class="n">error</span><span class="p">:</span> <span class="n">EnrolmentServerError</span><span class="p">?)</span>
+    <span class="c1">/// [BiometricFaceCaptureError] Unexpected error.</span>
+    <span class="k">case</span> <span class="n">unexpected</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">String</span><span class="p">)</span>
+    <span class="c1">/// [BiometricFaceCaptureError] Unreachable error.</span>
+    <span class="k">case</span> <span class="n">unreachable</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">String</span><span class="p">)</span>
+    <span class="c1">/// [BiometricFaceCaptureError] that occurs when there&#39;s an error with the pinned certificate.</span>
+    <span class="k">case</span> <span class="n">serverCertificatePinning</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">String</span><span class="p">)</span>
+    <span class="c1">/// [BiometricFaceCaptureError] Biometric process completed, but biometric tests were failed.</span>
+    <span class="k">case</span> <span class="n">biometricTestsFailed</span><span class="p">(</span><span class="n">failedTests</span><span class="p">:</span> <span class="p">[</span><span class="n">CheckLivenessTest</span><span class="p">],</span> <span class="n">performedTests</span><span class="p">:</span> <span class="p">[</span><span class="n">CheckLivenessTest</span><span class="p">])</span>
+    <span class="c1">/// [BiometricFaceCaptureError] Biometric process operation was cancelled by the user.</span>
+    <span class="k">case</span> <span class="n">cancelled</span>
+    <span class="c1">/// [BiometricFaceCaptureError] that occurs when there&#39;s an error during a pre/pos feature process.</span>
+    <span class="k">case</span> <span class="n">feature</span><span class="p">(</span><span class="n">error</span><span class="p">:</span> <span class="n">FeatureError</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>The FeatureError has the following structure:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Android</label><label for="__tabbed_6_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">FeatureError</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">errorMessage</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">apiError</span><span class="p">:</span><span class="w"> </span><span class="n">ApiError?</span>
+<span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Parcelable</span>
+</code></pre></div>
+<p>The ApiError has the following structure:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">ApiError</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">errors</span><span class="p">:</span><span class="w"> </span><span class="n">Map</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="kt">String</span><span class="o">&gt;?</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">type</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">title</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">status</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">detail</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">instance</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Parcelable</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">FeatureError</span><span class="p">:</span> <span class="n">Error</span> <span class="p">{</span>
+    <span class="c1">/// [FeatureError] that wraps a message error a controlled error occurs at the server.</span>
+    <span class="k">case</span> <span class="n">server</span><span class="p">(</span><span class="n">error</span><span class="p">:</span> <span class="n">EnrolmentServerError</span><span class="p">?)</span>
+    <span class="c1">/// [FeatureError] that occurs when there&#39;s an unexpected error.</span>
+    <span class="k">case</span> <span class="n">unexpected</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">String</span><span class="p">)</span>
+    <span class="c1">/// [FeatureError] that wraps a `FeatureOperationErrorType` indicating the underlying cause for the error.</span>
+    <span class="k">case</span> <span class="n">feature</span><span class="p">(</span><span class="n">operationType</span><span class="p">:</span> <span class="n">FeatureOperationErrorType</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>The failed tests might include one or more of the following tests:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">FaceTooFarTest</td>
+<td align="left">Error indicating that the face was very far.</td>
+</tr>
+<tr>
+<td align="left">FaceTooCloseTest</td>
+<td align="left">Error indicating that the face was very close.</td>
+</tr>
+<tr>
+<td align="left">FaceNotCenteredTest</td>
+<td align="left">Error indicating that the face was not centered.</td>
+</tr>
+<tr>
+<td align="left">MultipleFacesDetectedTest</td>
+<td align="left">Error indicating that multiple faces were detected in the image.</td>
+</tr>
+<tr>
+<td align="left">FaceRotatedTest</td>
+<td align="left">Error indicating that the face was rotated in Z angle. A face with a positive Euler Z angle is rotated counter-clockwise relative to the camera.</td>
+</tr>
+<tr>
+<td align="left">NoFaceDetectedTest</td>
+<td align="left">Error indicating that no face was detected in the picture.</td>
+</tr>
+<tr>
+<td align="left">EyesClosedTest</td>
+<td align="left">Error indicating that the eyes are closed.</td>
+</tr>
+<tr>
+<td align="left">SmilingTest</td>
+<td align="left">Error indicating that the user was smiling.</td>
+</tr>
+<tr>
+<td align="left">FaceSidewaysTest</td>
+<td align="left">Error indicating that the face was rotated in Y angle. A face with a positive Euler Y angle is looking to the right of the camera, or looking to the left if negative.</td>
+</tr>
+<tr>
+<td align="left">FaceVerticalTest</td>
+<td align="left">Error indicating that the face was rotated in X angle. A face with a positive Euler X angle is facing upward.</td>
+</tr>
+<tr>
+<td align="left">MouthOpenTest</td>
+<td align="left">Error indicating that the user has the mouth open.</td>
+</tr>
+<tr>
+<td align="left">ImageBlurredTest</td>
+<td align="left">Error indicating that the image is blurred.</td>
+</tr>
+<tr>
+<td align="left">FaceCropFailedTest</td>
+<td align="left">Error indicating that the face crop failed.</td>
+</tr>
+<tr>
+<td align="left">LivenessCheckQualityTest</td>
+<td align="left">Error indicating that the liveness quality test failed.</td>
+</tr>
+<tr>
+<td align="left">LivenessCheckProbabilityTest</td>
+<td align="left">Error indicating that the liveness probability test failed.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="biometricfacecapturecustomviews">BiometricFaceCaptureCustomViews</h2>
+<p>The SDK provides default UI solutions for the document reader feature flow, as shown in the following images:</p>
+<p><img alt="Biometric Face Capture Example" src="Assets/FaceCaptureFlow.PNG" style="height:600px;width:300px;display: block; margin: 0 auto" title="Biometric Face Capture Default Error Screen" /></p>
+<p>The use of the preview layout depends on the showPreview flag in the BiometricFaceCaptureParameters.</p>
+<p>The use of the Errors layout depends on the showErrors flag in the BiometricFaceCaptureParameters.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Android</label><label for="__tabbed_7_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="nd">@Parcelize</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">BiometricFaceCaptureCustomViews</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">loadingView</span><span class="p">:</span><span class="w"> </span><span class="n">Class</span><span class="o">&lt;</span><span class="k">out</span><span class="w"> </span><span class="n">ICustomBiometricFaceCapture</span><span class="p">.</span><span class="na">LoadingView</span><span class="o">&gt;?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
+<span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Parcelable</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">EnrolmentViewRegister</span> <span class="p">{</span>
+    <span class="p">...</span>
+
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerBiometricFaceCaptureLoadingView</span><span class="p">(</span><span class="kc">_</span> <span class="n">viewType</span><span class="p">:</span> <span class="n">FaceCaptureLoadingViewType</span><span class="p">)</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>You can use your own custom views in the biometric face capture functionality. Your view must
+implement the SDK view interfaces. For example, if you want to add a custom loadingView, your view
+class must implement the ICustomBiometricFaceCapture.LoadingView interface.</p>
+<p>In the customization tab you will also find examples to create your own custom views.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "content.tabs.link", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.aecac24b.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,5 +1,11 @@
 # MobileID SDK - Release Notes
 
+## 5.2.3
+### Improvements
+
+- Improved frame of face capture drawing by adjusting the ratios.
+- Fix issues that subjects couldn't be created with national ID documents and resident cards.
+
 ## 5.2.2
 ### Improvements
 

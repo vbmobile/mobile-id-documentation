@@ -1,9 +1,12 @@
 # Migration Guide
 
-## From 5.2.2 to 7.x.x
+## From 5.2.3 to 7.0.0
 ### Required Changes
-- Replace the signatures that do not use the ActivityLauncher contract
-- Remove the `get`, `update` and `delete` `Subject` operations. You should now save the `Subject` locally if you want to have a copy to check later. Updating a `Subject` is no longer supported as well so, you must create a new one if you want to for example, add a boarding pass.
+- Replace the signatures that do not use the ActivityLauncher contract;
+- Remove the `get`, `update` and `delete` `Subject` operations. You should now save the `Subject` locally if you want to have a copy to check later. Updating a `Subject` is no longer supported as well so, you must create a new one if you want to for example, add a boarding pass;
+- Handle errors by new field ErrorType instead of checking every possible errors;
+- Filter through Biometrics by their source: Face, Chip or OCR;
+- Rename enums to PascalCase, MALE is now Male, etc.
 
 ## From 5.2.1 to 5.2.2
 #### Required Changes

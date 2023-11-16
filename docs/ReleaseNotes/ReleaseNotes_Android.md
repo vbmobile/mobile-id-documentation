@@ -1,7 +1,21 @@
 # MobileID SDK - Release Notes
-## 7.x.x
-- Removed the signatures that use the deprecated `onActivityResult` function
-- Removed the `get`, `delete` and `update` subject signatures. 
+## 7.0.0
+
+### What's new
+- New subject service (now works asynchronously)
+  - Removed the `get`, `delete` and `update` subject signatures;
+  - Clients need to save the subject locally after adding.
+
+### Improvements
+- Removed the signatures that use the deprecated `onActivityResult` function that were deprecated;
+- Removed some external dependencies to improve SDK size;
+- Changed Java compile version to 17;
+- Replaced synthetic views with view binding.
+
+### Removed
+- Moshi;
+- Restring
+- kotlin-android-extensions plugin.
 
 ## 5.2.3
 ### Improvements

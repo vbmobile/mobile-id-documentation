@@ -389,7 +389,7 @@ pinning for every network request made by the SDK.
 
     - MLKit
         - com.google.mlkit:barcode-scanning:17.2.0
-        - com.google.mlkit:face-detection:16.1.5
+        - com.google.mlkit:face-detection:17.1.0
         - androidx.camera:camera-camera2:1.2.3
         - androidx.camera:camera-lifecycle:1.2.3
         - androidx.camera:camera-view:1.2.3

@@ -10,6 +10,18 @@ This repo will be used to store mkdocs project.
 - mkdocs build - Generate a folder "site" with the static content of the current markdown files and assets.
 - mkdocs serve - Creates a local server that automatic renders the changes in markdown files to help in development mode.
 
+Mike plugin offers the following commands to test, publish and manage versioning:
+
+- mike list - Lists all the versions that are available in this project
+- mike delete <version_name> - deletes the version name from the list of versions
+- mike serve - starts localhost server
+- mike deploy --push <version_name> - Deploys a new version from current branch with the name passed in the command
+- mike deploy --push --update-aliases <version_name> latest - Deploys a new version and tags it as latest
+
+Release that has the tag latest will be used automatically. 
+Also when a user is viewing any other version that is not the latest, 
+a banner will appear showing a warning that a new version is available.
+
 ## Website Structure
 
 Currently we have 4 main tabs in the website:

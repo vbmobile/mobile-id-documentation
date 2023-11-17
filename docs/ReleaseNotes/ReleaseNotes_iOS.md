@@ -1,5 +1,11 @@
 # MobileID SDK - Release Notes
 
+## 5.2.3
+### Improvements
+
+- Updated to Lottie 4.3.3
+
+
 ## 5.2.2
 ### Improvements
 

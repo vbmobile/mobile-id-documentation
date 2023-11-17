@@ -1,6 +1,9 @@
 # MobileID SDK - Release Notes
 ## 7.0.0
 
+### IMPORTANT
+- **In Q1 2024, 7.1.0 will be released targeting API 34.**
+
 ### What's new
 - New subject service (now works asynchronously)
   - Removed the `get`, `delete` and `update` subject signatures;

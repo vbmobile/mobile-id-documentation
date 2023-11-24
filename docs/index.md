@@ -321,7 +321,49 @@ pinning for every network request made by the SDK.
             .build()
     ```
     
-### Custom Styles
+## RFID Chip Processing
+
+Here you can find the necessary changes in order to read the RFID chip present in some documents:
+
+
+=== "Android"
+    TODO
+=== "iOS"
+   
+    ### Permissions
+    Add Near Field Communication Tag Reading under the Capabilities tab for the project’s target:
+    ![Permissions](Assets/DR_RFID_Permissions.PNG "Permissions"){: style="display: block; margin: 5px auto"}
+    Add the NFCReaderUsageDescription permission to your Info.plist file as its needed to access the NFC hardware:
+    ``` html
+    <key>NFCReaderUsageDescription</key>
+    <string>NFC tag to read NDEF messages</string>
+    ```
+    Declare com.apple.developer.nfc.readersession.iso7816.select-identifiers a list of application identifiers that the app
+    must be able to read according to ISO7816:
+    ``` html
+    <key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
+    <array>
+        <string>A0000002471001</string>
+        <string>E80704007F00070302</string>
+        <string>A000000167455349474E</string>
+        <string>A0000002480100</string>
+        <string>A0000002480200</string>
+        <string>A0000002480300</string>
+        <string>A00000045645444C2D3031</string>
+    </array>
+
+
+## Camera Permissions
+
+In order for the SDK to use the camera, the user must grant permission to do so. To configure access alerts, follow the steps bellow.
+
+=== "Android"
+    TODO
+=== "iOS"
+    In the app's **Info.plist** file, include **NSCameraUsageDescription**.
+    After including **NSCameraUsageDescription** in your **Info.plist** file, provide a message that explains the user why your app needs to capture media.
+    ![Permissions](Assets/Camera_Permissions.png "Permissions"){: style="display: block; margin: 5px auto"}
+## Custom Styles
 
 === "Android"
 

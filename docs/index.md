@@ -327,7 +327,7 @@ Here you can find the necessary changes in order to read the RFID chip present i
 
 
 === "Android"
-
+    TODO
 === "iOS"
    
     ### Permissions
@@ -351,38 +351,14 @@ Here you can find the necessary changes in order to read the RFID chip present i
         <string>A0000002480300</string>
         <string>A00000045645444C2D3031</string>
     </array>
-    ```
-    ### Open RFID Reader
-    After the document processing is completed and an access key is obtained, you can start the RFID chip processing.
-    To open the RFID chip reading controller and start its processing, use the following method:
-    ``` swift
-    DocReader.shared.startRFIDReader(fromPresenter: self, completion: { (action, results, error) in
-        switch action {
-        case .complete:
-            print("Completed")
-        case .cancel:
-            print("Cancelled by user")
-        case .error:
-            print("Error: \(error)")
-        default:
-            break;
-        }
-    })
-    ```     
-    ### Stop RFID Reader
-    To stop the RFID chip reading controller programmatically, use the method bellow.
-    ``` swift
-    DocReader.shared.stopRFIDReader(errorMessage: "Custom error message") {
-        print("Stopped")
-    }
-    ```
+
 
 ## Camera Permissions
 
 In order for the SDK to use the camera, the user must grant permission to do so. To configure access alerts, follow the steps bellow.
 
 === "Android"
-        
+    TODO
 === "iOS"
     In the app's **Info.plist** file, include **NSCameraUsageDescription**.
     After including **NSCameraUsageDescription** in your **Info.plist** file, provide a message that explains the user why your app needs to capture media.

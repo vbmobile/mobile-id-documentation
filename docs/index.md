@@ -319,7 +319,73 @@ pinning for every network request made by the SDK.
             .build()
     ```
     
-### Custom Styles
+## RFID Chip Processing
+
+Here you can find the necessary changes in order to read the RFID chip present in some documents:
+
+
+=== "Android"
+
+=== "iOS"
+   
+    ### Permissions
+    Add Near Field Communication Tag Reading under the Capabilities tab for the project’s target:
+    ![Permissions](Assets/DR_RFID_Permissions.PNG "Permissions"){: style="display: block; margin: 5px auto"}
+    Add the NFCReaderUsageDescription permission to your Info.plist file as its needed to access the NFC hardware:
+    ``` html
+    <key>NFCReaderUsageDescription</key>
+    <string>NFC tag to read NDEF messages</string>
+    ```
+    Declare com.apple.developer.nfc.readersession.iso7816.select-identifiers a list of application identifiers that the app
+    must be able to read according to ISO7816:
+    ``` html
+    <key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
+    <array>
+        <string>A0000002471001</string>
+        <string>E80704007F00070302</string>
+        <string>A000000167455349474E</string>
+        <string>A0000002480100</string>
+        <string>A0000002480200</string>
+        <string>A0000002480300</string>
+        <string>A00000045645444C2D3031</string>
+    </array>
+    ```
+    ### Open RFID Reader
+    After the document processing is completed and an access key is obtained, you can start the RFID chip processing.
+    To open the RFID chip reading controller and start its processing, use the following method:
+    ``` swift
+    DocReader.shared.startRFIDReader(fromPresenter: self, completion: { (action, results, error) in
+        switch action {
+        case .complete:
+            print("Completed")
+        case .cancel:
+            print("Cancelled by user")
+        case .error:
+            print("Error: \(error)")
+        default:
+            break;
+        }
+    })
+    ```     
+    ### Stop RFID Reader
+    To stop the RFID chip reading controller programmatically, use the method bellow.
+    ``` swift
+    DocReader.shared.stopRFIDReader(errorMessage: "Custom error message") {
+        print("Stopped")
+    }
+    ```
+
+## Camera Permissions
+
+In order for the SDK to use the camera, the user must grant permission to do so. To configure access alerts, follow the steps bellow.
+
+=== "Android"
+        
+=== "iOS"
+    In the app's **Info.plist** file, include **NSCameraUsageDescription**.
+    After including **NSCameraUsageDescription** in your **Info.plist** file, provide a message that explains the user why your app needs to capture media.
+    ![Permissions](Assets/Camera_Permissions.png "Permissions"){: style="display: block; margin: 5px auto"}
+## Custom Styles
 
 === "Android"
     You can apply your app’s own colors and fonts to all the provided SDK layout solutions, which means that the SDK views can adapt to your app’s design. It brings control and allows the maintenance of consistency in terms of brand communication when using the SDK custom views for data presentation. The fonts we are using in the SDK are named enrolment_sdk_medium and enrolment_sdk_regular. If you use fonts with the same name in your app, they will be used, otherwise the SDK will use its own. We do not advise to override strings. Our strings’ names in strings.xml end in _sdk_enrolment precisely to prevent any unexpected behaviors. While strings can still be overridden by client apps like in the previous versions, now the default string values can be defined through the Azure localisations files, as the SDK is prepared to be configured with those defined values. Mobile ID SDK will load all supported translation files associated with your API key, and its UI solutions will automatically adapt to the device’s language in use, if it is one of the supported languages that was loaded. Otherwise, the default English language will be used. Please contact vision-box® if you wish to support a new language or update the text values used in the SDK UI solutions. Please note also that overriding styles will most certainly break our layout solutions. SDK styles’ names all begin with Theme.Sdk.Enrolment. The only exceptions for this are button labels, as we prevent the default allCaps for Android and follow best practices of using capitalized strings with our button labels by specifying that in the defined strings. If you need to change this behavior for any reason, you need to override the strings yourself:

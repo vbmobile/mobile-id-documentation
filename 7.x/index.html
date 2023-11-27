@@ -443,6 +443,39 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#rfid-chip-processing" class="md-nav__link">
+        RFID Chip Processing
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#camera-permissions" class="md-nav__link">
+        Camera Permissions
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#custom-styles" class="md-nav__link">
+        Custom Styles
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#dependencies" class="md-nav__link">
         Dependencies
     </a>
@@ -1930,6 +1963,39 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#rfid-chip-processing" class="md-nav__link">
+        RFID Chip Processing
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#camera-permissions" class="md-nav__link">
+        Camera Permissions
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#custom-styles" class="md-nav__link">
+        Custom Styles
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#dependencies" class="md-nav__link">
         Dependencies
     </a>
@@ -2272,8 +2338,60 @@ Check <a href="https://developer.android.com/studio/build/shrink-code#keep-code"
 </div>
 </div>
 </div>
-<h3 id="custom-styles">Custom Styles<a class="headerlink" href="#custom-styles" title="Permanent link">&para;</a></h3>
+<h2 id="rfid-chip-processing">RFID Chip Processing<a class="headerlink" href="#rfid-chip-processing" title="Permanent link">&para;</a></h2>
 <div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">Android</label><label for="__tabbed_9_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>In order to use the RFID feature, the user must give the NFC permission in runtime, otherwise it won't work. 
+We already handle the permission check and added to the manifest the following:
+<uses-permission android:name="android.permission.NFC" />
+So when using the RFID feature, the user will be prompted to concede the permission if it hadn't already.</p>
+</div>
+<div class="tabbed-block">
+<p>Here you can find the necessary changes in order to read the RFID chip present in some documents:</p>
+<h3 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h3>
+<p>Add Near Field Communication Tag Reading under the Capabilities tab for the project’s target:
+<img alt="Permissions" src="Assets/DR_RFID_Permissions.PNG" style="display: block; margin: 5px auto" title="Permissions" />
+Add the NFCReaderUsageDescription permission to your Info.plist file as its needed to access the NFC hardware:
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">key</span><span class="p">&gt;</span>NFCReaderUsageDescription<span class="p">&lt;/</span><span class="nt">key</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>NFC tag to read NDEF messages<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+</code></pre></div>
+Declare com.apple.developer.nfc.readersession.iso7816.select-identifiers a list of application identifiers that the app
+must be able to read according to ISO7816:
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">key</span><span class="p">&gt;</span>com.apple.developer.nfc.readersession.iso7816.select-identifiers<span class="p">&lt;/</span><span class="nt">key</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">array</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>A0000002471001<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>E80704007F00070302<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>A000000167455349474E<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>A0000002480100<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>A0000002480200<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>A0000002480300<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>A00000045645444C2D3031<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">array</span><span class="p">&gt;</span>
+</code></pre></div></p>
+</div>
+</div>
+</div>
+<h2 id="camera-permissions">Camera Permissions<a class="headerlink" href="#camera-permissions" title="Permanent link">&para;</a></h2>
+<p>In order for the SDK to use the camera, the user must grant permission to do so.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Android</label><label for="__tabbed_10_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>In order to use the camera related features, the user must give the camera permission in runtime, otherwise it won't work. 
+We already handle the permission check and added to the manifest the following:
+<uses-permission android:name="android.permission.CAMERA" />
+So when using any feature that needs the camera, the user will be prompted to concede the permission if it hadn't already.</p>
+</div>
+<div class="tabbed-block">
+<p>To configure access alerts, follow the steps bellow.</p>
+<p>In the app's <strong>Info.plist</strong> file, include <strong>NSCameraUsageDescription</strong>.
+After including <strong>NSCameraUsageDescription</strong> in your <strong>Info.plist</strong> file, provide a message that explains the user why your app needs to capture media.
+<img alt="Permissions" src="Assets/Camera_Permissions.png" style="display: block; margin: 5px auto" title="Permissions" /></p>
+</div>
+</div>
+</div>
+<h2 id="custom-styles">Custom Styles<a class="headerlink" href="#custom-styles" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Android</label><label for="__tabbed_11_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>You can apply your app’s own colors and fonts to all the provided SDK layout solutions, which means that the SDK views can adapt to your app’s design. 
@@ -2462,7 +2580,7 @@ It brings control and allows the maintenance of consistency in terms of brand co
 </div>
 </div>
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Android</label><label for="__tabbed_10_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">Android</label><label for="__tabbed_12_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <ul>

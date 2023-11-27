@@ -323,13 +323,17 @@ pinning for every network request made by the SDK.
     
 ## RFID Chip Processing
 
-Here you can find the necessary changes in order to read the RFID chip present in some documents:
-
-
 === "Android"
-    TODO
+
+    In order to use the RFID feature, the user must give the NFC permission in runtime, otherwise it won't work. 
+    We already handle the permission check and added to the manifest the following:
+    <uses-permission android:name="android.permission.NFC" />
+    So when using the RFID feature, the user will be prompted to concede the permission if it hadn't already.
+
 === "iOS"
-   
+
+    Here you can find the necessary changes in order to read the RFID chip present in some documents:
+
     ### Permissions
     Add Near Field Communication Tag Reading under the Capabilities tab for the project’s target:
     ![Permissions](Assets/DR_RFID_Permissions.PNG "Permissions"){: style="display: block; margin: 5px auto"}
@@ -351,18 +355,26 @@ Here you can find the necessary changes in order to read the RFID chip present i
         <string>A0000002480300</string>
         <string>A00000045645444C2D3031</string>
     </array>
-
+    ```
 
 ## Camera Permissions
-
-In order for the SDK to use the camera, the user must grant permission to do so. To configure access alerts, follow the steps bellow.
+In order for the SDK to use the camera, the user must grant permission to do so.
 
 === "Android"
-    TODO
+
+    In order to use the camera related features, the user must give the camera permission in runtime, otherwise it won't work. 
+    We already handle the permission check and added to the manifest the following:
+    <uses-permission android:name="android.permission.CAMERA" />
+    So when using any feature that needs the camera, the user will be prompted to concede the permission if it hadn't already.
+
 === "iOS"
+
+    To configure access alerts, follow the steps bellow.
+
     In the app's **Info.plist** file, include **NSCameraUsageDescription**.
     After including **NSCameraUsageDescription** in your **Info.plist** file, provide a message that explains the user why your app needs to capture media.
     ![Permissions](Assets/Camera_Permissions.png "Permissions"){: style="display: block; margin: 5px auto"}
+
 ## Custom Styles
 
 === "Android"

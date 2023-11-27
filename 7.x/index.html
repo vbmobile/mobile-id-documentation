@@ -2351,7 +2351,7 @@ So when using the RFID feature, the user will be prompted to concede the permiss
 <p>Here you can find the necessary changes in order to read the RFID chip present in some documents:</p>
 <h3 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h3>
 <p>Add Near Field Communication Tag Reading under the Capabilities tab for the project’s target:
-<img alt="Permissions" src="Assets/DR_RFID_Permissions.PNG" style="display: block; margin: 5px auto" title="Permissions" />
+<img alt="Permissions" src="images/DR_RFID_Permissions.PNG" style="display: block; margin: 5px auto" title="Permissions" />
 Add the NFCReaderUsageDescription permission to your Info.plist file as its needed to access the NFC hardware:
 <div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">key</span><span class="p">&gt;</span>NFCReaderUsageDescription<span class="p">&lt;/</span><span class="nt">key</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>NFC tag to read NDEF messages<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
@@ -2386,7 +2386,7 @@ So when using any feature that needs the camera, the user will be prompted to co
 <p>To configure access alerts, follow the steps bellow.</p>
 <p>In the app's <strong>Info.plist</strong> file, include <strong>NSCameraUsageDescription</strong>.
 After including <strong>NSCameraUsageDescription</strong> in your <strong>Info.plist</strong> file, provide a message that explains the user why your app needs to capture media.
-<img alt="Permissions" src="Assets/Camera_Permissions.png" style="display: block; margin: 5px auto" title="Permissions" /></p>
+<img alt="Permissions" src="images/Camera_Permissions.png" style="display: block; margin: 5px auto" title="Permissions" /></p>
 </div>
 </div>
 </div>

@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="assets/vb-favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.7">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.5">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.4b4a2bd9.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6a10b989.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.356b1318.min.css">
@@ -434,6 +434,39 @@ You're not viewing the latest version.
 <li class="md-nav__item">
     <a href="#advanced-configurations" class="md-nav__link">
         Advanced Configurations
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#rfid-chip-processing" class="md-nav__link">
+        RFID Chip Processing
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#camera-permissions" class="md-nav__link">
+        Camera Permissions
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#custom-styles" class="md-nav__link">
+        Custom Styles
     </a>
 
     <!-- Table of contents list -->
@@ -1826,6 +1859,39 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#rfid-chip-processing" class="md-nav__link">
+        RFID Chip Processing
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#camera-permissions" class="md-nav__link">
+        Camera Permissions
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#custom-styles" class="md-nav__link">
+        Custom Styles
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#dependencies" class="md-nav__link">
         Dependencies
     </a>
@@ -2167,8 +2233,60 @@ Check <a href="https://developer.android.com/studio/build/shrink-code#keep-code"
 </div>
 </div>
 </div>
-<h3 id="custom-styles">Custom Styles</h3>
+<h2 id="rfid-chip-processing">RFID Chip Processing</h2>
 <div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">Android</label><label for="__tabbed_9_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>In order to use the RFID feature, the user must give the NFC permission in runtime, otherwise it won't work. 
+We already handle the permission check and added to the manifest the following:
+<uses-permission android:name="android.permission.NFC" />
+So when using the RFID feature, the user will be prompted to concede the permission if it hadn't already.</p>
+</div>
+<div class="tabbed-block">
+<p>Here you can find the necessary changes in order to read the RFID chip present in some documents:</p>
+<h3 id="permissions">Permissions</h3>
+<p>Add Near Field Communication Tag Reading under the Capabilities tab for the project’s target:
+<img alt="Permissions" src="Assets/DR_RFID_Permissions.PNG" style="display: block; margin: 5px auto" title="Permissions" />
+Add the NFCReaderUsageDescription permission to your Info.plist file as its needed to access the NFC hardware:
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">key</span><span class="p">&gt;</span>NFCReaderUsageDescription<span class="p">&lt;/</span><span class="nt">key</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>NFC tag to read NDEF messages<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+</code></pre></div>
+Declare com.apple.developer.nfc.readersession.iso7816.select-identifiers a list of application identifiers that the app
+must be able to read according to ISO7816:
+``` html
+<key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
+<array>
+    <string>A0000002471001</string>
+    <string>E80704007F00070302</string>
+    <string>A000000167455349474E</string>
+    <string>A0000002480100</string>
+    <string>A0000002480200</string>
+    <string>A0000002480300</string>
+    <string>A00000045645444C2D3031</string>
+</array></p>
+</div>
+</div>
+</div>
+<h2 id="camera-permissions">Camera Permissions</h2>
+<p>In order for the SDK to use the camera, the user must grant permission to do so.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Android</label><label for="__tabbed_10_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>In order to use the camera related features, the user must give the camera permission in runtime, otherwise it won't work. 
+We already handle the permission check and added to the manifest the following:
+<uses-permission android:name="android.permission.CAMERA" />
+So when using any feature that needs the camera, the user will be prompted to concede the permission if it hadn't already.</p>
+</div>
+<div class="tabbed-block">
+<p>To configure access alerts, follow the steps bellow.
+In the app's <strong>Info.plist</strong> file, include <strong>NSCameraUsageDescription</strong>.
+After including <strong>NSCameraUsageDescription</strong> in your <strong>Info.plist</strong> file, provide a message that explains the user why your app needs to capture media.
+<img alt="Permissions" src="Assets/Camera_Permissions.png" style="display: block; margin: 5px auto" title="Permissions" /></p>
+</div>
+</div>
+</div>
+<h2 id="custom-styles">Custom Styles</h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Android</label><label for="__tabbed_11_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>You can apply your app’s own colors and fonts to all the provided SDK layout solutions, which means that the SDK views can adapt to your app’s design. It brings control and allows the maintenance of consistency in terms of brand communication when using the SDK custom views for data presentation. The fonts we are using in the SDK are named enrolment_sdk_medium and enrolment_sdk_regular. If you use fonts with the same name in your app, they will be used, otherwise the SDK will use its own. We do not advise to override strings. Our strings’ names in strings.xml end in _sdk_enrolment precisely to prevent any unexpected behaviors. While strings can still be overridden by client apps like in the previous versions, now the default string values can be defined through the Azure localisations files, as the SDK is prepared to be configured with those defined values. Mobile ID SDK will load all supported translation files associated with your API key, and its UI solutions will automatically adapt to the device’s language in use, if it is one of the supported languages that was loaded. Otherwise, the default English language will be used. Please contact vision-box® if you wish to support a new language or update the text values used in the SDK UI solutions. Please note also that overriding styles will most certainly break our layout solutions. SDK styles’ names all begin with Theme.Sdk.Enrolment. The only exceptions for this are button labels, as we prevent the default allCaps for Android and follow best practices of using capitalized strings with our button labels by specifying that in the defined strings. If you need to change this behavior for any reason, you need to override the strings yourself:</p>
@@ -2181,310 +2299,310 @@ Check <a href="https://developer.android.com/studio/build/shrink-code#keep-code"
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Name</th>
-<th style="text-align: left;">Screen</th>
+<th align="left">Name</th>
+<th align="left">Screen</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">colorDocumentReadMRZBgSdkEnrolment</td>
-<td style="text-align: left;">Document Reader: MRZ</td>
+<td align="left">colorDocumentReadMRZBgSdkEnrolment</td>
+<td align="left">Document Reader: MRZ</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentReadRFIDBgSdkEnrolment</td>
-<td style="text-align: left;">Document Reader: RFID</td>
+<td align="left">colorDocumentReadRFIDBgSdkEnrolment</td>
+<td align="left">Document Reader: RFID</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentReadRFIDTxtSdkEnrolment</td>
-<td style="text-align: left;">Document Reader: RFID</td>
+<td align="left">colorDocumentReadRFIDTxtSdkEnrolment</td>
+<td align="left">Document Reader: RFID</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentReadRFIDSubtitleTxtSdkEnrolment</td>
-<td style="text-align: left;">Document Reader: RFID</td>
+<td align="left">colorDocumentReadRFIDSubtitleTxtSdkEnrolment</td>
+<td align="left">Document Reader: RFID</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentReadProcessingSkipTextSdkEnrolment</td>
-<td style="text-align: left;">Document Reader: RFID</td>
+<td align="left">colorDocumentReadProcessingSkipTextSdkEnrolment</td>
+<td align="left">Document Reader: RFID</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentReadProcessingBgSdkEnrolment</td>
-<td style="text-align: left;">Document Reader: Processing</td>
+<td align="left">colorDocumentReadProcessingBgSdkEnrolment</td>
+<td align="left">Document Reader: Processing</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentReadProcessingTxtSdkEnrolment</td>
-<td style="text-align: left;">Document Reader: Processing</td>
+<td align="left">colorDocumentReadProcessingTxtSdkEnrolment</td>
+<td align="left">Document Reader: Processing</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentReadProcessingSubtitleTxtSdkEnrolment</td>
-<td style="text-align: left;">Document Reader: Processing</td>
+<td align="left">colorDocumentReadProcessingSubtitleTxtSdkEnrolment</td>
+<td align="left">Document Reader: Processing</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentReadProcessingAnimationSdkEnrolment</td>
-<td style="text-align: left;">Document Reader: Processing</td>
+<td align="left">colorDocumentReadProcessingAnimationSdkEnrolment</td>
+<td align="left">Document Reader: Processing</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataBgSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview</td>
+<td align="left">colorDocumentDataBgSdkEnrolment</td>
+<td align="left">Document Reader Preview</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataHeaderTxtSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview</td>
+<td align="left">colorDocumentDataHeaderTxtSdkEnrolment</td>
+<td align="left">Document Reader Preview</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataHeaderSubtitleTxtSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview</td>
+<td align="left">colorDocumentDataHeaderSubtitleTxtSdkEnrolment</td>
+<td align="left">Document Reader Preview</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataToolbarBgSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview (Toolbar)</td>
+<td align="left">colorDocumentDataToolbarBgSdkEnrolment</td>
+<td align="left">Document Reader Preview (Toolbar)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataToolbarTxtSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview (Toolbar)</td>
+<td align="left">colorDocumentDataToolbarTxtSdkEnrolment</td>
+<td align="left">Document Reader Preview (Toolbar)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataContinueButtonTxtSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview (Button)</td>
+<td align="left">colorDocumentDataContinueButtonTxtSdkEnrolment</td>
+<td align="left">Document Reader Preview (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataContinueButtonBgSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview (Button)</td>
+<td align="left">colorDocumentDataContinueButtonBgSdkEnrolment</td>
+<td align="left">Document Reader Preview (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataContinueButtonStrokeSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview (Button)</td>
+<td align="left">colorDocumentDataContinueButtonStrokeSdkEnrolment</td>
+<td align="left">Document Reader Preview (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataRetryButtonTxtSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview (Button)</td>
+<td align="left">colorDocumentDataRetryButtonTxtSdkEnrolment</td>
+<td align="left">Document Reader Preview (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataRetryButtonBgSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview (Button)</td>
+<td align="left">colorDocumentDataRetryButtonBgSdkEnrolment</td>
+<td align="left">Document Reader Preview (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataRetryButtonStrokeSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview (Button)</td>
+<td align="left">colorDocumentDataRetryButtonStrokeSdkEnrolment</td>
+<td align="left">Document Reader Preview (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataArrowUpSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview (Arrow)</td>
+<td align="left">colorDocumentDataArrowUpSdkEnrolment</td>
+<td align="left">Document Reader Preview (Arrow)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataFormHeaderTxtSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview (Details)</td>
+<td align="left">colorDocumentDataFormHeaderTxtSdkEnrolment</td>
+<td align="left">Document Reader Preview (Details)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataFormHeaderSeparatorSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview (Details)</td>
+<td align="left">colorDocumentDataFormHeaderSeparatorSdkEnrolment</td>
+<td align="left">Document Reader Preview (Details)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataFormFieldHeaderTxtSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview (Details)</td>
+<td align="left">colorDocumentDataFormFieldHeaderTxtSdkEnrolment</td>
+<td align="left">Document Reader Preview (Details)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataFormFieldTxtSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview (Details)</td>
+<td align="left">colorDocumentDataFormFieldTxtSdkEnrolment</td>
+<td align="left">Document Reader Preview (Details)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataFormFieldErrorTxtSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview (Details)</td>
+<td align="left">colorDocumentDataFormFieldErrorTxtSdkEnrolment</td>
+<td align="left">Document Reader Preview (Details)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataFormSeparatorSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview (Details)</td>
+<td align="left">colorDocumentDataFormSeparatorSdkEnrolment</td>
+<td align="left">Document Reader Preview (Details)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDocumentDataDetailsBgSdkEnrolment</td>
-<td style="text-align: left;">Document Reader Preview (Details)</td>
+<td align="left">colorDocumentDataDetailsBgSdkEnrolment</td>
+<td align="left">Document Reader Preview (Details)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorBarcodeScanBgSdkEnrolment</td>
-<td style="text-align: left;">Boarding Pass Scan</td>
+<td align="left">colorBarcodeScanBgSdkEnrolment</td>
+<td align="left">Boarding Pass Scan</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorBoardingPassBgSdkEnrolment</td>
-<td style="text-align: left;">Boarding Pass Preview</td>
+<td align="left">colorBoardingPassBgSdkEnrolment</td>
+<td align="left">Boarding Pass Preview</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorBoardingPassToolbarBgSdkEnrolment</td>
-<td style="text-align: left;">Boarding Pass Preview</td>
+<td align="left">colorBoardingPassToolbarBgSdkEnrolment</td>
+<td align="left">Boarding Pass Preview</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorBoardingPassToolbarTxtSdkEnrolment</td>
-<td style="text-align: left;">Boarding Pass Preview</td>
+<td align="left">colorBoardingPassToolbarTxtSdkEnrolment</td>
+<td align="left">Boarding Pass Preview</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorBoardingPassContinueButtonTxtSdkEnrolment</td>
-<td style="text-align: left;">Boarding Pass Preview (Button)</td>
+<td align="left">colorBoardingPassContinueButtonTxtSdkEnrolment</td>
+<td align="left">Boarding Pass Preview (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorBoardingPassContinueButtonBgSdkEnrolment</td>
-<td style="text-align: left;">Boarding Pass Preview (Button)</td>
+<td align="left">colorBoardingPassContinueButtonBgSdkEnrolment</td>
+<td align="left">Boarding Pass Preview (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorBoardingPassContinueButtonStrokeSdkEnrolment</td>
-<td style="text-align: left;">Boarding Pass Preview (Button)</td>
+<td align="left">colorBoardingPassContinueButtonStrokeSdkEnrolment</td>
+<td align="left">Boarding Pass Preview (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorBoardingPassRetryButtonTxtSdkEnrolment</td>
-<td style="text-align: left;">Boarding Pass Preview (Button)</td>
+<td align="left">colorBoardingPassRetryButtonTxtSdkEnrolment</td>
+<td align="left">Boarding Pass Preview (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorBoardingPassRetryButtonBgSdkEnrolment</td>
-<td style="text-align: left;">Boarding Pass Preview (Button)</td>
+<td align="left">colorBoardingPassRetryButtonBgSdkEnrolment</td>
+<td align="left">Boarding Pass Preview (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorBoardingPassRetryButtonStrokeSdkEnrolment</td>
-<td style="text-align: left;">Boarding Pass Preview (Button)</td>
+<td align="left">colorBoardingPassRetryButtonStrokeSdkEnrolment</td>
+<td align="left">Boarding Pass Preview (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorBiometricFaceCaptureBgSdkEnrolment</td>
-<td style="text-align: left;">Face Capture Background</td>
+<td align="left">colorBiometricFaceCaptureBgSdkEnrolment</td>
+<td align="left">Face Capture Background</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorFaceCaptureBgSdkEnrolment</td>
-<td style="text-align: left;">Face Capture</td>
+<td align="left">colorFaceCaptureBgSdkEnrolment</td>
+<td align="left">Face Capture</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorFaceCaptureTxtSdkEnrolment</td>
-<td style="text-align: left;">Face Capture</td>
+<td align="left">colorFaceCaptureTxtSdkEnrolment</td>
+<td align="left">Face Capture</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorFaceCaptureSubtitleTxtSdkEnrolment</td>
-<td style="text-align: left;">Face Capture</td>
+<td align="left">colorFaceCaptureSubtitleTxtSdkEnrolment</td>
+<td align="left">Face Capture</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorFaceCaptureButtonStrokeSdkEnrolment</td>
-<td style="text-align: left;">Face Capture (Button)</td>
+<td align="left">colorFaceCaptureButtonStrokeSdkEnrolment</td>
+<td align="left">Face Capture (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorFaceCaptureButtonBgSdkEnrolment</td>
-<td style="text-align: left;">Face Capture (Button)</td>
+<td align="left">colorFaceCaptureButtonBgSdkEnrolment</td>
+<td align="left">Face Capture (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorFaceCaptureProcessingBgSdkEnrolment</td>
-<td style="text-align: left;">Face Capture: Processing</td>
+<td align="left">colorFaceCaptureProcessingBgSdkEnrolment</td>
+<td align="left">Face Capture: Processing</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorFaceCaptureProcessingTxtSdkEnrolment</td>
-<td style="text-align: left;">Face Capture: Processing</td>
+<td align="left">colorFaceCaptureProcessingTxtSdkEnrolment</td>
+<td align="left">Face Capture: Processing</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorFaceCaptureProcessingSubtitleTxtSdkEnrolment</td>
-<td style="text-align: left;">Face Capture: Processing</td>
+<td align="left">colorFaceCaptureProcessingSubtitleTxtSdkEnrolment</td>
+<td align="left">Face Capture: Processing</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorFaceCaptureProcessingAnimationSdkEnrolment</td>
-<td style="text-align: left;">Face Capture: Processing</td>
+<td align="left">colorFaceCaptureProcessingAnimationSdkEnrolment</td>
+<td align="left">Face Capture: Processing</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDisplayPhotoBgSdkEnrolment</td>
-<td style="text-align: left;">Face Capture Preview</td>
+<td align="left">colorDisplayPhotoBgSdkEnrolment</td>
+<td align="left">Face Capture Preview</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDisplayPhotoContinueButtonTxtSdkEnrolment</td>
-<td style="text-align: left;">Face Capture Preview (Button)</td>
+<td align="left">colorDisplayPhotoContinueButtonTxtSdkEnrolment</td>
+<td align="left">Face Capture Preview (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDisplayPhotoContinueButtonBgSdkEnrolment</td>
-<td style="text-align: left;">Face Capture Preview (Button)</td>
+<td align="left">colorDisplayPhotoContinueButtonBgSdkEnrolment</td>
+<td align="left">Face Capture Preview (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDisplayPhotoContinueButtonStrokeSdkEnrolment</td>
-<td style="text-align: left;">Face Capture Preview (Button)</td>
+<td align="left">colorDisplayPhotoContinueButtonStrokeSdkEnrolment</td>
+<td align="left">Face Capture Preview (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDisplayPhotoRetakeButtonTxtSdkEnrolment</td>
-<td style="text-align: left;">Face Capture Preview (Button)</td>
+<td align="left">colorDisplayPhotoRetakeButtonTxtSdkEnrolment</td>
+<td align="left">Face Capture Preview (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDisplayPhotoRetakeButtonBgSdkEnrolment</td>
-<td style="text-align: left;">Face Capture Preview (Button)</td>
+<td align="left">colorDisplayPhotoRetakeButtonBgSdkEnrolment</td>
+<td align="left">Face Capture Preview (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorDisplayPhotoRetakeButtonStrokeSdkEnrolment</td>
-<td style="text-align: left;">Face Capture Preview (Button)</td>
+<td align="left">colorDisplayPhotoRetakeButtonStrokeSdkEnrolment</td>
+<td align="left">Face Capture Preview (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorTermsConditionsBgSdkEnrolment</td>
-<td style="text-align: left;">Terms and Conditions</td>
+<td align="left">colorTermsConditionsBgSdkEnrolment</td>
+<td align="left">Terms and Conditions</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorTermsConditionsTxtSdkEnrolment</td>
-<td style="text-align: left;">Terms and Conditions</td>
+<td align="left">colorTermsConditionsTxtSdkEnrolment</td>
+<td align="left">Terms and Conditions</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorTermsConditionsAcceptButtonTxtSdkEnrolment</td>
-<td style="text-align: left;">Terms and Conditions (Button)</td>
+<td align="left">colorTermsConditionsAcceptButtonTxtSdkEnrolment</td>
+<td align="left">Terms and Conditions (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorTermsConditionsAcceptButtonBgSdkEnrolment</td>
-<td style="text-align: left;">Terms and Conditions (Button)</td>
+<td align="left">colorTermsConditionsAcceptButtonBgSdkEnrolment</td>
+<td align="left">Terms and Conditions (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorTermsConditionsAcceptButtonStrokeSdkEnrolment</td>
-<td style="text-align: left;">Terms and Conditions (Button)</td>
+<td align="left">colorTermsConditionsAcceptButtonStrokeSdkEnrolment</td>
+<td align="left">Terms and Conditions (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorTermsConditionsRefuseButtonTxtSdkEnrolment</td>
-<td style="text-align: left;">Terms and Conditions (Refuse button)</td>
+<td align="left">colorTermsConditionsRefuseButtonTxtSdkEnrolment</td>
+<td align="left">Terms and Conditions (Refuse button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorTermsConditionsRefuseButtonBgSdkEnrolment</td>
-<td style="text-align: left;">Terms and Conditions (Refuse button)</td>
+<td align="left">colorTermsConditionsRefuseButtonBgSdkEnrolment</td>
+<td align="left">Terms and Conditions (Refuse button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorTermsConditionsRefuseButtonStrokeSdkEnrolment</td>
-<td style="text-align: left;">Terms and Conditions (Refuse button)</td>
+<td align="left">colorTermsConditionsRefuseButtonStrokeSdkEnrolment</td>
+<td align="left">Terms and Conditions (Refuse button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorOverlayFeedbackBgSdkEnrolment</td>
-<td style="text-align: left;">Feedback Overlay</td>
+<td align="left">colorOverlayFeedbackBgSdkEnrolment</td>
+<td align="left">Feedback Overlay</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorOverlayFeedbackTxtSdkEnrolment</td>
-<td style="text-align: left;">Feedback Overlay</td>
+<td align="left">colorOverlayFeedbackTxtSdkEnrolment</td>
+<td align="left">Feedback Overlay</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorOverlayFeedbackSubtitleTxtSdkEnrolment</td>
-<td style="text-align: left;">Feedback Overlay</td>
+<td align="left">colorOverlayFeedbackSubtitleTxtSdkEnrolment</td>
+<td align="left">Feedback Overlay</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorOverlayFeedbackPrimaryButtonTxtSdkEnrolment</td>
-<td style="text-align: left;">Feedback Overlay (Button)</td>
+<td align="left">colorOverlayFeedbackPrimaryButtonTxtSdkEnrolment</td>
+<td align="left">Feedback Overlay (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorOverlayFeedbackPrimaryButtonBgSdkEnrolment</td>
-<td style="text-align: left;">Feedback Overlay (Button)</td>
+<td align="left">colorOverlayFeedbackPrimaryButtonBgSdkEnrolment</td>
+<td align="left">Feedback Overlay (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorOverlayFeedbackPrimaryButtonStrokeSdkEnrolment</td>
-<td style="text-align: left;">Feedback Overlay (Button stroke)</td>
+<td align="left">colorOverlayFeedbackPrimaryButtonStrokeSdkEnrolment</td>
+<td align="left">Feedback Overlay (Button stroke)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorOverlayFeedbackSecondaryButtonTxtSdkEnrolment</td>
-<td style="text-align: left;">Feedback Overlay (Button)</td>
+<td align="left">colorOverlayFeedbackSecondaryButtonTxtSdkEnrolment</td>
+<td align="left">Feedback Overlay (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorOverlayFeedbackSecondaryButtonBgSdkEnrolment</td>
-<td style="text-align: left;">Feedback Overlay (Button)</td>
+<td align="left">colorOverlayFeedbackSecondaryButtonBgSdkEnrolment</td>
+<td align="left">Feedback Overlay (Button)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorOverlayFeedbackSecondaryButtonStrokeSdkEnrolment</td>
-<td style="text-align: left;">Feedback Overlay (Button stroke)</td>
+<td align="left">colorOverlayFeedbackSecondaryButtonStrokeSdkEnrolment</td>
+<td align="left">Feedback Overlay (Button stroke)</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorAlertDialogTxtSdkEnrolment</td>
-<td style="text-align: left;">Alert Dialog</td>
+<td align="left">colorAlertDialogTxtSdkEnrolment</td>
+<td align="left">Alert Dialog</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorAlertDialogAccentSdkEnrolment</td>
-<td style="text-align: left;">Alert Dialog</td>
+<td align="left">colorAlertDialogAccentSdkEnrolment</td>
+<td align="left">Alert Dialog</td>
 </tr>
 <tr>
-<td style="text-align: left;">colorAlertDialogButtonTxtSdkEnrolment</td>
-<td style="text-align: left;">Alert Dialog</td>
+<td align="left">colorAlertDialogButtonTxtSdkEnrolment</td>
+<td align="left">Alert Dialog</td>
 </tr>
 </tbody>
 </table>
@@ -2669,7 +2787,7 @@ It brings control and allows the maintenance of consistency in terms of brand co
 </div>
 </div>
 <h2 id="dependencies">Dependencies</h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Android</label><label for="__tabbed_10_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">Android</label><label for="__tabbed_12_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <ul>
@@ -2727,74 +2845,74 @@ It brings control and allows the maintenance of consistency in terms of brand co
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Name</th>
-<th style="text-align: left;">Description</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">API (Application Program Interface)</td>
-<td style="text-align: left;">API Application Program InterfaceAn application program interface is a set of routines, protocols, and tools for building software applications. Basically, an API specifies how software components should interact.</td>
+<td align="left">API (Application Program Interface)</td>
+<td align="left">API Application Program InterfaceAn application program interface is a set of routines, protocols, and tools for building software applications. Basically, an API specifies how software components should interact.</td>
 </tr>
 <tr>
-<td style="text-align: left;">APIS (Advance Passenger Information System)</td>
-<td style="text-align: left;">APIS Advance Passenger Information SystemAn electronic data interchange system intended to enhance border security. An APIS collects and shares limited data on passengers and crew members, such as identification details from the passport and basic flight information. Passengers must provide this data before traveling to or from certain countries. Then the airlines or vessel operators share it with the computer system of the destination state.</td>
+<td align="left">APIS (Advance Passenger Information System)</td>
+<td align="left">APIS Advance Passenger Information SystemAn electronic data interchange system intended to enhance border security. An APIS collects and shares limited data on passengers and crew members, such as identification details from the passport and basic flight information. Passengers must provide this data before traveling to or from certain countries. Then the airlines or vessel operators share it with the computer system of the destination state.</td>
 </tr>
 <tr>
-<td style="text-align: left;">BCBP (Bar-Coded Boarding Pass)</td>
-<td style="text-align: left;">BCBP Bar-Coded Boarding PassA standard issued by the International Air Transport Association (IATA) that defines the format and content of electronic boarding passes. BCBP defines the two-dimensional (2D) barcode and the symbologies used for paper and mobile boarding passes. Airlines, airports, and other air industry stakeholders use barcode readers to capture the data from the electronic boarding passes to process the security check and boarding of travelers.</td>
+<td align="left">BCBP (Bar-Coded Boarding Pass)</td>
+<td align="left">BCBP Bar-Coded Boarding PassA standard issued by the International Air Transport Association (IATA) that defines the format and content of electronic boarding passes. BCBP defines the two-dimensional (2D) barcode and the symbologies used for paper and mobile boarding passes. Airlines, airports, and other air industry stakeholders use barcode readers to capture the data from the electronic boarding passes to process the security check and boarding of travelers.</td>
 </tr>
 <tr>
-<td style="text-align: left;">Certificate</td>
-<td style="text-align: left;">CertificateElectronic document establishing a digital identity by combining the identity name or identifier with the public key of the identity, a validity period, and an electronic signature by a third party.</td>
+<td align="left">Certificate</td>
+<td align="left">CertificateElectronic document establishing a digital identity by combining the identity name or identifier with the public key of the identity, a validity period, and an electronic signature by a third party.</td>
 </tr>
 <tr>
-<td style="text-align: left;">DK (Data Key)</td>
-<td style="text-align: left;">DK Data KeyA key used to protect an entity, where in this instance an entity is biographic data related to a TD, a BCBP, biometric data or other entity relating to a natural person.</td>
+<td align="left">DK (Data Key)</td>
+<td align="left">DK Data KeyA key used to protect an entity, where in this instance an entity is biographic data related to a TD, a BCBP, biometric data or other entity relating to a natural person.</td>
 </tr>
 <tr>
-<td style="text-align: left;">IATA (International Air Transport Association)</td>
-<td style="text-align: left;">IATA International Air Transport AssociationA trade association representing airlines worldwide. IATA supports many areas of aviation activity and formulates industry policies on critical aviation issues. IATA works with other international bodies, such as ICAO and WCO.</td>
+<td align="left">IATA (International Air Transport Association)</td>
+<td align="left">IATA International Air Transport AssociationA trade association representing airlines worldwide. IATA supports many areas of aviation activity and formulates industry policies on critical aviation issues. IATA works with other international bodies, such as ICAO and WCO.</td>
 </tr>
 <tr>
-<td style="text-align: left;">LED (Light Emitting Diode)</td>
-<td style="text-align: left;">LED Light Emitting DiodeA two-lead semiconductor light source. LEDs provide many advantages when used for environmental lighting, such as smaller volume, longer lifetime, and lower energy requirements.</td>
+<td align="left">LED (Light Emitting Diode)</td>
+<td align="left">LED Light Emitting DiodeA two-lead semiconductor light source. LEDs provide many advantages when used for environmental lighting, such as smaller volume, longer lifetime, and lower energy requirements.</td>
 </tr>
 <tr>
-<td style="text-align: left;">Liveness</td>
-<td style="text-align: left;">Liveness liveness Indication whether an acquired biometric sample comes from a genuine living passenger or not. The liveness detection is used to detect if a passenger is trying to spoof the system.</td>
+<td align="left">Liveness</td>
+<td align="left">Liveness liveness Indication whether an acquired biometric sample comes from a genuine living passenger or not. The liveness detection is used to detect if a passenger is trying to spoof the system.</td>
 </tr>
 <tr>
-<td style="text-align: left;">MRZ (Machine Readable Zone)</td>
-<td style="text-align: left;">MRZ Machine Readable ZoneThe area of the travel document containing data in an optical character recognition format that allows the information to be read automatically by a machine, such as a passport reader.</td>
+<td align="left">MRZ (Machine Readable Zone)</td>
+<td align="left">MRZ Machine Readable ZoneThe area of the travel document containing data in an optical character recognition format that allows the information to be read automatically by a machine, such as a passport reader.</td>
 </tr>
 <tr>
-<td style="text-align: left;">NFC (Near Field Communication)</td>
-<td style="text-align: left;">NFC Near Field CommunicationA method of wireless data transfer that evolved from Radio-Frequency Identification (RFID) technology. This method detects and enables two electronic devices near establish communication without the need for an internet connection. Devices with an NFC chip (for example, smartphones) can detect a chip from another device and transfer data when both devices are held within 4 cm (2 in.) from each other.</td>
+<td align="left">NFC (Near Field Communication)</td>
+<td align="left">NFC Near Field CommunicationA method of wireless data transfer that evolved from Radio-Frequency Identification (RFID) technology. This method detects and enables two electronic devices near establish communication without the need for an internet connection. Devices with an NFC chip (for example, smartphones) can detect a chip from another device and transfer data when both devices are held within 4 cm (2 in.) from each other.</td>
 </tr>
 <tr>
-<td style="text-align: left;">QR code (Quick Response Code)</td>
-<td style="text-align: left;">QR code Quick Response CodeA type of 2D barcode used to provide easy access to information through a smartphone. A QR code consists of black modules (square dots) arranged in a square grid on a white background, which can be read by an imaging device (such as a camera or scanner). The required data is extracted from the patterns that are present in both horizontal and vertical components of the image. The QR code system became widespread due to its fast readability and greater storage capacity compared to standard barcodes. It is commonly used in item identification, product tracking, time tracking, and document management.</td>
+<td align="left">QR code (Quick Response Code)</td>
+<td align="left">QR code Quick Response CodeA type of 2D barcode used to provide easy access to information through a smartphone. A QR code consists of black modules (square dots) arranged in a square grid on a white background, which can be read by an imaging device (such as a camera or scanner). The required data is extracted from the patterns that are present in both horizontal and vertical components of the image. The QR code system became widespread due to its fast readability and greater storage capacity compared to standard barcodes. It is commonly used in item identification, product tracking, time tracking, and document management.</td>
 </tr>
 <tr>
-<td style="text-align: left;">RFID (Radio-Frequency Identification)</td>
-<td style="text-align: left;">RFID Radio-Frequency IdentificationA technology of wireless communication that uses radio waves to automatically identify and track objects. The objects contain tags that store electronic information. An RFID system enables readers to retrieve data from identification documents, such as smart cards. RFID devices work within a vicinity of between a few centimeters to several meters (up to 20 feet) for high-frequency devices.</td>
+<td align="left">RFID (Radio-Frequency Identification)</td>
+<td align="left">RFID Radio-Frequency IdentificationA technology of wireless communication that uses radio waves to automatically identify and track objects. The objects contain tags that store electronic information. An RFID system enables readers to retrieve data from identification documents, such as smart cards. RFID devices work within a vicinity of between a few centimeters to several meters (up to 20 feet) for high-frequency devices.</td>
 </tr>
 <tr>
-<td style="text-align: left;">TD (Travel Document)</td>
-<td style="text-align: left;">TD Travel DocumentA passport or ID card in ICAO format authorised for border control.</td>
+<td align="left">TD (Travel Document)</td>
+<td align="left">TD Travel DocumentA passport or ID card in ICAO format authorised for border control.</td>
 </tr>
 <tr>
-<td style="text-align: left;">TLS/SSL</td>
-<td style="text-align: left;">TLS SSLTransport Layer Security (TLS) and its predecessor, Secure Sockets Layer (SSL), are cryptographic protocols designed to provide communications security over a computer network.</td>
+<td align="left">TLS/SSL</td>
+<td align="left">TLS SSLTransport Layer Security (TLS) and its predecessor, Secure Sockets Layer (SSL), are cryptographic protocols designed to provide communications security over a computer network.</td>
 </tr>
 <tr>
-<td style="text-align: left;">User</td>
-<td style="text-align: left;">UserA person that uses the equipment under the supervision of trained staff.</td>
+<td align="left">User</td>
+<td align="left">UserA person that uses the equipment under the supervision of trained staff.</td>
 </tr>
 <tr>
-<td style="text-align: left;">Workflow</td>
-<td style="text-align: left;">WorkflowOrchestrated and repeatable pattern of processes, running in the touchpoints, which represents the desired behaviour of the cluster.</td>
+<td align="left">Workflow</td>
+<td align="left">WorkflowOrchestrated and repeatable pattern of processes, running in the touchpoints, which represents the desired behaviour of the cluster.</td>
 </tr>
 </tbody>
 </table>

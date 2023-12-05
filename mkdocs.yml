@@ -34,7 +34,7 @@ nav:
         - How to handle errors: Features/Common/HandleErrors.md
     - Document reader:
         - Overview: Features/DocumentReader/DocumentReader_Index.md
-        - Regula database update methods: Features/DocumentReader/DocumentReader_DBUpdateMethods.md
+        - Regula database: Features/DocumentReader/DocumentReader_RegulaDB.md
         - Customization:
             - Loading view: Features/DocumentReader/DocumentReader_LoadingView.md
             - Scan view: Features/DocumentReader/DocumentReader_ScanView.md

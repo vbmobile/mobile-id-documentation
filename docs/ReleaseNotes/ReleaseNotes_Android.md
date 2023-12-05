@@ -1,4 +1,13 @@
 # MobileID SDK - Release Notes
+## 7.0.1
+
+### Improvements
+- Removed mandatory preview screen in face capture;
+- Fixed an issue with regula database listener;
+- Changed adding a subject without a boarding pass when it's mandatory error code to it's own error code;
+- Clean Regula resources upon document reader finished in order to reduce memory consumption;
+- Added a new parameter to **DocumentReaderConfig** called *checkHologram** to enable Regula's hologram scan, to prevent fraudulent documents.
+
 ## 7.0.0
 
 ### IMPORTANT

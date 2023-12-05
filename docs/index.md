@@ -327,7 +327,11 @@ pinning for every network request made by the SDK.
 
     In order to use the RFID feature, the user must give the NFC permission in runtime, otherwise it won't work. 
     We already handle the permission check and added to the manifest the following:
+
+    ``` xml
     <uses-permission android:name="android.permission.NFC" />
+    ```
+
     So when using the RFID feature, the user will be prompted to concede the permission if it hadn't already.
 
 === "iOS"
@@ -364,7 +368,11 @@ In order for the SDK to use the camera, the user must grant permission to do so.
 
     In order to use the camera related features, the user must give the camera permission in runtime, otherwise it won't work. 
     We already handle the permission check and added to the manifest the following:
+
+    ``` xml
     <uses-permission android:name="android.permission.CAMERA" />
+    ```
+
     So when using any feature that needs the camera, the user will be prompted to concede the permission if it hadn't already.
 
 === "iOS"

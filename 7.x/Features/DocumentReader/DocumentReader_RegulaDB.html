@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://vbmobile.github.io/mobile-id-documentation/7.x/Features/DocumentReader/DocumentReader_DBUpdateMethods.html">
+        <link rel="canonical" href="https://vbmobile.github.io/mobile-id-documentation/7.x/Features/DocumentReader/DocumentReader_RegulaDB.html">
       
       
         <link rel="prev" href="DocumentReader_Index.html">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Regula database update methods - MobileID SDK Documentation</title>
+        <title>Regula database - MobileID SDK Documentation</title>
       
     
     
@@ -83,7 +83,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#download-database" class="md-skip">
+        <a href="#database-download-methods" class="md-skip">
           Skip to content
         </a>
       
@@ -134,7 +134,7 @@ You're not viewing the latest version.
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Regula database update methods
+              Regula database
             
           </span>
         </div>
@@ -534,15 +534,67 @@ You're not viewing the latest version.
         
       
       
-      <a href="DocumentReader_DBUpdateMethods.html" class="md-nav__link md-nav__link--active">
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Regula database
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="DocumentReader_RegulaDB.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Regula database update methods
+    Regula database
   </span>
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#runtime-download" class="md-nav__link">
+        Runtime download
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#bundled-option" class="md-nav__link">
+        Bundled option
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1764,6 +1816,36 @@ You're not viewing the latest version.
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#runtime-download" class="md-nav__link">
+        Runtime download
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#bundled-option" class="md-nav__link">
+        Bundled option
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1780,9 +1862,10 @@ You're not viewing the latest version.
   
 
 
-<h1 id="download-database">Download database<a class="headerlink" href="#download-database" title="Permanent link">&para;</a></h1>
-<p>The document reader requires a document database templates. 
-This file is downloaded in runtime and since it's a large file can take sometime to finish, depending on the user internet.
+<h1 id="database-download-methods">Database download methods<a class="headerlink" href="#database-download-methods" title="Permanent link">&para;</a></h1>
+<p>The document reader requires a document database of templates.</p>
+<h2 id="runtime-download">Runtime download<a class="headerlink" href="#runtime-download" title="Permanent link">&para;</a></h2>
+<p>Usually this file is downloaded in runtime and since it's a large file can take sometime to finish, depending on the user internet.
 This download will happen in the first run and everytime the database is outdated. </p>
 <p>There are two ways to download this file:
 - By default, the download will happen in the beginning of the document reader
@@ -1826,6 +1909,28 @@ This download will happen in the first run and everytime the database is outdate
 </div>
 </div>
 </div>
+<h2 id="bundled-option">Bundled option<a class="headerlink" href="#bundled-option" title="Permanent link">&para;</a></h2>
+<p>It's also possible to pre-bundle the database into your own application in order to speed document reader init time.
+Keep in mind that the final apk size will increase significantly using this method.</p>
+<p>In order to bundle the database into your application you will need to:</p>
+<ol>
+<li>Go to the Client Portal.</li>
+<li>Sign up if you are not registered yet.</li>
+<li>Go to the Databases page and download the database provided there.</li>
+<li>Depending on your platform, complete the remaining step:</li>
+</ol>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Android</label><label for="__tabbed_3_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Add the downloaded database file to the app/src/main/assets/Regula folder of the project.</p>
+</div>
+<div class="tabbed-block">
+<p>Add the downloaded database file to the desired <a href="https://developer.apple.com/library/archive/featuredarticles/XcodeConcepts/Concept-Targets.html">project's target</a>.</p>
+</div>
+</div>
+</div>
+<p><strong>Everytime there's a new version available, Mobile ID SDK will still download the newest version and replace it, 
+so this method requires to manually update the source often in order to be effective.</strong></p>
 
 
 

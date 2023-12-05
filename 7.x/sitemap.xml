@@ -51,11 +51,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://vbmobile.github.io/mobile-id-documentation/7.x/Features/DocumentReader/DocumentReader_DBUpdateMethods.html</loc>
-         <lastmod>2023-12-05</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://vbmobile.github.io/mobile-id-documentation/7.x/Features/DocumentReader/DocumentReader_ErrorView.html</loc>
          <lastmod>2023-12-05</lastmod>
          <changefreq>daily</changefreq>
@@ -92,6 +87,11 @@
     </url>
     <url>
          <loc>https://vbmobile.github.io/mobile-id-documentation/7.x/Features/DocumentReader/DocumentReader_ReadChipView_iOS.html</loc>
+         <lastmod>2023-12-05</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://vbmobile.github.io/mobile-id-documentation/7.x/Features/DocumentReader/DocumentReader_RegulaDB.html</loc>
          <lastmod>2023-12-05</lastmod>
          <changefreq>daily</changefreq>
     </url>

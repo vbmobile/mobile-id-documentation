@@ -2238,9 +2238,10 @@ Check <a href="https://developer.android.com/studio/build/shrink-code#keep-code"
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>In order to use the RFID feature, the user must give the NFC permission in runtime, otherwise it won't work. 
-We already handle the permission check and added to the manifest the following:
-<uses-permission android:name="android.permission.NFC" />
-So when using the RFID feature, the user will be prompted to concede the permission if it hadn't already.</p>
+We already handle the permission check and added to the manifest the following:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;uses-permission</span><span class="w"> </span><span class="na">android:name=</span><span class="s">&quot;android.permission.NFC&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</code></pre></div>
+<p>So when using the RFID feature, the user will be prompted to concede the permission if it hadn't already.</p>
 </div>
 <div class="tabbed-block">
 <p>Here you can find the necessary changes in order to read the RFID chip present in some documents:</p>
@@ -2273,9 +2274,10 @@ must be able to read according to ISO7816:
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>In order to use the camera related features, the user must give the camera permission in runtime, otherwise it won't work. 
-We already handle the permission check and added to the manifest the following:
-<uses-permission android:name="android.permission.CAMERA" />
-So when using any feature that needs the camera, the user will be prompted to concede the permission if it hadn't already.</p>
+We already handle the permission check and added to the manifest the following:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;uses-permission</span><span class="w"> </span><span class="na">android:name=</span><span class="s">&quot;android.permission.CAMERA&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</code></pre></div>
+<p>So when using any feature that needs the camera, the user will be prompted to concede the permission if it hadn't already.</p>
 </div>
 <div class="tabbed-block">
 <p>To configure access alerts, follow the steps bellow.

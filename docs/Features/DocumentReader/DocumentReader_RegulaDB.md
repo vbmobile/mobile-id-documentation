@@ -57,10 +57,11 @@ Keep in mind that the final apk size will increase significantly using this meth
 
 In order to bundle the database into your application you will need to:
 
-1. Go to the Client Portal.
-2. Sign up if you are not registered yet.
-3. Go to the Databases page and download the database provided there.
-4. Depending on your platform, complete the remaining step:
+1. Download the appropriate [database](https://software.regulaforensics.com/mobile_sdk_db/<your_db>/db.json):
+    - change <your_db\> for the appropriate value (example: Full, Passports)
+    - check the compatible version (currently 6.1)
+    - use the 'url' link to download the database
+2. Depending on your platform, complete the remaining step:
 
 === "Android"
 

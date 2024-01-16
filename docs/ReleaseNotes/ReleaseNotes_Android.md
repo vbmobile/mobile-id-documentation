@@ -1,4 +1,9 @@
 # MobileID SDK - Release Notes
+## 7.0.2
+
+### Improvements
+- Fixed an issue with some boarding pass formats
+
 ## 7.0.1
 
 ### Improvements

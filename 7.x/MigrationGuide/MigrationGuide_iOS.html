@@ -1754,6 +1754,17 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#from-523-to-700" class="md-nav__link">
+        From 5.2.3 to 7.0.0
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#from-510-to-520" class="md-nav__link">
         From 5.1.0 to 5.2.0
     </a>
@@ -1829,6 +1840,17 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#from-523-to-700" class="md-nav__link">
+        From 5.2.3 to 7.0.0
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#from-510-to-520" class="md-nav__link">
         From 5.1.0 to 5.2.0
     </a>
@@ -1879,8 +1901,16 @@ You're not viewing the latest version.
 
 
 <h1 id="migration-guide">Migration Guide<a class="headerlink" href="#migration-guide" title="Permanent link">&para;</a></h1>
+<h2 id="from-523-to-700">From 5.2.3 to 7.0.0<a class="headerlink" href="#from-523-to-700" title="Permanent link">&para;</a></h2>
+<h3 id="required-changes">Required Changes<a class="headerlink" href="#required-changes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Remove the <code>get</code>, <code>update</code> and <code>delete</code> <code>Subject</code> operations. You should now save the <code>Subject</code> locally if you want to have a copy to check later. Updating a <code>Subject</code> is no longer supported as well so, you must create a new one if you want to for example, add a boarding pass;</li>
+<li>Handle errors by new field ErrorType instead of checking every possible errors;</li>
+<li>Filter through Biometrics by their source: Face, Chip or OCR;</li>
+<li>Rename enums to PascalCase, MALE is now Male, etc.</li>
+</ul>
 <h2 id="from-510-to-520">From 5.1.0 to 5.2.0<a class="headerlink" href="#from-510-to-520" title="Permanent link">&para;</a></h2>
-<h4 id="required-changes">Required Changes<a class="headerlink" href="#required-changes" title="Permanent link">&para;</a></h4>
+<h4 id="required-changes_1">Required Changes<a class="headerlink" href="#required-changes_1" title="Permanent link">&para;</a></h4>
 <ul>
 <li>If you are using a value of less than 10 seconds or greater than 60 for the scannerTimeout or rfidTimeout in  <strong>ReadDocumentParameters</strong> you need to change the value.</li>
 </ul>
@@ -1892,7 +1922,7 @@ You're not viewing the latest version.
 <li>Update remaining custom views with their new protocols.</li>
 </ul>
 <h2 id="from-500-to-510">From 5.0.0 to 5.1.0<a class="headerlink" href="#from-500-to-510" title="Permanent link">&para;</a></h2>
-<h4 id="required-changes_1">Required Changes<a class="headerlink" href="#required-changes_1" title="Permanent link">&para;</a></h4>
+<h4 id="required-changes_2">Required Changes<a class="headerlink" href="#required-changes_2" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Removed liveness status parameter from the <strong>BiometricFaceCaptureParameters</strong>.</li>
 </ul>
@@ -1909,7 +1939,7 @@ You're not viewing the latest version.
 <ul>
 <li>Run pod update &amp; install</li>
 </ul>
-<h4 id="required-changes_2">Required Changes<a class="headerlink" href="#required-changes_2" title="Permanent link">&para;</a></h4>
+<h4 id="required-changes_3">Required Changes<a class="headerlink" href="#required-changes_3" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Removed BoardingPassScanConfig. The Boarding Pass configuration is now on backend side;</li>
 <li>Removed Vision-Box parameters from the <strong>BiometricFaceCaptureParameters</strong>. These configurations are now on backoffice;</li>

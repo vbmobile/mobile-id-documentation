@@ -1,5 +1,28 @@
 # MobileID SDK - Release Notes
 
+## 7.0.1
+
+### Improvements
+- Fixed an issue with Boarding Pass Preview clickable rows 
+- Added a new parameter to **DocumentReaderConfig** called *checkHologram** to enable Regula's hologram scan, to prevent fraudulent documents.
+- Removed mandatory preview screen in face capture;
+- Changed adding a subject without a boarding pass when it's mandatory error code to it's own error code;
+- Fix id 215 and 224 to appear as IDCard in Document Reader 
+- Fix issues with oval drawing in Face Capture
+
+## 7.0.0
+
+### What's new
+- New subject service (now works asynchronously)
+  - Removed the `get`, `delete` and `update` subject signatures;
+  - Clients need to save the subject locally after adding.
+- Improve error handling
+- The boarding pass can be read from an image
+
+### Improvements
+- Fix issues with Loading Screen Animations
+- Add Camera permissons mensagens in Boarding Pass Scaner and Face Capture 
+
 ## 5.2.3
 ### Improvements
 

@@ -21,7 +21,7 @@
 
 ### Improvements
 - Fix issues with Loading Screen Animations
-- Add Camera permissons mensagens in Boarding Pass Scaner and Face Capture 
+- Add Camera permissions messages in Boarding Pass Scanner and Face Capture 
 
 ## 5.2.3
 ### Improvements

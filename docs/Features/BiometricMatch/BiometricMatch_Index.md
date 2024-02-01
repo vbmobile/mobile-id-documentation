@@ -20,7 +20,9 @@ is the BiometricMatchParameters structure:
         val candidate: Bitmap?,
         val reference: Bitmap?,
         val templateOption: TemplateOption = TemplateOption.NONE,
-        val showErrors: Boolean
+        val showErrors: Boolean,
+        val candidateHash: String?,
+        val referenceHash: String?
     )
     ```
 === "iOS"
@@ -62,7 +64,12 @@ TemplateOptions is an enumeration and it contains the following cases.
         case candidate = "Candidate"
     }
     ```
-You can expect either a MatchError response or a MatchReport response. To start the biometric matching, you must call the following method:
+
+The `candidateHash` and `referenceHash` are the hashes provided by either the `FaceCaptureReport` and/or the [DocumentReaderReport](../DocumentReader/DocumentReader_Index.html#document-reader-report) needed to verify data integrity.
+
+You can expect either a MatchError response or a MatchReport response. 
+
+To start the biometric matching, you must call the following method:
 
 === "Android"
 

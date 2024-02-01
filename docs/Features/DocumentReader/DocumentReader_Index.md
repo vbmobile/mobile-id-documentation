@@ -242,7 +242,9 @@ Here is how you can get the document reader report and handle the result for doc
         val documentData: DocumentData,
         val status: List<DocumentDataStatus>,
         val rfidStatus: RFIDStatus,
-        val documentType: DocumentType
+        val documentType: DocumentType,
+        val documentPhotoHash: String,
+        val documentDataHash: String,
     ) : Parcelable
     ```
     
@@ -255,6 +257,8 @@ Here is how you can get the document reader report and handle the result for doc
         public let documentStatuses: [DocumentDataStatus]
     }
     ```
+
+The `DocumentReaderReport` includes two hash fields that that are used to verify data integrity when building a [Subject](../SubjectManagement/SubjectManagement_Index.md).
 
 The DocumentData contains the document data. You can check the structure here:
 

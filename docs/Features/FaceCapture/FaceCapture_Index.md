@@ -210,6 +210,8 @@ The FaceCaptureReportError has the following structure:
     }
     ```
 
+The `FaceCaptureReportSuccess` includes a `biometricHash` attribute that needs to be included in the [Match](../BiometricMatch/BiometricMatch_Index.md) operation to verify data integrity. It also used when building a [Subject](../SubjectManagement/SubjectManagement_Index.md).
+
 The failed tests might include one or more of the following tests:
 
 | Name                         | Description                                                                                                                                                            |

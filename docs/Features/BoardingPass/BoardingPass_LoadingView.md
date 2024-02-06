@@ -71,21 +71,20 @@ You can apply your own branding to our screens by overriding the resources we us
     Theme.shared.fonts.regular
     ```
 
-### Image
+### Animation
 
 === "Android"
 
-    You can change the loading image by adding a drawable with this name:
+    You can change the loading animation by adding a raw json animation file with this name:
     ```xml
-    ic_boardingpass.xml
+    loading_boardingpass_sdk_enrolment
     ```
-    The image we are using is 212x212dp.
 
 === "iOS"
 
-    You can change the loading image by overriding the following image name in Theme class
+    You can change the loading animation by adding a raw json animation file and overriding the following animation name in Theme class
     ``` swift
-    Theme.shared.images.boardingPass.boardingPassLoading
+    Theme.shared.animations.boardingPass.loadingBoardingPass
     ```
 
 ## Use your own layouts

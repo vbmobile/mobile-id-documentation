@@ -1,5 +1,13 @@
 # Migration Guide
 
+## From 7.0.0 to 7.1.0
+#### Required Changes
+- As part of the security improving efforts a `candidateHash` and `referenceHash` have been added to the [BiometricMatchParameters](../Features/BiometricMatch/BiometricMatch_Index.html#initiate-match), these can be found in the generated reports.
+- Similarly, the build subject operation needs the generated `ProcessReport` and `DocumentReaderReport` that include the above hashes to verify data integrity. If you already use these parameters on the [BuildSubjectParameters](../Features/SubjectManagement/SubjectManagement_Index.html#subject-operations) you don't need to take any action.
+
+#### Optional Changes
+- Add a public key on the [initial configuration](../index.html#apiconfig) together with a private key setup on the backoffice to ensure encrypted requests.
+
 ## From 5.2.3 to 7.0.0
 ### Required Changes
 - Replace the signatures that do not use the ActivityLauncher contract;

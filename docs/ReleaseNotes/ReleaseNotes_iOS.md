@@ -1,5 +1,9 @@
 # MobileID SDK - Release Notes
 
+## 7.1.0
+- Added improved security measures
+- Added Form feature
+
 ## 7.0.1
 
 ### Improvements

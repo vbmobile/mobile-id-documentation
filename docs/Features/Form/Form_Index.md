@@ -10,6 +10,7 @@ You can then submit this data, alongside your subject, through the [AddSubjectPa
 To start the form feature, you can use the enrolment method
 
 === "Android"
+
     ```kotlin
     /**
      * @param context
@@ -86,6 +87,7 @@ The `FormParameters` holds the flag to indicate wether you want errors to be sho
 The FormError has the following structure:
 
 === "Android"
+
     ```kotlin
     data class FormError(
         val userCanceled: Boolean = false,

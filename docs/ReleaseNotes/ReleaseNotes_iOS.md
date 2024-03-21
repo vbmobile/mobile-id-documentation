@@ -1,8 +1,14 @@
 # MobileID SDK - Release Notes
 
 ## 7.1.0
-- Added improved security measures
-- Added Form feature
+### Improvements
+- Improved security measures:
+    - Communications with the backend are now encrypted using hybrid encryption;
+    - Data integrity is verified in communications with the backend;
+    - Data integrity is verified in the build subject and face match operations;
+
+### What's new
+- [Form](../Features/Form/Form_Index.md) feature
 
 ## 7.0.1
 

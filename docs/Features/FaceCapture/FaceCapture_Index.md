@@ -176,11 +176,14 @@ You will receive a model of the type FaceCaptureActivityResult that will contain
     
         /// Flag indicating if liveness check was performed or not during the biometric face capture process.
         public var performedLivenessCheck: Bool
-    
+        
+        /// Biometric photo hash
+        public var biometricHash: String?
+        
         /// Biometric photo
         public var photo: UIImage? 
         
-        public init(photo: UIImage, performedTests: [CheckLivenessTest], failedTests: [String], performedLivenessCheck: Bool)
+        public init(photo: UIImage, performedTests: [CheckLivenessTest], failedTests: [String], performedLivenessCheck: Bool, biometricHash: String?)
     }
     ```
 

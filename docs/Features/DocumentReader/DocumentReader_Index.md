@@ -255,6 +255,8 @@ Here is how you can get the document reader report and handle the result for doc
         public let documentType: DocumentType
         public let documentRFIDStatus: DocumentRFIDStatus
         public let documentStatuses: [DocumentDataStatus]
+        public let documentPhotoHash: String?
+        public let documentDataHash: String?
     }
     ```
 

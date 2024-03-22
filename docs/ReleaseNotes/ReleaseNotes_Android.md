@@ -1,4 +1,16 @@
 # MobileID SDK - Release Notes
+## 7.1.0
+
+### Improvements
+- Improved security measures:
+    - Communications with the backend are now encrypted using hybrid encryption;
+    - Data integrity is verified in communications with the backend;
+    - Data integrity is verified in the build subject and face match operations;
+    - HTTP responses are signed and verifiable
+
+### What's new
+- [Form](../Features/Form/Form_Index.md) feature
+
 ## 7.0.2
 
 ### Improvements
@@ -20,8 +32,8 @@
 
 ### What's new
 - New subject service (now works asynchronously)
-  - Removed the `get`, `delete` and `update` subject signatures;
-  - Clients need to save the subject locally after adding.
+- Removed the `get`, `delete` and `update` subject signatures;
+- Clients need to save the subject locally after adding.
 
 ### Improvements
 - Removed the signatures that use the deprecated `onActivityResult` function that were deprecated;

@@ -39,6 +39,7 @@ that the user must present on the physical gate for a full authentication.
         public var validationStatus: ValidationStatus
         public var subjectToken: SubjectToken?
         public var language: Locale
+        public var formData: [FormAnswer]?
     }
     ```
 
@@ -160,19 +161,23 @@ data you can create the `BuildSubjectParameters` object. This object has the fol
         public let documentData: DocumentData
         public let documentDataValidated: Bool
         public let documentImage: UIImage
-        public let enrolmentImage: UIImage        
-        public let boardingPass: BoardingPass?
+        public let enrolmentImage: UIImage
+        public let boardingPass: BoardingPassSummary?
         public let language: Locale
+        public let formReport: FormReport?
+        public let processReport: BiometricFaceCaptureReport?
+        public let documentReaderReport: DocumentReaderReport?
         
         public init(documentData: DocumentData,
                 documentImage: UIImage,
                 enrolmentImage: UIImage,
-                boardingPass: BoardingPass?,
+                boardingPass: BoardingPassSummary?,
                 documentReaderReport: DocumentReaderReport? = nil,
                 biometricFaceCaptureReport: BiometricFaceCaptureReport? = nil,
                 matchReport: MatchReport? = nil,
                 language: Locale? = nil,
-                showErrors: Bool)
+                showErrors: Bool,
+                formReport: FormReport? = nil)
     }
     ```
     
@@ -298,6 +303,7 @@ Adding a `Subject` required the AddSubjectParameters which have the following st
     data class AddSubjectParameters(
         val showErrors: Boolean,
         val subject: Subject,
+        val formAnswer: FormAnswer? = null,
     )
     ```
   

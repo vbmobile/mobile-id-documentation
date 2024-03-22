@@ -33,11 +33,15 @@ is the BiometricMatchParameters structure:
         public let reference: Data
         public let includeTemplate: TemplateOptions
         public let showErrors: Bool
+        public let candidateHash: String?
+        public let referenceHash: String?
     
         public init(candidate: Data,
                 reference: Data,
                 includeTemplate: TemplateOptions = .none,
-                showErrors:Bool) 
+                showErrors:Bool,
+                candidateHash: String?,
+                referenceHash: String?) 
     }
     ```
 

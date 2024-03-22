@@ -6,6 +6,7 @@
     - Communications with the backend are now encrypted using hybrid encryption;
     - Data integrity is verified in communications with the backend;
     - Data integrity is verified in the build subject and face match operations;
+    - HTTP responses are signed and verifiable
 
 ### What's new
 - [Form](../Features/Form/Form_Index.md) feature

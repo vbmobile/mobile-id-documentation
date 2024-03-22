@@ -1602,6 +1602,27 @@ You're not viewing the latest version.
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Features/Form/Form_Index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Form
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1814,6 +1835,17 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#from-700-to-710" class="md-nav__link">
+        From 7.0.0 to 7.1.0
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#from-523-to-700" class="md-nav__link">
         From 5.2.3 to 7.0.0
     </a>
@@ -1900,6 +1932,17 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#from-700-to-710" class="md-nav__link">
+        From 7.0.0 to 7.1.0
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#from-523-to-700" class="md-nav__link">
         From 5.2.3 to 7.0.0
     </a>
@@ -1961,8 +2004,19 @@ You're not viewing the latest version.
 
 
 <h1 id="migration-guide">Migration Guide<a class="headerlink" href="#migration-guide" title="Permanent link">&para;</a></h1>
+<h2 id="from-700-to-710">From 7.0.0 to 7.1.0<a class="headerlink" href="#from-700-to-710" title="Permanent link">&para;</a></h2>
+<h4 id="required-changes">Required Changes<a class="headerlink" href="#required-changes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>As part of the security improving efforts a <code>candidateHash</code> and <code>referenceHash</code> have been added to the <a href="../Features/BiometricMatch/BiometricMatch_Index.html#initiate-match">BiometricMatchParameters</a>, these can be found in the generated reports.</li>
+<li>Similarly, the build subject operation needs the generated <code>ProcessReport</code> and <code>DocumentReaderReport</code> that include the above hashes to verify data integrity. If you already use these parameters on the <a href="../Features/SubjectManagement/SubjectManagement_Index.html#subject-operations">BuildSubjectParameters</a> you don't need to take any action.</li>
+<li>The package name now needs to be added to the backoffice. You may need to contact Vision-Box for this update.</li>
+</ul>
+<h4 id="optional-changes">Optional Changes<a class="headerlink" href="#optional-changes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Add a public key on the <a href="../index.html#apiconfig">initial configuration</a> together with a private key setup on the backoffice to ensure encrypted requests.</li>
+</ul>
 <h2 id="from-523-to-700">From 5.2.3 to 7.0.0<a class="headerlink" href="#from-523-to-700" title="Permanent link">&para;</a></h2>
-<h3 id="required-changes">Required Changes<a class="headerlink" href="#required-changes" title="Permanent link">&para;</a></h3>
+<h3 id="required-changes_1">Required Changes<a class="headerlink" href="#required-changes_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Remove the <code>get</code>, <code>update</code> and <code>delete</code> <code>Subject</code> operations. You should now save the <code>Subject</code> locally if you want to have a copy to check later. Updating a <code>Subject</code> is no longer supported as well so, you must create a new one if you want to for example, add a boarding pass;</li>
 <li>Handle errors by new field ErrorType instead of checking every possible errors;</li>
@@ -1970,11 +2024,11 @@ You're not viewing the latest version.
 <li>Rename enums to PascalCase, MALE is now Male, etc.</li>
 </ul>
 <h2 id="from-510-to-520">From 5.1.0 to 5.2.0<a class="headerlink" href="#from-510-to-520" title="Permanent link">&para;</a></h2>
-<h4 id="required-changes_1">Required Changes<a class="headerlink" href="#required-changes_1" title="Permanent link">&para;</a></h4>
+<h4 id="required-changes_2">Required Changes<a class="headerlink" href="#required-changes_2" title="Permanent link">&para;</a></h4>
 <ul>
 <li>If you are using a value of less than 10 seconds or greater than 60 for the scannerTimeout or rfidTimeout in  <strong>ReadDocumentParameters</strong> you need to change the value.</li>
 </ul>
-<h3 id="optional-changes">Optional Changes<a class="headerlink" href="#optional-changes" title="Permanent link">&para;</a></h3>
+<h3 id="optional-changes_1">Optional Changes<a class="headerlink" href="#optional-changes_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>If you want to continue with the square frame you need to set the frameShape field of the class <em>BiometricFaceCaptureParameters</em> to .square</li>
 <li>Refactor any preview custom view that you might be using to be an independent UIViewController in your own flow.</li>
@@ -1982,15 +2036,15 @@ You're not viewing the latest version.
 <li>Update remaining custom views with their new protocols.</li>
 </ul>
 <h2 id="from-500-to-510">From 5.0.0 to 5.1.0<a class="headerlink" href="#from-500-to-510" title="Permanent link">&para;</a></h2>
-<h4 id="required-changes_2">Required Changes<a class="headerlink" href="#required-changes_2" title="Permanent link">&para;</a></h4>
+<h4 id="required-changes_3">Required Changes<a class="headerlink" href="#required-changes_3" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Removed liveness status parameter from the <strong>BiometricFaceCaptureParameters</strong>.</li>
 </ul>
-<h4 id="optional-changes_1">Optional Changes<a class="headerlink" href="#optional-changes_1" title="Permanent link">&para;</a></h4>
+<h4 id="optional-changes_2">Optional Changes<a class="headerlink" href="#optional-changes_2" title="Permanent link">&para;</a></h4>
 <ul>
 <li>If you are using <strong>BiometricFaceCapturePreviewView</strong> custom view, you must remove the property <strong>livenessStatus</strong>.</li>
 </ul>
-<h4 id="optional-changes_2">Optional Changes<a class="headerlink" href="#optional-changes_2" title="Permanent link">&para;</a></h4>
+<h4 id="optional-changes_3">Optional Changes<a class="headerlink" href="#optional-changes_3" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Add parameter includeTemplate in BiometricMatchParameters to receive a template.</li>
 </ul>
@@ -1999,7 +2053,7 @@ You're not viewing the latest version.
 <ul>
 <li>Run pod update &amp; install</li>
 </ul>
-<h4 id="required-changes_3">Required Changes<a class="headerlink" href="#required-changes_3" title="Permanent link">&para;</a></h4>
+<h4 id="required-changes_4">Required Changes<a class="headerlink" href="#required-changes_4" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Removed BoardingPassScanConfig. The Boarding Pass configuration is now on backend side;</li>
 <li>Removed Vision-Box parameters from the <strong>BiometricFaceCaptureParameters</strong>. These configurations are now on backoffice;</li>
@@ -2009,7 +2063,7 @@ You're not viewing the latest version.
 <li>Removed specific feature loadings and created a generic one, e.g. remove calls for BoardingPassScannerLoadingView &amp; BoardingPassScannerLoadingView and replace it with the new one LoadingOverlayViewType.</li>
 <li></li>
 </ul>
-<h4 id="optional-changes_3">Optional Changes<a class="headerlink" href="#optional-changes_3" title="Permanent link">&para;</a></h4>
+<h4 id="optional-changes_4">Optional Changes<a class="headerlink" href="#optional-changes_4" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Added new method <strong>startUpdateDatabase</strong> to allow database download. If the method isn't called, then it will be downloaded upon the first usage of our sdk.</li>
 <li>Removed localization support from backend, if you used our screens and our localization definition from backoffice, you must now create your own files.</li>

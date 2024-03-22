@@ -1604,6 +1604,27 @@ You're not viewing the latest version.
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Features/Form/Form_Index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Form
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1795,6 +1816,17 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#from-700-to-710" class="md-nav__link">
+        From 7.0.0 to 7.1.0
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#from-523-to-700" class="md-nav__link">
         From 5.2.3 to 7.0.0
     </a>
@@ -1924,6 +1956,17 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#from-700-to-710" class="md-nav__link">
+        From 7.0.0 to 7.1.0
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#from-523-to-700" class="md-nav__link">
         From 5.2.3 to 7.0.0
     </a>
@@ -2007,8 +2050,19 @@ You're not viewing the latest version.
 
 
 <h1 id="migration-guide">Migration Guide<a class="headerlink" href="#migration-guide" title="Permanent link">&para;</a></h1>
+<h2 id="from-700-to-710">From 7.0.0 to 7.1.0<a class="headerlink" href="#from-700-to-710" title="Permanent link">&para;</a></h2>
+<h4 id="required-changes">Required Changes<a class="headerlink" href="#required-changes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>As part of the security improving efforts a <code>candidateHash</code> and <code>referenceHash</code> have been added to the <a href="../Features/BiometricMatch/BiometricMatch_Index.html#initiate-match">BiometricMatchParameters</a>, these can be found in the generated reports.</li>
+<li>Similarly, the build subject operation needs the generated <code>ProcessReport</code> and <code>DocumentReaderReport</code> that include the above hashes to verify data integrity. If you already use these parameters on the <a href="../Features/SubjectManagement/SubjectManagement_Index.html#subject-operations">BuildSubjectParameters</a> you don't need to take any action.</li>
+<li>The package name now needs to be added to the backoffice. You may need to contact Vision-Box for this update.</li>
+</ul>
+<h4 id="optional-changes">Optional Changes<a class="headerlink" href="#optional-changes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Add a public key on the <a href="../index.html#apiconfig">initial configuration</a> together with a private key setup on the backoffice to ensure encrypted requests.</li>
+</ul>
 <h2 id="from-523-to-700">From 5.2.3 to 7.0.0<a class="headerlink" href="#from-523-to-700" title="Permanent link">&para;</a></h2>
-<h3 id="required-changes">Required Changes<a class="headerlink" href="#required-changes" title="Permanent link">&para;</a></h3>
+<h3 id="required-changes_1">Required Changes<a class="headerlink" href="#required-changes_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Replace the signatures that do not use the ActivityLauncher contract;</li>
 <li>Remove the <code>get</code>, <code>update</code> and <code>delete</code> <code>Subject</code> operations. You should now save the <code>Subject</code> locally if you want to have a copy to check later. Updating a <code>Subject</code> is no longer supported as well so, you must create a new one if you want to for example, add a boarding pass;</li>
@@ -2017,16 +2071,16 @@ You're not viewing the latest version.
 <li>Rename enums to PascalCase, MALE is now Male, etc.</li>
 </ul>
 <h2 id="from-521-to-522">From 5.2.1 to 5.2.2<a class="headerlink" href="#from-521-to-522" title="Permanent link">&para;</a></h2>
-<h4 id="required-changes_1">Required Changes<a class="headerlink" href="#required-changes_1" title="Permanent link">&para;</a></h4>
+<h4 id="required-changes_2">Required Changes<a class="headerlink" href="#required-changes_2" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Contact Vision-Box to update apiKey used before testing new version. (Threshold values changed)</li>
 </ul>
 <h2 id="from-510-to-520">From 5.1.0 to 5.2.0<a class="headerlink" href="#from-510-to-520" title="Permanent link">&para;</a></h2>
-<h4 id="required-changes_2">Required Changes<a class="headerlink" href="#required-changes_2" title="Permanent link">&para;</a></h4>
+<h4 id="required-changes_3">Required Changes<a class="headerlink" href="#required-changes_3" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Update camera2 library dependency to 1.2.3</li>
 </ul>
-<h4 id="optional-changes">Optional Changes<a class="headerlink" href="#optional-changes" title="Permanent link">&para;</a></h4>
+<h4 id="optional-changes_1">Optional Changes<a class="headerlink" href="#optional-changes_1" title="Permanent link">&para;</a></h4>
 <ul>
 <li>If you are using a value of less than 10 seconds or higher than 60 seconds for either the scanner or rfid reader timeout in  <strong>ReadDocumentParameters</strong> you need to change the value;</li>
 <li>It's no longer possible to disable the scanner or rfid reader timeout in  <strong>ReadDocumentParameters</strong>.</li>
@@ -2038,16 +2092,16 @@ You're not viewing the latest version.
 <li>Update remaining custom views with their new contracts.</li>
 </ul>
 <h2 id="from-503-to-510">From 5.0.3 to 5.1.0<a class="headerlink" href="#from-503-to-510" title="Permanent link">&para;</a></h2>
-<h4 id="required-changes_3">Required Changes<a class="headerlink" href="#required-changes_3" title="Permanent link">&para;</a></h4>
+<h4 id="required-changes_4">Required Changes<a class="headerlink" href="#required-changes_4" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Remove the parameter <em>showLivenessIcon</em> from <em>BiometricFaceCaptureParameters</em></li>
 </ul>
-<h4 id="optional-changes_1">Optional Changes<a class="headerlink" href="#optional-changes_1" title="Permanent link">&para;</a></h4>
+<h4 id="optional-changes_2">Optional Changes<a class="headerlink" href="#optional-changes_2" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Add parameter includeTemplate in BiometricMatchParameters to receive a template.</li>
 </ul>
 <h2 id="from-501-to-503">From 5.0.1 to 5.0.3<a class="headerlink" href="#from-501-to-503" title="Permanent link">&para;</a></h2>
-<h4 id="optional-changes_2">Optional Changes<a class="headerlink" href="#optional-changes_2" title="Permanent link">&para;</a></h4>
+<h4 id="optional-changes_3">Optional Changes<a class="headerlink" href="#optional-changes_3" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Remove the context parameter from the "startDatabaseUpdate" method in the facade</li>
 <li>The error parameter in the <strong>RegulaDatabaseListener</strong>'s unableToPrepareDatabase method is now optional"</li>
@@ -2059,7 +2113,7 @@ You're not viewing the latest version.
 <li>Update compileSdkVersion to 31;</li>
 </ul>
 <h3 id="sdk">SDK<a class="headerlink" href="#sdk" title="Permanent link">&para;</a></h3>
-<h4 id="required-changes_4">Required Changes<a class="headerlink" href="#required-changes_4" title="Permanent link">&para;</a></h4>
+<h4 id="required-changes_5">Required Changes<a class="headerlink" href="#required-changes_5" title="Permanent link">&para;</a></h4>
 <ul>
 <li>The DataResultExtra class and ResultCode class's are now internal and you can handle the feature's result using our ResultHandler created for each feature. This feature ResultHandler will return a model containing the result of the feature. Check the "Handle Results" section of each feature to understand how to handle results.</li>
 <li>Rename BiometricMatchParameters path to "com.visionbox.mobileid.sdk.enrolment.data.biometricFaceMatch.BiometricMatchParameters";</li>
@@ -2078,7 +2132,7 @@ You're not viewing the latest version.
 <div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">buildSubject</span><span class="p">(</span><span class="n">activity</span><span class="p">:</span><span class="w"> </span><span class="n">Activity</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">:</span><span class="w"> </span><span class="n">BuildSubjectParameters</span><span class="p">)</span>
 </code></pre></div></li>
 </ul>
-<h4 id="optional-changes_3">Optional Changes<a class="headerlink" href="#optional-changes_3" title="Permanent link">&para;</a></h4>
+<h4 id="optional-changes_4">Optional Changes<a class="headerlink" href="#optional-changes_4" title="Permanent link">&para;</a></h4>
 <ul>
 <li>If you are using fragments, you can now change to the new Enrolment methods that support Fragments;
 <div class="highlight"><pre><span></span><code><span class="c1">// Example:</span>

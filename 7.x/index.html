@@ -1754,6 +1754,27 @@ You're not viewing the latest version.
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/Form/Form_Index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Form
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2170,7 +2191,8 @@ end
 <span class="w">    </span><span class="n">baseUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">URL</span><span class="p">(</span><span class="s">&quot;YOUR BASE URL&quot;</span><span class="p">),</span>
 <span class="w">    </span><span class="n">timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">30</span><span class="p">,</span><span class="w"> </span><span class="c1">// timeout in seconds</span>
 <span class="w">    </span><span class="n">logLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MobileAPILogLevel</span><span class="p">.</span><span class="na">BASIC</span><span class="p">,</span>
-<span class="w">    </span><span class="n">apiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span>
+<span class="w">    </span><span class="n">apiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">publicKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;YOUR PUBLIC KEY&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Optional parameter to ensure requests are encrypted</span>
 <span class="p">)</span>
 
 <span class="kd">val</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">(</span><span class="n">apiConfig</span><span class="p">)</span>
@@ -2190,7 +2212,7 @@ The following parameters must always be provided:</p>
         <span class="n">baseURL</span><span class="p">:</span> <span class="s">&quot;YOUR BASE URL&quot;</span><span class="p">,</span>
         <span class="n">timeout</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="c1">// timeout in seconds</span>
         <span class="n">logLevel</span><span class="p">:</span> <span class="p">.</span><span class="n">basic</span><span class="p">,</span>
-        <span class="n">apiKey</span><span class="p">:</span> <span class="s">&quot;YOUR KEY&quot;</span>   
+        <span class="n">apiKey</span><span class="p">:</span> <span class="s">&quot;YOUR KEY&quot;</span>
 <span class="p">))</span>
 
 <span class="kd">let</span> <span class="nv">enrolment</span> <span class="p">=</span> <span class="n">EnrolmentBuilder</span>
@@ -2241,13 +2263,22 @@ key. You can also configure the timeout value for server responses and the log l
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Android</label><label for="__tabbed_5_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="nd">@Parcelize</span>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * Mobile API server config.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param baseUrl url from Mobile API server.</span>
+<span class="cm"> * @param timeout timeout of a request.</span>
+<span class="cm"> * @param logLevel log level for requests (e.g. Body, Headers).</span>
+<span class="cm"> * @param apiKey key to authorize communication with Mobile API.</span>
+<span class="cm"> * @param publicKey key to use for ciphering/deciphering for secure communications</span>
+<span class="cm"> */</span>
 <span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">APIConfig</span><span class="p">(</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">baseUrl</span><span class="p">:</span><span class="w"> </span><span class="n">URL</span><span class="p">,</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">timeout</span><span class="p">:</span><span class="w"> </span><span class="kt">Long</span><span class="p">,</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">logLevel</span><span class="p">:</span><span class="w"> </span><span class="n">MobileAPILogLevel</span><span class="p">,</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">apiKey</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span>
-<span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Parcelable</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">apiKey</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">publicKey</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2648,16 +2679,16 @@ It brings control and allows the maintenance of consistency in terms of brand co
 <ul>
 <li>com.google.mlkit:barcode-scanning:17.2.0</li>
 <li>com.google.mlkit:face-detection:17.1.0</li>
-<li>androidx.camera:camera-camera2:1.2.3</li>
-<li>androidx.camera:camera-lifecycle:1.2.3</li>
-<li>androidx.camera:camera-view:1.2.3</li>
+<li>androidx.camera:camera-camera2:1.3.0</li>
+<li>androidx.camera:camera-lifecycle:1.3.0</li>
+<li>androidx.camera:camera-view:1.3.0</li>
 </ul>
 </li>
 <li>
 <p>Regula</p>
 <ul>
-<li>com.regula.documentreader:api:6.8.8742@aar</li>
-<li>com.regula.documentreader.core:ocrandmrzrfid:6.8.9154@aar</li>
+<li>com.regula.documentreader:api:7.1.9667@aar</li>
+<li>com.regula.documentreader.core:ocrandmrzrfid:7.1.10524@aar</li>
 </ul>
 </li>
 <li>
@@ -2696,35 +2727,35 @@ It brings control and allows the maintenance of consistency in terms of brand co
 <tbody>
 <tr>
 <td style="text-align: left;">API (Application Program Interface)</td>
-<td style="text-align: left;">API Application Program InterfaceAn application program interface is a set of routines, protocols, and tools for building software applications. Basically, an API specifies how software components should interact.</td>
+<td style="text-align: left;">An application program interface is a set of routines, protocols, and tools for building software applications. Basically, an API specifies how software components should interact.</td>
 </tr>
 <tr>
 <td style="text-align: left;">APIS (Advance Passenger Information System)</td>
-<td style="text-align: left;">APIS Advance Passenger Information SystemAn electronic data interchange system intended to enhance border security. An APIS collects and shares limited data on passengers and crew members, such as identification details from the passport and basic flight information. Passengers must provide this data before traveling to or from certain countries. Then the airlines or vessel operators share it with the computer system of the destination state.</td>
+<td style="text-align: left;">An electronic data interchange system intended to enhance border security. An APIS collects and shares limited data on passengers and crew members, such as identification details from the passport and basic flight information. Passengers must provide this data before traveling to or from certain countries. Then the airlines or vessel operators share it with the computer system of the destination state.</td>
 </tr>
 <tr>
 <td style="text-align: left;">BCBP (Bar-Coded Boarding Pass)</td>
-<td style="text-align: left;">BCBP Bar-Coded Boarding PassA standard issued by the International Air Transport Association (IATA) that defines the format and content of electronic boarding passes. BCBP defines the two-dimensional (2D) barcode and the symbologies used for paper and mobile boarding passes. Airlines, airports, and other air industry stakeholders use barcode readers to capture the data from the electronic boarding passes to process the security check and boarding of travelers.</td>
+<td style="text-align: left;">A standard issued by the International Air Transport Association (IATA) that defines the format and content of electronic boarding passes. BCBP defines the two-dimensional (2D) barcode and the symbologies used for paper and mobile boarding passes. Airlines, airports, and other air industry stakeholders use barcode readers to capture the data from the electronic boarding passes to process the security check and boarding of travelers.</td>
 </tr>
 <tr>
 <td style="text-align: left;">Certificate</td>
-<td style="text-align: left;">CertificateElectronic document establishing a digital identity by combining the identity name or identifier with the public key of the identity, a validity period, and an electronic signature by a third party.</td>
+<td style="text-align: left;">Electronic document establishing a digital identity by combining the identity name or identifier with the public key of the identity, a validity period, and an electronic signature by a third party.</td>
 </tr>
 <tr>
 <td style="text-align: left;">DK (Data Key)</td>
-<td style="text-align: left;">DK Data KeyA key used to protect an entity, where in this instance an entity is biographic data related to a TD, a BCBP, biometric data or other entity relating to a natural person.</td>
+<td style="text-align: left;">A key used to protect an entity, where in this instance an entity is biographic data related to a TD, a BCBP, biometric data or other entity relating to a natural person.</td>
 </tr>
 <tr>
 <td style="text-align: left;">IATA (International Air Transport Association)</td>
-<td style="text-align: left;">IATA International Air Transport AssociationA trade association representing airlines worldwide. IATA supports many areas of aviation activity and formulates industry policies on critical aviation issues. IATA works with other international bodies, such as ICAO and WCO.</td>
+<td style="text-align: left;">A trade association representing airlines worldwide. IATA supports many areas of aviation activity and formulates industry policies on critical aviation issues. IATA works with other international bodies, such as ICAO and WCO.</td>
 </tr>
 <tr>
 <td style="text-align: left;">LED (Light Emitting Diode)</td>
-<td style="text-align: left;">LED Light Emitting DiodeA two-lead semiconductor light source. LEDs provide many advantages when used for environmental lighting, such as smaller volume, longer lifetime, and lower energy requirements.</td>
+<td style="text-align: left;">A two-lead semiconductor light source. LEDs provide many advantages when used for environmental lighting, such as smaller volume, longer lifetime, and lower energy requirements.</td>
 </tr>
 <tr>
 <td style="text-align: left;">Liveness</td>
-<td style="text-align: left;">Liveness liveness Indication whether an acquired biometric sample comes from a genuine living passenger or not. The liveness detection is used to detect if a passenger is trying to spoof the system.</td>
+<td style="text-align: left;">Indication whether an acquired biometric sample comes from a genuine living passenger or not. The liveness detection is used to detect if a passenger is trying to spoof the system.</td>
 </tr>
 <tr>
 <td style="text-align: left;">MRZ (Machine Readable Zone)</td>
@@ -2736,27 +2767,27 @@ It brings control and allows the maintenance of consistency in terms of brand co
 </tr>
 <tr>
 <td style="text-align: left;">QR code (Quick Response Code)</td>
-<td style="text-align: left;">QR code Quick Response CodeA type of 2D barcode used to provide easy access to information through a smartphone. A QR code consists of black modules (square dots) arranged in a square grid on a white background, which can be read by an imaging device (such as a camera or scanner). The required data is extracted from the patterns that are present in both horizontal and vertical components of the image. The QR code system became widespread due to its fast readability and greater storage capacity compared to standard barcodes. It is commonly used in item identification, product tracking, time tracking, and document management.</td>
+<td style="text-align: left;">A type of 2D barcode used to provide easy access to information through a smartphone. A QR code consists of black modules (square dots) arranged in a square grid on a white background, which can be read by an imaging device (such as a camera or scanner). The required data is extracted from the patterns that are present in both horizontal and vertical components of the image. The QR code system became widespread due to its fast readability and greater storage capacity compared to standard barcodes. It is commonly used in item identification, product tracking, time tracking, and document management.</td>
 </tr>
 <tr>
 <td style="text-align: left;">RFID (Radio-Frequency Identification)</td>
-<td style="text-align: left;">RFID Radio-Frequency IdentificationA technology of wireless communication that uses radio waves to automatically identify and track objects. The objects contain tags that store electronic information. An RFID system enables readers to retrieve data from identification documents, such as smart cards. RFID devices work within a vicinity of between a few centimeters to several meters (up to 20 feet) for high-frequency devices.</td>
+<td style="text-align: left;">A technology of wireless communication that uses radio waves to automatically identify and track objects. The objects contain tags that store electronic information. An RFID system enables readers to retrieve data from identification documents, such as smart cards. RFID devices work within a vicinity of between a few centimeters to several meters (up to 20 feet) for high-frequency devices.</td>
 </tr>
 <tr>
 <td style="text-align: left;">TD (Travel Document)</td>
-<td style="text-align: left;">TD Travel DocumentA passport or ID card in ICAO format authorised for border control.</td>
+<td style="text-align: left;">A passport or ID card in ICAO format authorised for border control.</td>
 </tr>
 <tr>
 <td style="text-align: left;">TLS/SSL</td>
-<td style="text-align: left;">TLS SSLTransport Layer Security (TLS) and its predecessor, Secure Sockets Layer (SSL), are cryptographic protocols designed to provide communications security over a computer network.</td>
+<td style="text-align: left;">TLS SSL Transport Layer Security (TLS) and its predecessor, Secure Sockets Layer (SSL), are cryptographic protocols designed to provide communications security over a computer network.</td>
 </tr>
 <tr>
 <td style="text-align: left;">User</td>
-<td style="text-align: left;">UserA person that uses the equipment under the supervision of trained staff.</td>
+<td style="text-align: left;">A person that uses the equipment under the supervision of trained staff.</td>
 </tr>
 <tr>
 <td style="text-align: left;">Workflow</td>
-<td style="text-align: left;">WorkflowOrchestrated and repeatable pattern of processes, running in the touchpoints, which represents the desired behaviour of the cluster.</td>
+<td style="text-align: left;">Orchestrated and repeatable pattern of processes, running in the touchpoints, which represents the desired behaviour of the cluster.</td>
 </tr>
 </tbody>
 </table>

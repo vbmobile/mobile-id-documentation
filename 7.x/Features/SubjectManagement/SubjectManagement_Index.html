@@ -1719,6 +1719,27 @@ You're not viewing the latest version.
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Form/Form_Index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Form
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2045,6 +2066,7 @@ that the user must present on the physical gate for a full authentication.</p>
     <span class="kd">public</span> <span class="kd">var</span> <span class="nv">validationStatus</span><span class="p">:</span> <span class="n">ValidationStatus</span>
     <span class="kd">public</span> <span class="kd">var</span> <span class="nv">subjectToken</span><span class="p">:</span> <span class="n">SubjectToken</span><span class="p">?</span>
     <span class="kd">public</span> <span class="kd">var</span> <span class="nv">language</span><span class="p">:</span> <span class="n">Locale</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">formData</span><span class="p">:</span> <span class="p">[</span><span class="n">FormAnswer</span><span class="p">]?</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -2158,19 +2180,23 @@ data you can create the <code>BuildSubjectParameters</code> object. This object 
     <span class="kd">public</span> <span class="kd">let</span> <span class="nv">documentData</span><span class="p">:</span> <span class="n">DocumentData</span>
     <span class="kd">public</span> <span class="kd">let</span> <span class="nv">documentDataValidated</span><span class="p">:</span> <span class="nb">Bool</span>
     <span class="kd">public</span> <span class="kd">let</span> <span class="nv">documentImage</span><span class="p">:</span> <span class="bp">UIImage</span>
-    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">enrolmentImage</span><span class="p">:</span> <span class="bp">UIImage</span>        
-    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">boardingPass</span><span class="p">:</span> <span class="n">BoardingPass</span><span class="p">?</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">enrolmentImage</span><span class="p">:</span> <span class="bp">UIImage</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">boardingPass</span><span class="p">:</span> <span class="n">BoardingPassSummary</span><span class="p">?</span>
     <span class="kd">public</span> <span class="kd">let</span> <span class="nv">language</span><span class="p">:</span> <span class="n">Locale</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">formReport</span><span class="p">:</span> <span class="n">FormReport</span><span class="p">?</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">processReport</span><span class="p">:</span> <span class="n">BiometricFaceCaptureReport</span><span class="p">?</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">documentReaderReport</span><span class="p">:</span> <span class="n">DocumentReaderReport</span><span class="p">?</span>
 
     <span class="kd">public</span> <span class="kd">init</span><span class="p">(</span><span class="n">documentData</span><span class="p">:</span> <span class="n">DocumentData</span><span class="p">,</span>
             <span class="n">documentImage</span><span class="p">:</span> <span class="bp">UIImage</span><span class="p">,</span>
             <span class="n">enrolmentImage</span><span class="p">:</span> <span class="bp">UIImage</span><span class="p">,</span>
-            <span class="n">boardingPass</span><span class="p">:</span> <span class="n">BoardingPass</span><span class="p">?,</span>
+            <span class="n">boardingPass</span><span class="p">:</span> <span class="n">BoardingPassSummary</span><span class="p">?,</span>
             <span class="n">documentReaderReport</span><span class="p">:</span> <span class="n">DocumentReaderReport</span><span class="p">?</span> <span class="p">=</span> <span class="kc">nil</span><span class="p">,</span>
             <span class="n">biometricFaceCaptureReport</span><span class="p">:</span> <span class="n">BiometricFaceCaptureReport</span><span class="p">?</span> <span class="p">=</span> <span class="kc">nil</span><span class="p">,</span>
             <span class="n">matchReport</span><span class="p">:</span> <span class="n">MatchReport</span><span class="p">?</span> <span class="p">=</span> <span class="kc">nil</span><span class="p">,</span>
             <span class="n">language</span><span class="p">:</span> <span class="n">Locale</span><span class="p">?</span> <span class="p">=</span> <span class="kc">nil</span><span class="p">,</span>
-            <span class="n">showErrors</span><span class="p">:</span> <span class="nb">Bool</span><span class="p">)</span>
+            <span class="n">showErrors</span><span class="p">:</span> <span class="nb">Bool</span><span class="p">,</span>
+            <span class="n">formReport</span><span class="p">:</span> <span class="n">FormReport</span><span class="p">?</span> <span class="p">=</span> <span class="kc">nil</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -2294,6 +2320,7 @@ your own layouts and use the information that is relevant for your mobile soluti
 <div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">AddSubjectParameters</span><span class="p">(</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">showErrors</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="p">,</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">subject</span><span class="p">:</span><span class="w"> </span><span class="n">Subject</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">formAnswer</span><span class="p">:</span><span class="w"> </span><span class="n">FormAnswer? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
 </div>

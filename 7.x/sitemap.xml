@@ -126,6 +126,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://vbmobile.github.io/mobile-id-documentation/7.x/Features/Form/Form_Index.html</loc>
+         <lastmod>2024-03-22</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://vbmobile.github.io/mobile-id-documentation/7.x/Features/SubjectManagement/SubjectManagement_ErrorView.html</loc>
          <lastmod>2024-03-22</lastmod>
          <changefreq>daily</changefreq>

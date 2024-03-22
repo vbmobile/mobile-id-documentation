@@ -1686,6 +1686,27 @@ You're not viewing the latest version.
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Form/Form_Index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Form
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2107,10 +2128,13 @@ not too far away, or too close.</p>
     <span class="c1">/// Flag indicating if liveness check was performed or not during the biometric face capture process.</span>
     <span class="kd">public</span> <span class="kd">var</span> <span class="nv">performedLivenessCheck</span><span class="p">:</span> <span class="nb">Bool</span>
 
+    <span class="c1">/// Biometric photo hash</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">biometricHash</span><span class="p">:</span> <span class="nb">String</span><span class="p">?</span>
+
     <span class="c1">/// Biometric photo</span>
     <span class="kd">public</span> <span class="kd">var</span> <span class="nv">photo</span><span class="p">:</span> <span class="bp">UIImage</span><span class="p">?</span> 
 
-    <span class="kd">public</span> <span class="kd">init</span><span class="p">(</span><span class="n">photo</span><span class="p">:</span> <span class="bp">UIImage</span><span class="p">,</span> <span class="n">performedTests</span><span class="p">:</span> <span class="p">[</span><span class="n">CheckLivenessTest</span><span class="p">],</span> <span class="n">failedTests</span><span class="p">:</span> <span class="p">[</span><span class="nb">String</span><span class="p">],</span> <span class="n">performedLivenessCheck</span><span class="p">:</span> <span class="nb">Bool</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="kd">init</span><span class="p">(</span><span class="n">photo</span><span class="p">:</span> <span class="bp">UIImage</span><span class="p">,</span> <span class="n">performedTests</span><span class="p">:</span> <span class="p">[</span><span class="n">CheckLivenessTest</span><span class="p">],</span> <span class="n">failedTests</span><span class="p">:</span> <span class="p">[</span><span class="nb">String</span><span class="p">],</span> <span class="n">performedLivenessCheck</span><span class="p">:</span> <span class="nb">Bool</span><span class="p">,</span> <span class="n">biometricHash</span><span class="p">:</span> <span class="nb">String</span><span class="p">?)</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -2141,6 +2165,7 @@ not too far away, or too close.</p>
 </div>
 </div>
 </div>
+<p>The <code>FaceCaptureReportSuccess</code> includes a <code>biometricHash</code> attribute that needs to be included in the <a href="../BiometricMatch/BiometricMatch_Index.html">Match</a> operation to verify data integrity. It also used when building a <a href="../SubjectManagement/SubjectManagement_Index.html">Subject</a>.</p>
 <p>The failed tests might include one or more of the following tests:</p>
 <table>
 <thead>

@@ -1686,6 +1686,27 @@ You're not viewing the latest version.
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Form/Form_Index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Form
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1962,7 +1983,9 @@ is the BiometricMatchParameters structure:</p>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">candidate</span><span class="p">:</span><span class="w"> </span><span class="n">Bitmap?,</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">reference</span><span class="p">:</span><span class="w"> </span><span class="n">Bitmap?,</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">templateOption</span><span class="p">:</span><span class="w"> </span><span class="n">TemplateOption</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TemplateOption</span><span class="p">.</span><span class="na">NONE</span><span class="p">,</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">showErrors</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">showErrors</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">candidateHash</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">referenceHash</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span>
 <span class="p">)</span>
 </code></pre></div>
 </div>
@@ -1972,11 +1995,15 @@ is the BiometricMatchParameters structure:</p>
     <span class="kd">public</span> <span class="kd">let</span> <span class="nv">reference</span><span class="p">:</span> <span class="n">Data</span>
     <span class="kd">public</span> <span class="kd">let</span> <span class="nv">includeTemplate</span><span class="p">:</span> <span class="n">TemplateOptions</span>
     <span class="kd">public</span> <span class="kd">let</span> <span class="nv">showErrors</span><span class="p">:</span> <span class="nb">Bool</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">candidateHash</span><span class="p">:</span> <span class="nb">String</span><span class="p">?</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">referenceHash</span><span class="p">:</span> <span class="nb">String</span><span class="p">?</span>
 
     <span class="kd">public</span> <span class="kd">init</span><span class="p">(</span><span class="n">candidate</span><span class="p">:</span> <span class="n">Data</span><span class="p">,</span>
             <span class="n">reference</span><span class="p">:</span> <span class="n">Data</span><span class="p">,</span>
             <span class="n">includeTemplate</span><span class="p">:</span> <span class="n">TemplateOptions</span> <span class="p">=</span> <span class="p">.</span><span class="kr">none</span><span class="p">,</span>
-            <span class="n">showErrors</span><span class="p">:</span><span class="nb">Bool</span><span class="p">)</span> 
+            <span class="n">showErrors</span><span class="p">:</span><span class="nb">Bool</span><span class="p">,</span>
+            <span class="n">candidateHash</span><span class="p">:</span> <span class="nb">String</span><span class="p">?,</span>
+            <span class="n">referenceHash</span><span class="p">:</span> <span class="nb">String</span><span class="p">?)</span> 
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -2005,7 +2032,9 @@ is the BiometricMatchParameters structure:</p>
 </div>
 </div>
 </div>
-<p>You can expect either a MatchError response or a MatchReport response. To start the biometric matching, you must call the following method:</p>
+<p>The <code>candidateHash</code> and <code>referenceHash</code> are the hashes provided by either the <code>FaceCaptureReport</code> and/or the <a href="../DocumentReader/DocumentReader_Index.html#document-reader-report">DocumentReaderReport</a> needed to verify data integrity.</p>
+<p>You can expect either a MatchError response or a MatchReport response. </p>
+<p>To start the biometric matching, you must call the following method:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Android</label><label for="__tabbed_3_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">

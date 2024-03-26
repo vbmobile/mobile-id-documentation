@@ -113,6 +113,7 @@ By using the available EnrolmentBuilder, you can instantiate the enrolment like 
             timeout: 30, // timeout in seconds
             logLevel: .basic,
             apiKey: "YOUR KEY"
+            publicKey = "YOUR PUBLIC KEY" // Optional parameter to ensure requests are encrypted
     ))
 
     let enrolment = EnrolmentBuilder
@@ -191,7 +192,8 @@ key. You can also configure the timeout value for server responses and the log l
         baseURL: "YOUR BASE URL",
         timeout: 30, 
         logLevel:  .basic, 
-        apiKey: "YOUR KEY"   
+        apiKey: "YOUR KEY" ,
+        publicKey: String? = nil  
     )
     ```
 
@@ -199,6 +201,7 @@ key. You can also configure the timeout value for server responses and the log l
 - timeout: timeout of a request in seconds;
 - logLevel: log level for requests;
 - apiKey: key to authorize communication with Mobile API;
+- publicKey: key to use for ciphering/deciphering for secure communications
 
 === "Android"
 

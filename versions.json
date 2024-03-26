@@ -7,6 +7,11 @@
     ]
   },
   {
+    "version": "7.0",
+    "title": "7.0",
+    "aliases": []
+  },
+  {
     "version": "5.x",
     "title": "5.x",
     "aliases": []

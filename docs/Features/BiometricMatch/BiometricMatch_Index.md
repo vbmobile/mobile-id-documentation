@@ -69,7 +69,7 @@ TemplateOptions is an enumeration and it contains the following cases.
     }
     ```
 
-The `candidateHash` and `referenceHash` are the hashes provided by either the `FaceCaptureReport` and/or the [DocumentReaderReport](../DocumentReader/DocumentReader_Index.html#document-reader-report) needed to verify data integrity.
+The `candidateHash` and `referenceHash` are the hashes provided by either the `FaceCaptureReport` and/or the [DocumentReaderReport](../DocumentReader/DocumentReader_Index.md#document-reader-report) needed to verify data integrity.
 
 You can expect either a MatchError response or a MatchReport response. 
 

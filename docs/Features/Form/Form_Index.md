@@ -5,7 +5,7 @@ Form is a feature that allows you to collect additional data and attach it to cr
 - Email
 - Text
 
-You can then submit this data, alongside your subject, through the [AddSubjectParameters](../SubjectManagement/SubjectManagement_Index.html#subject-operations).
+You can then submit this data, alongside your subject, through the [AddSubjectParameters](../SubjectManagement/SubjectManagement_Index.md#subject-operations).
 
 To start the form feature, you can use the enrolment method
 

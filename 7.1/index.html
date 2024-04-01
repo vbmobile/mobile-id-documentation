@@ -422,6 +422,17 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#data-security" class="md-nav__link">
+        Data Security
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#configurations" class="md-nav__link">
         Configurations
     </a>
@@ -2019,6 +2030,17 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#data-security" class="md-nav__link">
+        Data Security
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#configurations" class="md-nav__link">
         Configurations
     </a>
@@ -2228,6 +2250,20 @@ The following parameters must always be provided:</p>
 </div>
 </div>
 <p>The SDK also allows client apps to use their own custom views for its functionalities. These custom views must be defined when creating the Enrolment instance. For more information on custom view, please check the <a href="#advanced-configurations">advanced configurations</a> section.</p>
+<h2 id="data-security">Data Security<a class="headerlink" href="#data-security" title="Permanent link">&para;</a></h2>
+<p>In version 7.1, an hybrid encryption system was implemented to protect sensitive information and to prevent possible attacks.</p>
+<p><img alt="Hybrid Encryption System" src="images/Request_Encryption.png" style="display: block; margin: 5px auto" title="Request Encryption Flow" /></p>
+<p>The requests that are sent from the mobile platforms (both iOS and Android) now encrypt the headers that contain sensitive information, and the api key is hashed to prevent it from being leaked.</p>
+<p>The algorithm used to encrypt the headers is RSA-ECB with a secure padding algorithm. 
+This cypher mechanism uses a public key to encrypt it and a private key that is only known by the Backend so that they are able to decrypt the headers and verify the data.</p>
+<p><strong>It is possible to pass a public key as a string in the APIConfig, but you need to pass us the matching private key so that it's uploaded into the backoffice, otherwise the default keys will be used.</strong></p>
+<p>The API key now also validates if the application that is making the request is known by checking it's ID. 
+This prevents unauthorized access by using leaked API keys.
+You need to give us the application IDs that should be allowed to use your API key.</p>
+<p>In matters of user sensitive information (eg: biometric face capture image), the body of every HTTP request is now encrypted by using AES and a secure padding with a dynamically generated IV.
+This aims to prevent leaked information by the use of proxy's or interceptors.</p>
+<p>There's also a data integrity validation system that checks if the response information was not tampered with by comparing the body's hashed value with one of the headers.</p>
+<p><img alt="Data Integrity Check" src="images/Data_Integrity_Check.png" style="display: block; margin: 5px auto" title="Data Integrity Check" /></p>
 <h2 id="configurations">Configurations<a class="headerlink" href="#configurations" title="Permanent link">&para;</a></h2>
 <h3 id="enrolmentconfig">EnrolmentConfig<a class="headerlink" href="#enrolmentconfig" title="Permanent link">&para;</a></h3>
 <p>The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig. Besides these

@@ -126,7 +126,31 @@ By using the available EnrolmentBuilder, you can instantiate the enrolment like 
     - EnrolmentConfig - Enrolment configuration.
 
 The SDK also allows client apps to use their own custom views for its functionalities. These custom views must be defined when creating the Enrolment instance. For more information on custom view, please check the [advanced configurations](#advanced-configurations) section.
-    
+
+## Data Security
+
+In version 7.1, an hybrid encryption system was implemented to protect sensitive information and to prevent possible attacks.
+
+![Hybrid Encryption System](images/Request_Encryption.png "Request Encryption Flow"){: style="display: block; margin: 5px auto"}
+
+The requests that are sent from the mobile platforms (both iOS and Android) now encrypt the headers that contain sensitive information, and the api key is hashed to prevent it from being leaked.
+
+The algorithm used to encrypt the headers is RSA-ECB with a secure padding algorithm. 
+This cypher mechanism uses a public key to encrypt it and a private key that is only known by the Backend so that they are able to decrypt the headers and verify the data.
+
+**It is possible to pass a public key as a string in the APIConfig, but you need to pass us the matching private key so that it's uploaded into the backoffice, otherwise the default keys will be used.**
+
+The API key now also validates if the application that is making the request is known by checking it's ID. 
+This prevents unauthorized access by using leaked API keys.
+You need to give us the application IDs that should be allowed to use your API key.
+
+In matters of user sensitive information (eg: biometric face capture image), the body of every HTTP request is now encrypted by using AES and a secure padding with a dynamically generated IV.
+This aims to prevent leaked information by the use of proxy's or interceptors.
+
+There's also a data integrity validation system that checks if the response information was not tampered with by comparing the body's hashed value with one of the headers.
+
+![Data Integrity Check](images/Data_Integrity_Check.png "Data Integrity Check"){: style="display: block; margin: 5px auto"}
+
 ## Configurations
 
 ### EnrolmentConfig
@@ -229,6 +253,7 @@ key. You can also configure the timeout value for server responses and the log l
         case basic
     }
     ```
+
 ### APISecurityConfig
 
 You can use the security config to specify a list of SSL certificates to be trusted when connecting

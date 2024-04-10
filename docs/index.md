@@ -503,7 +503,6 @@ In order for the SDK to use the camera, the user must grant permission to do so.
     - Lottie
         - com.airbnb.android:lottie:6.1.0
 
-    For the Regula OCR/MRZ/RFID Provider:
     - Regula
         - com.regula.documentreader:api:7.1.9667@aar
         - com.regula.documentreader.core:ocrandmrzrfid:7.1.10524@aar

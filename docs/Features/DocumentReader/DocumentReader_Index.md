@@ -8,16 +8,13 @@ mobile device over the travel e-Document in order to perform a RFID scan to extr
 
 ## Configure
 
-To use this feature, you must provide the DocumentReaderConfig to the EnrolmentBuilder like the
+To use this feature, you must provide the DocumentReaderConfig to your preferred Provider like the
 following example:
 
 === "Android"
 
     ```kotlin
-    val builder: EnrolmentBuilder = EnrolmentBuilder
-        .of(context, config)
-        .withDocumentReaderConfig(documentReaderConfig)
-        .build()
+    val provider: RegulaProvider = RegulaProvider.getInstance(documentReaderConfig)
     ```
 
 === "iOS"
@@ -35,11 +32,10 @@ The DocumentReaderConfig has the following structure:
 === "Android"
 
     ```kotlin
-    @Parcelize
     data class DocumentReaderConfig(
       val multipageProcessing: Boolean,
       val databaseId: String
-    ) : Parcelable
+    )
     ```
     
     - multipageProcessing: controls the workflow for documents that might need to have different pages
@@ -120,7 +116,7 @@ This method can perform a full travel document read in two steps:
         val showRFIDStatus: Boolean = false,
         val mrzReadTimeout: Long = TimeUnit.SECONDS.toMillis(30),
         val rfidReadTimeout: Long = TimeUnit.SECONDS.toMillis(30),
-    ) : Parcelable {
+    ) {
     init {
         require(!(mrzReadTimeout < TimeUnit.SECONDS.toMillis(10) || mrzReadTimeout > TimeUnit.SECONDS.toMillis(60))) { "mrzReadTimeout value must be between 10 and 60 seconds." }
         require(!(rfidReadTimeout < TimeUnit.SECONDS.toMillis(10) || rfidReadTimeout > TimeUnit.SECONDS.toMillis(60))) { "rfidReadTimeout value must be between 10 and 60 seconds." }
@@ -237,7 +233,6 @@ Here is how you can get the document reader report and handle the result for doc
 === "Android"
 
     ```kotlin
-    @Parcelize
     data class DocumentReaderReport(
         val documentData: DocumentData,
         val status: List<DocumentDataStatus>,
@@ -245,7 +240,7 @@ Here is how you can get the document reader report and handle the result for doc
         val documentType: DocumentType,
         val documentPhotoHash: String,
         val documentDataHash: String,
-    ) : Parcelable
+    )
     ```
     
 === "iOS"
@@ -330,11 +325,10 @@ The DocumentData contains the document data. You can check the structure here:
     }
     ```
     ```kotlin
-    @Parcelize
-        data class DocumentTypeData(
+    data class DocumentTypeData(
         val type: DocumentType,
         val infoVal: DocumentTypeInfo?
-    ) : Parcelable    
+    )
     ```
     ```kotlin
     enum class DocumentType { 
@@ -346,13 +340,12 @@ The DocumentData contains the document data. You can check the structure here:
     }
     ```
     ```kotlin
-    @Parcelize
     data class DocumentTypeInfo(
         val documentId: Int,
         val dTypeId: Int,
         val documentName: String?,
         val icaoCode: String?
-    ) : Parcelable   
+    )
     ```
 
     The DocumentDataStatus, RFIDStatus and DocumentType are enums that have the following possibilities:
@@ -559,13 +552,12 @@ Check Customization tab to learn more about branding of each view.
 === "Android"
 
     ```kotlin
-    @Parcelize
     class DocumentReaderCustomViews(
         val loadingView: Class<out ICustomDocumentReader.LoadingView>? = null,
         val rfidInstructionsView: Class<out ICustomDocumentReader.RfidInstructionsView>? = null,
         val rfidSearchView: Class<out ICustomDocumentReader.RfidSearchView>? = null,
         val rfidProcessView: Class<out ICustomDocumentReader.RfidProcessView>? = null,
-    ) : Parcelable
+    )
     ```
     You can use your own custom views in the document reader functionality. Your view must implement the
     SDK view interfaces. For example, if you want to add a custom loading view, your view class must

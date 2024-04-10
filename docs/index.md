@@ -35,7 +35,8 @@ hide:
     ```
     2. Declare Mobile ID SDK as a dependency in your app level gradle file:
     ```
-    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<x.x.x>@aar") { transitive = true }   
+    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<x.x.x>@aar") { transitive = true }
+    implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:<x.x.x>") TODO("use correct name")
     ```
     3. Sync gradle.
     
@@ -96,14 +97,24 @@ By using the available EnrolmentBuilder, you can instantiate the enrolment like 
 
     val enrolmentConfig = EnrolmentConfig(apiConfig)
 
+    val regulaDocumentRfidProvider = RegulaProvider.getInstance(
+            DocumentReaderConfig(
+                multipageProcessing = true,
+                databaseId = "DatabaseName"
+            )
+    )
+
     val enrolment = EnrolmentBuilder
         .of(context, enrolmentConfig)
+        .withDocumentReaderProvider(regulaDocumentRfidProvider)
+        .withRfidReaderProvider(regulaDocumentRfidProvider)
         .build() // The Enrolment should be a singleton
     ```
     The following parameters must always be provided:
 
     - Context - Application context;
     - EnrolmentConfig - Enrolment configuration.
+    - Document and RFID reader provider - The preferred provider for document and rfid read operations
 
 === "iOS"
 
@@ -165,7 +176,7 @@ configurations you can set the logEvents flag, which is used to activate logs.
         val apiConfig: APIConfig,
         val apiSecurityConfig: APISecurityConfig = APISecurityConfig(),
         val language: Locale
-    ) : Parcelable
+    )
     ```
     
 === "iOS"
@@ -263,10 +274,9 @@ pinning for every network request made by the SDK.
 === "Android"
 
     ```kotlin
-    @Parcelize
     data class APISecurityConfig(
         val certificates: List<X509Certificate> = listOf()
-    ) : Parcelable
+    )
     ```
     
 === "iOS"
@@ -289,7 +299,6 @@ pinning for every network request made by the SDK.
 
     The other configurations are used by their corresponding facade method:
 
-    - DocumentReaderConfig - Multipage processing and Regula database ID;
     - BoardingPassCustomViews - Specifies the boarding pass custom views;
     - BiometricFaceCaptureCustomViews - Specifies the face capture custom views;
     - DocumentReaderCustomViews - Specifies the document reader custom views.
@@ -304,12 +313,6 @@ pinning for every network request made by the SDK.
     ```kotlin
     val builder: EnrolmentBuilder = EnrolmentBuilder
         .of(context, config)
-        .withDocumentReaderConfig(
-            DocumentReaderConfig(
-                multipageProcessing = true,
-                databaseId = "DatabaseName"
-            )
-        )
         .withDocumentReaderCustomViews(
             DocumentReaderCustomViews(
                 loadingView = DocumentReaderCustomViewLoading::class.java,
@@ -494,15 +497,16 @@ In order for the SDK to use the camera, the user must grant permission to do so.
         - androidx.camera:camera-lifecycle:1.3.0
         - androidx.camera:camera-view:1.3.0
 
-    - Regula
-        - com.regula.documentreader:api:7.1.9667@aar
-        - com.regula.documentreader.core:ocrandmrzrfid:7.1.10524@aar
-
     - Sentry
         - io.sentry:sentry-android:6.28.0
 
     - Lottie
         - com.airbnb.android:lottie:6.1.0
+
+    For the Regula OCR/MRZ/RFID Provider:
+    - Regula
+        - com.regula.documentreader:api:7.1.9667@aar
+        - com.regula.documentreader.core:ocrandmrzrfid:7.1.10524@aar
         
 === "iOS"
 

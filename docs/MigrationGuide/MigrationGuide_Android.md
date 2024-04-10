@@ -1,5 +1,9 @@
 # Migration Guide
 
+## From 7.1.0 to 8.0.0
+#### Required Changes
+- Developers are now required to specify the provider for the orz/mrz and rfid features. Check the updated [Getting Started](../index.md) page 
+
 ## From 7.0.0 to 7.1.0
 #### Required Changes
 - As part of the security improving efforts a `candidateHash` and `referenceHash` have been added to the [BiometricMatchParameters](../Features/BiometricMatch/BiometricMatch_Index.md#initiate-match), these can be found in the generated reports.

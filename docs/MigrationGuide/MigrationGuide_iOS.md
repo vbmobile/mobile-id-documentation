@@ -1,4 +1,7 @@
 # Migration Guide
+## From 7.1.0 to 7.1.1
+#### Optional Changes
+- showRFIDInstructions have been added to the [ReadDocumentParameters](../Features/DocumentReader/DocumentReader_Index.md#initiate-scan), to be able to start the RFID scan automatically
 
 ## From 7.0.0 to 7.1.0
 #### Required Changes

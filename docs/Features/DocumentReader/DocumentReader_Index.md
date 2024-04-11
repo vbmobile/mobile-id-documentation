@@ -120,6 +120,7 @@ This method can perform a full travel document read in two steps:
         val showRFIDStatus: Boolean = false,
         val mrzReadTimeout: Long = TimeUnit.SECONDS.toMillis(30),
         val rfidReadTimeout: Long = TimeUnit.SECONDS.toMillis(30),
+        val showRFIDInstructions: Boolean = true,
     ) : Parcelable {
     init {
         require(!(mrzReadTimeout < TimeUnit.SECONDS.toMillis(10) || mrzReadTimeout > TimeUnit.SECONDS.toMillis(60))) { "mrzReadTimeout value must be between 10 and 60 seconds." }

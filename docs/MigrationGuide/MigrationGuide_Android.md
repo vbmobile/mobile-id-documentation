@@ -1,5 +1,9 @@
 # Migration Guide
 
+## From 7.1.0 to 7.1.1
+#### Optional Changes
+- If you use some resources from VB ImageProcessor, you will have to replace it, as it's now private to the SDK.
+
 ## From 7.0.0 to 7.1.0
 #### Required Changes
 - As part of the security improving efforts a `candidateHash` and `referenceHash` have been added to the [BiometricMatchParameters](../Features/BiometricMatch/BiometricMatch_Index.md#initiate-match), these can be found in the generated reports.

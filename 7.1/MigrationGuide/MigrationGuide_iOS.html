@@ -1835,6 +1835,17 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#from-710-to-711" class="md-nav__link">
+        From 7.1.0 to 7.1.1
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#from-700-to-710" class="md-nav__link">
         From 7.0.0 to 7.1.0
     </a>
@@ -1932,6 +1943,17 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#from-710-to-711" class="md-nav__link">
+        From 7.1.0 to 7.1.1
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#from-700-to-710" class="md-nav__link">
         From 7.0.0 to 7.1.0
     </a>
@@ -2004,6 +2026,11 @@ You're not viewing the latest version.
 
 
 <h1 id="migration-guide">Migration Guide<a class="headerlink" href="#migration-guide" title="Permanent link">&para;</a></h1>
+<h2 id="from-710-to-711">From 7.1.0 to 7.1.1<a class="headerlink" href="#from-710-to-711" title="Permanent link">&para;</a></h2>
+<h4 id="optional-changes">Optional Changes<a class="headerlink" href="#optional-changes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>showRFIDInstructions have been added to the <a href="../Features/DocumentReader/DocumentReader_Index.html#initiate-scan">ReadDocumentParameters</a>, to be able to start the RFID scan automatically</li>
+</ul>
 <h2 id="from-700-to-710">From 7.0.0 to 7.1.0<a class="headerlink" href="#from-700-to-710" title="Permanent link">&para;</a></h2>
 <h4 id="required-changes">Required Changes<a class="headerlink" href="#required-changes" title="Permanent link">&para;</a></h4>
 <ul>
@@ -2011,7 +2038,7 @@ You're not viewing the latest version.
 <li>Similarly, the build subject operation needs the generated <code>ProcessReport</code> and <code>DocumentReaderReport</code> that include the above hashes to verify data integrity. If you already use these parameters on the <a href="../Features/SubjectManagement/SubjectManagement_Index.html#subject-operations">BuildSubjectParameters</a> you don't need to take any action.</li>
 <li>The package name now needs to be added to the backoffice. You may need to contact Vision-Box for this update.</li>
 </ul>
-<h4 id="optional-changes">Optional Changes<a class="headerlink" href="#optional-changes" title="Permanent link">&para;</a></h4>
+<h4 id="optional-changes_1">Optional Changes<a class="headerlink" href="#optional-changes_1" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Add a public key on the <a href="../index.html#apiconfig">initial configuration</a> together with a private key setup on the backoffice to ensure encrypted requests.</li>
 </ul>
@@ -2028,7 +2055,7 @@ You're not viewing the latest version.
 <ul>
 <li>If you are using a value of less than 10 seconds or greater than 60 for the scannerTimeout or rfidTimeout in  <strong>ReadDocumentParameters</strong> you need to change the value.</li>
 </ul>
-<h3 id="optional-changes_1">Optional Changes<a class="headerlink" href="#optional-changes_1" title="Permanent link">&para;</a></h3>
+<h3 id="optional-changes_2">Optional Changes<a class="headerlink" href="#optional-changes_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li>If you want to continue with the square frame you need to set the frameShape field of the class <em>BiometricFaceCaptureParameters</em> to .square</li>
 <li>Refactor any preview custom view that you might be using to be an independent UIViewController in your own flow.</li>
@@ -2040,11 +2067,11 @@ You're not viewing the latest version.
 <ul>
 <li>Removed liveness status parameter from the <strong>BiometricFaceCaptureParameters</strong>.</li>
 </ul>
-<h4 id="optional-changes_2">Optional Changes<a class="headerlink" href="#optional-changes_2" title="Permanent link">&para;</a></h4>
+<h4 id="optional-changes_3">Optional Changes<a class="headerlink" href="#optional-changes_3" title="Permanent link">&para;</a></h4>
 <ul>
 <li>If you are using <strong>BiometricFaceCapturePreviewView</strong> custom view, you must remove the property <strong>livenessStatus</strong>.</li>
 </ul>
-<h4 id="optional-changes_3">Optional Changes<a class="headerlink" href="#optional-changes_3" title="Permanent link">&para;</a></h4>
+<h4 id="optional-changes_4">Optional Changes<a class="headerlink" href="#optional-changes_4" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Add parameter includeTemplate in BiometricMatchParameters to receive a template.</li>
 </ul>
@@ -2063,7 +2090,7 @@ You're not viewing the latest version.
 <li>Removed specific feature loadings and created a generic one, e.g. remove calls for BoardingPassScannerLoadingView &amp; BoardingPassScannerLoadingView and replace it with the new one LoadingOverlayViewType.</li>
 <li></li>
 </ul>
-<h4 id="optional-changes_4">Optional Changes<a class="headerlink" href="#optional-changes_4" title="Permanent link">&para;</a></h4>
+<h4 id="optional-changes_5">Optional Changes<a class="headerlink" href="#optional-changes_5" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Added new method <strong>startUpdateDatabase</strong> to allow database download. If the method isn't called, then it will be downloaded upon the first usage of our sdk.</li>
 <li>Removed localization support from backend, if you used our screens and our localization definition from backoffice, you must now create your own files.</li>

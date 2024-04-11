@@ -1816,6 +1816,17 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#from-710-to-711" class="md-nav__link">
+        From 7.1.0 to 7.1.1
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#from-700-to-710" class="md-nav__link">
         From 7.0.0 to 7.1.0
     </a>
@@ -1956,6 +1967,17 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#from-710-to-711" class="md-nav__link">
+        From 7.1.0 to 7.1.1
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#from-700-to-710" class="md-nav__link">
         From 7.0.0 to 7.1.0
     </a>
@@ -2050,6 +2072,11 @@ You're not viewing the latest version.
 
 
 <h1 id="migration-guide">Migration Guide<a class="headerlink" href="#migration-guide" title="Permanent link">&para;</a></h1>
+<h2 id="from-710-to-711">From 7.1.0 to 7.1.1<a class="headerlink" href="#from-710-to-711" title="Permanent link">&para;</a></h2>
+<h4 id="optional-changes">Optional Changes<a class="headerlink" href="#optional-changes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>If you use some resources from VB ImageProcessor, you will have to replace it, as it's now private to the SDK.</li>
+</ul>
 <h2 id="from-700-to-710">From 7.0.0 to 7.1.0<a class="headerlink" href="#from-700-to-710" title="Permanent link">&para;</a></h2>
 <h4 id="required-changes">Required Changes<a class="headerlink" href="#required-changes" title="Permanent link">&para;</a></h4>
 <ul>
@@ -2057,7 +2084,7 @@ You're not viewing the latest version.
 <li>Similarly, the build subject operation needs the generated <code>ProcessReport</code> and <code>DocumentReaderReport</code> that include the above hashes to verify data integrity. If you already use these parameters on the <a href="../Features/SubjectManagement/SubjectManagement_Index.html#subject-operations">BuildSubjectParameters</a> you don't need to take any action.</li>
 <li>The package name now needs to be added to the backoffice. You may need to contact Vision-Box for this update.</li>
 </ul>
-<h4 id="optional-changes">Optional Changes<a class="headerlink" href="#optional-changes" title="Permanent link">&para;</a></h4>
+<h4 id="optional-changes_1">Optional Changes<a class="headerlink" href="#optional-changes_1" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Add a public key on the <a href="../index.html#apiconfig">initial configuration</a> together with a private key setup on the backoffice to ensure encrypted requests.</li>
 </ul>
@@ -2080,7 +2107,7 @@ You're not viewing the latest version.
 <ul>
 <li>Update camera2 library dependency to 1.2.3</li>
 </ul>
-<h4 id="optional-changes_1">Optional Changes<a class="headerlink" href="#optional-changes_1" title="Permanent link">&para;</a></h4>
+<h4 id="optional-changes_2">Optional Changes<a class="headerlink" href="#optional-changes_2" title="Permanent link">&para;</a></h4>
 <ul>
 <li>If you are using a value of less than 10 seconds or higher than 60 seconds for either the scanner or rfid reader timeout in  <strong>ReadDocumentParameters</strong> you need to change the value;</li>
 <li>It's no longer possible to disable the scanner or rfid reader timeout in  <strong>ReadDocumentParameters</strong>.</li>
@@ -2096,12 +2123,12 @@ You're not viewing the latest version.
 <ul>
 <li>Remove the parameter <em>showLivenessIcon</em> from <em>BiometricFaceCaptureParameters</em></li>
 </ul>
-<h4 id="optional-changes_2">Optional Changes<a class="headerlink" href="#optional-changes_2" title="Permanent link">&para;</a></h4>
+<h4 id="optional-changes_3">Optional Changes<a class="headerlink" href="#optional-changes_3" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Add parameter includeTemplate in BiometricMatchParameters to receive a template.</li>
 </ul>
 <h2 id="from-501-to-503">From 5.0.1 to 5.0.3<a class="headerlink" href="#from-501-to-503" title="Permanent link">&para;</a></h2>
-<h4 id="optional-changes_3">Optional Changes<a class="headerlink" href="#optional-changes_3" title="Permanent link">&para;</a></h4>
+<h4 id="optional-changes_4">Optional Changes<a class="headerlink" href="#optional-changes_4" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Remove the context parameter from the "startDatabaseUpdate" method in the facade</li>
 <li>The error parameter in the <strong>RegulaDatabaseListener</strong>'s unableToPrepareDatabase method is now optional"</li>
@@ -2132,7 +2159,7 @@ You're not viewing the latest version.
 <div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">buildSubject</span><span class="p">(</span><span class="n">activity</span><span class="p">:</span><span class="w"> </span><span class="n">Activity</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">:</span><span class="w"> </span><span class="n">BuildSubjectParameters</span><span class="p">)</span>
 </code></pre></div></li>
 </ul>
-<h4 id="optional-changes_4">Optional Changes<a class="headerlink" href="#optional-changes_4" title="Permanent link">&para;</a></h4>
+<h4 id="optional-changes_5">Optional Changes<a class="headerlink" href="#optional-changes_5" title="Permanent link">&para;</a></h4>
 <ul>
 <li>If you are using fragments, you can now change to the new Enrolment methods that support Fragments;
 <div class="highlight"><pre><span></span><code><span class="c1">// Example:</span>

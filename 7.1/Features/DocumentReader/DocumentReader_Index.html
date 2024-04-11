@@ -2104,6 +2104,7 @@ travel documents from different countries, by calling the readDocument method.</
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">showRFIDStatus</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">mrzReadTimeout</span><span class="p">:</span><span class="w"> </span><span class="kt">Long</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">.</span><span class="na">toMillis</span><span class="p">(</span><span class="m">30</span><span class="p">),</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">rfidReadTimeout</span><span class="p">:</span><span class="w"> </span><span class="kt">Long</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">.</span><span class="na">toMillis</span><span class="p">(</span><span class="m">30</span><span class="p">),</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">showRFIDInstructions</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Parcelable</span><span class="w"> </span><span class="p">{</span>
 <span class="k">init</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">require</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">mrzReadTimeout</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">.</span><span class="na">toMillis</span><span class="p">(</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">mrzReadTimeout</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">.</span><span class="na">toMillis</span><span class="p">(</span><span class="m">60</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;mrzReadTimeout value must be between 10 and 60 seconds.&quot;</span><span class="w"> </span><span class="p">}</span>
@@ -2119,12 +2120,14 @@ travel documents from different countries, by calling the readDocument method.</
     <span class="kd">public</span> <span class="kd">let</span> <span class="nv">scannerTimeout</span><span class="p">:</span> <span class="n">TimeInterval</span>
     <span class="kd">public</span> <span class="kd">let</span> <span class="nv">rfidTimeout</span><span class="p">:</span> <span class="n">TimeInterval</span>
     <span class="kd">public</span> <span class="kd">let</span> <span class="nv">showErrors</span><span class="p">:</span> <span class="nb">Bool</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">showRFIDInstructions</span><span class="p">:</span> <span class="nb">Bool</span>
 
     <span class="kd">public</span> <span class="kd">init</span><span class="p">(</span><span class="n">showPreview</span><span class="p">:</span> <span class="nb">Bool</span><span class="p">,</span>
                 <span class="n">readRFID</span><span class="p">:</span> <span class="nb">Bool</span><span class="p">,</span>
                 <span class="n">showRFIDStatus</span><span class="p">:</span> <span class="nb">Bool</span> <span class="p">=</span> <span class="kc">false</span><span class="p">,</span>
                 <span class="n">scannerTimeout</span><span class="p">:</span> <span class="n">TimeInterval</span> <span class="p">=</span> <span class="mi">30</span><span class="p">,</span>
                 <span class="n">rfidTimeout</span><span class="p">:</span> <span class="n">TimeInterval</span> <span class="p">=</span> <span class="mi">30</span><span class="p">,</span>
+                <span class="n">showRFIDInstructions</span><span class="p">:</span> <span class="nb">Bool</span> <span class="p">=</span> <span class="kc">true</span><span class="p">,</span>
                 <span class="n">showErrors</span><span class="p">:</span> <span class="nb">Bool</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -2145,6 +2148,7 @@ showSecurityCheck is used to activate a security mechanism to protect user data 
 screen. If it is true, the device will use its own locking mechanism in this screen and the user
 will need to authenticate and unlock his device to check the preview data (for example, using
 fingerprint or face ID).</p>
+<p>The showRFIDInstructions field, when set to false, allows the RFID Scan to start automatically as soon as the document has been read using OCR successfully, not showing the instructions screen when using it nor giving the chance to skip rfid scan.</p>
 <h2 id="handle-result">Handle Result<a class="headerlink" href="#handle-result" title="Permanent link">&para;</a></h2>
 <p>Here is how you can get the document reader report and handle the result for document reader:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Android</label><label for="__tabbed_5_2">iOS</label></div>

@@ -1,4 +1,11 @@
 # MobileID SDK - Release Notes
+
+## 7.1.1
+
+### Improvements
+- Handle SubjectDataIntegrityFailed to prevent crashes while building the subject if the data validation fails.
+- Change VB ImageProcessor's visibility to private.
+
 ## 7.1.0
 
 ### Improvements

@@ -116,6 +116,7 @@ This method can perform a full travel document read in two steps:
         val showRFIDStatus: Boolean = false,
         val mrzReadTimeout: Long = TimeUnit.SECONDS.toMillis(30),
         val rfidReadTimeout: Long = TimeUnit.SECONDS.toMillis(30),
+        val showRFIDInstructions: Boolean = true,
     ) {
     init {
         require(!(mrzReadTimeout < TimeUnit.SECONDS.toMillis(10) || mrzReadTimeout > TimeUnit.SECONDS.toMillis(60))) { "mrzReadTimeout value must be between 10 and 60 seconds." }
@@ -133,12 +134,14 @@ This method can perform a full travel document read in two steps:
         public let scannerTimeout: TimeInterval
         public let rfidTimeout: TimeInterval
         public let showErrors: Bool
-    
+        public let showRFIDInstructions: Bool
+        
         public init(showPreview: Bool,
                     readRFID: Bool,
                     showRFIDStatus: Bool = false,
                     scannerTimeout: TimeInterval = 30,
                     rfidTimeout: TimeInterval = 30,
+                    showRFIDInstructions: Bool = true,
                     showErrors: Bool)
     }
     ```
@@ -158,6 +161,8 @@ showSecurityCheck is used to activate a security mechanism to protect user data 
 screen. If it is true, the device will use its own locking mechanism in this screen and the user
 will need to authenticate and unlock his device to check the preview data (for example, using
 fingerprint or face ID).
+
+The showRFIDInstructions field, when set to false, allows the RFID Scan to start automatically as soon as the document has been read using OCR successfully, not showing the instructions screen when using it nor giving the chance to skip rfid scan.
 
 ## Handle Result
 

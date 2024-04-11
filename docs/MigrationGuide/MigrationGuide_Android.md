@@ -1,8 +1,12 @@
 # Migration Guide
 
-## From 7.1.0 to 8.0.0
+## From 7.1.1 to 8.0.0
 #### Required Changes
-- Developers are now required to specify the provider for the orz/mrz and rfid features. Check the updated [Getting Started](../index.md) page 
+- Developers are now required to specify the provider for the orz/mrz and rfid features. Check the updated [Getting Started](../index.md) page
+
+## From 7.1.0 to 7.1.1
+#### Optional Changes
+- If you use some resources from VB ImageProcessor, you will have to replace it, as it's now private to the SDK.
 
 ## From 7.0.0 to 7.1.0
 #### Required Changes

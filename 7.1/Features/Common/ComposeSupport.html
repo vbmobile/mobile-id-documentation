@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://vbmobile.github.io/mobile-id-documentation/7.1/Features/FaceCapture/FaceCapture_ErrorView.html">
+        <link rel="canonical" href="https://vbmobile.github.io/mobile-id-documentation/7.1/Features/Common/ComposeSupport.html">
       
       
-        <link rel="prev" href="FaceCapture_PreviewView.html">
+        <link rel="prev" href="HandleErrors.html">
       
       
-        <link rel="next" href="../BiometricMatch/BiometricMatch_Index.html">
+        <link rel="next" href="../DocumentReader/DocumentReader_Index.html">
       
       
       <link rel="icon" href="../../assets/vb-favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Error view - MobileID SDK Documentation</title>
+        <title>Use compose for custom views - MobileID SDK Documentation</title>
       
     
     
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#error-view" class="md-skip">
+        <a href="#jetpack-compose-custom-views" class="md-skip">
           Skip to content
         </a>
       
@@ -133,7 +133,7 @@ You're not viewing the latest version.
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Error view
+              Use compose for custom views
             
           </span>
         </div>
@@ -237,7 +237,7 @@ You're not viewing the latest version.
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../Common/HandleErrors.html" class="md-tabs__link">
+        <a href="HandleErrors.html" class="md-tabs__link">
           
   
   Features
@@ -404,6 +404,8 @@ You're not viewing the latest version.
                 
   
   
+    
+  
   
   
     
@@ -413,11 +415,11 @@ You're not viewing the latest version.
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
         
           
           <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
@@ -431,7 +433,7 @@ You're not viewing the latest version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_1">
             <span class="md-nav__icon md-icon"></span>
             Common
@@ -445,7 +447,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../Common/HandleErrors.html" class="md-nav__link">
+      <a href="HandleErrors.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -463,10 +465,30 @@ You're not viewing the latest version.
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../Common/ComposeSupport.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Use compose for custom views
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="ComposeSupport.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -475,6 +497,59 @@ You're not viewing the latest version.
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#create-a-composable-wrapper-layout-file" class="md-nav__link">
+        Create a Composable Wrapper layout file
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#create-the-custom-view-class" class="md-nav__link">
+        Create the custom view class
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#pass-the-custom-view-into-the-builder" class="md-nav__link">
+        Pass the custom view into the builder
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -932,8 +1007,6 @@ You're not viewing the latest version.
                 
   
   
-    
-  
   
   
     
@@ -943,11 +1016,11 @@ You're not viewing the latest version.
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
         
           
           <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
@@ -961,7 +1034,7 @@ You're not viewing the latest version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
             Face capture
@@ -975,7 +1048,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="FaceCapture_Index.html" class="md-nav__link">
+      <a href="../FaceCapture/FaceCapture_Index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -993,8 +1066,6 @@ You're not viewing the latest version.
                 
   
   
-    
-  
   
   
     
@@ -1004,11 +1075,11 @@ You're not viewing the latest version.
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" >
         
           
           <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
@@ -1022,7 +1093,7 @@ You're not viewing the latest version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_3_2">
             <span class="md-nav__icon md-icon"></span>
             Customization
@@ -1036,7 +1107,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="FaceCapture_LoadingView.html" class="md-nav__link">
+      <a href="../FaceCapture/FaceCapture_LoadingView.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1057,7 +1128,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="FaceCapture_ScanView.html" class="md-nav__link">
+      <a href="../FaceCapture/FaceCapture_ScanView.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1078,7 +1149,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="FaceCapture_PreviewView.html" class="md-nav__link">
+      <a href="../FaceCapture/FaceCapture_PreviewView.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1096,30 +1167,10 @@ You're not viewing the latest version.
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Error view
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="FaceCapture_ErrorView.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../FaceCapture/FaceCapture_ErrorView.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1128,37 +1179,6 @@ You're not viewing the latest version.
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <!-- Table of contents item -->
-<li class="md-nav__item">
-    <a href="#branding" class="md-nav__link">
-        Branding
-    </a>
-
-    <!-- Table of contents list -->
-    
-    
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1917,8 +1937,30 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
-    <a href="#branding" class="md-nav__link">
-        Branding
+    <a href="#create-a-composable-wrapper-layout-file" class="md-nav__link">
+        Create a Composable Wrapper layout file
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#create-the-custom-view-class" class="md-nav__link">
+        Create the custom view class
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#pass-the-custom-view-into-the-builder" class="md-nav__link">
+        Pass the custom view into the builder
     </a>
 
     <!-- Table of contents list -->
@@ -1944,100 +1986,131 @@ You're not viewing the latest version.
   
 
 
-<h1 id="error-view">Error View<a class="headerlink" href="#error-view" title="Permanent link">&para;</a></h1>
-<p>When the showErrors flag is set to true in the BiometricFaceCaptureParameters class, then any error that happens in this feature will show a default screen with some information.
-When the resulting image fails any of the quality tests, then this screen will also appear showing a list of the tests that failed.
-You can either customize this screen to your branding or set the flag to false and handle the error in your own activity.</p>
-<p><img alt="Biometric Face Capture Example" src="Assets/FC_Error.png" style="height:600px;width:300px;display: block; margin: 0 auto" title="Biometric Face Capture Default Error Screen" /></p>
-<p>It contains a title(1), a message(2), an image(3), a warning icon(4), a list item layout(5), a retry button(6) and a background that can be customized. </p>
-<h2 id="branding">Branding<a class="headerlink" href="#branding" title="Permanent link">&para;</a></h2>
-<p>You can apply your own branding to our screens by overriding the resources we use.</p>
-<h3 id="text-resources">Text resources<a class="headerlink" href="#text-resources" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Android</label><label for="__tabbed_1_2">iOS</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p>You can add your own texts and localization by overriding the following string resources:
-<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- Failed Tests Description --&gt;</span>
-<span class="nt">&lt;string</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;face_capture_failed_tests_title_sdk_enrolment&quot;</span><span class="nt">&gt;</span>We<span class="w"> </span>need<span class="w"> </span>another<span class="w"> </span>selfie<span class="nt">&lt;/string&gt;</span>
-<span class="nt">&lt;string</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;face_capture_failed_tests_subtitle_sdk_enrolment&quot;</span><span class="nt">&gt;</span>See<span class="w"> </span>below<span class="w"> </span>what<span class="w"> </span>needs<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>improved<span class="nt">&lt;/string&gt;</span>
-<span class="nt">&lt;string</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;not_eyes_closed_test_desc_sdk_enrolment&quot;</span><span class="nt">&gt;</span>Make<span class="w"> </span>sure<span class="w"> </span>to<span class="w"> </span>keep<span class="w"> </span>a<span class="w"> </span>neutral<span class="w"> </span>expression:<span class="w"> </span>eyes<span class="w"> </span>open,<span class="w"> </span>mouth<span class="w"> </span>closed.<span class="nt">&lt;/string&gt;</span>
-<span class="nt">&lt;string</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;angle_test_desc_sdk_enrolment&quot;</span><span class="nt">&gt;</span>Keep<span class="w"> </span>your<span class="w"> </span>head<span class="w"> </span>straight<span class="w"> </span>and<span class="w"> </span>facing<span class="w"> </span>the<span class="w"> </span>camera<span class="w"> </span>directly.<span class="nt">&lt;/string&gt;</span>
-<span class="nt">&lt;string</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;relative_eyeline_frame_test_desc_sdk_enrolment&quot;</span><span class="nt">&gt;</span>Make<span class="w"> </span>sure<span class="w"> </span>your<span class="w"> </span>face<span class="w"> </span>is<span class="w"> </span>centered<span class="w"> </span>and<span class="w"> </span>fully<span class="w"> </span>visible<span class="w"> </span>within<span class="w"> </span>the<span class="w"> </span>frame<span class="nt">&lt;/string&gt;</span>
-<span class="nt">&lt;string</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;face_too_far_test_desc_sdk_enrolment&quot;</span><span class="nt">&gt;</span>It<span class="w"> </span>seems<span class="w"> </span>that<span class="w"> </span>you<span class="w"> </span>were<span class="w"> </span>too<span class="w"> </span>far<span class="w"> </span>away.<span class="w"> </span>Try<span class="w"> </span>holding<span class="w"> </span>your<span class="w"> </span>phone<span class="w"> </span>a<span class="w"> </span>bit<span class="w"> </span>closer.<span class="nt">&lt;/string&gt;</span>
-<span class="nt">&lt;string</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;face_too_close_test_desc_sdk_enrolment&quot;</span><span class="nt">&gt;</span>It<span class="w"> </span>seems<span class="w"> </span>that<span class="w"> </span>you<span class="w"> </span>were<span class="w"> </span>too<span class="w"> </span>close<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>camera.<span class="w"> </span>Try<span class="w"> </span>holding<span class="w"> </span>your<span class="w"> </span>phone<span class="w"> </span>farther<span class="w"> </span>away.<span class="nt">&lt;/string&gt;</span>
-<span class="nt">&lt;string</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;multiple_face_test_desc_sdk_enrolment&quot;</span><span class="nt">&gt;</span>Only<span class="w"> </span>the<span class="w"> </span>document<span class="w"> </span>owner<span class="w"> </span>should<span class="w"> </span>be<span class="w"> </span>in<span class="w"> </span>the<span class="w"> </span>frame.<span class="nt">&lt;/string&gt;</span>
-<span class="nt">&lt;string</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;image_blurred_test_desc_sdk_enrolment&quot;</span><span class="nt">&gt;</span>The<span class="w"> </span>picture<span class="w"> </span>was<span class="w"> </span>not<span class="w"> </span>clear<span class="w"> </span>enough.<span class="nt">&lt;/string&gt;</span>
-<span class="nt">&lt;string</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;face_capture_liveness_check_test_sdk_enrolment&quot;</span><span class="nt">&gt;</span>This<span class="w"> </span>seems<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>a<span class="w"> </span>picture<span class="w"> </span>of<span class="w"> </span>a<span class="w"> </span>picture.<span class="w"> </span>It<span class="w"> </span>must<span class="w"> </span>really<span class="w"> </span>be<span class="w"> </span>a<span class="w"> </span>real-time<span class="w"> </span>selfie.<span class="nt">&lt;/string&gt;</span>
-</code></pre></div></p>
-</div>
-<div class="tabbed-block">
-<p>The best way to override strings is by adding your key through the Theme class for the title and subtitle
-<div class="highlight"><pre><span></span><code><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">titleQualityTests</span><span class="p">.</span><span class="n">localized</span><span class="p">()</span>
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">subtitleQualityTests</span><span class="p">.</span><span class="n">localized</span><span class="p">()</span>
-</code></pre></div></p>
-<p>The best way to override strings is by adding your key through the Theme class for the button
-<div class="highlight"><pre><span></span><code><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">buttons</span><span class="p">.</span><span class="n">retake</span><span class="p">.</span><span class="n">localized</span><span class="p">()</span>
-</code></pre></div></p>
-</div>
-</div>
-</div>
-<h3 id="colors">Colors<a class="headerlink" href="#colors" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Android</label><label for="__tabbed_2_2">iOS</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p>You can change the text colors by overriding the following color resource (It affects all texts):
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;color</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;colorOverlayInvalidTxtSdkEnrolment&quot;</span><span class="nt">&gt;</span>#1A1C1E<span class="nt">&lt;/color&gt;</span>
-</code></pre></div></p>
-<p>You can change the background color by overriding the following color resource:
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;color</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;colorOverlayInvalidBgSdkEnrolment&quot;</span><span class="nt">&gt;</span>#F1F0F4<span class="nt">&lt;/color&gt;</span>
-</code></pre></div></p>
-</div>
-<div class="tabbed-block">
-<p>You can change the color of the labels
-<div class="highlight"><pre><span></span><code><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">titleDark</span>
-</code></pre></div></p>
-<p>You can change the color of the button (this affects all primary style buttons)
-<div class="highlight"><pre><span></span><code><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">button</span><span class="p">.</span><span class="n">primaryBackground</span>
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">button</span><span class="p">.</span><span class="n">primaryTitle</span>
-</code></pre></div></p>
-</div>
-</div>
-</div>
-<h3 id="styles">Styles<a class="headerlink" href="#styles" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Android</label><label for="__tabbed_3_2">iOS</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p>You can extend the styles we use and override any properties (textColor, textSize, fontFamily, etc...) you want.
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;style</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Theme.Sdk.Enrolment.TextView.Dark.Title.Centered&quot;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;style</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Theme.Sdk.Enrolment.TextView.Dark.Subtitle.Centered&quot;</span><span class="nt">&gt;</span>
+<h1 id="jetpack-compose-custom-views">Jetpack Compose Custom Views<a class="headerlink" href="#jetpack-compose-custom-views" title="Permanent link">&para;</a></h1>
+<p>In Android, there's a new way to create the layouts programmatically using Jetpack compose library.
+Our layouts are currently in traditional XML files but we also want to give the option to use compose when needed.
+This page will briefly explain how you can wrap a composable in a xml layout to use it as a custom view.</p>
+<h2 id="create-a-composable-wrapper-layout-file">Create a Composable Wrapper layout file<a class="headerlink" href="#create-a-composable-wrapper-layout-file" title="Permanent link">&para;</a></h2>
+<p>First we are going to need a layout file that contains a compose view.</p>
+<p>Since we want to make the whole screen a composable, then it's as simple as adding a Compose View that takes the whole space.
+Create a new layout file, call it, for example, composable_wrapper.xml and paste the following code there:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;merge</span>
+<span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+<span class="na">xmlns:tools=</span><span class="s">&quot;http://schemas.android.com/tools&quot;</span>
+<span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+<span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span>
+<span class="na">tools:parentTag=</span><span class="s">&quot;androidx.constraintlayout.widget.ConstraintLayout&quot;</span><span class="nt">&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;androidx.compose.ui.platform.ComposeView</span>
+<span class="w">        </span><span class="na">android:id=</span><span class="s">&quot;@+id/compose_view&quot;</span>
+<span class="w">        </span><span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+<span class="w">        </span><span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span><span class="nt">&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;/androidx.compose.ui.platform.ComposeView&gt;</span>
+
+<span class="nt">&lt;/merge&gt;</span>
 </code></pre></div>
-Note: It will affect every component that uses the same style.</p>
-</div>
-<div class="tabbed-block">
-<p>You can change the font through the theme class (this will affect all text in the app):</p>
-<div class="highlight"><pre><span></span><code><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">fonts</span><span class="p">.</span><span class="n">bold</span>
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">fonts</span><span class="p">.</span><span class="n">regular</span>
+<p>Now that we have the composable wrapper, this layout file can be used for all the custom views you want to implement.</p>
+<p>For example, let's implement the document reader loading as a composable custom view.</p>
+<h2 id="create-the-custom-view-class">Create the custom view class<a class="headerlink" href="#create-the-custom-view-class" title="Permanent link">&para;</a></h2>
+<p>Create a new class, let's call it CustomLoadingView that's going to extend a ConstraintLayout.</p>
+<p>Paste the following code and make sure to import everything you need.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">CustomLoadingView</span><span class="p">(</span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="n">Context</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ConstraintLayout</span><span class="p">(</span><span class="n">context</span><span class="p">),</span><span class="w"> </span><span class="n">ICustomDocumentReader</span><span class="p">.</span><span class="na">LoadingView</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">binding</span><span class="p">:</span><span class="w"> </span><span class="n">ComposeWrapperBinding</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">isLoading</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">title</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">message</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">init</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ComposeWrapperBinding</span><span class="p">.</span><span class="na">inflate</span><span class="p">(</span>
+<span class="w">            </span><span class="n">LayoutInflater</span><span class="p">.</span><span class="na">from</span><span class="p">(</span><span class="n">context</span><span class="p">),</span>
+<span class="w">            </span><span class="k">this</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="n">binding</span><span class="p">.</span><span class="na">composeView</span><span class="p">.</span><span class="na">setContent</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">LoadingViewCompose</span><span class="p">()</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onPreFeatureLoading</span><span class="p">(</span><span class="n">message</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">isLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Loading...&quot;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">message</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onPostFeatureLoading</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">isLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onDownloadProgressChanged</span><span class="p">(</span><span class="n">progress</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">isLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Downloading Resources&quot;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Progress: </span><span class="si">$</span><span class="n">progress</span><span class="s">%&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">hideLoading</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">isLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Composable</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">LoadingViewCompose</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Column</span><span class="p">(</span>
+<span class="w">            </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">                </span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">()</span>
+<span class="w">                </span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">            </span><span class="n">verticalArrangement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arrangement</span><span class="p">.</span><span class="na">Center</span><span class="p">,</span>
+<span class="w">            </span><span class="n">horizontalAlignment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Alignment</span><span class="p">.</span><span class="na">CenterHorizontally</span>
+<span class="w">        </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isLoading</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// Show loading progress indicator</span>
+<span class="w">                </span><span class="n">CircularProgressIndicator</span><span class="p">()</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="c1">// Show title and message</span>
+<span class="w">            </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">title</span><span class="p">,</span>
+<span class="w">                </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="p">.</span><span class="na">Black</span><span class="p">,</span>
+<span class="w">                </span><span class="n">fontSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">20.</span><span class="n">sp</span><span class="p">,</span>
+<span class="w">                </span><span class="n">textAlign</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TextAlign</span><span class="p">.</span><span class="na">Center</span><span class="p">,</span>
+<span class="w">                </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">bottom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">8.</span><span class="n">dp</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">message</span><span class="p">,</span>
+<span class="w">                </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="p">.</span><span class="na">Gray</span><span class="p">,</span>
+<span class="w">                </span><span class="n">fontSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16.</span><span class="n">sp</span><span class="p">,</span>
+<span class="w">                </span><span class="n">textAlign</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TextAlign</span><span class="p">.</span><span class="na">Center</span><span class="p">,</span>
+<span class="w">                </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">bottom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
-</div>
-</div>
-</div>
-<h3 id="image">Image<a class="headerlink" href="#image" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Android</label><label for="__tabbed_4_2">iOS</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p>You can change the loading image by adding a drawable with this name:
-<div class="highlight"><pre><span></span><code>ic_face_capture_failed_sdk_enrolment.xml
+<p>Breaking this code down, we have a constraint layout, that implements the loading view contract, changing the values of the spinner, title and message according to what is happening in the moment. 
+Basically the same we would have with a traditional xml custom view.</p>
+<p>The difference comes in the composable function, that's a very simple UI to serve as an example. 
+It contains a spinner which visibility is controlled by a state variable.
+And two text fields which value will also change during the execution.</p>
+<p>In the constructor of this class, we make sure to inflate the composable wrapper we added in the first place and pass the composable into the ComposeView.</p>
+<h2 id="pass-the-custom-view-into-the-builder">Pass the custom view into the builder<a class="headerlink" href="#pass-the-custom-view-into-the-builder" title="Permanent link">&para;</a></h2>
+<p>After this class is created and configured, we need to inject it to the custom views list as we do with regular custom views as well.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">enrolmentModule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">single</span><span class="o">&lt;</span><span class="n">IEnrolment</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">EnrolmentBuilder</span><span class="p">.</span><span class="na">of</span><span class="p">(</span>
+<span class="w">            </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="nd">@ComposeApp</span><span class="p">,</span>
+<span class="w">            </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">enrolmentConfig</span>
+<span class="w">        </span><span class="p">).</span><span class="na">withDocumentReaderConfig</span><span class="p">(</span><span class="n">documentReaderConfig</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">withDocumentReaderCustomViews</span><span class="p">(</span>
+<span class="w">                </span><span class="n">DocumentReaderCustomViews</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">loadingView</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CustomLoadingView</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">            </span><span class="p">).</span><span class="na">build</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
-The image we are using is 120x120dp.</p>
-</div>
-<div class="tabbed-block">
-<p>You can change the image by adding a asset file and overriding the following image name in Theme class
-<div class="highlight"><pre><span></span><code><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">images</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">errorRedCircle</span>
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">images</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">improveSelfie</span>
-</code></pre></div></p>
-</div>
-</div>
-</div>
+<p>And that's it, when you run the document reader feature, the loading screen will show up using the UI defined in the composable.</p>
 
 
 

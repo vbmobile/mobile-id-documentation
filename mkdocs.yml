@@ -32,6 +32,7 @@ nav:
   - Features:
     - Common:
         - How to handle errors: Features/Common/HandleErrors.md
+        - Use compose for custom views: Features/Common/ComposeSupport.md
     - Document reader:
         - Overview: Features/DocumentReader/DocumentReader_Index.md
         - Regula database: Features/DocumentReader/DocumentReader_RegulaDB.md

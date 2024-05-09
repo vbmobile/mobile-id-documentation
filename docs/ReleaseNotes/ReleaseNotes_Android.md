@@ -1,5 +1,10 @@
 # MobileID SDK - Release Notes
 
+## 7.1.2
+
+### Improvements
+- Update Regula to 7.2
+
 ## 7.1.1
 
 ### Improvements

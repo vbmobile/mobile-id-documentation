@@ -1,4 +1,11 @@
 # MobileID SDK - Release Notes
+
+## 7.1.2
+
+### Improvements
+- Update Regula to 7.2
+- Improvements in **BiometricFaceCapture** feature.
+
 ## 7.1.1
 ### Improvements
 - Added a new parameter to **ReadDocumentParameters** called **showRFIDInstructions**  that allows you to skip the RFID scan instruction screen

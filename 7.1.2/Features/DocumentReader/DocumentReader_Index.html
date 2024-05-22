@@ -1,0 +1,2613 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://vbmobile.github.io/mobile-id-documentation/7.1.2/Features/DocumentReader/DocumentReader_Index.html">
+      
+      
+        <link rel="prev" href="../Common/ComposeSupport.html">
+      
+      
+        <link rel="next" href="DocumentReader_RegulaDB.html">
+      
+      
+      <link rel="icon" href="../../assets/vb-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.24">
+    
+    
+      
+        <title>Overview - MobileID SDK Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+  
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#document-reader" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+You're not viewing the latest version.
+<a href="../../..">
+    <strong>Click here to go to latest.</strong>
+</a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),outdated=__md_get("__outdated",sessionStorage);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="MobileID SDK Documentation" class="md-header__button md-logo" aria-label="MobileID SDK Documentation" data-md-component="logo">
+      
+  <img src="../../assets/vb-logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MobileID SDK Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/vbmobile?tab=repositories" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Sample Apps
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../index.html" class="md-tabs__link">
+        
+  
+    
+  
+  Getting started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Common/HandleErrors.html" class="md-tabs__link">
+          
+  
+  Features
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ReleaseNotes/ReleaseNotes_Android.html" class="md-tabs__link">
+          
+  
+  Release notes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../MigrationGuide/MigrationGuide_Android.html" class="md-tabs__link">
+          
+  
+  Migration guide
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="MobileID SDK Documentation" class="md-nav__button md-logo" aria-label="MobileID SDK Documentation" data-md-component="logo">
+      
+  <img src="../../assets/vb-logo.png" alt="logo">
+
+    </a>
+    MobileID SDK Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/vbmobile?tab=repositories" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Sample Apps
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Common
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Common
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Common/HandleErrors.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to handle errors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Common/ComposeSupport.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use compose for custom views
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Document reader
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Document reader
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="DocumentReader_Index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#configure" class="md-nav__link">
+        Configure
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#initiate-scan" class="md-nav__link">
+        Initiate Scan
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#handle-result" class="md-nav__link">
+        Handle Result
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#documentreadercustomviews" class="md-nav__link">
+        DocumentReaderCustomViews
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DocumentReader_RegulaDB.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Regula database
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Customization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DocumentReader_LoadingView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Loading view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DocumentReader_ScanView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scan view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DocumentReader_RFIDReadView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RFID read view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3_4" id="__nav_2_2_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Chip reading
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_2_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Chip reading
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3_4_1" id="__nav_2_2_3_4_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    iOS
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_2_2_3_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            iOS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DocumentReader_ReadChipView_iOS.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Read chip view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3_4_2" id="__nav_2_2_3_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_2_2_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Android
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DocumentReader_FindChipView_Android.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Find chip view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DocumentReader_ReadChipView_Android.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Read chip view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DocumentReader_PreviewView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preview view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DocumentReader_ErrorView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Error view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Face capture
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Face capture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FaceCapture/FaceCapture_Index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Customization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FaceCapture/FaceCapture_LoadingView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Loading view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FaceCapture/FaceCapture_ScanView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scan view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FaceCapture/FaceCapture_PreviewView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preview view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FaceCapture/FaceCapture_ErrorView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Error view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Biometric match
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Biometric match
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BiometricMatch/BiometricMatch_Index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Customization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BiometricMatch/BiometricMatch_LoadingView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Loading view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BiometricMatch/BiometricMatch_ErrorView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Error view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Boarding pass reader
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Boarding pass reader
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BoardingPass/BoardingPass_Index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_2" id="__nav_2_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Customization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BoardingPass/BoardingPass_LoadingView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Loading view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BoardingPass/BoardingPass_ScanView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scan view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BoardingPass/BoardingPass_PreviewView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preview view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BoardingPass/BoardingPass_ErrorView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Error view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Subject management
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Subject management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SubjectManagement/SubjectManagement_Index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6_2" id="__nav_2_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Customization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SubjectManagement/SubjectManagement_LoadingView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Loading view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SubjectManagement/SubjectManagement_ErrorView.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Error view
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Form/Form_Index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Form
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Release notes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Release notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ReleaseNotes/ReleaseNotes_Android.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ReleaseNotes/ReleaseNotes_iOS.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    iOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Migration guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Migration guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MigrationGuide/MigrationGuide_Android.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MigrationGuide/MigrationGuide_iOS.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    iOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#configure" class="md-nav__link">
+        Configure
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#initiate-scan" class="md-nav__link">
+        Initiate Scan
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#handle-result" class="md-nav__link">
+        Handle Result
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#documentreadercustomviews" class="md-nav__link">
+        DocumentReaderCustomViews
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="document-reader">Document Reader<a class="headerlink" href="#document-reader" title="Permanent link">&para;</a></h1>
+<p>The document reader is used to extract the user’s document information and perform all necessary
+security validations. This functionality works in two steps: the MRZ of the travel document is
+scanned (using the device's camera) and then, if it is an electronic document (i.e. with a chip),
+and the client app indicated that it wants to read the chip, the user is prompted to place the
+mobile device over the travel e-Document in order to perform a RFID scan to extract available data.</p>
+<h2 id="configure">Configure<a class="headerlink" href="#configure" title="Permanent link">&para;</a></h2>
+<p>To use this feature, you must provide the DocumentReaderConfig to the EnrolmentBuilder like the
+following example:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Android</label><label for="__tabbed_1_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">builder</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentBuilder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EnrolmentBuilder</span>
+<span class="w">    </span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">config</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">withDocumentReaderConfig</span><span class="p">(</span><span class="n">documentReaderConfig</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">enrolment</span><span class="p">:</span> <span class="n">EnrolmentProtocol</span> <span class="p">=</span> <span class="n">EnrolmentBuilder</span>
+        <span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span> <span class="n">enrolmentConfig</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">with</span><span class="p">(</span><span class="n">documentReaderConfig</span><span class="p">:</span> <span class="n">documentReaderConfig</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">with</span><span class="p">(</span><span class="n">viewRegister</span><span class="p">:</span> <span class="n">viewRegister</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">build</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>The DocumentReaderConfig has the following structure:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Android</label><label for="__tabbed_2_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="nd">@Parcelize</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">DocumentReaderConfig</span><span class="p">(</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nv">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="p">,</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nv">databaseId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span>
+<span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Parcelable</span>
+</code></pre></div>
+<ul>
+<li>multipageProcessing: controls the workflow for documents that might need to have different pages
+scanned;</li>
+<li>databaseId: specify database Id to be used with the document reader functionality (provided by
+Regula);</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">struct</span> <span class="nc">DocumentReaderConfig</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">multipageProcessing</span><span class="p">:</span> <span class="nb">Bool</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">databaseID</span><span class="p">:</span> <span class="nb">String</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">databasePath</span><span class="p">:</span> <span class="nb">String</span><span class="p">?</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">scannerTimeout</span><span class="p">:</span> <span class="n">TimeInterval</span>
+
+    <span class="kd">public</span> <span class="kd">init</span><span class="p">(</span><span class="n">multipageProcessing</span><span class="p">:</span> <span class="nb">Bool</span><span class="p">,</span> <span class="n">databaseID</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="n">databasePath</span><span class="p">:</span> <span class="nb">String</span><span class="p">?</span> <span class="p">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">scannerTimeout</span><span class="p">:</span> <span class="n">TimeInterval</span> <span class="p">=</span> <span class="mi">30</span><span class="p">)</span> 
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>multipageProcessing: controls the workflow for documents that might need to have different pages
+scanned;</li>
+<li>databaseId: specify database Id to be used with the document reader functionality (provided by
+Regula);</li>
+<li>databasePath: Database path for .dat file to initialize Regula documents database. Default value is <code>nil</code>.</li>
+<li>scannerTimeout: Document scan timeout, in seconds. Default value is <code>30</code> seconds.</li>
+</ul>
+</div>
+</div>
+</div>
+<h2 id="initiate-scan">Initiate Scan<a class="headerlink" href="#initiate-scan" title="Permanent link">&para;</a></h2>
+<p>The document reader functionality enables the client application to extract and validate data from
+travel documents from different countries, by calling the readDocument method.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Android</label><label for="__tabbed_3_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * Reads the information contained in a personal document.     *</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param context Context</span>
+<span class="cm"> * @param params [DocumentReaderParameters] with some configurations for the document reader feature.</span>
+<span class="cm"> * @param resultLauncher [ActivityResultLauncher&lt;Intent&gt;] fragment or activity that will handle the results.</span>
+<span class="cm"> */</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">readDocument</span><span class="p">(</span>
+<span class="w">    </span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="n">Context</span><span class="p">,</span>
+<span class="w">    </span><span class="n">params</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderParameters</span><span class="p">,</span>
+<span class="w">    </span><span class="n">resultLauncher</span><span class="p">:</span><span class="w"> </span><span class="n">ActivityResultLauncher</span><span class="o">&lt;</span><span class="n">Intent</span><span class="o">&gt;</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>    <span class="kd">func</span> <span class="nf">readDocument</span><span class="p">(</span><span class="n">parameters</span><span class="p">:</span> <span class="n">ReadDocumentParameters</span><span class="p">,</span> 
+                      <span class="n">viewController</span><span class="p">:</span> <span class="bp">UIViewController</span><span class="p">,</span> 
+                      <span class="n">completionHandler</span><span class="p">:</span> <span class="p">@</span><span class="n">escaping</span> <span class="p">(</span><span class="n">Result</span><span class="p">&lt;</span><span class="n">DocumentReaderReport</span><span class="p">,</span> <span class="n">DocumentReaderError</span><span class="p">&gt;)</span> <span class="p">-&gt;</span> <span class="nb">Void</span><span class="p">)</span> <span class="kr">throws</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>This method can perform a full travel document read in two steps:</p>
+<ul>
+<li>MRZ scan: using the device's camera, the SDK reads the MRZ section of the travel document and
+  extracts information from it. During this step, and if available, a document picture is also
+  scanned and saved.</li>
+<li>RFID scan: the user is prompted to move the device over the e-Document and, using NFC, the chip
+  data is scanned. This step is available only for electronic documents (i.e. with a chip) and is
+  optional (i.e. the client app must indicate that it wants to read the document's chip, setting the
+  readRFID flag to true when calling the readDocument method). You can use specific parameters when
+  using this functionality for passport scanning. Below is an example on how to provide those
+  parameters:</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Android</label><label for="__tabbed_4_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">DocumentReaderParameters</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">showPreview</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">showErrors</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">rfidRead</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">showSecurityCheck</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">showRFIDStatus</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">mrzReadTimeout</span><span class="p">:</span><span class="w"> </span><span class="kt">Long</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">.</span><span class="na">toMillis</span><span class="p">(</span><span class="m">30</span><span class="p">),</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">rfidReadTimeout</span><span class="p">:</span><span class="w"> </span><span class="kt">Long</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">.</span><span class="na">toMillis</span><span class="p">(</span><span class="m">30</span><span class="p">),</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">showRFIDInstructions</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Parcelable</span><span class="w"> </span><span class="p">{</span>
+<span class="k">init</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">require</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">mrzReadTimeout</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">.</span><span class="na">toMillis</span><span class="p">(</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">mrzReadTimeout</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">.</span><span class="na">toMillis</span><span class="p">(</span><span class="m">60</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;mrzReadTimeout value must be between 10 and 60 seconds.&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="n">require</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">rfidReadTimeout</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">.</span><span class="na">toMillis</span><span class="p">(</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">rfidReadTimeout</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">.</span><span class="na">toMillis</span><span class="p">(</span><span class="m">60</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;rfidReadTimeout value must be between 10 and 60 seconds.&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">struct</span> <span class="nc">ReadDocumentParameters</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">showPreview</span><span class="p">:</span> <span class="nb">Bool</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">readRFID</span><span class="p">:</span> <span class="nb">Bool</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">showRFIDStatus</span><span class="p">:</span> <span class="nb">Bool</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">scannerTimeout</span><span class="p">:</span> <span class="n">TimeInterval</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">rfidTimeout</span><span class="p">:</span> <span class="n">TimeInterval</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">showErrors</span><span class="p">:</span> <span class="nb">Bool</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">showRFIDInstructions</span><span class="p">:</span> <span class="nb">Bool</span>
+
+    <span class="kd">public</span> <span class="kd">init</span><span class="p">(</span><span class="n">showPreview</span><span class="p">:</span> <span class="nb">Bool</span><span class="p">,</span>
+                <span class="n">readRFID</span><span class="p">:</span> <span class="nb">Bool</span><span class="p">,</span>
+                <span class="n">showRFIDStatus</span><span class="p">:</span> <span class="nb">Bool</span> <span class="p">=</span> <span class="kc">false</span><span class="p">,</span>
+                <span class="n">scannerTimeout</span><span class="p">:</span> <span class="n">TimeInterval</span> <span class="p">=</span> <span class="mi">30</span><span class="p">,</span>
+                <span class="n">rfidTimeout</span><span class="p">:</span> <span class="n">TimeInterval</span> <span class="p">=</span> <span class="mi">30</span><span class="p">,</span>
+                <span class="n">showRFIDInstructions</span><span class="p">:</span> <span class="nb">Bool</span> <span class="p">=</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="n">showErrors</span><span class="p">:</span> <span class="nb">Bool</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Both mrzReadTimeout and rfidReadTimeout values must be between 10 and 60 seconds, otherwise an illegal argument exception will be thrown.
+It's no longer possible to disable either of this timeout.</p>
+<p>If both scans are enabled and the RFID scan fails for some reason, the MRZ scan data is always
+returned as the default set of data read from the travel document. The mrzReadTimeout is the timeout
+value in seconds before closing the document reading screen if no document is scanned during this
+period. The functionality provides UI solution for both document scanning and returned data
+preview (as shown in the following images), with an option to retry the scan. The preview is only
+shown if the flag showPreview in the DocumentReaderParameters is set to true when calling the
+readDocument method. The showRFIDStatus is a flag to show an icon in the preview screen that
+indicates if the document was scanned using RFID and properly validated and authenticated. The
+showSecurityCheck is used to activate a security mechanism to protect user data in the preview
+screen. If it is true, the device will use its own locking mechanism in this screen and the user
+will need to authenticate and unlock his device to check the preview data (for example, using
+fingerprint or face ID).</p>
+<p>The showRFIDInstructions field, when set to false, allows the RFID Scan to start automatically as soon as the document has been read using OCR successfully, not showing the instructions screen when using it nor giving the chance to skip rfid scan.</p>
+<h2 id="handle-result">Handle Result<a class="headerlink" href="#handle-result" title="Permanent link">&para;</a></h2>
+<p>Here is how you can get the document reader report and handle the result for document reader:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Android</label><label for="__tabbed_5_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>You can get the result by using the result launcher that's passed as the final parameter:
+<div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentReaderResultLauncher</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">registerForActivityResult</span><span class="p">(</span><span class="n">DocumentReaderResultLauncher</span><span class="p">())</span>
+<span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderActivityResult</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">    </span><span class="k">when</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">result</span><span class="p">.</span><span class="na">success</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">onSuccess</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="na">documentReaderReport</span><span class="p">)</span>
+<span class="w">        </span><span class="n">result</span><span class="p">.</span><span class="na">documentReaderError</span><span class="o">?.</span><span class="na">userCanceled</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">userCancelled</span><span class="p">()</span>
+<span class="w">        </span><span class="n">result</span><span class="p">.</span><span class="na">documentReaderError</span><span class="o">?.</span><span class="na">termsAndConditionsAccepted</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">onTermsAndConditionsRejected</span><span class="p">()</span>
+<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">onDocumentReaderError</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>You will receive a model of the type DocumentReaderActivityResult that will contain the success data (in this case a DocumentReaderReport) or the error data.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">DocumentReaderActivityResult</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentReaderReport</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderReport?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentReaderError</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderError?</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">success</span><span class="w"> </span><span class="k">get</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">documentReaderReport</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The DocumentReaderError has the following structure:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">DocumentReaderError</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">userCanceled</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">termsAndConditionsAccepted</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">featureError</span><span class="p">:</span><span class="w"> </span><span class="n">FeatureError?,</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p><div class="highlight"><pre><span></span><code><span class="kc">self</span><span class="p">.</span><span class="n">enrolment</span><span class="p">.</span><span class="n">readDocument</span><span class="p">(</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">viewController</span><span class="p">:</span> <span class="n">view</span><span class="p">)</span> <span class="p">{</span> <span class="p">[</span><span class="kr">weak</span> <span class="kc">self</span><span class="p">]</span> <span class="n">result</span> <span class="k">in</span>
+    <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="kd">let</span> <span class="nv">documentReaderReport</span><span class="p">):</span>
+           <span class="c1">// handle DocumentReaderReport</span>
+
+        <span class="k">case</span> <span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="kd">let</span> <span class="nv">error</span><span class="p">):</span>
+            <span class="n">EnrolmentData</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">documentReaderReport</span> <span class="p">=</span> <span class="kc">nil</span>
+            <span class="k">if</span> <span class="n">error</span><span class="p">.</span><span class="n">userCanceled</span> <span class="p">{</span>
+                <span class="bp">print</span><span class="p">(</span><span class="s">&quot;onUserCancel&quot;</span><span class="p">)</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="n">featureError</span><span class="p">.</span><span class="n">publicMessage</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+The DocumentReaderError has the following structure:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DocumentReaderError</span><span class="p">:</span> <span class="n">Error</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">userCanceled</span><span class="p">:</span> <span class="nb">Bool</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">termsAndConditionsAccepted</span><span class="p">:</span> <span class="nb">Bool</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">featureError</span><span class="p">:</span> <span class="n">FeatureError</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="document-reader-report">Document Reader Report<a class="headerlink" href="#document-reader-report" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Android</label><label for="__tabbed_6_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="nd">@Parcelize</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">DocumentReaderReport</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentData</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentData</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">status</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">DocumentDataStatus</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">rfidStatus</span><span class="p">:</span><span class="w"> </span><span class="n">RFIDStatus</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentType</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentType</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentPhotoHash</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentDataHash</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Parcelable</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">struct</span> <span class="nc">DocumentReaderReport</span><span class="p">:</span> <span class="n">Codable</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">documentData</span><span class="p">:</span> <span class="n">DocumentData</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">documentType</span><span class="p">:</span> <span class="n">DocumentType</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">documentRFIDStatus</span><span class="p">:</span> <span class="n">DocumentRFIDStatus</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">documentStatuses</span><span class="p">:</span> <span class="p">[</span><span class="n">DocumentDataStatus</span><span class="p">]</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">documentPhotoHash</span><span class="p">:</span> <span class="nb">String</span><span class="p">?</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">documentDataHash</span><span class="p">:</span> <span class="nb">String</span><span class="p">?</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>The <code>DocumentReaderReport</code> includes two hash fields that that are used to verify data integrity when building a <a href="../SubjectManagement/SubjectManagement_Index.html">Subject</a>.</p>
+<p>The DocumentData contains the document data. You can check the structure here:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Android</label><label for="__tabbed_7_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">DocumentData</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">hasChip</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentNumber</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">dateOfExpiry</span><span class="p">:</span><span class="w"> </span><span class="n">Date?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">dateOfBirth</span><span class="p">:</span><span class="w"> </span><span class="n">Date?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">age</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">personalNumber</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">sex</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">issuingStateCode</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">issuingState</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">dateOfIssue</span><span class="p">:</span><span class="w"> </span><span class="n">Date?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">nationalityCode</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">nationality</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">givenNames</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">surname</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">surnameAndGivenNames</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentClassCode</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentNumberCheckDigit</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">dateOfBirthCheckDigit</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">dateOfExpiryCheckDigit</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">optionalDataCheckDigit</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">finalCheckDigit</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">optionalData</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">cardAccessNumber</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">remainderTerm</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">mrzType</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">mrzStrings</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">mrzStringsWithCorrectCheckSums</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">dsCertificateSubject</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">dsCertificateValidFrom</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">dsCertificateValidTo</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataField?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentImagePath</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">portraitPhotoPath</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentTypeData</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentTypeData?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">chipPage</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span>
+<span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">DocumentDataField</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">status</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentDataFieldStatus</span>
+<span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kd">enum</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">DocumentDataFieldStatus</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/**</span>
+<span class="cm">     * field was verified and passed verification successfully.</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">OK</span><span class="p">,</span>
+
+<span class="w">    </span><span class="cm">/**</span>
+<span class="cm">     * verification of the field has failed for some non-specified reason, either it wasn&#39;t read correctly or</span>
+<span class="cm">     * the check digit verification failed. These data are not reliable and should not be used.</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">ERROR</span><span class="p">,</span>
+
+<span class="w">    </span><span class="cm">/**</span>
+<span class="cm">     * field was not verified for correctness.</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">NOT_CHECKED</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nd">@Parcelize</span>
+<span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">DocumentTypeData</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">type</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentType</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">infoVal</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentTypeInfo?</span>
+<span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Parcelable</span><span class="w">    </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kd">enum</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">DocumentType</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="n">PASSPORT</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">VISA</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">ID_CARD</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">DRIVING_LICENSE</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">UNKNOWN</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nd">@Parcelize</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">DocumentTypeInfo</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentId</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">dTypeId</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentName</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">icaoCode</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span>
+<span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Parcelable</span><span class="w">   </span>
+</code></pre></div></p>
+<p>The DocumentDataStatus, RFIDStatus and DocumentType are enums that have the following possibilities:</p>
+<p><div class="highlight"><pre><span></span><code><span class="kd">enum</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">DocumentDataStatus</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">VALIDATION_ERROR</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">EXPIRED_DOCUMENT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">RFID_PASSIVE_AUTHENTICATION</span><span class="p">,</span>
+<span class="w">    </span><span class="n">MRZ_RFID_MISMATCH</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">RFID_TIMEOUT</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">RFID_PERMISSION_NOT_GRANTED</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">RFID_TAG_NOT_FOUND</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">RFID_NFC_NOT_SUPPORTED</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">RFID_GENERIC_ERROR</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">USER_SKIPPED_RFID</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kd">enum</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">RFIDStatus</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">UNDEFINED</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">SUCCESS</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">ERROR</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</div>
+<div class="tabbed-block">
+<p><div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DocumentData</span><span class="p">:</span> <span class="n">Codable</span> <span class="p">{</span>
+    <span class="c1">/// Indicates if the document has chip.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">hasChip</span><span class="p">:</span> <span class="nb">Bool</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="c1">/// Document number.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">documentNumber</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Expiry date of the document.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">dateOfExpiry</span><span class="p">:</span> <span class="n">Date</span><span class="p">?</span>
+    <span class="c1">/// Date of birth.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">dateOfBirth</span><span class="p">:</span> <span class="n">Date</span><span class="p">?</span>
+    <span class="c1">/// Age.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">age</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Personal number.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">personalNumber</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Sex.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">sex</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Issuing state code in compliance with 3166-1 standard (ICAO doc 9303).</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">issuingStateCode</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Human-readable name of the issuing country, according to the current locale.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">issuingState</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Date of issue.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">dateOfIssue</span><span class="p">:</span> <span class="n">Date</span><span class="p">?</span>
+    <span class="c1">/// Nationality code in compliance with ISO3166-1 standard (ICAO doc 9303).</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">nationalityCode</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Human-readable name of nationality country of the document holder, according to the current locale.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">nationality</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Given name(s).</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">givenNames</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Surname.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">surname</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Surname and given name(s).</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">surnameAndGivenNames</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Document class code.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">documentClassCode</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Check digit for document number.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">documentNumberCheckDigit</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Check digit for date of birth.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">dateOfBirthCheckDigit</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Check digit for document expiry date.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">dateOfExpiryCheckDigit</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Check digit for optional data.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">optionalDataCheckDigit</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Final check digit (for the whole MRZ).</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">finalCheckDigit</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Optional data.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">optionalData</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Access number for RFID chip.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">cardAccessNumber</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Months to expire.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">remainderTerm</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// MRZ type (ID-1 – 0, ID-2 – 1, ID-3 – 2).</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">mrzType</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// MRZ lines.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">mrzStrings</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// MRZ with correct checksums.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">mrzStringsWithCorrectCheckSums</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Textual information about the document issuer.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">dsCertificateSubject</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Start date of the DS-certificate validity.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">dsCertificateValidFrom</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+    <span class="c1">/// Expiration date of the DS-certificate.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">dsCertificateValidTo</span><span class="p">:</span> <span class="n">DocumentDataField</span><span class="p">?</span>
+
+    <span class="c1">/// Model that wraps information about the document type</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">documentTypeData</span><span class="p">:</span> <span class="n">DocumentTypeData</span><span class="p">?</span>
+
+    <span class="c1">/// Photo of the document owner.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">portrait</span><span class="p">:</span> <span class="bp">UIImage</span><span class="p">?</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">portraitData</span><span class="p">.</span><span class="n">flatMap</span> <span class="p">{</span> <span class="bp">UIImage</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nv">$0</span><span class="p">)</span> <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// Document image.</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">documentImage</span><span class="p">:</span> <span class="bp">UIImage</span><span class="p">?</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">documentImageData</span><span class="p">.</span><span class="n">flatMap</span> <span class="p">{</span> <span class="bp">UIImage</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nv">$0</span><span class="p">)</span> <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nv">documentImageData</span><span class="p">:</span> <span class="n">Data</span><span class="p">?</span>
+
+    <span class="kd">var</span> <span class="nv">portraitData</span><span class="p">:</span> <span class="n">Data</span><span class="p">?</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">struct</span> <span class="nc">DocumentDataField</span><span class="p">:</span> <span class="n">Codable</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">value</span><span class="p">:</span> <span class="nb">String</span>
+    <span class="kd">public</span> <span class="kd">var</span> <span class="nv">status</span><span class="p">:</span> <span class="n">DocumentDataFieldStatus</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">DocumentDataFieldStatus</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="n">Codable</span> <span class="p">{</span>
+    <span class="c1">/// The field was verified and passed verification successfully.</span>
+    <span class="k">case</span> <span class="n">ok</span>
+    <span class="c1">/// The verification of the field has failed for some non-specified reason, either it wasn&#39;t read correctly or the check digit verification failed.</span>
+    <span class="c1">/// These data are not reliable and should not be used.</span>
+    <span class="k">case</span> <span class="n">error</span>
+    <span class="c1">/// The field was not verified for correctness.</span>
+    <span class="k">case</span> <span class="n">notChecked</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">struct</span> <span class="nc">DocumentTypeData</span><span class="p">:</span> <span class="n">Codable</span> <span class="p">{</span>
+    <span class="c1">/// Type of document, ex: Passport, Visa, etc.</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">type</span><span class="p">:</span> <span class="n">DocumentType</span>
+    <span class="c1">/// Model that contains information about the document type</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">info</span><span class="p">:</span> <span class="n">DocumentTypeInfo</span><span class="p">?</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">struct</span> <span class="nc">DocumentTypeInfo</span><span class="p">:</span> <span class="n">Codable</span> <span class="p">{</span>
+    <span class="c1">/// Document type id</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">dTypeId</span><span class="p">:</span> <span class="nb">Int</span>
+    <span class="c1">/// Document Name</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">documentName</span><span class="p">:</span> <span class="nb">String</span><span class="p">?</span>
+    <span class="c1">/// Country code</span>
+    <span class="kd">public</span> <span class="kd">let</span> <span class="nv">icaoCode</span><span class="p">:</span> <span class="nb">String</span><span class="p">?</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">DocumentType</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="n">Codable</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">passport</span>
+    <span class="k">case</span> <span class="n">visa</span>
+    <span class="k">case</span> <span class="n">idCard</span>
+    <span class="k">case</span> <span class="n">drivingLicense</span>
+    <span class="k">case</span> <span class="n">unknown</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>The DocumentRFIDStatus, DocumentDataStatus and DocumentType are enums that have the following possibilities:</p>
+<p><div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">DocumentType</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="n">Codable</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">passport</span>
+    <span class="k">case</span> <span class="n">visa</span>
+    <span class="k">case</span> <span class="n">idCard</span>
+    <span class="k">case</span> <span class="n">drivingLicense</span>
+    <span class="k">case</span> <span class="n">unknown</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">DocumentRFIDStatus</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="n">Codable</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">error</span>
+    <span class="k">case</span> <span class="n">success</span>
+    <span class="k">case</span> <span class="n">undefined</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">DocumentDataStatus</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="n">Codable</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">ok</span>
+    <span class="k">case</span> <span class="n">validationError</span>
+    <span class="k">case</span> <span class="n">expiredDocument</span>
+    <span class="k">case</span> <span class="n">rfidPassiveAuthentication</span>
+    <span class="k">case</span> <span class="n">mrzRFIDMismatch</span>
+    <span class="k">case</span> <span class="n">rfidNFCNotSupported</span>
+    <span class="k">case</span> <span class="n">rfidGenericError</span>
+    <span class="k">case</span> <span class="n">rfidTimeouError</span>
+    <span class="k">case</span> <span class="n">userSkipedRfid</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>The <code>chipPage</code> indicates the presence and location of an RFID chip. 0 - No RFID chip. 1 - Chip is located in the document data page. 2 - Chip is located in the back page or inlay of the document.</p>
+</div>
+</div>
+</div>
+<h2 id="documentreadercustomviews">DocumentReaderCustomViews<a class="headerlink" href="#documentreadercustomviews" title="Permanent link">&para;</a></h2>
+<p>The SDK provides default UI solutions for the document reader feature flow, as
+shown in the following images:
+<img alt="Document Reader Flow" src="Assets/DR_Flow.png" style="display: block; margin: 0 auto" title="Document Reader Flow" /></p>
+<p>The use of the preview layout depends on the <strong>showPreview</strong> flag in the DocumentReaderParameters.</p>
+<p>The use of the rfid related layouts depends on the <strong>rfidRead</strong> flag in the DocumentReaderParameters.</p>
+<p>The use of the error layout depends on the <strong>showErrors</strong> flag in the DocumentReaderParameters.</p>
+<p>You can also apply your app’s colors and fonts to these layout solutions, to keep your brand’s image consistent.
+Check Customization tab to learn more about branding of each view.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Android</label><label for="__tabbed_8_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="highlight"><pre><span></span><code><span class="nd">@Parcelize</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">DocumentReaderCustomViews</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">loadingView</span><span class="p">:</span><span class="w"> </span><span class="n">Class</span><span class="o">&lt;</span><span class="k">out</span><span class="w"> </span><span class="n">ICustomDocumentReader</span><span class="p">.</span><span class="na">LoadingView</span><span class="o">&gt;?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">rfidInstructionsView</span><span class="p">:</span><span class="w"> </span><span class="n">Class</span><span class="o">&lt;</span><span class="k">out</span><span class="w"> </span><span class="n">ICustomDocumentReader</span><span class="p">.</span><span class="na">RfidInstructionsView</span><span class="o">&gt;?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">rfidSearchView</span><span class="p">:</span><span class="w"> </span><span class="n">Class</span><span class="o">&lt;</span><span class="k">out</span><span class="w"> </span><span class="n">ICustomDocumentReader</span><span class="p">.</span><span class="na">RfidSearchView</span><span class="o">&gt;?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">rfidProcessView</span><span class="p">:</span><span class="w"> </span><span class="n">Class</span><span class="o">&lt;</span><span class="k">out</span><span class="w"> </span><span class="n">ICustomDocumentReader</span><span class="p">.</span><span class="na">RfidProcessView</span><span class="o">&gt;?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Parcelable</span>
+</code></pre></div>
+You can use your own custom views in the document reader functionality. Your view must implement the
+SDK view interfaces. For example, if you want to add a custom loading view, your view class must
+implement the ICustomDocumentReader.LoadingView interface.</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">EnrolmentViewRegister</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="c1">// </span><span class="cs">MARK:</span><span class="c1"> - Document Reader</span>
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerDocumentReaderRFIDInstructionsView</span><span class="p">(</span><span class="kc">_</span> <span class="n">viewType</span><span class="p">:</span> <span class="n">DocumentReaderRFIDInstructionsViewType</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerDocumentReaderLoadingView</span><span class="p">(</span><span class="kc">_</span> <span class="n">viewType</span><span class="p">:</span> <span class="n">DocumentReaderLoadingViewType</span><span class="p">)</span>
+    <span class="p">...</span>
+<span class="p">}</span>    
+</code></pre></div>
+<p>Our SDK also allows you to pass your own custom views. The only requirement is that your view must implement the SDK view protocols. For example, if you want to add a custom loading view, your view class must implement the DocumentReaderLoadingViewType.</p>
+</div>
+</div>
+</div>
+<p>In the customization tab you will also find examples to create your own custom views.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "content.tabs.link", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+    
+  </body>
+</html>

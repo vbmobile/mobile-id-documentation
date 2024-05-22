@@ -1,5 +1,16 @@
 # MobileID SDK - Release Notes
 
+
+## 7.1.3
+
+### Improvements
+- Fix an issue with passive authentication while using Regula version 7.2
+
+## 7.1.2
+
+### Improvements
+- Update Regula to 7.2
+
 ## 7.1.1
 
 ### Improvements

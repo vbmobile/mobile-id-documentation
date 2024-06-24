@@ -490,13 +490,13 @@ In order for the SDK to use the camera, the user must grant permission to do so.
     - MLKit
         - com.google.mlkit:barcode-scanning:17.2.0
         - com.google.mlkit:face-detection:17.1.0
-        - androidx.camera:camera-camera2:1.3.0
+        - androidx.camera:camera-camera2:1.3.1
         - androidx.camera:camera-lifecycle:1.3.0
         - androidx.camera:camera-view:1.3.0
 
     - Regula
-        - com.regula.documentreader:api:7.1.9667@aar
-        - com.regula.documentreader.core:ocrandmrzrfid:7.1.10524@aar
+        - com.regula.documentreader:api:7.2.1625@aar
+        - com.regula.documentreader.core:ocrandmrzrfid:7.2.10876@aar
 
     - Sentry
         - io.sentry:sentry-android:6.28.0
@@ -506,10 +506,11 @@ In order for the SDK to use the camera, the user must grant permission to do so.
         
 === "iOS"
 
-    - 'DocumentReader', '~> 6.8.0'
-    - 'DocumentReaderOCRRFID', '~> 6.8.0'
-    - 'Sentry', '7.16.0'
-    - 'lottie-ios', '~> 3.4.0'
+    - 'DocumentReader', '~> 7.2.0'
+    - 'DocumentReaderOCRRFID', '~> 7.2.0'
+    - 'Sentry', '8.13.1'
+    - 'lottie-ios', '~> 4.3.3'
+     
 
 ## Glossary and Terminology
 

@@ -358,7 +358,25 @@ pinning for every network request made by the SDK.
             .with(viewRegister: viewRegister)
             .build()
     ```
-    
+
+## Localization Support
+
+=== "Android"
+
+    If you wish to add localization support to your application or change some of the default values, you will need to add the strings used by Enrolment SDK to each locale strings.xml file.
+
+    You can redefine each string in the Enrolment SDK with the appropriate translations.
+
+    This ensures that the Enrolment SDK uses the correct string resources when the user's device is set to a language supported by your application.
+
+    To do this, you'll need to reference the identifiers found in the values.xml file from the latest release.
+
+    You can find the values.xml file with all available strings in the project: External Libraries -> Gradle: com.visionbox.mobileid.sdk:mid-sdk-enrolment:x.x.x@aar -> res -> values -> values.xml.
+
+=== "iOS"
+
+    TODO - Add IOS part here
+
 ## RFID Chip Processing
 
 === "Android"
@@ -444,8 +462,6 @@ In order for the SDK to use the camera, the user must grant permission to do so.
     enrolment.theme.colors.faceCapture.stateError = UIColor(name: .colorPrimary)
     enrolment.theme.strings.faceCapture.title = "Face Capture Title"
     ```
-
-    Please contact vision-box®  if you wish to support a new language.
 
     Please check the complete list of colors for your reference:
 

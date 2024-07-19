@@ -375,8 +375,10 @@ pinning for every network request made by the SDK.
 
 === "iOS"
 
-    TODO - Add IOS part here
-
+    If you wish to change the default string values, you will need to access the strings you want to change through EnrolmentProtocol.theme.strings. In the ThemeStrings struct you can find the various types of strings you can modify to your liking, by just assigning the new string value.
+    
+    If you wish to add localization support to your application, you will need to create a String File(s) to your app and specify which language the file represents. After changing all the default strings, you can pass the specific language in EnrolmentConfig.  
+    
 ## RFID Chip Processing
 
 === "Android"

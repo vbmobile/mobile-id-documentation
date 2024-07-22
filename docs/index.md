@@ -358,7 +358,31 @@ pinning for every network request made by the SDK.
             .with(viewRegister: viewRegister)
             .build()
     ```
-    
+
+## Localization Support
+
+=== "Android"
+
+    If you wish to add localization support to your application or change some of the default values, you will need to add the strings used by Enrolment SDK to each locale strings.xml file.
+
+    You can redefine each string in the Enrolment SDK with the appropriate translations.
+
+    This ensures that the Enrolment SDK uses the correct string resources when the user's device is set to a language supported by your application.
+
+    To do this, you'll need to reference the identifiers found in the values.xml file from the latest release.
+
+    You can find the values.xml file with all available strings in the project: External Libraries -> Gradle: com.visionbox.mobileid.sdk:mid-sdk-enrolment:x.x.x@aar -> res -> values -> values.xml.
+
+=== "iOS"
+
+    If you wish to change the default string values, you will need to access the strings you want to change through EnrolmentProtocol.theme.strings. In the ThemeStrings struct you can find the various types of strings you can modify to your liking by assigning a localizable key or a literal string value.
+
+    If you wish to add localization support to your application, you need to create a String File(s) for your app and specify which language the file represents.
+
+    If you pass a language to EnrolmentConfig and do not have a String File that matches said language and the SDK does, the SDK will use its file, but if we do not have a String File of said language, the key value of the localizable key raw value will be used in the UI.
+
+    If no language is passed to EnrolmentConfig, the SDK will select the device's default language and use a String File compatible with said language. The same logic applies in this case. If you do not have a file for the correspondent language, the SDK will select its file, but if it also does not have one, the localizable key raw values will be displayed in the UI. 
+
 ## RFID Chip Processing
 
 === "Android"
@@ -444,8 +468,6 @@ In order for the SDK to use the camera, the user must grant permission to do so.
     enrolment.theme.colors.faceCapture.stateError = UIColor(name: .colorPrimary)
     enrolment.theme.strings.faceCapture.title = "Face Capture Title"
     ```
-
-    Please contact vision-box®  if you wish to support a new language.
 
     Please check the complete list of colors for your reference:
 

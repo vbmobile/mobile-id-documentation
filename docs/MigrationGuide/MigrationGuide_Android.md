@@ -1,5 +1,9 @@
 # Migration Guide
 
+## From 7.1.1 to 7.1.3
+#### Optional Changes
+- If you want to change the default value for the Face Capture timeout, then you need to pass a new value in milliseconds to faceCaptureTimeout in BiometricFaceCaptureParameters.
+
 ## From 7.1.0 to 7.1.1
 #### Optional Changes
 - If you use some resources from VB ImageProcessor, you will have to replace it, as it's now private to the SDK.

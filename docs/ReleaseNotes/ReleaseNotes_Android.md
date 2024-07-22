@@ -1,5 +1,12 @@
 # MobileID SDK - Release Notes
 
+## 7.2.0
+
+### Improvements
+- Face Capture now has a timeout, which defaults to 60s, if you want to change this value you can do so by passing the value in milliseconds to faceCaptureTimeout in BiometricFaceCaptureParameters. Please note that the value must be bigger than 30s otherwise and IllegalArgumentException is thrown.
+- Removed localization support, in order to provide your own localization you can also override our strings. There's a new section on the documentation that helps how to achieve this.
+- The retry button is no longer displayed on the default error screen if the error is considered to be an InternalError, since the retry behaviour will always end up in failure.
+- Update Regula to 7.3
 
 ## 7.1.3
 

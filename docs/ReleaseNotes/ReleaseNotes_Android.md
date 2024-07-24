@@ -6,7 +6,8 @@
 - Face Capture now has a timeout option, which is turned off by default, if you want to activate this you can do so by passing the value in milliseconds to faceCaptureTimeout in BiometricFaceCaptureParameters. Please note that the value must be bigger than 30s otherwise and IllegalArgumentException is thrown.
 - Removed localization support, in order to provide your own localization you can also override our strings. There's a new section on the documentation that helps how to achieve this.
 - The retry button is no longer displayed on the default error screen if the error is considered to be an InternalError, since the retry behaviour will always end up in failure.
-- Update Regula to 7.3
+- Update Regula to 7.3.
+- Changed ScanTimeout ErrorType to Timeout only.
 
 ## 7.1.3
 

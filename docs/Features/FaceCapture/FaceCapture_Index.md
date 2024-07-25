@@ -80,10 +80,14 @@ biometricFaceCapture method. Below is an example of that object:
         public let showPreview: Bool
         public let frameShape: BiometricFaceCaptureFrameOptions
         public let showErrors: Bool
-
+        public let cameraConfig: CameraConfig
+        public let faceCaptureTimeout: TimeInterval?
+        
         public init(showPreview: Bool,
                 frameShape:BiometricFaceCaptureFrameOptions = .oval,
-                showErrors: Bool)
+                showErrors: Bool,
+                cameraConfig: CameraConfig = CameraConfig(),
+                faceCaptureTimeout: TimeInterval? = nil)
     ```
 
     The **BiometricFaceCaptureFrameOptions** is an enum that shapes the frame where the face must be centered to take the selfie. Currently it has two options:
@@ -92,6 +96,21 @@ biometricFaceCapture method. Below is an example of that object:
     public enum BiometricFaceCaptureFrameOptions {
         case oval
         case square
+    }
+    ```
+    
+    The **CameraConfig** is an enum that struct the frame where the face must be centered to take the selfie. Currently it has two options:
+    
+    ```swift
+    public struct CameraConfig {
+        public let toggleCameraEnable: Bool
+        public let defaultCamera: AVCaptureDevice.Position
+    
+        public init(toggleCameraEnable: Bool = true,
+                defaultCamera:AVCaptureDevice.Position = .front) {
+            self.toggleCameraEnable = toggleCameraEnable
+            self.defaultCamera = defaultCamera
+        }
     }
     ```
 

@@ -60,9 +60,17 @@ biometricFaceCapture method. Below is an example of that object:
     @Parcelize
     data class BiometricFaceCaptureParameters(
         val showPreview: Boolean,
-        val showErrors Boolean,
-        val frameFormat: FaceCaptureFrameFormat = FaceCaptureFrameFormat.OVAL
-    ) : Parcelable
+        val showErrors: Boolean,
+        val frameFormat: FaceCaptureFrameFormat = FaceCaptureFrameFormat.OVAL,
+        val cameraConfig: CameraConfig,
+        val faceCaptureTimeout: Long? = null
+    ) : Parcelable{
+        init {
+            if (faceCaptureTimeout != null) {
+                require(faceCaptureTimeout >= TimeUnit.SECONDS.toMillis(30)) { "faceCaptureTimeout value must be at least 30 seconds." }
+            }
+        }
+    }
     ```
 
     The **FaceCaptureFrameFormat** is an enum that shapes the frame where the face must be centered to take the selfie. Currently it has two options:
@@ -73,6 +81,13 @@ biometricFaceCapture method. Below is an example of that object:
         OVAL
     }
     ```
+
+    The **CameraConfig** is another data class that lets your configure the visibility of the toggle button and change the camera direction (Front or Back).
+
+    data class CameraConfig(
+        val enableCameraToggle: Boolean,
+        val defaultCamera: CameraSelector,
+    )
 === "iOS"
 
     ```swift

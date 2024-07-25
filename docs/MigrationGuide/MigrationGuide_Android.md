@@ -1,6 +1,6 @@
 # Migration Guide
 
-## From 7.1.1 to 7.1.3
+## From 7.1.1 to 7.2.0
 #### Optional Changes
 - If you want to activate the Face Capture timeout, then you need to pass a value in milliseconds to faceCaptureTimeout in BiometricFaceCaptureParameters.
 - If you mention the ScanTimeout Error type somewhere, you need to change it to Timeout due to the name change.

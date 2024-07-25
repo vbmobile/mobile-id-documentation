@@ -3,13 +3,14 @@
 ## 7.2.0
 
 ### Improvements
-- Face Capture now has a timeout option, which is turned off by default, if you want to activate this you can do so by passing the value in seconds to faceCaptureTimeout in BiometricFaceCaptureParameters. Please note that the value must be bigger than 30s otherwise SDK will have a crash with support message.
-- The retry button is no longer displayed on the default error screen if the error is considered to be an InternalError, since the retry behaviour will always end up in failure.
-- Update Regula to 7.3.
-- Changed ScanTimeout ErrorType to Timeout only.
-- Fix infinite loop on Document reader Timeout 
-- Fix UIKit Layout inconsistencies on FaceCapture 
-- Fix in Document Reader to prevent the RFID skip button and the RFID scan start button from both being pressed at the same time
+
+- Face Capture Timeout: Introduced a configurable timeout for the Face Capture feature. This can be set using the **faceCaptureTimeout** parameter in **BiometricFaceCaptureParameters**. The timeout default is disabled and the minimum allowed timeout is 30 seconds. 
+- Error Handling: Removed the retry button from the default error screen for **InternalError** cases as retries are not effective in these situations.
+- Updated Regula SDK to version 7.3.
+- Changed the **ScanTimeout** error type to **Timeout**.
+- Fixed an infinite loop issue in the Document Reader.
+- Resolved layout inconsistencies in the Face Capture UI.
+- Prevented simultaneous pressing of RFID skip and start buttons in the Document Reader.
 
 ## 7.1.2
 

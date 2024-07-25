@@ -1,5 +1,10 @@
 # Migration Guide
 
+## From 7.1.1 to 7.2.0
+#### Optional Changes
+- If you want to activate the Face Capture timeout, then you need to pass a value in milliseconds to faceCaptureTimeout in BiometricFaceCaptureParameters.
+- If you mention the ScanTimeout Error type somewhere, you need to change it to Timeout due to the name change.
+
 ## From 7.1.0 to 7.1.1
 #### Optional Changes
 - If you use some resources from VB ImageProcessor, you will have to replace it, as it's now private to the SDK.

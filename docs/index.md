@@ -512,7 +512,7 @@ In order for the SDK to use the camera, the user must grant permission to do so.
     - MLKit
         - com.google.mlkit:barcode-scanning:17.2.0
         - com.google.mlkit:face-detection:17.1.0
-        - androidx.camera:camera-camera2:1.3.1
+        - androidx.camera:camera-camera2:1.3.4
         - androidx.camera:camera-lifecycle:1.3.0
         - androidx.camera:camera-view:1.3.0
 

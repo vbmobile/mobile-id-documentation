@@ -176,13 +176,15 @@ Here is how you can get the document reader report and handle the result for doc
 
     You can get the result by using the result launcher that's passed as the final parameter:
     ```kotlin
-    private val documentReaderResultLauncher = registerForActivityResult(DocumentReaderResultLauncher())
+    private val documentReaderResultLauncher = registerForActivityResult(
+        DocumentReaderResultLauncher()
+    )
     { result: DocumentReaderActivityResult ->
-        when {
-            result.success -> onSuccess(result.documentReaderReport)
-            result.documentReaderError?.userCanceled == true -> userCancelled()
-            result.documentReaderError?.termsAndConditionsAccepted == false -> onTermsAndConditionsRejected()
-            else -> onDocumentReaderError()
+        if (result.success) {
+            val data = result.documentReaderReport
+            onSuccess(data)
+        } else {
+            handleError(result.documentReaderError)
         }
     }
     ```

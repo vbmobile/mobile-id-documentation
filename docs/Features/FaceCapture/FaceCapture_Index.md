@@ -143,18 +143,15 @@ not too far away, or too close.
 
     Here's how you can get the result by using the result launcher that's passed as the final parameter:
     ```kotlin
-    private val faceCaptureResultLauncher = registerForActivityResult(FaceCaptureResultLauncher())
+    private val faceCaptureResultLauncher = registerForActivityResult(
+        FaceCaptureResultLauncher()
+    )
     { result: FaceCaptureActivityResult ->
-        when {
-            result.success -> onSuccess(result.faceCaptureReportSuccess)
-            result.faceCaptureReportError?.userCanceled == true -> onUserCanceled()
-            result.faceCaptureReportError?.termsAndConditionsAccepted == false -> onUserTermsAndConditionsRejected()
-            result.faceCaptureReportError?.failedTests != null && result.faceCaptureReportError?.performedTests != null ->
-                onFailedTests(
-                    result.faceCaptureReportError!!.performedTests!!,
-                    result.faceCaptureReportError!!.failedTests!!
-                )
-            else -> onBiometricFaceCaptureError()
+        if (result.success) {
+            val data = result.faceCaptureReportSuccess
+            onSuccess(data)
+        } else {
+            handleError(result.faceCaptureReportError)
         }
     }
     ```

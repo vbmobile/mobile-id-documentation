@@ -47,31 +47,31 @@ nav:
                     - Find chip view: Features/DocumentReader/DocumentReader_FindChipView_Android.md
                     - Read chip view: Features/DocumentReader/DocumentReader_ReadChipView_Android.md
             - Preview view: Features/DocumentReader/DocumentReader_PreviewView.md
-            - Handle errors: Features/DocumentReader/DocumentReader_HandleErrors.md
+        - Handle errors: Features/DocumentReader/DocumentReader_HandleErrors.md
     - Face capture:
         - Overview: Features/FaceCapture/FaceCapture_Index.md
         - Customization:
             - Loading view: Features/FaceCapture/FaceCapture_LoadingView.md
             - Scan view: Features/FaceCapture/FaceCapture_ScanView.md
             - Preview view: Features/FaceCapture/FaceCapture_PreviewView.md
-            - Handle errors: Features/FaceCapture/FaceCapture_HandleErrors.md
+        - Handle errors: Features/FaceCapture/FaceCapture_HandleErrors.md
     - Biometric match:
         - Overview: Features/BiometricMatch/BiometricMatch_Index.md
         - Customization:
             - Loading view: Features/BiometricMatch/BiometricMatch_LoadingView.md
-            - Handle errors: Features/BiometricMatch/BiometricMatch_HandleErrors.md
+        - Handle errors: Features/BiometricMatch/BiometricMatch_HandleErrors.md
     - Boarding pass reader:
         - Overview: Features/BoardingPass/BoardingPass_Index.md
         - Customization:
             - Loading view: Features/BoardingPass/BoardingPass_LoadingView.md
             - Scan view: Features/BoardingPass/BoardingPass_ScanView.md
             - Preview view: Features/BoardingPass/BoardingPass_PreviewView.md
-            - Handle errors: Features/BoardingPass/BoardingPass_HandleErrors.md
+        - Handle errors: Features/BoardingPass/BoardingPass_HandleErrors.md
     - Subject management:
         - Overview: Features/SubjectManagement/SubjectManagement_Index.md
         - Customization:
             - Loading view: Features/SubjectManagement/SubjectManagement_LoadingView.md
-            - Handle errors: Features/SubjectManagement/SubjectManagement_HandleErrors.md
+        - Handle errors: Features/SubjectManagement/SubjectManagement_HandleErrors.md
     - Form: Features/Form/Form_Index.md
   - Release notes:
     - Android: ReleaseNotes/ReleaseNotes_Android.md

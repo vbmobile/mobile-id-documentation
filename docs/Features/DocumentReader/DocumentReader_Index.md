@@ -110,7 +110,6 @@ This method can perform a full travel document read in two steps:
     ```kotlin
     data class DocumentReaderParameters(
         val showPreview: Boolean,
-        val showErrors: Boolean,
         val rfidRead: Boolean,
         val showSecurityCheck: Boolean = true,
         val showRFIDStatus: Boolean = false,
@@ -550,8 +549,6 @@ shown in the following images:
 The use of the preview layout depends on the **showPreview** flag in the DocumentReaderParameters.
 
 The use of the rfid related layouts depends on the **rfidRead** flag in the DocumentReaderParameters.
-
-The use of the error layout depends on the **showErrors** flag in the DocumentReaderParameters.
 
 You can also apply your app’s colors and fonts to these layout solutions, to keep your brand’s image consistent.
 Check Customization tab to learn more about branding of each view.

@@ -1,10 +1,10 @@
 # Handle Errors
 
 After obtaining the FeatureError, as shown in the Handle Result section of the feature overview, we pass the object to the handleError function that is going to analyze what error type occurred in this feature and act according to it.
-Example can be found here: [FaceCaptureHandleErrors](https://github.com/vbmobile/mobileid-android-sample/tree/main/app/src/main/java/com/example/sample_app_android/presentation/faceCapture/FaceCaptureActivity.kt)
 
 === "Android"
 
+    Example can be found here: [FaceCaptureHandleErrors](https://github.com/vbmobile/mobileid-android-sample/tree/main/app/src/main/java/com/example/sample_app_android/presentation/faceCapture/FaceCaptureActivity.kt)
     ```kotlin
     private fun handleError(error: FaceCaptureReportError?) {
         if (error != null) {

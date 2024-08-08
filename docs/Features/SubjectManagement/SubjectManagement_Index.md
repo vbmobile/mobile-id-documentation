@@ -301,7 +301,6 @@ Adding a `Subject` required the AddSubjectParameters which have the following st
 
     ```kotlin
     data class AddSubjectParameters(
-        val showErrors: Boolean,
         val subject: Subject,
         val formAnswer: FormAnswer? = null,
     )

@@ -14,12 +14,10 @@ To start the form feature, you can use the enrolment method
     ```kotlin
     /**
      * @param context
-     * @param params [FormParameters] required to start the form feature
      * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results
      */
     fun startForm(
         context: Context,
-        params: FormParameters,
         resultLauncher: ActivityResultLauncher<Intent>
     )
     ```
@@ -39,36 +37,6 @@ To start the form feature, you can use the enrolment method
     ///     `FeatureError` the possible errors that may occur during the process.
     func startForm(parameters: FormParameters, viewController: UIViewController, completionHandler: @escaping (Result<FormReport, FormError>) -> Void)
     ```
-
-The `FormParameters` holds the flag to indicate wether you want errors to be shown or not, similar to other features
-
-=== "Android"
-
-    ```kotlin
-        /**
-         * @param showErrors flag to show/hide feature errors
-         */
-        data class FormParameters(
-            val showErrors: Boolean,
-        )
-    ```
-
-=== "iOS"
-
-    ```swift
-    /// Parameters for the Form Feature flow.
-    public struct FormParameters {
-
-        /// If true, it will display a Default Error Screen, continues to return the Error in the completion handler
-        public let showErrors: Bool
-    
-        public init(showErrors: Bool) {
-            self.showErrors = showErrors
-        }
-    }
-
-    ```
-
 
 ## Handle Result
 

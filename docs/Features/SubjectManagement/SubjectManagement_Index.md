@@ -301,7 +301,6 @@ Adding a `Subject` required the AddSubjectParameters which have the following st
 
     ```kotlin
     data class AddSubjectParameters(
-        val showErrors: Boolean,
         val subject: Subject,
         val formAnswer: FormAnswer? = null,
     )
@@ -325,17 +324,14 @@ Adding a `Subject` required the AddSubjectParameters which have the following st
     Here's how you can get the result by using the result launcher that's passed as the final parameter:
     ```kotlin
     private val addSubjectResultLauncher = registerForActivityResult(AddSubjectResultLauncher())
-    { result: GetSubjectActivityResult ->
-        when {
-            result.success -> {
-                val subjectId = result.subjectId
-                onSubjectAdded(subjectId)
-            }
-            else ->
-                onSubjectDataError()
+    { result: SubjectActivityResult ->
+        if (result.success) {
+            val subjectId = result.subjectId
+            onSubjectAdded(subjectId)
+        } else {
+            handleError(result.subjectError)
         }
     }
-
     ```
 
     The `add` operation will return the SubjectActivityResult model.

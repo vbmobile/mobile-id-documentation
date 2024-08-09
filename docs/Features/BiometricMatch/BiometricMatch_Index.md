@@ -20,7 +20,6 @@ is the BiometricMatchParameters structure:
         val candidate: Bitmap?,
         val reference: Bitmap?,
         val templateOption: TemplateOption = TemplateOption.NONE,
-        val showErrors: Boolean,
         val candidateHash: String?,
         val referenceHash: String?
     )
@@ -111,23 +110,31 @@ information on the request’s duration and also the templates, if they were req
 
     Here's how you can get the result by using the result launcher that's passed as the final parameter:
     ```kotlin
-    private val matchBiometricResultLauncher = registerForActivityResult(MatchResultLauncher())
+    private val faceMatchResultLauncher = registerForActivityResult(MatchResultLauncher())
     { result: MatchActivityResult ->
-        when {
-            result.success -> onMatch(result.matchReportSuccess)
-            result.matchReportError?.userCanceled == true -> userCanceled()
-            result.matchReportError?.termsAndConditionsAccepted == false ->     termsAndConditionsNotAccepted()
-            else -> onMatchFailed()
+        if (result.success) {
+            val data = result.matchReportSuccess
+            onSuccess(data)
+        } else {
+            handleError(result.matchReportError)
         }
-    }
+    } 
     ```
+
+    The MatchActivityResult has the following structure:
+
+    data class MatchActivityResult(
+        val matchReportSuccess: MatchReport? = null,
+        val matchReportError: MatchReportError? = null
+    ) {
+        val success get() = matchReportSuccess != null
+    }
     
     The MatchReportError has the following structure:
 
     ```kotlin
     data class MatchReportError(
         val userCanceled: Boolean,
-        val termsAndConditionsAccepted: Boolean,
         val featureError: FeatureError?
     )
     ```
@@ -198,7 +205,7 @@ In case of success, the MatchReport has the following structure:
 The SDK provides default UI solutions for the boarding pass feature flow, as 
 shown in the following images:
 
-![Boarding Pass Example](Assets/BM_Flow.png "Boarding Pass Flow"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
+![Biometric Match Example](Assets/BM_Flow.png "Biometric Match Flow"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
 
 You can also apply your app’s colors and fonts to these layout solutions, to keep your brand’s image consistent.
 Check Customization tab to learn more about branding of each view.

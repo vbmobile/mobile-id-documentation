@@ -59,10 +59,16 @@ biometricFaceCapture method. Below is an example of that object:
     ```kotlin
     @Parcelize
     data class BiometricFaceCaptureParameters(
-        val showPreview: Boolean,
-        val showErrors Boolean,
-        val frameFormat: FaceCaptureFrameFormat = FaceCaptureFrameFormat.OVAL
-    ) : Parcelable
+        val frameFormat: FaceCaptureFrameFormat = FaceCaptureFrameFormat.OVAL,
+        val cameraConfig: CameraConfig,
+        val faceCaptureTimeout: Long? = null
+    ) : Parcelable{
+        init {
+            if (faceCaptureTimeout != null) {
+                require(faceCaptureTimeout >= TimeUnit.SECONDS.toMillis(30)) { "faceCaptureTimeout value must be at least 30 seconds." }
+            }
+        }
+    }
     ```
 
     The **FaceCaptureFrameFormat** is an enum that shapes the frame where the face must be centered to take the selfie. Currently it has two options:
@@ -73,6 +79,13 @@ biometricFaceCapture method. Below is an example of that object:
         OVAL
     }
     ```
+
+    The **CameraConfig** is another data class that lets your configure the visibility of the toggle button and change the camera direction (Front or Back).
+
+    data class CameraConfig(
+        val enableCameraToggle: Boolean,
+        val defaultCamera: CameraSelector,
+    )
 === "iOS"
 
     ```swift
@@ -80,10 +93,14 @@ biometricFaceCapture method. Below is an example of that object:
         public let showPreview: Bool
         public let frameShape: BiometricFaceCaptureFrameOptions
         public let showErrors: Bool
-
+        public let cameraConfig: CameraConfig
+        public let faceCaptureTimeout: TimeInterval?
+        
         public init(showPreview: Bool,
                 frameShape:BiometricFaceCaptureFrameOptions = .oval,
-                showErrors: Bool)
+                showErrors: Bool,
+                cameraConfig: CameraConfig = CameraConfig(),
+                faceCaptureTimeout: TimeInterval? = nil)
     ```
 
     The **BiometricFaceCaptureFrameOptions** is an enum that shapes the frame where the face must be centered to take the selfie. Currently it has two options:
@@ -94,10 +111,21 @@ biometricFaceCapture method. Below is an example of that object:
         case square
     }
     ```
-
-The **showPreview** parameter is a boolean that when set to true will show the user’s picture after
-taking it. You can also apply your app’s colors and fonts to these
-layout solutions, to keep your brand’s image consistent. See Custom styles.
+    
+    The **CameraConfig** is an enum that struct the frame where the face must be centered to take the selfie. Currently it has two options:
+    
+    ```swift
+    public struct CameraConfig {
+        public let toggleCameraEnable: Bool
+        public let defaultCamera: AVCaptureDevice.Position
+    
+        public init(toggleCameraEnable: Bool = true,
+                defaultCamera:AVCaptureDevice.Position = .front) {
+            self.toggleCameraEnable = toggleCameraEnable
+            self.defaultCamera = defaultCamera
+        }
+    }
+    ```
 
 This function is used to acquire a high-resolution selfie with a 9:7 aspect ratio. The photo will
 only be taken if the frame conforms to specific parameters that make sure the face is centered and
@@ -109,18 +137,15 @@ not too far away, or too close.
 
     Here's how you can get the result by using the result launcher that's passed as the final parameter:
     ```kotlin
-    private val faceCaptureResultLauncher = registerForActivityResult(FaceCaptureResultLauncher())
+    private val faceCaptureResultLauncher = registerForActivityResult(
+        FaceCaptureResultLauncher()
+    )
     { result: FaceCaptureActivityResult ->
-        when {
-            result.success -> onSuccess(result.faceCaptureReportSuccess)
-            result.faceCaptureReportError?.userCanceled == true -> onUserCanceled()
-            result.faceCaptureReportError?.termsAndConditionsAccepted == false -> onUserTermsAndConditionsRejected()
-            result.faceCaptureReportError?.failedTests != null && result.faceCaptureReportError?.performedTests != null ->
-                onFailedTests(
-                    result.faceCaptureReportError!!.performedTests!!,
-                    result.faceCaptureReportError!!.failedTests!!
-                )
-            else -> onBiometricFaceCaptureError()
+        if (result.success) {
+            val data = result.faceCaptureReportSuccess
+            onSuccess(data)
+        } else {
+            handleError(result.faceCaptureReportError)
         }
     }
     ```
@@ -239,10 +264,6 @@ The failed tests might include one or more of the following tests:
 The SDK provides default UI solutions for the document reader feature flow, as shown in the following images:
 
 ![Biometric Face Capture Example](Assets/FC_Flow.png "Biometric Face Capture Default Error Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
-
-The use of the preview layout depends on the showPreview flag in the BiometricFaceCaptureParameters.
-
-The use of the Errors layout depends on the showErrors flag in the BiometricFaceCaptureParameters.
 
 === "Android"
 

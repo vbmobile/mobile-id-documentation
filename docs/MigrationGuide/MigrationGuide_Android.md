@@ -1,8 +1,13 @@
 # Migration Guide
 
-## From 7.1.1 to 8.0.0
+## From 7.2.0 to 8.0.0
 #### Required Changes
 - Developers are now required to specify the provider for the orz/mrz and rfid features. Check the updated [Getting Started](../index.md) page
+
+## From 7.1.1 to 7.2.0
+#### Optional Changes
+- If you want to activate the Face Capture timeout, then you need to pass a value in milliseconds to faceCaptureTimeout in BiometricFaceCaptureParameters.
+- If you mention the ScanTimeout Error type somewhere, you need to change it to Timeout due to the name change.
 
 ## From 7.1.0 to 7.1.1
 #### Optional Changes

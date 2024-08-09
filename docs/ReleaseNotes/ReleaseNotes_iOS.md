@@ -1,5 +1,18 @@
 # MobileID SDK - Release Notes
 
+## 7.2.0
+
+### Improvements
+
+- Face Capture Timeout: Introduced a configurable timeout for the Face Capture feature. This can be set using the **faceCaptureTimeout** parameter in **BiometricFaceCaptureParameters**. The timeout default is disabled and the minimum allowed timeout is 30 seconds. 
+- Improved localization support documentation
+- Error Handling: Removed the retry button from the default error screen for **InternalError** cases as retries are not effective in these situations.
+- Updated Regula SDK to version 7.3.
+- Changed the **ScanTimeout** error type to **Timeout**.
+- Fixed an infinite loop issue in the Document Reader.
+- Resolved layout inconsistencies in the Face Capture UI.
+- Prevented simultaneous pressing of RFID skip and start buttons in the Document Reader.
+
 ## 7.1.2
 
 ### Improvements

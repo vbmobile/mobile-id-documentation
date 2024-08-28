@@ -8,7 +8,7 @@ To add a preview feature to your app you can follow the example from our sample 
 
 === "Android"
 
-    Example can be found here: [FaceCapturePreview](https://github.com/vbmobile/mobileid-android-sample/tree/main/app/src/main/java/com/example/sample_app_android/presentation/readBoardingPass/preview/BoardingPassPreviewActivity.kt)
+    Example can be found here: [BoardingPassPreview](https://github.com/vbmobile/mobileid-android-sample/tree/main/app/src/main/java/com/example/sample_app_android/presentation/readBoardingPass/preview/BoardingPassPreviewActivity.kt)
 
 === "iOS"
 

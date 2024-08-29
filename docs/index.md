@@ -22,6 +22,8 @@ hide:
     - Install or update Xcode to latest version;
     - Target iOS 12 or later.
 
+You must also send an ID (Bundle ID or Application ID) to vision-box so that we can associate the API key with the application, this way your API key is protected with only authorized applications.
+
 ## Enrolment SDK setup
 
 === "Android"

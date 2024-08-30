@@ -9,6 +9,7 @@ You can use our screens by passing true in the **showErrors** flag of the featur
 
 You can find additional branding to our errors screens by navigating to the feature -> customization tab -> error view.
 
+## Error Structure
 
 The FeatureError has the following structure:
 
@@ -83,7 +84,91 @@ The FeatureError has the following structure:
     }
     ```
 
-There's a new property inside **FeatureError**, called **errorType** that classifies the type of error.
+Here you can find a list of all the error codes the SDK sends to the client application:
+
+| Name                            | Value | Feature           |
+|---------------------------------|-------|-------------------|
+| ConfigError                     | 100   | DocumentReader    |
+| NotReady                        | 101   | DocumentReader    |
+| InitFailed                      | 102   | DocumentReader    |
+| ReportIsNull                    | 103   | DocumentReader    |
+| ErrorCertificate                | 104   | DocumentReader    |
+| InvalidCertificate              | 105   | DocumentReader    |
+| LicenseNotFound                 | 106   | DocumentReader    |
+| PermissionNotGranted            | 107   | DocumentReader    |
+| FetchingResourcesFailed         | 120   | DocumentReader    |
+| TransactionFailed               | 121   | DocumentReader    |
+| InvalidDatabaseState            | 122   | DocumentReader    |
+| MrzError                        | 150   | DocumentReader    |
+| RegulaError                     | 151   | DocumentReader    |
+| MrzTimeout                      | 152   | DocumentReader    |
+| Repeated                        | 160   | DocumentReader    |
+| UnknownError                    | 180   | DocumentReader    |
+| ConfigError                     | 200   | BoardingPassScan  |
+| BarcodeUnsupported              | 201   | BoardingPassScan  |
+| PermissionNotGranted            | 202   | BoardingPassScan  |
+| BoardingPassNull                | 203   | BoardingPassScan  |
+| CameraInitFailed                | 204   | BoardingPassScan  |
+| TransactionFailed               | 220   | BoardingPassScan  |
+| CameraPermissionNotGranted      | 230   | BoardingPassScan  |
+| BoardingPassScanFailed          | 250   | BoardingPassScan  |
+| BoardingPassItemParserError     | 251   | BoardingPassScan  |
+| BoardingPassInvalid             | 252   | BoardingPassScan  |
+| BarcodeEmpty                    | 253   | BoardingPassScan  |
+| Repeated                        | 260   | BoardingPassScan  |
+| UnknownError                    | 280   | BoardingPassScan  |
+| ConfigError                     | 300   | BoardingPassParse |
+| BarcodeUnsupported              | 301   | BoardingPassParse |
+| PermissionNotGranted            | 302   | BoardingPassParse |
+| BoardingPassNull                | 303   | BoardingPassParse |
+| TransactionFailed               | 320   | BoardingPassParse |
+| BoardingPassItemParserError     | 350   | BoardingPassParse |
+| BoardingPassInvalid             | 351   | BoardingPassParse |
+| BarcodeEmpty                    | 352   | BoardingPassParse |
+| BoardingPassImageNoBarcodeFound | 353   | BoardingPassParse |
+| BoardingPassImageParseError     | 354   | BoardingPassParse |
+| Repeated                        | 360   | BoardingPassParse |
+| UnknownError                    | 380   | BoardingPassParse |
+| PermissionNotGranted            | 400   | FaceCapture       |
+| ErrorLoadingImageFromStorage    | 401   | FaceCapture       |
+| PermissionNotGranted            | 402   | FaceCapture       |
+| ErrorLoadingImageFromStorage    | 403   | FaceCapture       |
+| PermissionNotGranted            | 404   | FaceCapture       |
+| ErrorLoadingImageFromStorage    | 405   | FaceCapture       |
+| PermissionNotGranted            | 406   | FaceCapture       |
+| ErrorLoadingImageFromStorage    | 407   | FaceCapture       |
+| PermissionNotGranted            | 420   | FaceCapture       |
+| ErrorLoadingImageFromStorage    | 422   | FaceCapture       |
+| PermissionNotGranted            | 430   | FaceCapture       |
+| ErrorLoadingImageFromStorage    | 450   | FaceCapture       |
+| PermissionNotGranted            | 451   | FaceCapture       |
+| ErrorLoadingImageFromStorage    | 452   | FaceCapture       |
+| Repeated                        | 460   | FaceCapture       |
+| UnknownError                    | 480   | FaceCapture       |
+| PermissionNotGranted            | 500   | FaceMatch         |
+| ErrorLoadingImages              | 501   | FaceMatch         |
+| TransactionFailed               | 520   | FaceMatch         |
+| CommunicationError              | 521   | FaceMatch         |
+| MatchFailed                     | 550   | FaceMatch         |
+| DataIntegrityFailed             | 551   | FaceMatch         |
+| Repeated                        | 560   | FaceMatch         |
+| UnknownError                    | 580   | FaceMatch         |
+| PermissionNotGranted            | 600   | Subject           |
+| DataError                       | 601   | Subject           |
+| TransactionFailed               | 620   | Subject           |
+| CommunicationError              | 621   | Subject           |
+| SubjectServiceError             | 650   | Subject           |
+| MissingBCBP                     | 651   | Subject           |
+| Repeated                        | 660   | Subject           |
+| UnknownError                    | 680   | Subject           |
+| PermissionNotGranted            | 800   | Form              |
+| TransactionFailed               | 820   | Form              |
+| CommunicationError              | 821   | Form              |
+| FormServiceError                | 850   | Form              |
+| UnknownError                    | 880   | Form              |
+
+You can use the result code to provide accurate feedback the to the user or use the a new property inside **FeatureError**, called **errorType** that classifies the type of error.
+
 Alongside with the error code and description that are useful for logging and tracing, we also provide a publicErrorMessage that is a suggestion of what you can show the final user as an error message.
 
 The value of publicErrorMessage is filled depending on the error type and you can change the default texts or provide additional translations by overriding these strings:

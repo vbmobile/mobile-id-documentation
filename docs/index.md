@@ -22,6 +22,8 @@ hide:
     - Install or update Xcode to latest version;
     - Target iOS 12 or later.
 
+You must also send an ID (Bundle ID or Application ID) to vision-box so that we can associate the API key with the application, this way your API key is protected with only authorized applications.
+
 ## Enrolment SDK setup
 
 === "Android"
@@ -50,6 +52,8 @@ hide:
 
     To add the Enrolment SDK to your app, perform the following steps:
     
+    **CocoaPods**
+    
     To always use the latest release, add the following to your Podfile:
     
     1. Add the following to your Podfile, with the latest version:
@@ -75,6 +79,27 @@ hide:
         end
     end
     ```
+    
+    **SPM**
+
+    1. In Xcode, naviate to File > Add Package Dependencies.
+    2. In the prompt that appears, enter the package URL:
+
+    ```
+    https://github.com/vbmobile/MobileIdSDKiOS
+    ```
+   
+    3. Select the version you want to use. For new projects, we recommend using the newest version of SeamlessMobile SDK.
+    4. Select the project you want to add the package.
+    5. Click Add Package.
+    
+    Once you're finished, Xcode will begin downloading and resolving dependencies.
+
+    **Migration from CocoaPods to SPM**
+
+    If migrating from a CocoaPods-based project, run `pod deintegrate` to remove CocoaPods from your Xcode project. The CocoaPods-generated .xcworkspace file can safely be deleted afterward. 
+    
+    If you're adding SeamlessMobile SDK Swift Packages to a project for the first time, ignore this notice.
 
 ## How to initialize the SDK
 
@@ -520,8 +545,8 @@ In order for the SDK to use the camera, the user must grant permission to do so.
         - androidx.camera:camera-view:1.3.0
 
     - Regula
-        - com.regula.documentreader:api:7.3.10030@aar
-        - com.regula.documentreader.core:ocrandmrzrfid:7.3.11349@aar
+        - com.regula.documentreader:api:7.4.10090@aar
+        - com.regula.documentreader.core:ocrandmrzrfid:7.4.11455@aar
 
     - Sentry
         - io.sentry:sentry-android:6.28.0
@@ -531,10 +556,10 @@ In order for the SDK to use the camera, the user must grant permission to do so.
         
 === "iOS"
 
-    - 'DocumentReader', '~> 7.2.0'
-    - 'DocumentReaderOCRRFID', '~> 7.2.0'
-    - 'Sentry', '8.13.1'
-    - 'lottie-ios', '~> 4.3.3'
+    - 'DocumentReader', '~> 7.4.0'
+    - 'DocumentReaderOCRRFID', '~> 7.4.0'
+    - 'Sentry', '8.32.0'
+    - 'lottie-ios', '~> 4.3.4'
      
 
 ## Glossary and Terminology

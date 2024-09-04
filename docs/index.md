@@ -542,8 +542,8 @@ In order for the SDK to use the camera, the user must grant permission to do so.
         - androidx.camera:camera-view:1.3.0
 
     - Regula
-        - com.regula.documentreader:api:7.3.10030@aar
-        - com.regula.documentreader.core:ocrandmrzrfid:7.3.11349@aar
+        - com.regula.documentreader:api:7.4.10090@aar
+        - com.regula.documentreader.core:ocrandmrzrfid:7.4.11455@aar
 
     - Sentry
         - io.sentry:sentry-android:6.28.0
@@ -553,10 +553,10 @@ In order for the SDK to use the camera, the user must grant permission to do so.
         
 === "iOS"
 
-    - 'DocumentReader', '~> 7.2.0'
-    - 'DocumentReaderOCRRFID', '~> 7.2.0'
-    - 'Sentry', '8.13.1'
-    - 'lottie-ios', '~> 4.3.3'
+    - 'DocumentReader', '~> 7.4.0'
+    - 'DocumentReaderOCRRFID', '~> 7.4.0'
+    - 'Sentry', '8.32.0'
+    - 'lottie-ios', '~> 4.3.4'
      
 
 ## Glossary and Terminology

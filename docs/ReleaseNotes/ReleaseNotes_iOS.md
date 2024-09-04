@@ -1,5 +1,12 @@
 # MobileID SDK - Release Notes
 
+## 7.2.1
+
+### Improvements
+
+- Updated Regula SDK to version 7.4.
+- Support to SPM 
+
 ## 7.2.0
 
 ### Improvements

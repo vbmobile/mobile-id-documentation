@@ -51,6 +51,8 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
 
     To add the Enrolment SDK to your app, perform the following steps:
     
+    **CocoaPods**
+    
     To always use the latest release, add the following to your Podfile:
     
     1. Add the following to your Podfile, with the latest version:
@@ -76,6 +78,27 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
         end
     end
     ```
+    
+    **SPM**
+
+    1. In Xcode, naviate to File > Add Package Dependencies.
+    2. In the prompt that appears, enter the package URL:
+
+    ```
+    https://github.com/vbmobile/MobileIdSDKiOS
+    ```
+   
+    3. Select the version you want to use. For new projects, we recommend using the newest version of SeamlessMobile SDK.
+    4. Select the project you want to add the package.
+    5. Click Add Package.
+    
+    Once you're finished, Xcode will begin downloading and resolving dependencies.
+
+    **Migration from CocoaPods to SPM**
+
+    If migrating from a CocoaPods-based project, run `pod deintegrate` to remove CocoaPods from your Xcode project. The CocoaPods-generated .xcworkspace file can safely be deleted afterward. 
+    
+    If you're adding SeamlessMobile SDK Swift Packages to a project for the first time, ignore this notice.
 
 ## How to initialize the SDK
 

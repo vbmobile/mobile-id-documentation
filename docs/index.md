@@ -33,7 +33,7 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
     1. Add these new repositories in your app top level gradle file:
     ```
     maven { url "https://vbmobileidstorage.blob.core.windows.net/android/" }
-    maven { url "http://maven.regulaforensics.com/RegulaDocumentReader" }
+    maven { url "https://maven.regulaforensics.com/RegulaDocumentReader" }
     ```
     2. Declare Mobile ID SDK as a dependency in your app level gradle file:
     ```

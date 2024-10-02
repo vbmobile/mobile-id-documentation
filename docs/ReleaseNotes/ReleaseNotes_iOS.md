@@ -1,5 +1,11 @@
 # MobileID SDK - Release Notes
 
+## 7.2.2
+
+### Improvements
+
+- Updated Sentry SDK to version 8.33.
+
 ## 7.2.1
 
 ### Improvements

@@ -1,5 +1,9 @@
 # MobileID SDK - Release Notes
 
+## 7.2.2
+
+- Remove Sentry has an external dependency
+
 ## 7.2.1
 
 ### Improvements

@@ -33,7 +33,7 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
     1. Add these new repositories in your app top level gradle file:
     ```
     maven { url "https://vbmobileidstorage.blob.core.windows.net/android/" }
-    maven { url "http://maven.regulaforensics.com/RegulaDocumentReader" }
+    maven { url "https://maven.regulaforensics.com/RegulaDocumentReader" }
     ```
     2. Declare Mobile ID SDK as a dependency in your app level gradle file:
     ```
@@ -544,9 +544,6 @@ In order for the SDK to use the camera, the user must grant permission to do so.
     - Regula
         - com.regula.documentreader:api:7.4.10090@aar
         - com.regula.documentreader.core:ocrandmrzrfid:7.4.11455@aar
-
-    - Sentry
-        - io.sentry:sentry-android:6.28.0
 
     - Lottie
         - com.airbnb.android:lottie:6.1.0

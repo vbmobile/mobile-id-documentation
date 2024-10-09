@@ -1,5 +1,11 @@
 # MobileID SDK - Release Notes
 
+## 7.3.0
+
+### Improvements
+
+- Add choice of the scenarios for the [document capture](../Features/DocumentReader/DocumentReader_Index.html#configure)
+
 ## 7.2.2
 
 - Remove Sentry has an external dependency

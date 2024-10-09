@@ -38,7 +38,9 @@ The DocumentReaderConfig has the following structure:
     @Parcelize
     data class DocumentReaderConfig(
       val multipageProcessing: Boolean,
-      val databaseId: String
+      val databaseId: String,
+      val checkHologram: Boolean = false,
+      val scenario: DocumentReaderScenario = DocumentReaderScenario.OCR
     ) : Parcelable
     ```
     
@@ -46,6 +48,15 @@ The DocumentReaderConfig has the following structure:
     scanned;
     - databaseId: specify database Id to be used with the document reader functionality (provided by
     Regula);
+    - checkHologram: checks the presence of holographic effect on the document
+    - scenario: the process in which the document is captured
+
+    ```kotlin
+    enum class DocumentReaderScenario(val scenario: String) {
+        OCR(Scenario.SCENARIO_OCR),
+        MRZ(Scenario.SCENARIO_MRZ),
+    }
+    ```
     
 === "iOS"
 

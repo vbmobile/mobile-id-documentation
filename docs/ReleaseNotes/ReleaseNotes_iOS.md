@@ -1,5 +1,11 @@
 # MobileID SDK - Release Notes
 
+## 7.3.1
+
+### Improvements
+
+- Updated VBDependencyInjector SDK to version 1.0.5.
+
 ## 7.3.0
 
 ### Improvements

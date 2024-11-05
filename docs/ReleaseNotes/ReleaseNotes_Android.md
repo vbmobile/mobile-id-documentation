@@ -1,5 +1,12 @@
 # MobileID SDK - Release Notes
 
+## 7.3.1
+
+### Changes
+
+- Small changes to the face capture animation
+- Providing an invalid api key will result in an error when initializing the SDK
+
 ## 7.3.0
 
 ### Improvements

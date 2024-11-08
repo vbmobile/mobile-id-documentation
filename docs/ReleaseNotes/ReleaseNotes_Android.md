@@ -5,7 +5,7 @@
 ### Changes
 
 - Small changes to the face capture animation
-- Providing an invalid api key will result in an error when initializing the SDK
+- Providing an invalid api key will result in an error when calling any of the SDK's features
 
 ## 7.3.0
 

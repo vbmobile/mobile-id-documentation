@@ -13,7 +13,6 @@ hide:
     - Install or update Android Studio to latest version;
     - Target API level 24 (Marshmallow) or later;
     - Use AndroidX, which requires minimum compileSdkVersion 30 or later.
-    - Your app needs to have Firebase configured and initialized. For more information, see [https://firebase.google.com/docs/android/setup](https://firebase.google.com/docs/android/setup){target=_blank}.
 
 === "iOS"
 

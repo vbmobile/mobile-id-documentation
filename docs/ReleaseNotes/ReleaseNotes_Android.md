@@ -1,5 +1,18 @@
 # MobileID SDK - Release Notes
 
+## 7.3.1
+
+### Changes
+
+- Small changes to the face capture animation
+- Providing an invalid api key will result in an error when calling any of the SDK's features
+
+## 7.3.0
+
+### Improvements
+
+- Add choice of the scenarios for the [document capture](../Features/DocumentReader/DocumentReader_Index.html#configure)
+
 ## 7.2.2
 
 - Remove Sentry has an external dependency

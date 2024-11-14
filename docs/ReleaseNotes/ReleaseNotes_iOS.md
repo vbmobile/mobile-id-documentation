@@ -4,9 +4,9 @@
 
 ### Improvements
  
-- Fix issues with Camera permissons
+- Fix issues with Camera permissions.
 - Updated Lottie SDK to version 4.4.1.
-- Fix face capture animation bug, where the face selection frame was moved to top left corner
+- Fix face capture animation bug, where the face selection frame was moved to top left corner.
 
 ## 7.3.1
 

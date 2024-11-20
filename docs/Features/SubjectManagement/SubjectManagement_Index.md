@@ -321,26 +321,13 @@ Adding a `Subject` required the AddSubjectParameters which have the following st
 
 === "Android"
 
-    Here's how you can get the result by using the result launcher that's passed as the final parameter:
+    
+    You can get the result by registering the callback. In this instance, the subjectId of the created Subject will be returned in the case of a success.
     ```kotlin
-    private val addSubjectResultLauncher = registerForActivityResult(AddSubjectResultLauncher())
-    { result: SubjectActivityResult ->
-        if (result.success) {
-            val subjectId = result.subjectId
-            onSubjectAdded(subjectId)
-        } else {
-            handleError(result.subjectError)
-        }
+    interface OnAddSubjectCompletion {
+        fun onAddSubjectSuccess(subjectId: String)
+        fun onAddSubjectError(subjectError: SubjectError)
     }
-    ```
-
-    The `add` operation will return the SubjectActivityResult model.
-
-    ```kotlin
-    data class SubjectActivityResult(
-        val success: Boolean = false,
-        val subjectError: SubjectError? = null
-    )
     ```
 === "iOS"
 
@@ -364,7 +351,6 @@ The SubjectError has the following structure:
     ```kotlin
     data class SubjectError(
         val userCanceled: Boolean,
-        val termsAndConditionsAccepted: Boolean,
         val featureError: FeatureError?
     )
     ```

@@ -82,14 +82,14 @@ To start the biometric matching, you must call the following method:
      *
      * Used to match the user face photo against the photo contained in the chip from the personal document.
      *
-     * @param context [Context] that contains the user photo, the photo from the document.
+     * @param activity [Activity] that will launch the face match feature
      * @param params [BiometricMatchParameters] that contains the user photo, the photo from the document.
-     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results.
+     * @param onMatchComplete [OnMatchCompletion] Callback to handle Match Success or Error
      */
     fun matchBiometrics(
-        context: Context,
+        activity: Activity,
         params: BiometricMatchParameters,
-        resultLauncher: ActivityResultLauncher<Intent>
+        onMatchComplete: OnMatchCompletion,
     )
     ```
 
@@ -108,27 +108,13 @@ information on the request’s duration and also the templates, if they were req
 
 === "Android"
 
-    Here's how you can get the result by using the result launcher that's passed as the final parameter:
+    Here is how you can get the match report and handle the result for the face match:
     ```kotlin
-    private val faceMatchResultLauncher = registerForActivityResult(MatchResultLauncher())
-    { result: MatchActivityResult ->
-        if (result.success) {
-            val data = result.matchReportSuccess
-            onSuccess(data)
-        } else {
-            handleError(result.matchReportError)
-        }
-    } 
-    ```
-
-    The MatchActivityResult has the following structure:
-
-    data class MatchActivityResult(
-        val matchReportSuccess: MatchReport? = null,
-        val matchReportError: MatchReportError? = null
-    ) {
-        val success get() = matchReportSuccess != null
+    interface OnMatchCompletion {
+        fun onMatchSuccess(matchReport: MatchReport)
+        fun onMatchError(matchReportError: MatchReportError)
     }
+    ```
     
     The MatchReportError has the following structure:
 

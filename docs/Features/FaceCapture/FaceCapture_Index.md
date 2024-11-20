@@ -23,14 +23,14 @@ you can use the method biometricFaceCapture.
      *
      * Some tests will be run against this photo to ensure the photo quality and a liveness check verification.
      *
-     * @param context Context
+     * @param activity [Activity] that will launch the face capture feature
      * @param params [BiometricFaceCaptureParameters] configurations parameters.
-     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results.
+     * @param onFaceCaptureComplete [OnBiometricFaceCaptureCompletion] Callback to handle Success and Error scenarios.
      */
     fun biometricFaceCapture(
-        context: Context,
+        activity: Activity,
         params: BiometricFaceCaptureParameters,
-        resultLauncher: ActivityResultLauncher<Intent>
+        onFaceCaptureComplete: OnBiometricFaceCaptureCompletion,
     )
     ```
 
@@ -135,18 +135,11 @@ not too far away, or too close.
 
 === "Android"
 
-    Here's how you can get the result by using the result launcher that's passed as the final parameter:
+    You can get the result by registering the callback:
     ```kotlin
-    private val faceCaptureResultLauncher = registerForActivityResult(
-        FaceCaptureResultLauncher()
-    )
-    { result: FaceCaptureActivityResult ->
-        if (result.success) {
-            val data = result.faceCaptureReportSuccess
-            onSuccess(data)
-        } else {
-            handleError(result.faceCaptureReportError)
-        }
+    interface OnBiometricFaceCaptureCompletion {
+        fun onBiometricFaceCaptureSuccess(faceCaptureReport: FaceCaptureReportSuccess)
+        fun onBiometricFaceCaptureError(faceCaptureReportError: FaceCaptureReportError)
     }
     ```
 
@@ -175,17 +168,16 @@ not too far away, or too close.
     }
     ```
 
-You will receive a model of the type FaceCaptureActivityResult that will contain the success data (in this case a FaceCaptureReportSuccess) or the error data.
+You will receive a model of the type FaceCaptureReport that will contain the success data.
 
 === "Android"
 
     ```kotlin
-    data class FaceCaptureActivityResult(
-        val faceCaptureReportSuccess: FaceCaptureReportSuccess?,
-        val faceCaptureReportError: FaceCaptureReportError?
-    ) {
-        val success get() = faceCaptureReportSuccess != null
-    }
+    data class FaceCaptureReport(
+        val livenessCheckStatus: LivenessCheckStatus,
+        val performedTests: List<String>?,
+        val biometricHash: String
+    ) : Parcelable
     ```
 
 === "iOS"
@@ -219,7 +211,6 @@ The FaceCaptureReportError has the following structure:
     ```kotlin
     data class FaceCaptureReportError(
         val userCanceled: Boolean,
-        val termsAndConditionsAccepted: Boolean,
         val featureError: FeatureError?,
         val failedTests: List<String>?,
         val performedTests: List<String>?

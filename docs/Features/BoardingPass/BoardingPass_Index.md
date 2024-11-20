@@ -26,16 +26,16 @@ start the barcode scanner, you must call the following method:
 
     ```kotlin
     /**
-    * Scans a Bar Coded Boarding Pass (BCBP).
-    *
-    * @param context [Context] Activity holder
-    * @param params [BoardingPassScanParameters] required to start the boarding pass scan feature.
-    * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results.
-    */
+     * Scans a Bar Coded Boarding Pass (BCBP).
+     *
+     * @param activity [Activity] that will launch the face capture feature
+     * @param params [BoardingPassScanParameters] required to start the boarding pass scan feature.
+     * @param onScanBoardingPassCompletion [OnScanBoardingPassCompletion] callback to handle Success and Error scenarios
+     */
     fun scanBoardingPass(
-        context: Context,
+        activity: Activity,
         params: BoardingPassScanParameters,
-        resultLauncher: ActivityResultLauncher<Intent>
+        onScanBoardingPassCompletion: OnScanBoardingPassCompletion,
     )
     ```
 
@@ -85,27 +85,27 @@ From version 7 onwards there is a new way to parse a boarding pass, by giving us
     /**
      * Parses a Bar Coded Boarding Pass (BCBP).
      *
-     * @param context
+     * @param activity [Activity] that will launch the face capture feature
      * @param params [BoardingPassStringParserParameters] required to start the boarding pass parser feature.
-     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results.
+     * @param onParseDocumentCompletion [OnScanBoardingPassCompletion] callback to handle Success and Error scenarios
      */
     fun parseBoardingPass(
-        context: Context,
+        activity: Activity,
         params: BoardingPassStringParserParameters,
-        resultLauncher: ActivityResultLauncher<Intent>
+        onParseDocumentCompletion: OnScanBoardingPassCompletion,
     )
 
     /**
-     * Parses an image of a Bar Coded Boarding Pass (BCBP).
+     * Parses a Bar Coded Boarding Pass (BCBP).
      *
-     * @param context
-     * @param params [BoardingPassImageParserParameters] required to start the boarding pass image parser feature.
-     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results.
+     * @param activity [Activity] that will launch the face capture feature
+     * @param params [BoardingPassStringParserParameters] required to start the boarding pass image parser feature.
+     * @param onParseDocumentCompletion [OnScanBoardingPassCompletion] callback to handle Success and Error scenarios
      */
     fun parseBoardingPass(
-        context: Context,
+        activity: Activity,
         params: BoardingPassImageParserParameters,
-        resultLauncher: ActivityResultLauncher<Intent>
+        onParseDocumentCompletion: OnScanBoardingPassCompletion,
     )
     ```
 
@@ -230,32 +230,16 @@ BarcodeFormat is an enumeration and it contains the following cases.
 
 === "Android"
 
-    Here's how you can get the result by using the result launcher that's passed as the final parameter:
+    You can get the result by registering the callback:
 
     ```kotlin
-    private val boardingPassScanResultLauncher = registerForActivityResult(
-        BoardingPassScanResultLauncher()
-    )
-    { result: BoardingPassActivityResult ->
-        if (result.success) {
-            val boardingPass = result.boardingPass
-            onSuccess(boardingPass)
-        } else {
-            handleError(result.boardingPassError)
-        }
+    interface OnScanBoardingPassCompletion {
+        fun onBoardingPassSuccess(boardingPass: BoardingPass)
+        fun onBoardingPassError(boardingPassError: BoardingPassError)
     }
     ```
 
-    You will receive a model of the type BoardingPassActivityResult that will contain the success data (in this case a BoardingPass) or the error data.
-
-    ```kotlin
-    data class BoardingPassActivityResult(
-        val boardingPass: BoardingPass?,
-        val boardingPassError: BoardingPassError?
-    ) {
-        val success get() = boardingPass != null
-    }
-    ```
+    In case of a success, the BoardingPass model will be retuned regardless of how you tried to parse/scan:
 
     The BoardingPassError has the following structure:
     

@@ -12,13 +12,13 @@ To start the form feature, you can use the enrolment method
 === "Android"
 
     ```kotlin
-    /**
-     * @param context
-     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results
+       /**
+     * @param activity [Activity] that will launch the face capture feature
+     * @param onFormCompletion [OnFormCompletion] callback to handle Success and Error scenarios
      */
     fun startForm(
-        context: Context,
-        resultLauncher: ActivityResultLauncher<Intent>
+        activity: Activity,
+        onFormCompletion: OnFormCompletion,
     )
     ```
 
@@ -42,24 +42,17 @@ To start the form feature, you can use the enrolment method
 
 === "Android"
 
-    Here's how you can get the result by using the result launcher that's passed as the final parameter:
+    Here's how you can get the result by using the form callback:
 
     ```kotlin
-    private val formCallback: ActivityResultLauncher<Intent> =
-        registerForActivityResult(ShowFormResultLauncher()) {
-            
-        }
+    interface OnFormCompletion {
+        fun onFormSuccess(formAnswer: FormAnswer)
+        fun onFormError(formError: FormError)
+    }
 
     ```
 
-    The result of this operation will be the following model that will either hold an error or an answer
-
-    ```kotlin
-    data class FormActivityResult(
-        val formAnswer: FormAnswer? = null,
-        val formError: FormError? = null
-    )
-    ```
+    FormAmswer on the success callback is defined as:
 
     ```kotlin
     data class FormAnswer(

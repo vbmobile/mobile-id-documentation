@@ -34,15 +34,10 @@ The DocumentReaderConfig has the following structure:
     ```kotlin
     data class DocumentReaderConfig(
       val multipageProcessing: Boolean,
-<<<<<<< HEAD
-      val databaseId: String
-    )
-=======
       val databaseId: String,
       val checkHologram: Boolean = false,
       val scenario: DocumentReaderScenario = DocumentReaderScenario.OCR
     ) : Parcelable
->>>>>>> develop
     ```
     
     - multipageProcessing: controls the workflow for documents that might need to have different pages
@@ -104,16 +99,16 @@ travel documents from different countries, by calling the readDocument method.
 
     ```kotlin
     /**
-     * Reads the information contained in a personal document.     *
+     * Reads the information contained in a personal document.
      *
-     * @param context Context
+     * @param activity [Activity] that will launch the face capture feature
      * @param params [DocumentReaderParameters] with some configurations for the document reader feature.
-     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results.
+     * @param onReadDocumentCompletion [OnReadDocumentCompletion] callback to handle Success and Error scenarios
      */
     fun readDocument(
-        context: Context,
+        activity: Activity,
         params: DocumentReaderParameters,
-        resultLauncher: ActivityResultLauncher<Intent>
+        onReadDocumentCompletion: OnReadDocumentCompletion,
     )
     ```
 
@@ -201,29 +196,11 @@ Here is how you can get the document reader report and handle the result for doc
 
 === "Android"
 
-    You can get the result by using the result launcher that's passed as the final parameter:
+    You can get the result by registering the callback
     ```kotlin
-    private val documentReaderResultLauncher = registerForActivityResult(
-        DocumentReaderResultLauncher()
-    )
-    { result: DocumentReaderActivityResult ->
-        if (result.success) {
-            val data = result.documentReaderReport
-            onSuccess(data)
-        } else {
-            handleError(result.documentReaderError)
-        }
-    }
-    ```
-    
-    You will receive a model of the type DocumentReaderActivityResult that will contain the success data (in this case a DocumentReaderReport) or the error data.
-    
-    ```kotlin
-    data class DocumentReaderActivityResult(
-        val documentReaderReport: DocumentReaderReport?,
-        val documentReaderError: DocumentReaderError?
-    ) {
-        val success get() = documentReaderReport != null
+    interface OnReadDocumentCompletion {
+        fun onReadDocumentSuccess(documentReaderReport: DocumentReaderReport)
+        fun onReadDocumentError(documentReaderError: DocumentReaderError)
     }
     ```
     
@@ -232,7 +209,6 @@ Here is how you can get the document reader report and handle the result for doc
     ```kotlin
     data class DocumentReaderError(
         val userCanceled: Boolean,
-        val termsAndConditionsAccepted: Boolean,
         val featureError: FeatureError?,
     )
     ```

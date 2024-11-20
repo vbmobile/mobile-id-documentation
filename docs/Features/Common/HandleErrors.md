@@ -46,7 +46,8 @@ The FeatureError has the following structure:
         FaceMatchError,
         SubjectError,
         FormError,
-        UnknownError;
+        UnknownError,
+        ConfigurationError,
     }
     ```
 
@@ -89,6 +90,10 @@ Here you can find a list of all the error codes the SDK sends to the client appl
 
 | Name                            | Value | Feature           |
 |---------------------------------|-------|-------------------|
+| InvalidApiKey                   |  10   | Configuration     |
+| InvalidEndpoint                 |  11   | Configuration     |
+| InitFailed                      |  12   | Configuration     |
+| NotReady                        |  13   | Configuration     |
 | ConfigError                     | 100   | DocumentReader    |
 | NotReady                        | 101   | DocumentReader    |
 | InitFailed                      | 102   | DocumentReader    |

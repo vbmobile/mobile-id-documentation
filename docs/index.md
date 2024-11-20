@@ -13,7 +13,6 @@ hide:
     - Install or update Android Studio to latest version;
     - Target API level 24 (Marshmallow) or later;
     - Use AndroidX, which requires minimum compileSdkVersion 30 or later.
-    - Your app needs to have Firebase configured and initialized. For more information, see [https://firebase.google.com/docs/android/setup](https://firebase.google.com/docs/android/setup){target=_blank}.
 
 === "iOS"
 
@@ -547,9 +546,6 @@ In order for the SDK to use the camera, the user must grant permission to do so.
     - Regula
         - com.regula.documentreader:api:7.4.10090@aar
         - com.regula.documentreader.core:ocrandmrzrfid:7.4.11455@aar
-
-    - Sentry
-        - io.sentry:sentry-android:6.28.0
 
     - Lottie
         - com.airbnb.android:lottie:6.1.0

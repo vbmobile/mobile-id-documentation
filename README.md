@@ -44,3 +44,12 @@ Inside the docs folder we have the following structure:
     - Subject Management - Contains markdown files and assets related to Subject Management.
 - Release Notes - Contains markdown files and assets related to release notes.
 - Migration Guide - Contains markdown files and assets related to migration guide.
+
+
+## Tools Helper
+
+### mkdocs
+https://squidfunk.github.io/mkdocs-material/
+
+### Mike cmd 
+Install from oficial repo: https://github.com/jimporter/mike

@@ -34,14 +34,30 @@ The DocumentReaderConfig has the following structure:
     ```kotlin
     data class DocumentReaderConfig(
       val multipageProcessing: Boolean,
+<<<<<<< HEAD
       val databaseId: String
     )
+=======
+      val databaseId: String,
+      val checkHologram: Boolean = false,
+      val scenario: DocumentReaderScenario = DocumentReaderScenario.OCR
+    ) : Parcelable
+>>>>>>> develop
     ```
     
     - multipageProcessing: controls the workflow for documents that might need to have different pages
     scanned;
     - databaseId: specify database Id to be used with the document reader functionality (provided by
     Regula);
+    - checkHologram: checks the presence of holographic effect on the document
+    - scenario: the process in which the document is captured
+
+    ```kotlin
+    enum class DocumentReaderScenario(val scenario: String) {
+        OCR(Scenario.SCENARIO_OCR),
+        MRZ(Scenario.SCENARIO_MRZ),
+    }
+    ```
     
 === "iOS"
 
@@ -51,8 +67,23 @@ The DocumentReaderConfig has the following structure:
         public let databaseID: String
         public let databasePath: String?
         public let scannerTimeout: TimeInterval
+        public let scenario: DocumentReaderScenario
         
-        public init(multipageProcessing: Bool, databaseID: String, databasePath: String? = nil, scannerTimeout: TimeInterval = 30) 
+        public init(multipageProcessing: Bool, databaseID: String, databasePath: String? = nil, scannerTimeout: TimeInterval = 30, checkHologram: Bool = false, scenario: DocumentReaderScenario = .ocr)
+    }
+    
+    public enum DocumentReaderScenario: CaseIterable {
+        case ocr
+        case mrz
+    
+        public var value: String {
+            switch self {
+            case .ocr:
+                return "RGL_SCENARIO_OCR"
+            case .mrz:
+                return "RGL_SCENARIO_MRZ"
+            }
+        }
     }
     ```
 
@@ -62,7 +93,8 @@ The DocumentReaderConfig has the following structure:
     Regula);
     - databasePath: Database path for .dat file to initialize Regula documents database. Default value is `nil`.
     - scannerTimeout: Document scan timeout, in seconds. Default value is `30` seconds.
-
+    - scenario: Changes the scanning scenario in which the document is captured
+    
 ## Initiate Scan
 
 The document reader functionality enables the client application to extract and validate data from

@@ -35,16 +35,11 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
     ```
     2. Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
     ```
-    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<x.x.x>@aar") { transitive = true }
-    implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:<x.x.x>")
+    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<8.0.0>@aar") { transitive = true }
+    implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:<1.0.0>")
     ```
     3. Sync gradle.
     
-    **NOTE:** If you are not using Coroutines, you must also also declare these libraries in gradle dependencies:
-    ```
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0"
-    ```
 
 === "iOS"
 

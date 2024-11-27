@@ -399,38 +399,39 @@ pinning for every network request made by the SDK.
     The following sections show some examples of the mentioned configurations.
 
     ```kotlin
-    val builder: EnrolmentBuilder = EnrolmentBuilder
-        .of(context, config)
-        .withDocumentReaderCustomViews(
-            DocumentReaderCustomViews(
-                loadingView = DocumentReaderCustomViewLoading::class.java,
-                rfidInstructionsView = DocumentReaderCustomViewRfidInstructions::class.java,
-                rfidSearchView = DocumentReaderCustomViewRfidSearch::class.java,
-                rfidProcessView = DocumentReaderCustomViewRfidProcess::class.java,
-            )
+    val enrolmentCustomViews = EnrolmentCustomViews(
+        documentReaderCustomViews = DocumentReaderCustomViews(
+            loadingView = DocumentReaderCustomViewLoading::class.java,
+            rfidInstructionsView = DocumentReaderCustomViewRfidInstructions::class.java,
+            rfidSearchView = DocumentReaderCustomViewRfidSearch::class.java,
+            rfidProcessView = DocumentReaderCustomViewRfidProcess::class.java,
+        ),
+        boardingPassCustomViews = BoardingPassCustomViews(
+            loadingView = BoardingPassCustomViewLoading::class.java
+        ),
+        faceCaptureCustomViews = BiometricFaceCaptureCustomViews(
+            loadingView = BiometricFaceCaptureCustomViewLoading::class.java
+        ),
+        faceMatchCustomViews = BiometricFaceMatchCustomViews(
+            loadingView = BiometricFaceMatchCustomViewLoading::class.java
+        ),
+        subjectCustomViews = SubjectCustomViews(
+            loadingView = SubjectCustomViewLoading::class.java
+        ),
+        formCustomViews = FormCustomViews(
+            loadingView =  FormCustomViewLoading::class.java,
         )
-        .withBiometricFaceCaptureCustomViews(
-            BiometricFaceCaptureCustomViews(
-                loadingView = BiometricFaceCaptureCustomViewLoading::class.java
-            )
-        )
-        .withBoardingPassCustomViews(
-            BoardingPassCustomViews(
-                loadingView = BoardingPassCustomViewLoading::class.java
-            )
-        )
-        .withBiometricFaceMatchCustomViews(
-            BiometricFaceMatchCustomViews(
-                loadingView = BiometricFaceMatchCustomViewLoading::class.java
-            )
-        )
-        .withSubjectCustomViews(
-            SubjectCustomViews(
-                loadingView = SubjectCustomViewLoading::class.java
-            )
-        )
+    )
 
-    return builder.build()
+    Enrolment.initialize(
+        context = requireContext().applicationContext,
+        enrolmentConfig = enrolmentConfig,
+        enrolmentCustomViews = enrolmentCustomViews,
+        documentReaderProvider = documentReaderProvider,
+        rfidReaderProvider = documentReaderProvider,
+        enrolmentInitializerCallback = enrolmentInitializerCallback
+    )
+
     ```
 === "iOS"
 

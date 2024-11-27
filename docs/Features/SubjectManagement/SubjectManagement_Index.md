@@ -398,7 +398,7 @@ The `BiometricFormat` will specify the format for the `data` string like so:
     * Biometric format type for both Face and Document captures
     */
     enum class BiometricFormat {
-        UNKNOWN, JPG, PNG
+        Unknown, Jpg, Png
     }
     ``` 
 
@@ -417,10 +417,14 @@ The `BiometricSource` is a enum with the source of the biometric photo and will 
 === "Android"
 
     ```kotlin
+    /**
+    * Source of the provided photo. Identifies how it was obtained.
+    */
     enum class BiometricSource {
-        DOCUMENT,
-        CAPTURED,
-        ENROLLMENT
+        Unknown,
+        Face,
+        Ocr,
+        Chip
     }
     ```
 
@@ -434,23 +438,16 @@ The `BiometricSource` is a enum with the source of the biometric photo and will 
     }
     ```
 
-The `BiometricType` defines the type of the biometric according to the captured element. A face capture will have a `BiometricTypeFace` and a document will have a `BiometricTypeDocument`, see the details below
+The `BiometricType` defines the capture type of the biometric:
 
 === "Android"
 
     ```kotlin
     /**
-    * Biometrics type for the Face capture
-    */
-    enum class BiometricTypeFace: BiometricType {
-        UNKNOWN, ENROLMENT
-    }
-
-    /**
-    * Biometrics type for the Documents capture
-    */
-    enum class BiometricTypeDocument : BiometricType {
-        UNKNOWN, PAGE, SCAN, CHIP
+     * Biometrics type for the Face capture
+     */
+    enum class BiometricType {
+        Unknown, Enrolment
     }
     ```
 
@@ -468,8 +465,11 @@ The `BiometricPosition` is something only present on face captured Biometrics
 === "Android"
 
     ```kotlin
+        /**
+        * Biometric position of the source in question
+        */
         enum class BiometricPosition {
-            UNKNOWN, FACE
+            Unknown, Face
         }
     ```
 
@@ -489,16 +489,14 @@ After adding a `Subject`, the `id` will be returned. This `id` can be used to ge
 === "Android"
 
     ``` kotlin
-        @Parcelize
-        data class SubjectStatus(val subjectId: String?, val status: Status, val detail: String?) :
-        Parcelable {
+        data class SubjectStatus(val subjectId: String?, val status: Status, val detail: String?) {
         
             enum class Status {
-                PENDING,
-                VALIDATING,
-                INVALID,
-                ENROLLED,
-                EXPIRED
+                Pending,
+                Validating,
+                Invalid,
+                Enrolled,
+                Expired
             }
         }
     ```

@@ -50,7 +50,6 @@ The BoardingPassScanParameters has the following structure:
     ```kotlin
     @Parcelize
     data class BoardingPassScanParameters(
-        val showPreview: Boolean,
         val validate: Boolean
     ) : Parcelable
     ```
@@ -122,7 +121,6 @@ The BoardingPassParserParameters object has the following structure:
     */
     @Parcelize
     open class BoardingPassParserParameters(
-        open val showPreview: Boolean,
         open val validate: Boolean
     ) : Parcelable
 

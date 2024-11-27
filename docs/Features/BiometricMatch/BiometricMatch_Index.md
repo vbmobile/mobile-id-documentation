@@ -31,14 +31,12 @@ is the BiometricMatchParameters structure:
         public let candidate: Data
         public let reference: Data
         public let includeTemplate: TemplateOptions
-        public let showErrors: Bool
         public let candidateHash: String?
         public let referenceHash: String?
     
         public init(candidate: Data,
                 reference: Data,
                 includeTemplate: TemplateOptions = .none,
-                showErrors:Bool,
                 candidateHash: String?,
                 referenceHash: String?) 
     }
@@ -68,7 +66,7 @@ TemplateOptions is an enumeration and it contains the following cases.
     }
     ```
 
-The `candidateHash` and `referenceHash` are the hashes provided by either the `FaceCaptureReport` and/or the [DocumentReaderReport](../DocumentReader/DocumentReader_Index.md#document-reader-report) needed to verify data integrity.
+The `candidateHash` and `referenceHash` are the hashes provided by either the [FaceCaptureReport](../FaceCapture/FaceCapture_Index.md#face-capture-report ) and/or the [DocumentReaderReport](../DocumentReader/DocumentReader_Index.md#document-reader-report) needed to verify data integrity.
 
 You can expect either a MatchError response or a MatchReport response. 
 

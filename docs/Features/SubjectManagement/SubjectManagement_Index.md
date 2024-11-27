@@ -157,7 +157,6 @@ data you can create the `BuildSubjectParameters` object. This object has the fol
 
     ``` swift 
     public struct BuildSubjectParameters {
-        public let showErrors: Bool
         public let documentData: DocumentData
         public let documentDataValidated: Bool
         public let documentImage: UIImage
@@ -176,7 +175,6 @@ data you can create the `BuildSubjectParameters` object. This object has the fol
                 biometricFaceCaptureReport: BiometricFaceCaptureReport? = nil,
                 matchReport: MatchReport? = nil,
                 language: Locale? = nil,
-                showErrors: Bool,
                 formReport: FormReport? = nil)
     }
     ```
@@ -214,8 +212,7 @@ The following example shows how you can build a subject:
         documentReaderReport: EnrolmentData.shared.documentReaderReport,
         biometricFaceCaptureReport: EnrolmentData.shared.biometricMatchReport,
         matchReport: EnrolmentData.shared.matchReport,
-        language: Locale.current,
-        showErrors: true
+        language: Locale.current
     )
     
     guard let vco = self.view as? UIViewController else {
@@ -310,10 +307,9 @@ Adding a `Subject` required the AddSubjectParameters which have the following st
 
     ``` swift 
     public struct AddSubjectParameters {
-        public let showErrors: Bool
         public let subject: Subject
     
-        public init(subject: Subject, showErrors: Bool)
+        public init(subject: Subject)
     }
     ```
     
@@ -384,6 +380,9 @@ structure of the Biometric data:
 
     ``` swift
     public struct Biometric {
+        public let type: BiometricType
+        public let format: BiometricFormat
+        public let position: BiometricTypePosition
         public let source: BiometricSource
         public let data: Data
         public let photo: UIImage?
@@ -406,7 +405,11 @@ The `BiometricFormat` will specify the format for the `data` string like so:
 === "iOS"
 
     ```swift
-        // TODO()
+    public enum BiometricFormat: String {
+        case unknown = "Unknown"
+        case jpg = "Jpg"
+        case png = "Png"
+    }
     ```
 
 The `BiometricSource` is a enum with the source of the biometric photo and will have the following structure:
@@ -425,9 +428,9 @@ The `BiometricSource` is a enum with the source of the biometric photo and will 
 
     ``` swift
     public enum BiometricSource: String {
-        case document = "DOCUMENT"
-        case captured = "CAPTURED"
-        case enrollment = "ENROLLMENT"
+        case documentChip = "Chip"
+        case documentOCR = "Ocr"
+        case faceCapture = "Face"
     }
     ```
 
@@ -454,7 +457,10 @@ The `BiometricType` defines the type of the biometric according to the captured 
 === "iOS"
 
     ```swift
-        // TODO()
+      public enum BiometricType: String {
+        case unknown = "Unknown"
+        case enrolment = "Enrolment"
+    }
     ```
 
 The `BiometricPosition` is something only present on face captured Biometrics 
@@ -470,7 +476,10 @@ The `BiometricPosition` is something only present on face captured Biometrics
 === "iOS"
 
     ```swift
-        // TODO()
+    public enum BiometricTypePosition: String {
+        case unknown = "Unknown"
+        case face = "Face"
+    }
     ```
 
 ## Subject Status
@@ -497,7 +506,10 @@ After adding a `Subject`, the `id` will be returned. This `id` can be used to ge
 === "iOS"
 
     ``` swift
-        // TODO()
+    public struct SubjectStatus {
+        public let id: String
+        public let status: Status
+    }
     ```
 
 The `SubjectStatus` is accessible through the `Enrolment` by calling one these methods below and registering the `OnSubjectStatusResult` callback.
@@ -547,6 +559,26 @@ The `SubjectStatus` is accessible through the `Enrolment` by calling one these m
 === "iOS"
 
     ``` swift
+    /// Get all status from server.
+    ///     /// - Parameters:
+    ///   - completionHandler: The completion handler to call when the get status operation is finished.
+    ///     This completion handler takes the following parameter:
+    ///
+    ///     Result<[SubjectStatus], SubjectError>
+    ///     Where `SubjectError` contains the possible errors that may occur during the process.
+    func getStatus(completionHandler: @escaping (Result<[SubjectStatus], SubjectError>) -> Void)
+
+    /// Get  status by id from server.
+    /// - Parameters:
+    ///   - subjectId: id to retrive
+    ///   - completionHandler: The completion handler to call when the get status operation is finished.
+    ///     This completion handler takes the following parameter:
+    ///
+    ///     Result<[SubjectStatus], SubjectError>
+    ///     Where `SubjectError` contains the possible errors that may occur during the process.
+
+    func getStatus(subjectId:String, completionHandler: @escaping (Result<SubjectStatus, SubjectError>) -> Void)
+
     ```
 
 ## SubjectCustomViews

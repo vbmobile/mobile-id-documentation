@@ -50,9 +50,8 @@ you can use the method biometricFaceCapture.
         func biometricFaceCapture(parameters: BiometricFaceCaptureParameters, viewController: UIViewController, completionHandler: @escaping (Result<BiometricFaceCaptureReport, FaceCaptureReportError>) -> Void)
     ```
 
-The SDK provides UI solutions for the capture process and photo preview, as shown in the images
-below. The use of the photo preview depends on the BiometricFaceCaptureParameters passed to the
-biometricFaceCapture method. Below is an example of that object:
+The SDK provides UI solutions for the capture process, as shown in the images
+below. Below is an example of the BiometricFaceCaptureParameters:
 
 === "Android"
 
@@ -90,15 +89,11 @@ biometricFaceCapture method. Below is an example of that object:
 
     ```swift
     public struct BiometricFaceCaptureParameters {
-        public let showPreview: Bool
         public let frameShape: BiometricFaceCaptureFrameOptions
-        public let showErrors: Bool
         public let cameraConfig: CameraConfig
         public let faceCaptureTimeout: TimeInterval?
         
-        public init(showPreview: Bool,
-                frameShape:BiometricFaceCaptureFrameOptions = .oval,
-                showErrors: Bool,
+        public init(frameShape:BiometricFaceCaptureFrameOptions = .oval,
                 cameraConfig: CameraConfig = CameraConfig(),
                 faceCaptureTimeout: TimeInterval? = nil)
     ```
@@ -150,13 +145,9 @@ not too far away, or too close.
         switch result {
         case .success(let report):
             print("Face capture successful.")
-            EnrolmentData.faceCapture = report.photo
-            EnrolmentData.biometricFaceCaptureReport = report
             completion(.success(()))
                 
         case .failure(let biometricFaceCaptureError):
-            EnrolmentData.biometricFaceCaptureReport = nil
-                
             if biometricFaceCaptureError.userCanceled {
                 print("Face capture cancelled by user.")
                 completion(.failure(biometricFaceCaptureError))
@@ -167,6 +158,8 @@ not too far away, or too close.
         }
     }
     ```
+    
+### Face Capture Report 
 
 You will receive a model of the type FaceCaptureReport that will contain the success data.
 

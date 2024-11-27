@@ -20,11 +20,7 @@ following example:
 === "iOS"
 
     ``` swift
-    var enrolment: EnrolmentProtocol = EnrolmentBuilder
-            .of(enrolmentConfig: enrolmentConfig)
-            .with(documentReaderConfig: documentReaderConfig)
-            .with(viewRegister: viewRegister)
-            .build()
+    var provider = RegulaDocumentReaderScan(config: documentReaderConfig)
     ```
 
 The DocumentReaderConfig has the following structure:
@@ -62,6 +58,7 @@ The DocumentReaderConfig has the following structure:
         public let databaseID: String
         public let databasePath: String?
         public let scannerTimeout: TimeInterval
+        public let checkHologram: Bool
         public let scenario: DocumentReaderScenario
         
         public init(multipageProcessing: Bool, databaseID: String, databasePath: String? = nil, scannerTimeout: TimeInterval = 30, checkHologram: Bool = false, scenario: DocumentReaderScenario = .ocr)
@@ -88,6 +85,7 @@ The DocumentReaderConfig has the following structure:
     Regula);
     - databasePath: Database path for .dat file to initialize Regula documents database. Default value is `nil`.
     - scannerTimeout: Document scan timeout, in seconds. Default value is `30` seconds.
+    - checkHologram: Indicates whether or not the document reader supports Hologram Reading
     - scenario: Changes the scanning scenario in which the document is captured
     
 ## Initiate Scan
@@ -154,21 +152,17 @@ This method can perform a full travel document read in two steps:
 
     ``` swift
     public struct ReadDocumentParameters {
-        public let showPreview: Bool
         public let readRFID: Bool
         public let showRFIDStatus: Bool
         public let scannerTimeout: TimeInterval
         public let rfidTimeout: TimeInterval
-        public let showErrors: Bool
         public let showRFIDInstructions: Bool
         
-        public init(showPreview: Bool,
-                    readRFID: Bool,
+        public init(readRFID: Bool,
                     showRFIDStatus: Bool = false,
                     scannerTimeout: TimeInterval = 30,
                     rfidTimeout: TimeInterval = 30,
-                    showRFIDInstructions: Bool = true,
-                    showErrors: Bool)
+                    showRFIDInstructions: Bool = true)
     }
     ```
 
@@ -222,7 +216,6 @@ Here is how you can get the document reader report and handle the result for doc
                // handle DocumentReaderReport
                 
             case .failure(let error):
-                EnrolmentData.shared.documentReaderReport = nil
                 if error.userCanceled {
                     print("onUserCancel")
                 } else {
@@ -455,6 +448,9 @@ The DocumentData contains the document data. You can check the structure here:
         /// Model that wraps information about the document type
         public var documentTypeData: DocumentTypeData?
     
+        /// Chip page
+        public var chipPage: Int?
+        
         /// Photo of the document owner.
         public var portrait: UIImage? {
             return portraitData.flatMap { UIImage(data: $0) }
@@ -499,6 +495,8 @@ The DocumentData contains the document data. You can check the structure here:
     public struct DocumentTypeInfo: Codable {
         /// Document type id
         public let dTypeId: Int
+        /// Document  id
+        public let documentId: Int
         /// Document Name
         public let documentName: String?
         /// Country code
@@ -544,6 +542,7 @@ The DocumentData contains the document data. You can check the structure here:
         case rfidGenericError
         case rfidTimeouError
         case userSkipedRfid
+        case passiveAuthDisabled
     }
     ```
 
@@ -553,8 +552,6 @@ The DocumentData contains the document data. You can check the structure here:
 The SDK provides default UI solutions for the document reader feature flow, as
 shown in the following images:
 ![Document Reader Flow](Assets/DR_Flow.png "Document Reader Flow"){: style="display: block; margin: 0 auto"}
-
-The use of the preview layout depends on the **showPreview** flag in the DocumentReaderParameters.
 
 The use of the rfid related layouts depends on the **rfidRead** flag in the DocumentReaderParameters.
 

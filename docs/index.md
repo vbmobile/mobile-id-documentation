@@ -18,7 +18,7 @@ hide:
     To integrate the **Mobile ID SDK** for iOS, the following prerequisites must be met: 
     
     - Install or update Xcode to latest version;
-    - Target iOS 12 or later.
+    - Target iOS 12 or later. 
 
 You must also send an ID (Bundle ID or Application ID) to vision-box so that we can associate the API key with the application, this way your API key is protected with only authorized applications.
 
@@ -56,7 +56,7 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
     
     1. Add the following to your Podfile, with the latest version:
     ```
-    pod 'MobileIdSDKiOS', '5.1.XX'
+    pod 'MobileIdSDKiOS', '8.0.XX'
     ```
     2. Add Mobile ID’s cocoapods repo as a source in your podfile:
     ```
@@ -187,15 +187,37 @@ The SDK also allows client apps to use their own custom views for its functional
             publicKey = "YOUR PUBLIC KEY" // Optional parameter to ensure requests are encrypted
     ))
 
-    let enrolment = EnrolmentBuilder
-        .of(enrolmentConfig: enrolmentConfig)
-        .build() // The Enrolment should be a singleton
+    var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, 
+                                                    databaseID: "DatabaseName", 
+                                                    checkHologram: false)
+
+        Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
+                                  documentScanProvider: RegulaDocumentReaderScan(config: documentReaderConfig),
+                                  documentRFIDProvider: RegulaDocumentReaderRFID(),
+                                  viewRegister: viewRegister,
+                                  completionHandler: { result in
+        switch result {
+        case .success(_):
+            print("Success: SeamlessMobile SDK is ready to use")
+        case .failure(let error):
+            print("Failure: error.description")
+        }
+    })
     ```
 
     The following parameters must always be provided:
     
     - EnrolmentConfig - Enrolment configuration.
-
+    - CompletionHandler - To receive a callback when the enrolment is initialized or when an error occurs during the process.
+    
+    The following parameters must be provided if you want read documents:
+    
+    - Document and RFID reader provider - The preferred provider for document and rfid read operations
+    
+    The following parameters must be provided if you want customize the screens
+    
+    - EnrolmentCustomViews - Will overwrite any default view from the Enrolment SDK
+    
 There where some errors created to validate the enrolment configuration:
 
 - If the apiKey is not in a valid format, for example it has an extra character, you will receive via callback an InvalidApiKey error(010 - APIKey is invalid)
@@ -417,15 +439,14 @@ pinning for every network request made by the SDK.
     The following code shows an example:
     ```swift
     let viewRegister = EnrolmentViewRegister()
-    viewRegister.registerBiometricMatchErrorOverlayView(BiometricMatchErrorView.self)
+    viewRegister.registerBiometricFaceCaptureLoadingView(FaceCaptureLoadingView.self)
 
-    let enrolmentConfig = r.resolve(EnrolmentConfig.self)!
-    let documentReaderConfig = r.resolve(DocumentReaderConfig.self)!
-            
-    let enrolment = EnrolmentBuilder.of(enrolmentConfig: enrolmentConfig)
-            .with(documentReaderConfig: documentReaderConfig)
-            .with(viewRegister: viewRegister)
-            .build()
+    
+    Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
+                              documentScanProvider: RegulaDocumentReaderScan(config: documentReaderConfig),
+                              documentRFIDProvider: RegulaDocumentReaderRFID(),
+                              viewRegister: viewRegister,
+                              completionHandler: completionHandler)      
     ```
 
 ## Localization Support
@@ -533,9 +554,9 @@ In order for the SDK to use the camera, the user must grant permission to do so.
 
     The following image shows an example of how you could override SDK  values for fonts, colors and strings:
     ```swift
-    enrolment.theme.fonts.medium = FontDescription(name: "FontName-Medium")
-    enrolment.theme.colors.faceCapture.stateError = UIColor(name: .colorPrimary)
-    enrolment.theme.strings.faceCapture.title = "Face Capture Title"
+    Enrolment.shared.theme.fonts.medium = FontDescription(name: "FontName-Medium")
+    Enrolment.shared.theme.colors.faceCapture.stateError = UIColor(name: .colorPrimary)
+    Enrolment.shared.theme.strings.faceCapture.title = "Face Capture Title"
     ```
 
     Please check the complete list of colors for your reference:
@@ -594,10 +615,9 @@ In order for the SDK to use the camera, the user must grant permission to do so.
         
 === "iOS"
 
-    - 'DocumentReader', '~> 7.4.0'
-    - 'DocumentReaderOCRRFID', '~> 7.4.0'
-    - 'Sentry', '8.32.0'
-    - 'lottie-ios', '~> 4.3.4'
+    - 'DocumentReader', '~> 7.5.0'
+    - 'DocumentReaderOCRRFID', '~> 7.5.0'
+    - 'lottie-ios', '4.4.1'
      
 
 ## Glossary and Terminology

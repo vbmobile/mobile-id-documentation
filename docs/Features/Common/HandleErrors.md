@@ -173,10 +173,10 @@ Here you can find a list of all the error codes the SDK sends to the client appl
 | FormServiceError                | 850   | Form              |
 | UnknownError                    | 880   | Form              |
 
-You can use the result code to provide accurate feedback the to the user or use the a new property inside **FeatureError**, called **errorType** that classifies the type of error.
+You can use the result code to provide accurate feedback to the user or use the new property inside **FeatureError**, called **errorType** that classifies the type of error.
 We suggest that errors should be handled by **errorType**.
 
-Alongside with the error code and description that are useful for logging and tracing, we also provide a publicErrorMessage that is a suggestion of what you can show the final user as an error message.
+Alongside with the error code and description that are useful for logging and tracing, we also provide a publicErrorMessage that is a suggestion of what you can show to the final user as an error message.
 
 The value of publicErrorMessage is filled depending on the error type and you can change the default texts or provide additional translations by overriding these strings:
 
@@ -201,6 +201,8 @@ The value of publicErrorMessage is filled depending on the error type and you ca
 === "iOS"
 
     ```swift
+    //configurationError
+    Theme.shared.strings.errorsPublicMessages.configError
     //internalError
     Theme.shared.strings.errorsPublicMessages.internalError
     //communicationError

@@ -59,18 +59,13 @@ The BoardingPassScanParameters has the following structure:
 
     ``` swift
     public struct ScanBoardingPassParameters {
-        public let showPreview: Bool
-        public let showErrors: Bool
         public let validateBoardingPass: Bool
     
-        public init(showPreview: Bool,
-                    showErrors: Bool,
-                    validateBoardingPass: Bool)
+        public init(validateBoardingPass: Bool)
     }
     ```  
 
-The **showPreview** flag should be set to true if you want the SDK to present the details of the
-scanned boarding pass, the **validate** flag should be set to true if you want the SDK to
+The **validate** flag should be set to true if you want the SDK to
 validate the boarding pass data. 
 
 If you want to use your own boarding pass scanner, you can also provide the raw result of the scan and pass it to the facade’s parser method. It will return the
@@ -166,15 +161,11 @@ The BoardingPassParserParameters object has the following structure:
 
     ``` swift
     public struct ParseBoardingPassParameters {
-        public let showPreview: Bool
-        public let showErrors: Bool
         public let validateBoardingPass: Bool
         public let boardingPassData: BoardingPassData
         public let boardingPassImage: UIImage?
     
-        public init(showPreview: Bool,
-                    showErrors: Bool,
-                    validateBoardingPass: Bool,
+        public init(validateBoardingPass: Bool,
                     boardingPassData: BoardingPassData,
                     boardingPassImage: UIImage?)
     }
@@ -400,8 +391,6 @@ The SDK provides default UI solutions for the boarding pass feature flow, as
 shown in the following images:
 
 ![Boarding Pass Example](Assets/BP_Flow.png "Boarding Pass Flow"){: style="display: block; margin: 0 auto"}
-
-The use of the preview layout depends on the **showPreview** flag in the BoardingPassScanParameters. 
 
 You can also apply your app’s colors and fonts to these layout solutions, to keep your brand’s image consistent.
 Check Customization tab to learn more about branding of each view.

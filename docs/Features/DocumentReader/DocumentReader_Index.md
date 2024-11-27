@@ -134,7 +134,6 @@ This method can perform a full travel document read in two steps:
 
     ```kotlin
     data class DocumentReaderParameters(
-        val showPreview: Boolean,
         val rfidRead: Boolean,
         val showSecurityCheck: Boolean = true,
         val showRFIDStatus: Boolean = false,
@@ -172,15 +171,7 @@ It's no longer possible to disable either of this timeout.
 If both scans are enabled and the RFID scan fails for some reason, the MRZ scan data is always
 returned as the default set of data read from the travel document. The mrzReadTimeout is the timeout
 value in seconds before closing the document reading screen if no document is scanned during this
-period. The functionality provides UI solution for both document scanning and returned data
-preview (as shown in the following images), with an option to retry the scan. The preview is only
-shown if the flag showPreview in the DocumentReaderParameters is set to true when calling the
-readDocument method. The showRFIDStatus is a flag to show an icon in the preview screen that
-indicates if the document was scanned using RFID and properly validated and authenticated. The
-showSecurityCheck is used to activate a security mechanism to protect user data in the preview
-screen. If it is true, the device will use its own locking mechanism in this screen and the user
-will need to authenticate and unlock his device to check the preview data (for example, using
-fingerprint or face ID).
+period.
 
 The showRFIDInstructions field, when set to false, allows the RFID Scan to start automatically as soon as the document has been read using OCR successfully, not showing the instructions screen when using it nor giving the chance to skip rfid scan.
 

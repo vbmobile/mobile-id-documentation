@@ -178,8 +178,8 @@ The SDK also allows client apps to use their own custom views for its functional
             baseURL: "YOUR BASE URL",
             timeout: 30, // timeout in seconds
             logLevel: .basic,
-            apiKey: "YOUR KEY"
-            publicKey = "YOUR PUBLIC KEY" // Optional parameter to ensure requests are encrypted
+            apiKey: "YOUR KEY",
+            publicKey: "YOUR PUBLIC KEY" // Optional parameter to ensure requests are encrypted
     ))
 
     var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, 

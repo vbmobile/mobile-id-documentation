@@ -36,4 +36,4 @@ After obtaining the FeatureError, as shown in the Handle Result section of the f
 
 === "iOS"
 
-    // TODO
+    Example can be found here: [Sample Project](https://github.com/vbmobile/mobileid-ios-sample-)

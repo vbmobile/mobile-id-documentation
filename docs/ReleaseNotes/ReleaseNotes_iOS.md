@@ -1,5 +1,22 @@
 # MobileID SDK - Release Notes
 
+## 8.0.0
+
+### What's new
+
+- New, streamlined Face Capture UI.
+
+### Improvements
+
+- Reduced initialization time for document reader.
+- Mirror photo when using the front camera.
+- Removed unnecessary screens for a cleaner user experience. Check sample in github for examples with the error and preview screens.
+
+#### Technical Enhancements
+- Centralized configuration management.
+- Modularized the SDK for better maintainability and scalability.
+- Bugs fixes.
+
 ## 7.3.1
 
 ### Improvements

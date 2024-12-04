@@ -1,15 +1,16 @@
 # Error handling
 
-**From version 7 onwards, the errors management changed in the SDK to make it easier to integrate.**
+**From version 8 onwards, the errors management changed in the SDK to make it easier to integrate.**
 
-## Handle errors with SDK Errors Screens
+To improve flexibility in error handling, the optional error screen has been removed.
 
-In every feature of our SDK, there is a default error view that contains a message, a try again button and another button to close the feature.
-You can use our screens by passing true in the **showErrors** flag of the feature parameters.
+A new example has been added to our sample app with the same user interface for error handling.
 
-You can find additional branding to our errors screens by navigating to the feature -> customization tab -> error view.
+You can easily implement your own error handling logic without needing to customize our screen by following the example on each feature -> Handle errors tab
 
-## Error Structure
+## Error object and properties
+
+Every feature, will send a FeatureError object detailing what happened when something outside the normal flow occurs.
 
 The FeatureError has the following structure:
 
@@ -36,16 +37,17 @@ The FeatureError has the following structure:
         InternalError,
         CommunicationError,
         PermissionNotGrantedError,
-        TermsAndConditionsRejected,
         UserRepeated,
         UserCanceled,
         ScanError,
-        ScanTimeout,
+        Timeout,
         BoardingPassInvalidError,
         FaceCaptureError,
         FaceMatchError,
         SubjectError,
-        UnknownError
+        FormError,
+        UnknownError,
+        ConfigurationError,
     }
     ```
 
@@ -88,6 +90,10 @@ Here you can find a list of all the error codes the SDK sends to the client appl
 
 | Name                            | Value | Feature           |
 |---------------------------------|-------|-------------------|
+| InvalidApiKey                   |  10   | Configuration     |
+| InvalidEndpoint                 |  11   | Configuration     |
+| InitFailed                      |  12   | Configuration     |
+| NotReady                        |  13   | Configuration     |
 | ConfigError                     | 100   | DocumentReader    |
 | NotReady                        | 101   | DocumentReader    |
 | InitFailed                      | 102   | DocumentReader    |
@@ -167,9 +173,10 @@ Here you can find a list of all the error codes the SDK sends to the client appl
 | FormServiceError                | 850   | Form              |
 | UnknownError                    | 880   | Form              |
 
-You can use the result code to provide accurate feedback the to the user or use the a new property inside **FeatureError**, called **errorType** that classifies the type of error.
+You can use the result code to provide accurate feedback to the user or use the new property inside **FeatureError**, called **errorType** that classifies the type of error.
+We suggest that errors should be handled by **errorType**.
 
-Alongside with the error code and description that are useful for logging and tracing, we also provide a publicErrorMessage that is a suggestion of what you can show the final user as an error message.
+Alongside with the error code and description that are useful for logging and tracing, we also provide a publicErrorMessage that is a suggestion of what you can show to the final user as an error message.
 
 The value of publicErrorMessage is filled depending on the error type and you can change the default texts or provide additional translations by overriding these strings:
 
@@ -194,6 +201,8 @@ The value of publicErrorMessage is filled depending on the error type and you ca
 === "iOS"
 
     ```swift
+    //configurationError
+    Theme.shared.strings.errorsPublicMessages.configError
     //internalError
     Theme.shared.strings.errorsPublicMessages.internalError
     //communicationError
@@ -220,21 +229,20 @@ The value of publicErrorMessage is filled depending on the error type and you ca
     Theme.shared.strings.errorsPublicMessages.unknownError
     ```
 
-## Handle errors in your own activities
+## How to setup error handling
 
 When you call one of our facade methods, then you will need to pass a completion handler, and it will be called when the result is ready, either successfully or with an error.
 
 **You can check more details how to obtain the FeatureError object on the "Handle result" section of the overview page of each feature.**
 
-If you choose to use your own activities, then we suggest to handle the errors by type as well:
+This is a brief overview of what each ErrorType corresponds to:
 
 - When it's an internal error, you have to contact VisionBox and share some stacktrace or way to replicate the bug. It usually means that there is some invalid configuration or missing property from our backoffice.
 - Communication errors are mostly caused by internet connection issues, so trying again can solve the problem, it's recommended to allow the user to re-send the request. It can also mean an invalid url of some sort, so if the problem persists you can contact VisionBox.
 - PermissionNotGrantedError means that the user didn't grant permission to use some part of the hardware that is required, as recommended you should have a rationale to explain why that permission is required and block the user from proceeding until he grants the permission.
-- TermsAndConditionsRejected as the name suggests happens when the user rejects the terms and conditions, should be presented a rationale explaining why it's needed.
 - User repeated and user canceled are not exactly errors, they are just warnings to inform that the user wants to try again or canceled the operation.
 - Scan error happens when there is a regula error or any error with the scan of the boarding pass, this usually requires debugging, so it's recommended to share the stacktrace and communicate to VisionBox.
-- Scan timeout it means that the timer of document reader reached the end and it wasn't possible to capture the document, you can inform the user of that, suggesting how he should scan the document (on the table, with a high contrast from the table, with the proper angle etc..) and let the user try again.
+- Timeout it means that either the timer of document reader or face capture has reached the end and it wasn't possible to capture the image successfully, you can inform the user of that, suggesting how he should scan the document (on the table, with a high contrast from the table, with the proper angle etc..), or take the selfie in better conditions and let the user try again.
 - Boarding pass invalid means that the scan or parse of the boarding pass was correct but some issues were found. Can be the format that is not supported by us, or simply it's not actually a boarding pass barcode.
 - FaceCaptureError means that the feature failed, either due to our quality tests failing, and in that case you will receive a report saying which tests failed, or liveness service failed due to the quality of the image or being a image of an image and not a real person.
 - SubjectError happens when the subject action the user was trying to make failed. eg: User tried to add an invalid subject.

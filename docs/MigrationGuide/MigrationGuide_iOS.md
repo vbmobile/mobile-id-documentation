@@ -1,5 +1,10 @@
 # Migration Guide
 
+## From 7.2.0 to 8.0.0
+#### Required Changes
+- Developers are now required to specify the provider for the orz/mrz and rfid features. Check the updated [Getting Started](../index.md) page
+- Enrolment is now a Singleton, instead of a builder you need to call Enrolment.shared, passing the required parameters to make the Enrolment available anywhere. Check homepage for more details.
+
 ## From 7.1.2 to 7.2.0
 #### Optional Changes
 - faceCaptureTimeout have been added to the [BiometricFaceCaptureParameters](../Features/FaceCapture/FaceCapture_Index.md#initiate-scan), to be able to start the RFID scan automatically
@@ -8,6 +13,10 @@
 ## From 7.1.0 to 7.1.1
 #### Optional Changes
 - showRFIDInstructions have been added to the [ReadDocumentParameters](../Features/DocumentReader/DocumentReader_Index.md#initiate-scan), to be able to start the RFID scan automatically
+
+## From 7.1.0 to 8.0.0
+#### Required Changes
+- TODO
 
 ## From 7.0.0 to 7.1.0
 #### Required Changes

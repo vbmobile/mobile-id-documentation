@@ -8,26 +8,19 @@ mobile device over the travel e-Document in order to perform a RFID scan to extr
 
 ## Configure
 
-To use this feature, you must provide the DocumentReaderConfig to the EnrolmentBuilder like the
+To use this feature, you must provide the DocumentReaderConfig to your preferred Provider like the
 following example:
 
 === "Android"
 
     ```kotlin
-    val builder: EnrolmentBuilder = EnrolmentBuilder
-        .of(context, config)
-        .withDocumentReaderConfig(documentReaderConfig)
-        .build()
+    val provider: RegulaProvider = RegulaProvider.getInstance(documentReaderConfig)
     ```
 
 === "iOS"
 
     ``` swift
-    var enrolment: EnrolmentProtocol = EnrolmentBuilder
-            .of(enrolmentConfig: enrolmentConfig)
-            .with(documentReaderConfig: documentReaderConfig)
-            .with(viewRegister: viewRegister)
-            .build()
+    var provider = RegulaDocumentReaderScan(config: documentReaderConfig)
     ```
 
 The DocumentReaderConfig has the following structure:
@@ -35,7 +28,6 @@ The DocumentReaderConfig has the following structure:
 === "Android"
 
     ```kotlin
-    @Parcelize
     data class DocumentReaderConfig(
       val multipageProcessing: Boolean,
       val databaseId: String,
@@ -66,6 +58,7 @@ The DocumentReaderConfig has the following structure:
         public let databaseID: String
         public let databasePath: String?
         public let scannerTimeout: TimeInterval
+        public let checkHologram: Bool
         public let scenario: DocumentReaderScenario
         
         public init(multipageProcessing: Bool, databaseID: String, databasePath: String? = nil, scannerTimeout: TimeInterval = 30, checkHologram: Bool = false, scenario: DocumentReaderScenario = .ocr)
@@ -92,6 +85,7 @@ The DocumentReaderConfig has the following structure:
     Regula);
     - databasePath: Database path for .dat file to initialize Regula documents database. Default value is `nil`.
     - scannerTimeout: Document scan timeout, in seconds. Default value is `30` seconds.
+    - checkHologram: Indicates whether or not the document reader supports Hologram Reading
     - scenario: Changes the scanning scenario in which the document is captured
     
 ## Initiate Scan
@@ -103,16 +97,16 @@ travel documents from different countries, by calling the readDocument method.
 
     ```kotlin
     /**
-     * Reads the information contained in a personal document.     *
+     * Reads the information contained in a personal document.
      *
-     * @param context Context
+     * @param activity [Activity] that will launch the face capture feature
      * @param params [DocumentReaderParameters] with some configurations for the document reader feature.
-     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results.
+     * @param onReadDocumentCompletion [OnReadDocumentCompletion] callback to handle Success and Error scenarios
      */
     fun readDocument(
-        context: Context,
+        activity: Activity,
         params: DocumentReaderParameters,
-        resultLauncher: ActivityResultLauncher<Intent>
+        onReadDocumentCompletion: OnReadDocumentCompletion,
     )
     ```
 
@@ -140,15 +134,11 @@ This method can perform a full travel document read in two steps:
 
     ```kotlin
     data class DocumentReaderParameters(
-        val showPreview: Boolean,
-        val showErrors: Boolean,
         val rfidRead: Boolean,
-        val showSecurityCheck: Boolean = true,
-        val showRFIDStatus: Boolean = false,
         val mrzReadTimeout: Long = TimeUnit.SECONDS.toMillis(30),
         val rfidReadTimeout: Long = TimeUnit.SECONDS.toMillis(30),
         val showRFIDInstructions: Boolean = true,
-    ) : Parcelable {
+    ) {
     init {
         require(!(mrzReadTimeout < TimeUnit.SECONDS.toMillis(10) || mrzReadTimeout > TimeUnit.SECONDS.toMillis(60))) { "mrzReadTimeout value must be between 10 and 60 seconds." }
         require(!(rfidReadTimeout < TimeUnit.SECONDS.toMillis(10) || rfidReadTimeout > TimeUnit.SECONDS.toMillis(60))) { "rfidReadTimeout value must be between 10 and 60 seconds." }
@@ -159,21 +149,17 @@ This method can perform a full travel document read in two steps:
 
     ``` swift
     public struct ReadDocumentParameters {
-        public let showPreview: Bool
         public let readRFID: Bool
         public let showRFIDStatus: Bool
         public let scannerTimeout: TimeInterval
         public let rfidTimeout: TimeInterval
-        public let showErrors: Bool
         public let showRFIDInstructions: Bool
         
-        public init(showPreview: Bool,
-                    readRFID: Bool,
+        public init(readRFID: Bool,
                     showRFIDStatus: Bool = false,
                     scannerTimeout: TimeInterval = 30,
                     rfidTimeout: TimeInterval = 30,
-                    showRFIDInstructions: Bool = true,
-                    showErrors: Bool)
+                    showRFIDInstructions: Bool = true)
     }
     ```
 
@@ -183,15 +169,7 @@ It's no longer possible to disable either of this timeout.
 If both scans are enabled and the RFID scan fails for some reason, the MRZ scan data is always
 returned as the default set of data read from the travel document. The mrzReadTimeout is the timeout
 value in seconds before closing the document reading screen if no document is scanned during this
-period. The functionality provides UI solution for both document scanning and returned data
-preview (as shown in the following images), with an option to retry the scan. The preview is only
-shown if the flag showPreview in the DocumentReaderParameters is set to true when calling the
-readDocument method. The showRFIDStatus is a flag to show an icon in the preview screen that
-indicates if the document was scanned using RFID and properly validated and authenticated. The
-showSecurityCheck is used to activate a security mechanism to protect user data in the preview
-screen. If it is true, the device will use its own locking mechanism in this screen and the user
-will need to authenticate and unlock his device to check the preview data (for example, using
-fingerprint or face ID).
+period.
 
 The showRFIDInstructions field, when set to false, allows the RFID Scan to start automatically as soon as the document has been read using OCR successfully, not showing the instructions screen when using it nor giving the chance to skip rfid scan.
 
@@ -201,27 +179,11 @@ Here is how you can get the document reader report and handle the result for doc
 
 === "Android"
 
-    You can get the result by using the result launcher that's passed as the final parameter:
+    You can get the result by registering the callback
     ```kotlin
-    private val documentReaderResultLauncher = registerForActivityResult(DocumentReaderResultLauncher())
-    { result: DocumentReaderActivityResult ->
-        when {
-            result.success -> onSuccess(result.documentReaderReport)
-            result.documentReaderError?.userCanceled == true -> userCancelled()
-            result.documentReaderError?.termsAndConditionsAccepted == false -> onTermsAndConditionsRejected()
-            else -> onDocumentReaderError()
-        }
-    }
-    ```
-    
-    You will receive a model of the type DocumentReaderActivityResult that will contain the success data (in this case a DocumentReaderReport) or the error data.
-    
-    ```kotlin
-    data class DocumentReaderActivityResult(
-        val documentReaderReport: DocumentReaderReport?,
-        val documentReaderError: DocumentReaderError?
-    ) {
-        val success get() = documentReaderReport != null
+    interface OnReadDocumentCompletion {
+        fun onReadDocumentSuccess(documentReaderReport: DocumentReaderReport)
+        fun onReadDocumentError(documentReaderError: DocumentReaderError)
     }
     ```
     
@@ -230,7 +192,6 @@ Here is how you can get the document reader report and handle the result for doc
     ```kotlin
     data class DocumentReaderError(
         val userCanceled: Boolean,
-        val termsAndConditionsAccepted: Boolean,
         val featureError: FeatureError?,
     )
     ```
@@ -244,7 +205,6 @@ Here is how you can get the document reader report and handle the result for doc
                // handle DocumentReaderReport
                 
             case .failure(let error):
-                EnrolmentData.shared.documentReaderReport = nil
                 if error.userCanceled {
                     print("onUserCancel")
                 } else {
@@ -269,7 +229,6 @@ Here is how you can get the document reader report and handle the result for doc
 === "Android"
 
     ```kotlin
-    @Parcelize
     data class DocumentReaderReport(
         val documentData: DocumentData,
         val status: List<DocumentDataStatus>,
@@ -277,7 +236,7 @@ Here is how you can get the document reader report and handle the result for doc
         val documentType: DocumentType,
         val documentPhotoHash: String,
         val documentDataHash: String,
-    ) : Parcelable
+    )
     ```
     
 === "iOS"
@@ -362,11 +321,10 @@ The DocumentData contains the document data. You can check the structure here:
     }
     ```
     ```kotlin
-    @Parcelize
-        data class DocumentTypeData(
+    data class DocumentTypeData(
         val type: DocumentType,
         val infoVal: DocumentTypeInfo?
-    ) : Parcelable    
+    )
     ```
     ```kotlin
     enum class DocumentType { 
@@ -378,13 +336,12 @@ The DocumentData contains the document data. You can check the structure here:
     }
     ```
     ```kotlin
-    @Parcelize
     data class DocumentTypeInfo(
         val documentId: Int,
         val dTypeId: Int,
         val documentName: String?,
         val icaoCode: String?
-    ) : Parcelable   
+    )
     ```
 
     The DocumentDataStatus, RFIDStatus and DocumentType are enums that have the following possibilities:
@@ -480,6 +437,9 @@ The DocumentData contains the document data. You can check the structure here:
         /// Model that wraps information about the document type
         public var documentTypeData: DocumentTypeData?
     
+        /// Chip page
+        public var chipPage: Int?
+        
         /// Photo of the document owner.
         public var portrait: UIImage? {
             return portraitData.flatMap { UIImage(data: $0) }
@@ -524,6 +484,8 @@ The DocumentData contains the document data. You can check the structure here:
     public struct DocumentTypeInfo: Codable {
         /// Document type id
         public let dTypeId: Int
+        /// Document  id
+        public let documentId: Int
         /// Document Name
         public let documentName: String?
         /// Country code
@@ -569,6 +531,7 @@ The DocumentData contains the document data. You can check the structure here:
         case rfidGenericError
         case rfidTimeouError
         case userSkipedRfid
+        case passiveAuthDisabled
     }
     ```
 
@@ -579,11 +542,7 @@ The SDK provides default UI solutions for the document reader feature flow, as
 shown in the following images:
 ![Document Reader Flow](Assets/DR_Flow.png "Document Reader Flow"){: style="display: block; margin: 0 auto"}
 
-The use of the preview layout depends on the **showPreview** flag in the DocumentReaderParameters.
-
 The use of the rfid related layouts depends on the **rfidRead** flag in the DocumentReaderParameters.
-
-The use of the error layout depends on the **showErrors** flag in the DocumentReaderParameters.
 
 You can also apply your app’s colors and fonts to these layout solutions, to keep your brand’s image consistent.
 Check Customization tab to learn more about branding of each view.
@@ -591,13 +550,12 @@ Check Customization tab to learn more about branding of each view.
 === "Android"
 
     ```kotlin
-    @Parcelize
     class DocumentReaderCustomViews(
         val loadingView: Class<out ICustomDocumentReader.LoadingView>? = null,
         val rfidInstructionsView: Class<out ICustomDocumentReader.RfidInstructionsView>? = null,
         val rfidSearchView: Class<out ICustomDocumentReader.RfidSearchView>? = null,
         val rfidProcessView: Class<out ICustomDocumentReader.RfidProcessView>? = null,
-    ) : Parcelable
+    )
     ```
     You can use your own custom views in the document reader functionality. Your view must implement the
     SDK view interfaces. For example, if you want to add a custom loading view, your view class must

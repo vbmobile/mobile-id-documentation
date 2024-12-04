@@ -12,15 +12,13 @@ To start the form feature, you can use the enrolment method
 === "Android"
 
     ```kotlin
-    /**
-     * @param context
-     * @param params [FormParameters] required to start the form feature
-     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results
+       /**
+     * @param activity [Activity] that will launch the face capture feature
+     * @param onFormCompletion [OnFormCompletion] callback to handle Success and Error scenarios
      */
     fun startForm(
-        context: Context,
-        params: FormParameters,
-        resultLauncher: ActivityResultLauncher<Intent>
+        activity: Activity,
+        onFormCompletion: OnFormCompletion,
     )
     ```
 
@@ -40,58 +38,21 @@ To start the form feature, you can use the enrolment method
     func startForm(parameters: FormParameters, viewController: UIViewController, completionHandler: @escaping (Result<FormReport, FormError>) -> Void)
     ```
 
-The `FormParameters` holds the flag to indicate wether you want errors to be shown or not, similar to other features
-
-=== "Android"
-
-    ```kotlin
-        /**
-         * @param showErrors flag to show/hide feature errors
-         */
-        data class FormParameters(
-            val showErrors: Boolean,
-        )
-    ```
-
-=== "iOS"
-
-    ```swift
-    /// Parameters for the Form Feature flow.
-    public struct FormParameters {
-
-        /// If true, it will display a Default Error Screen, continues to return the Error in the completion handler
-        public let showErrors: Bool
-    
-        public init(showErrors: Bool) {
-            self.showErrors = showErrors
-        }
-    }
-
-    ```
-
-
 ## Handle Result
 
 === "Android"
 
-    Here's how you can get the result by using the result launcher that's passed as the final parameter:
+    Here's how you can get the result by using the form callback:
 
     ```kotlin
-    private val formCallback: ActivityResultLauncher<Intent> =
-        registerForActivityResult(ShowFormResultLauncher()) {
-            
-        }
+    interface OnFormCompletion {
+        fun onFormSuccess(formAnswer: FormAnswer)
+        fun onFormError(formError: FormError)
+    }
 
     ```
 
-    The result of this operation will be the following model that will either hold an error or an answer
-
-    ```kotlin
-    data class FormActivityResult(
-        val formAnswer: FormAnswer? = null,
-        val formError: FormError? = null
-    )
-    ```
+    FormAmswer on the success callback is defined as:
 
     ```kotlin
     data class FormAnswer(

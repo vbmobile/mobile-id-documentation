@@ -135,8 +135,6 @@ This method can perform a full travel document read in two steps:
     ```kotlin
     data class DocumentReaderParameters(
         val rfidRead: Boolean,
-        val showSecurityCheck: Boolean = true,
-        val showRFIDStatus: Boolean = false,
         val mrzReadTimeout: Long = TimeUnit.SECONDS.toMillis(30),
         val rfidReadTimeout: Long = TimeUnit.SECONDS.toMillis(30),
         val showRFIDInstructions: Boolean = true,

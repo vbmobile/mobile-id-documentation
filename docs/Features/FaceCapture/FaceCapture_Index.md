@@ -23,14 +23,14 @@ you can use the method biometricFaceCapture.
      *
      * Some tests will be run against this photo to ensure the photo quality and a liveness check verification.
      *
-     * @param context Context
+     * @param activity [Activity] that will launch the face capture feature
      * @param params [BiometricFaceCaptureParameters] configurations parameters.
-     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results.
+     * @param onFaceCaptureComplete [OnBiometricFaceCaptureCompletion] Callback to handle Success and Error scenarios.
      */
     fun biometricFaceCapture(
-        context: Context,
+        activity: Activity,
         params: BiometricFaceCaptureParameters,
-        resultLauncher: ActivityResultLauncher<Intent>
+        onFaceCaptureComplete: OnBiometricFaceCaptureCompletion,
     )
     ```
 
@@ -50,17 +50,14 @@ you can use the method biometricFaceCapture.
         func biometricFaceCapture(parameters: BiometricFaceCaptureParameters, viewController: UIViewController, completionHandler: @escaping (Result<BiometricFaceCaptureReport, FaceCaptureReportError>) -> Void)
     ```
 
-The SDK provides UI solutions for the capture process and photo preview, as shown in the images
-below. The use of the photo preview depends on the BiometricFaceCaptureParameters passed to the
-biometricFaceCapture method. Below is an example of that object:
+The SDK provides UI solutions for the capture process, as shown in the images
+below. Below is an example of the BiometricFaceCaptureParameters:
 
 === "Android"
 
     ```kotlin
     @Parcelize
     data class BiometricFaceCaptureParameters(
-        val showPreview: Boolean,
-        val showErrors: Boolean,
         val frameFormat: FaceCaptureFrameFormat = FaceCaptureFrameFormat.OVAL,
         val cameraConfig: CameraConfig,
         val faceCaptureTimeout: Long? = null
@@ -92,15 +89,11 @@ biometricFaceCapture method. Below is an example of that object:
 
     ```swift
     public struct BiometricFaceCaptureParameters {
-        public let showPreview: Bool
         public let frameShape: BiometricFaceCaptureFrameOptions
-        public let showErrors: Bool
         public let cameraConfig: CameraConfig
         public let faceCaptureTimeout: TimeInterval?
         
-        public init(showPreview: Bool,
-                frameShape:BiometricFaceCaptureFrameOptions = .oval,
-                showErrors: Bool,
+        public init(frameShape:BiometricFaceCaptureFrameOptions = .oval,
                 cameraConfig: CameraConfig = CameraConfig(),
                 faceCaptureTimeout: TimeInterval? = nil)
     ```
@@ -129,10 +122,6 @@ biometricFaceCapture method. Below is an example of that object:
     }
     ```
 
-The **showPreview** parameter is a boolean that when set to true will show the user’s picture after
-taking it. You can also apply your app’s colors and fonts to these
-layout solutions, to keep your brand’s image consistent. See Custom styles.
-
 This function is used to acquire a high-resolution selfie with a 9:7 aspect ratio. The photo will
 only be taken if the frame conforms to specific parameters that make sure the face is centered and
 not too far away, or too close.
@@ -141,21 +130,11 @@ not too far away, or too close.
 
 === "Android"
 
-    Here's how you can get the result by using the result launcher that's passed as the final parameter:
+    You can get the result by registering the callback:
     ```kotlin
-    private val faceCaptureResultLauncher = registerForActivityResult(FaceCaptureResultLauncher())
-    { result: FaceCaptureActivityResult ->
-        when {
-            result.success -> onSuccess(result.faceCaptureReportSuccess)
-            result.faceCaptureReportError?.userCanceled == true -> onUserCanceled()
-            result.faceCaptureReportError?.termsAndConditionsAccepted == false -> onUserTermsAndConditionsRejected()
-            result.faceCaptureReportError?.failedTests != null && result.faceCaptureReportError?.performedTests != null ->
-                onFailedTests(
-                    result.faceCaptureReportError!!.performedTests!!,
-                    result.faceCaptureReportError!!.failedTests!!
-                )
-            else -> onBiometricFaceCaptureError()
-        }
+    interface OnBiometricFaceCaptureCompletion {
+        fun onBiometricFaceCaptureSuccess(faceCaptureReport: FaceCaptureReportSuccess)
+        fun onBiometricFaceCaptureError(faceCaptureReportError: FaceCaptureReportError)
     }
     ```
 
@@ -166,13 +145,9 @@ not too far away, or too close.
         switch result {
         case .success(let report):
             print("Face capture successful.")
-            EnrolmentData.faceCapture = report.photo
-            EnrolmentData.biometricFaceCaptureReport = report
             completion(.success(()))
                 
         case .failure(let biometricFaceCaptureError):
-            EnrolmentData.biometricFaceCaptureReport = nil
-                
             if biometricFaceCaptureError.userCanceled {
                 print("Face capture cancelled by user.")
                 completion(.failure(biometricFaceCaptureError))
@@ -183,18 +158,19 @@ not too far away, or too close.
         }
     }
     ```
+    
+### Face Capture Report 
 
-You will receive a model of the type FaceCaptureActivityResult that will contain the success data (in this case a FaceCaptureReportSuccess) or the error data.
+You will receive a model of the type FaceCaptureReport that will contain the success data.
 
 === "Android"
 
     ```kotlin
-    data class FaceCaptureActivityResult(
-        val faceCaptureReportSuccess: FaceCaptureReportSuccess?,
-        val faceCaptureReportError: FaceCaptureReportError?
-    ) {
-        val success get() = faceCaptureReportSuccess != null
-    }
+    data class FaceCaptureReport(
+        val livenessCheckStatus: LivenessCheckStatus,
+        val performedTests: List<String>?,
+        val biometricHash: String
+    ) : Parcelable
     ```
 
 === "iOS"
@@ -228,7 +204,6 @@ The FaceCaptureReportError has the following structure:
     ```kotlin
     data class FaceCaptureReportError(
         val userCanceled: Boolean,
-        val termsAndConditionsAccepted: Boolean,
         val featureError: FeatureError?,
         val failedTests: List<String>?,
         val performedTests: List<String>?
@@ -273,10 +248,6 @@ The failed tests might include one or more of the following tests:
 The SDK provides default UI solutions for the document reader feature flow, as shown in the following images:
 
 ![Biometric Face Capture Example](Assets/FC_Flow.png "Biometric Face Capture Default Error Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
-
-The use of the preview layout depends on the showPreview flag in the BiometricFaceCaptureParameters.
-
-The use of the Errors layout depends on the showErrors flag in the BiometricFaceCaptureParameters.
 
 === "Android"
 

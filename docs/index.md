@@ -12,14 +12,13 @@ hide:
 
     - Install or update Android Studio to latest version;
     - Target API level 24 (Marshmallow) or later;
-    - Use AndroidX, which requires minimum compileSdkVersion 30 or later.
 
 === "iOS"
 
     To integrate the **Mobile ID SDK** for iOS, the following prerequisites must be met: 
     
     - Install or update Xcode to latest version;
-    - Target iOS 12 or later.
+    - Target iOS 12 or later. 
 
 You must also send an ID (Bundle ID or Application ID) to vision-box so that we can associate the API key with the application, this way your API key is protected with only authorized applications.
 
@@ -34,17 +33,13 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
     maven { url "https://vbmobileidstorage.blob.core.windows.net/android/" }
     maven { url "https://maven.regulaforensics.com/RegulaDocumentReader" }
     ```
-    2. Declare Mobile ID SDK as a dependency in your app level gradle file:
+    2. Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
     ```
-    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<x.x.x>@aar") { transitive = true }   
+    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<8.0.0>@aar") { transitive = true }
+    implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:<1.0.0>")
     ```
     3. Sync gradle.
     
-    **NOTE:** If you are not using Coroutines, you must also also declare these libraries in gradle dependencies:
-    ```
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
-    ```
 
 === "iOS"
 
@@ -56,7 +51,7 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
     
     1. Add the following to your Podfile, with the latest version:
     ```
-    pod 'MobileIdSDKiOS', '5.1.XX'
+    pod 'MobileIdSDKiOS', '8.0.XX'
     ```
     2. Add Mobile ID’s cocoapods repo as a source in your podfile:
     ```
@@ -101,11 +96,15 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
 
 ## How to initialize the SDK
 
-The Enrolment provides access to all the SDK features in a simple way. The app needs to create an instance of the Enrolment interface. We recommend treating this instance as Singleton.
-    
-You can also specify the configurations that will be needed depending on the SDK functionalities you intend to use on your app. 
+The Enrolment provides access to all the SDK features in a simple way. Since version 8, this was changed to a Singleton to make it accessible anywhere in your application.
 
-By using the available EnrolmentBuilder, you can instantiate the enrolment like this:
+You can also specify the configurations that will be needed depending on the SDK functionalities you intend to use on your app.
+
+You just need to call the initialize method and then you can call the getInstance method to access the features individually.
+
+The initialize method does asynchronous work to prepare everything you might need for each feature, so you will receive a callback function when it's ready to use.
+
+The SDK also allows client apps to use their own custom views for its functionalities. These custom views must be defined when creating the Enrolment instance. For more information on custom views, please check the [advanced configurations](#advanced-configurations) section.
 
 === "Android"
 
@@ -120,14 +119,57 @@ By using the available EnrolmentBuilder, you can instantiate the enrolment like 
 
     val enrolmentConfig = EnrolmentConfig(apiConfig)
 
-    val enrolment = EnrolmentBuilder
-        .of(context, enrolmentConfig)
-        .build() // The Enrolment should be a singleton
+    val regulaDocumentRfidProvider = RegulaProvider.getInstance(
+            DocumentReaderConfig(
+                multipageProcessing = true,
+                databaseId = "DatabaseName"
+            )
+    )
+
+    val enrolmentCustomViews = EnrolmentCustomViews(
+        documentReaderCustomViews = documentReaderCustomViews,
+        boardingPassCustomViews = boardingPassCustomViews,
+        faceCaptureCustomViews = faceCaptureCustomViews,
+        faceMatchCustomViews = faceMatchCustomViews,
+        subjectCustomViews = subjectCustomViews
+    )
+
+    val callback = object : EnrolmentInitializerCallback {
+        override fun onEnrolmentInitialized() {
+            if (isAdded) {
+                binding.state.text = getString(R.string.sdk_state_ready)
+            }
+            Log.d("Enrolment", "onEnrolmentInitialization: Enrolment initialized successfully!")
+        }
+
+        override fun onEnrolmentInitializationError(error: FeatureError) {
+            Log.e("Enrolment", "onEnrolmentInitializationError: ${error.description}")
+            activity?.runOnUiThread {
+                binding.state.text = getString(R.string.sdk_state_error)
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("Enrolment Initialization Error")
+                builder.setMessage(error.description)
+                builder.show()
+            }
+        }
+    }
+
+    Enrolment.initialize(
+        context, 
+        enrolmentConfig,
+        enrolmentCustomViews,
+        documentReaderProvider = regulaDocumentRfidProvider,
+        rfidReaderProvider = regulaDocumentRfidProvider,
+        callback
+    )
     ```
     The following parameters must always be provided:
 
     - Context - Application context;
     - EnrolmentConfig - Enrolment configuration.
+    - EnrolmentCustomViews - Will overwrite any default view from the Enrolment SDK
+    - Document and RFID reader provider - The preferred provider for document and rfid read operations
+    - EnrolmentInitializerCallback - To receive a callback when the enrolment is initialized or when an error occurs during the process.
 
 === "iOS"
 
@@ -136,20 +178,48 @@ By using the available EnrolmentBuilder, you can instantiate the enrolment like 
             baseURL: "YOUR BASE URL",
             timeout: 30, // timeout in seconds
             logLevel: .basic,
-            apiKey: "YOUR KEY"
-            publicKey = "YOUR PUBLIC KEY" // Optional parameter to ensure requests are encrypted
+            apiKey: "YOUR KEY",
+            publicKey: "YOUR PUBLIC KEY" // Optional parameter to ensure requests are encrypted
     ))
 
-    let enrolment = EnrolmentBuilder
-        .of(enrolmentConfig: enrolmentConfig)
-        .build() // The Enrolment should be a singleton
+    var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, 
+                                                    databaseID: "DatabaseName", 
+                                                    checkHologram: false)
+
+        Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
+                                  documentScanProvider: RegulaDocumentReaderScan(config: documentReaderConfig),
+                                  documentRFIDProvider: RegulaDocumentReaderRFID(),
+                                  viewRegister: viewRegister,
+                                  completionHandler: { result in
+        switch result {
+        case .success(_):
+            print("Success: SeamlessMobile SDK is ready to use")
+        case .failure(let error):
+            print("Failure: error.description")
+        }
+    })
     ```
 
     The following parameters must always be provided:
     
     - EnrolmentConfig - Enrolment configuration.
+    - CompletionHandler - To receive a callback when the enrolment is initialized or when an error occurs during the process.
+    
+    The following parameters must be provided if you want read documents:
+    
+    - Document and RFID reader provider - The preferred provider for document and rfid read operations
+    
+    The following parameters must be provided if you want customize the screens
+    
+    - EnrolmentCustomViews - Will overwrite any default view from the Enrolment SDK
+    
+There where some errors created to validate the enrolment configuration:
 
-The SDK also allows client apps to use their own custom views for its functionalities. These custom views must be defined when creating the Enrolment instance. For more information on custom view, please check the [advanced configurations](#advanced-configurations) section.
+- If the apiKey is not in a valid format, for example it has an extra character, you will receive via callback an InvalidApiKey error(010 - APIKey is invalid)
+- If the baseUrl is not correctly defined, for example it's using HTTP instead of HTTPS, you will receive via callback an InvalidEndpoint error(011 - Endpoint is invalid)
+- If an error occurs during the initialize method, for example internet connection during the fetch configurations, you will receive via callback an InitFailed error(012 - Error while fetching configurations. Please check your internet connection and API URL/API Key.)
+
+If you try to call a feature while the Enrolment is not ready you will receive a NotReady error (013 - Enrolment is not ready yet. Wait for the callback.)
 
 ## Data Security
 
@@ -189,7 +259,7 @@ configurations you can set the logEvents flag, which is used to activate logs.
         val apiConfig: APIConfig,
         val apiSecurityConfig: APISecurityConfig = APISecurityConfig(),
         val language: Locale
-    ) : Parcelable
+    )
     ```
     
 === "iOS"
@@ -287,10 +357,9 @@ pinning for every network request made by the SDK.
 === "Android"
 
     ```kotlin
-    @Parcelize
     data class APISecurityConfig(
         val certificates: List<X509Certificate> = listOf()
-    ) : Parcelable
+    )
     ```
     
 === "iOS"
@@ -313,7 +382,6 @@ pinning for every network request made by the SDK.
 
     The other configurations are used by their corresponding facade method:
 
-    - DocumentReaderConfig - Multipage processing and Regula database ID;
     - BoardingPassCustomViews - Specifies the boarding pass custom views;
     - BiometricFaceCaptureCustomViews - Specifies the face capture custom views;
     - DocumentReaderCustomViews - Specifies the document reader custom views.
@@ -326,44 +394,39 @@ pinning for every network request made by the SDK.
     The following sections show some examples of the mentioned configurations.
 
     ```kotlin
-    val builder: EnrolmentBuilder = EnrolmentBuilder
-        .of(context, config)
-        .withDocumentReaderConfig(
-            DocumentReaderConfig(
-                multipageProcessing = true,
-                databaseId = "DatabaseName"
-            )
+    val enrolmentCustomViews = EnrolmentCustomViews(
+        documentReaderCustomViews = DocumentReaderCustomViews(
+            loadingView = DocumentReaderCustomViewLoading::class.java,
+            rfidInstructionsView = DocumentReaderCustomViewRfidInstructions::class.java,
+            rfidSearchView = DocumentReaderCustomViewRfidSearch::class.java,
+            rfidProcessView = DocumentReaderCustomViewRfidProcess::class.java,
+        ),
+        boardingPassCustomViews = BoardingPassCustomViews(
+            loadingView = BoardingPassCustomViewLoading::class.java
+        ),
+        faceCaptureCustomViews = BiometricFaceCaptureCustomViews(
+            loadingView = BiometricFaceCaptureCustomViewLoading::class.java
+        ),
+        faceMatchCustomViews = BiometricFaceMatchCustomViews(
+            loadingView = BiometricFaceMatchCustomViewLoading::class.java
+        ),
+        subjectCustomViews = SubjectCustomViews(
+            loadingView = SubjectCustomViewLoading::class.java
+        ),
+        formCustomViews = FormCustomViews(
+            loadingView =  FormCustomViewLoading::class.java,
         )
-        .withDocumentReaderCustomViews(
-            DocumentReaderCustomViews(
-                loadingView = DocumentReaderCustomViewLoading::class.java,
-                rfidInstructionsView = DocumentReaderCustomViewRfidInstructions::class.java,
-                rfidSearchView = DocumentReaderCustomViewRfidSearch::class.java,
-                rfidProcessView = DocumentReaderCustomViewRfidProcess::class.java,
-            )
-        )
-        .withBiometricFaceCaptureCustomViews(
-            BiometricFaceCaptureCustomViews(
-                loadingView = BiometricFaceCaptureCustomViewLoading::class.java
-            )
-        )
-        .withBoardingPassCustomViews(
-            BoardingPassCustomViews(
-                loadingView = BoardingPassCustomViewLoading::class.java
-            )
-        )
-        .withBiometricFaceMatchCustomViews(
-            BiometricFaceMatchCustomViews(
-                loadingView = BiometricFaceMatchCustomViewLoading::class.java
-            )
-        )
-        .withSubjectCustomViews(
-            SubjectCustomViews(
-                loadingView = SubjectCustomViewLoading::class.java
-            )
-        )
+    )
 
-    return builder.build()
+    Enrolment.initialize(
+        context = requireContext().applicationContext,
+        enrolmentConfig = enrolmentConfig,
+        enrolmentCustomViews = enrolmentCustomViews,
+        documentReaderProvider = documentReaderProvider,
+        rfidReaderProvider = documentReaderProvider,
+        enrolmentInitializerCallback = enrolmentInitializerCallback
+    )
+
     ```
 === "iOS"
 
@@ -372,15 +435,14 @@ pinning for every network request made by the SDK.
     The following code shows an example:
     ```swift
     let viewRegister = EnrolmentViewRegister()
-    viewRegister.registerBiometricMatchErrorOverlayView(BiometricMatchErrorView.self)
+    viewRegister.registerBiometricFaceCaptureLoadingView(FaceCaptureLoadingView.self)
 
-    let enrolmentConfig = r.resolve(EnrolmentConfig.self)!
-    let documentReaderConfig = r.resolve(DocumentReaderConfig.self)!
-            
-    let enrolment = EnrolmentBuilder.of(enrolmentConfig: enrolmentConfig)
-            .with(documentReaderConfig: documentReaderConfig)
-            .with(viewRegister: viewRegister)
-            .build()
+    
+    Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
+                              documentScanProvider: RegulaDocumentReaderScan(config: documentReaderConfig),
+                              documentRFIDProvider: RegulaDocumentReaderRFID(),
+                              viewRegister: viewRegister,
+                              completionHandler: completionHandler)      
     ```
 
 ## Localization Support
@@ -401,11 +463,11 @@ pinning for every network request made by the SDK.
 
     If you wish to change the default string values, you will need to access the strings you want to change through EnrolmentProtocol.theme.strings. In the ThemeStrings struct you can find the various types of strings you can modify to your liking by assigning a localizable key or a literal string value.
 
-    If you wish to add localization support to your application, you need to create a String File(s) for your app and specify which language the file represents.
+    If you wish to add localization support to your application, you need to create a String File(s) for your app and specify which language the file represents.
 
-    If you pass a language to EnrolmentConfig and do not have a String File that matches said language and the SDK does, the SDK will use its file, but if we do not have a String File of said language, the key value of the localizable key raw value will be used in the UI.
+     If you pass a language to EnrolmentConfig and do not have a String File that matches said language and the SDK does, the SDK will use its file, but if we do not have a String File of said language, the key value of the localizable key raw value will be used in the UI.
 
-    If no language is passed to EnrolmentConfig, the SDK will select the device's default language and use a String File compatible with said language. The same logic applies in this case. If you do not have a file for the correspondent language, the SDK will select its file, but if it also does not have one, the localizable key raw values will be displayed in the UI. 
+     If no language is passed to EnrolmentConfig, the SDK will select the device's default language and use a String File compatible with said language. The same logic applies in this case. If you do not have a file for the correspondent language, the SDK will select its file, but if it also does not have one, the localizable key raw values will be displayed in the UI. 
 
 ## RFID Chip Processing
 
@@ -488,9 +550,9 @@ In order for the SDK to use the camera, the user must grant permission to do so.
 
     The following image shows an example of how you could override SDK  values for fonts, colors and strings:
     ```swift
-    enrolment.theme.fonts.medium = FontDescription(name: "FontName-Medium")
-    enrolment.theme.colors.faceCapture.stateError = UIColor(name: .colorPrimary)
-    enrolment.theme.strings.faceCapture.title = "Face Capture Title"
+    Enrolment.shared.theme.fonts.medium = FontDescription(name: "FontName-Medium")
+    Enrolment.shared.theme.colors.faceCapture.stateError = UIColor(name: .colorPrimary)
+    Enrolment.shared.theme.strings.faceCapture.title = "Face Capture Title"
     ```
 
     Please check the complete list of colors for your reference:
@@ -534,25 +596,24 @@ In order for the SDK to use the camera, the user must grant permission to do so.
 === "Android"
 
     - MLKit
-        - com.google.mlkit:barcode-scanning:17.2.0
+        - com.google.mlkit:barcode-scanning:17.3.0
         - com.google.mlkit:face-detection:17.1.0
         - androidx.camera:camera-camera2:1.3.4
-        - androidx.camera:camera-lifecycle:1.3.0
-        - androidx.camera:camera-view:1.3.0
+        - androidx.camera:camera-lifecycle:1.3.4
+        - androidx.camera:camera-view:1.3.4
 
     - Regula
         - com.regula.documentreader:api:7.4.10090@aar
         - com.regula.documentreader.core:ocrandmrzrfid:7.4.11455@aar
 
     - Lottie
-        - com.airbnb.android:lottie:6.1.0
+        - com.airbnb.android:lottie:6.6.0
         
 === "iOS"
 
-    - 'DocumentReader', '~> 7.4.0'
-    - 'DocumentReaderOCRRFID', '~> 7.4.0'
-    - 'Sentry', '8.32.0'
-    - 'lottie-ios', '~> 4.3.4'
+    - 'DocumentReader', '~> 7.5.0'
+    - 'DocumentReaderOCRRFID', '~> 7.5.0'
+    - 'lottie-ios', '4.4.1'
      
 
 ## Glossary and Terminology

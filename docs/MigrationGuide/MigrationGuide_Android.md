@@ -1,5 +1,11 @@
 # Migration Guide
 
+## From 7.2.0 to 8.0.0
+#### Required Changes
+- Developers are now required to specify the provider for the orz/mrz and rfid features. Check the updated [Getting Started](../index.md) page
+- The contract for each feature has changed, instead of making use of the Activity Launcher contract, a standard callback has been added. Check each feature page for more details.
+- Enrolment is now a Singleton, instead of a builder you need to call Enrolment.initialize() passing the required parameters to make the Enrolment available anywhere. Check homepage for more details.
+
 ## From 7.1.1 to 7.2.0
 #### Optional Changes
 - If you want to activate the Face Capture timeout, then you need to pass a value in milliseconds to faceCaptureTimeout in BiometricFaceCaptureParameters.

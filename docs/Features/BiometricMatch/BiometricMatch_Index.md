@@ -20,7 +20,6 @@ is the BiometricMatchParameters structure:
         val candidate: Bitmap?,
         val reference: Bitmap?,
         val templateOption: TemplateOption = TemplateOption.NONE,
-        val showErrors: Boolean,
         val candidateHash: String?,
         val referenceHash: String?
     )
@@ -32,14 +31,12 @@ is the BiometricMatchParameters structure:
         public let candidate: Data
         public let reference: Data
         public let includeTemplate: TemplateOptions
-        public let showErrors: Bool
         public let candidateHash: String?
         public let referenceHash: String?
     
         public init(candidate: Data,
                 reference: Data,
                 includeTemplate: TemplateOptions = .none,
-                showErrors:Bool,
                 candidateHash: String?,
                 referenceHash: String?) 
     }
@@ -69,7 +66,7 @@ TemplateOptions is an enumeration and it contains the following cases.
     }
     ```
 
-The `candidateHash` and `referenceHash` are the hashes provided by either the `FaceCaptureReport` and/or the [DocumentReaderReport](../DocumentReader/DocumentReader_Index.md#document-reader-report) needed to verify data integrity.
+The `candidateHash` and `referenceHash` are the hashes provided by either the [FaceCaptureReport](../FaceCapture/FaceCapture_Index.md#face-capture-report ) and/or the [DocumentReaderReport](../DocumentReader/DocumentReader_Index.md#document-reader-report) needed to verify data integrity.
 
 You can expect either a MatchError response or a MatchReport response. 
 
@@ -83,14 +80,14 @@ To start the biometric matching, you must call the following method:
      *
      * Used to match the user face photo against the photo contained in the chip from the personal document.
      *
-     * @param context [Context] that contains the user photo, the photo from the document.
+     * @param activity [Activity] that will launch the face match feature
      * @param params [BiometricMatchParameters] that contains the user photo, the photo from the document.
-     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results.
+     * @param onMatchComplete [OnMatchCompletion] Callback to handle Match Success or Error
      */
     fun matchBiometrics(
-        context: Context,
+        activity: Activity,
         params: BiometricMatchParameters,
-        resultLauncher: ActivityResultLauncher<Intent>
+        onMatchComplete: OnMatchCompletion,
     )
     ```
 
@@ -109,16 +106,11 @@ information on the request’s duration and also the templates, if they were req
 
 === "Android"
 
-    Here's how you can get the result by using the result launcher that's passed as the final parameter:
+    Here is how you can get the match report and handle the result for the face match:
     ```kotlin
-    private val matchBiometricResultLauncher = registerForActivityResult(MatchResultLauncher())
-    { result: MatchActivityResult ->
-        when {
-            result.success -> onMatch(result.matchReportSuccess)
-            result.matchReportError?.userCanceled == true -> userCanceled()
-            result.matchReportError?.termsAndConditionsAccepted == false ->     termsAndConditionsNotAccepted()
-            else -> onMatchFailed()
-        }
+    interface OnMatchCompletion {
+        fun onMatchSuccess(matchReport: MatchReport)
+        fun onMatchError(matchReportError: MatchReportError)
     }
     ```
     
@@ -127,7 +119,6 @@ information on the request’s duration and also the templates, if they were req
     ```kotlin
     data class MatchReportError(
         val userCanceled: Boolean,
-        val termsAndConditionsAccepted: Boolean,
         val featureError: FeatureError?
     )
     ```
@@ -198,7 +189,7 @@ In case of success, the MatchReport has the following structure:
 The SDK provides default UI solutions for the boarding pass feature flow, as 
 shown in the following images:
 
-![Boarding Pass Example](Assets/BM_Flow.png "Boarding Pass Flow"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
+![Biometric Match Example](Assets/BM_Flow.png "Biometric Match Flow"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
 
 You can also apply your app’s colors and fonts to these layout solutions, to keep your brand’s image consistent.
 Check Customization tab to learn more about branding of each view.

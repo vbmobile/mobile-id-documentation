@@ -26,16 +26,16 @@ start the barcode scanner, you must call the following method:
 
     ```kotlin
     /**
-    * Scans a Bar Coded Boarding Pass (BCBP).
-    *
-    * @param context [Context] Activity holder
-    * @param params [BoardingPassScanParameters] required to start the boarding pass scan feature.
-    * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results.
-    */
+     * Scans a Bar Coded Boarding Pass (BCBP).
+     *
+     * @param activity [Activity] that will launch the face capture feature
+     * @param params [BoardingPassScanParameters] required to start the boarding pass scan feature.
+     * @param onScanBoardingPassCompletion [OnScanBoardingPassCompletion] callback to handle Success and Error scenarios
+     */
     fun scanBoardingPass(
-        context: Context,
+        activity: Activity,
         params: BoardingPassScanParameters,
-        resultLauncher: ActivityResultLauncher<Intent>
+        onScanBoardingPassCompletion: OnScanBoardingPassCompletion,
     )
     ```
 
@@ -50,8 +50,6 @@ The BoardingPassScanParameters has the following structure:
     ```kotlin
     @Parcelize
     data class BoardingPassScanParameters(
-        val showPreview: Boolean,
-        val showErrors: Boolean,
         val validate: Boolean
     ) : Parcelable
     ```
@@ -60,18 +58,13 @@ The BoardingPassScanParameters has the following structure:
 
     ``` swift
     public struct ScanBoardingPassParameters {
-        public let showPreview: Bool
-        public let showErrors: Bool
         public let validateBoardingPass: Bool
     
-        public init(showPreview: Bool,
-                    showErrors: Bool,
-                    validateBoardingPass: Bool)
+        public init(validateBoardingPass: Bool)
     }
     ```  
 
-The **showPreview** flag should be set to true if you want the SDK to present the details of the
-scanned boarding pass, the **showErrors** flag should be set to true if you want the SDK to present the default error screens to show the errors that occur during the features and the **validate** flag should be set to true if you want the SDK to
+The **validate** flag should be set to true if you want the SDK to
 validate the boarding pass data. 
 
 If you want to use your own boarding pass scanner, you can also provide the raw result of the scan and pass it to the facade’s parser method. It will return the
@@ -86,27 +79,27 @@ From version 7 onwards there is a new way to parse a boarding pass, by giving us
     /**
      * Parses a Bar Coded Boarding Pass (BCBP).
      *
-     * @param context
+     * @param activity [Activity] that will launch the face capture feature
      * @param params [BoardingPassStringParserParameters] required to start the boarding pass parser feature.
-     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results.
+     * @param onParseDocumentCompletion [OnScanBoardingPassCompletion] callback to handle Success and Error scenarios
      */
     fun parseBoardingPass(
-        context: Context,
+        activity: Activity,
         params: BoardingPassStringParserParameters,
-        resultLauncher: ActivityResultLauncher<Intent>
+        onParseDocumentCompletion: OnScanBoardingPassCompletion,
     )
 
     /**
-     * Parses an image of a Bar Coded Boarding Pass (BCBP).
+     * Parses a Bar Coded Boarding Pass (BCBP).
      *
-     * @param context
-     * @param params [BoardingPassImageParserParameters] required to start the boarding pass image parser feature.
-     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results.
+     * @param activity [Activity] that will launch the face capture feature
+     * @param params [BoardingPassStringParserParameters] required to start the boarding pass image parser feature.
+     * @param onParseDocumentCompletion [OnScanBoardingPassCompletion] callback to handle Success and Error scenarios
      */
     fun parseBoardingPass(
-        context: Context,
+        activity: Activity,
         params: BoardingPassImageParserParameters,
-        resultLauncher: ActivityResultLauncher<Intent>
+        onParseDocumentCompletion: OnScanBoardingPassCompletion,
     )
     ```
 
@@ -124,13 +117,10 @@ The BoardingPassParserParameters object has the following structure:
     * Parameters for each [BoardingPass] parser operation.
     *
     * @param showPreview if true, it will show a preview of [BoardingPass].
-    * @param showErrors if true, it will show a error screen that contains information regarding any error that happened during this feature.
     * @param validate if true, it will perform validation of the [BoardingPass] fields.
     */
     @Parcelize
     open class BoardingPassParserParameters(
-        open val showPreview: Boolean,
-        open val showErrors: Boolean,
         open val validate: Boolean
     ) : Parcelable
 
@@ -143,11 +133,9 @@ The BoardingPassParserParameters object has the following structure:
     data class BoardingPassStringParserParameters(
         val boardingPassData: BoardingPassData,
         override val showPreview: Boolean,
-        override val showErrors: Boolean,
         override val validate: Boolean
     ) : BoardingPassParserParameters(
         showPreview,
-        showErrors,
         validate
     )
     
@@ -160,11 +148,9 @@ The BoardingPassParserParameters object has the following structure:
     data class BoardingPassImageParserParameters(
         val uri: Uri,
         override val showPreview: Boolean,
-        override val showErrors: Boolean,
         override val validate: Boolean
     ) : BoardingPassParserParameters(
         showPreview,
-        showErrors,
         validate
     )
     ```
@@ -173,15 +159,11 @@ The BoardingPassParserParameters object has the following structure:
 
     ``` swift
     public struct ParseBoardingPassParameters {
-        public let showPreview: Bool
-        public let showErrors: Bool
         public let validateBoardingPass: Bool
         public let boardingPassData: BoardingPassData
         public let boardingPassImage: UIImage?
     
-        public init(showPreview: Bool,
-                    showErrors: Bool,
-                    validateBoardingPass: Bool,
+        public init(validateBoardingPass: Bool,
                     boardingPassData: BoardingPassData,
                     boardingPassImage: UIImage?)
     }
@@ -237,37 +219,22 @@ BarcodeFormat is an enumeration and it contains the following cases.
 
 === "Android"
 
-    Here's how you can get the result by using the result launcher that's passed as the final parameter:
+    You can get the result by registering the callback:
 
     ```kotlin
-    private val boardingPassResultLauncher = registerForActivityResult(BoardingPassResultLauncher())
-    { result: BoardingPassActivityResult ->
-        when {
-            result.success -> presenter.storeBoardingPass(result.boardingPass)
-            result.boardingPassError?.userCanceled == true -> onUserCanceled()
-            result.boardingPassError?.termsAndConditionsAccepted == true -> onTermsAndConditionsRejecetd()
-            else -> onBoardingPassScanError()
-        }
+    interface OnScanBoardingPassCompletion {
+        fun onBoardingPassSuccess(boardingPass: BoardingPass)
+        fun onBoardingPassError(boardingPassError: BoardingPassError)
     }
     ```
 
-    You will receive a model of the type BoardingPassActivityResult that will contain the success data (in this case a BoardingPass) or the error data.
-
-    ```kotlin
-    data class BoardingPassActivityResult(
-        val boardingPass: BoardingPass?,
-        val boardingPassError: BoardingPassError?
-    ) {
-        val success get() = boardingPass != null
-    }
-    ```
+    In case of a success, the BoardingPass model will be retuned regardless of how you tried to parse/scan:
 
     The BoardingPassError has the following structure:
     
     ```kotlin
     data class BoardingPassError(
         val userCanceled: Boolean,
-        val termsAndConditionsAccepted: Boolean,
         val featureError: FeatureError?
     )
     ```
@@ -422,8 +389,6 @@ The SDK provides default UI solutions for the boarding pass feature flow, as
 shown in the following images:
 
 ![Boarding Pass Example](Assets/BP_Flow.png "Boarding Pass Flow"){: style="display: block; margin: 0 auto"}
-
-The use of the preview layout depends on the **showPreview** flag in the BoardingPassScanParameters. 
 
 You can also apply your app’s colors and fonts to these layout solutions, to keep your brand’s image consistent.
 Check Customization tab to learn more about branding of each view.

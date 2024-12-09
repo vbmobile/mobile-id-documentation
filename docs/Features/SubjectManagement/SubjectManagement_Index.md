@@ -157,7 +157,6 @@ data you can create the `BuildSubjectParameters` object. This object has the fol
 
     ``` swift 
     public struct BuildSubjectParameters {
-        public let showErrors: Bool
         public let documentData: DocumentData
         public let documentDataValidated: Bool
         public let documentImage: UIImage
@@ -176,7 +175,6 @@ data you can create the `BuildSubjectParameters` object. This object has the fol
                 biometricFaceCaptureReport: BiometricFaceCaptureReport? = nil,
                 matchReport: MatchReport? = nil,
                 language: Locale? = nil,
-                showErrors: Bool,
                 formReport: FormReport? = nil)
     }
     ```
@@ -214,8 +212,7 @@ The following example shows how you can build a subject:
         documentReaderReport: EnrolmentData.shared.documentReaderReport,
         biometricFaceCaptureReport: EnrolmentData.shared.biometricMatchReport,
         matchReport: EnrolmentData.shared.matchReport,
-        language: Locale.current,
-        showErrors: true
+        language: Locale.current
     )
     
     guard let vco = self.view as? UIViewController else {
@@ -301,7 +298,6 @@ Adding a `Subject` required the AddSubjectParameters which have the following st
 
     ```kotlin
     data class AddSubjectParameters(
-        val showErrors: Boolean,
         val subject: Subject,
         val formAnswer: FormAnswer? = null,
     )
@@ -311,10 +307,9 @@ Adding a `Subject` required the AddSubjectParameters which have the following st
 
     ``` swift 
     public struct AddSubjectParameters {
-        public let showErrors: Bool
         public let subject: Subject
     
-        public init(subject: Subject, showErrors: Bool)
+        public init(subject: Subject)
     }
     ```
     
@@ -322,29 +317,13 @@ Adding a `Subject` required the AddSubjectParameters which have the following st
 
 === "Android"
 
-    Here's how you can get the result by using the result launcher that's passed as the final parameter:
+    
+    You can get the result by registering the callback. In this instance, the subjectId of the created Subject will be returned in the case of a success.
     ```kotlin
-    private val addSubjectResultLauncher = registerForActivityResult(AddSubjectResultLauncher())
-    { result: GetSubjectActivityResult ->
-        when {
-            result.success -> {
-                val subjectId = result.subjectId
-                onSubjectAdded(subjectId)
-            }
-            else ->
-                onSubjectDataError()
-        }
+    interface OnAddSubjectCompletion {
+        fun onAddSubjectSuccess(subjectId: String)
+        fun onAddSubjectError(subjectError: SubjectError)
     }
-
-    ```
-
-    The `add` operation will return the SubjectActivityResult model.
-
-    ```kotlin
-    data class SubjectActivityResult(
-        val success: Boolean = false,
-        val subjectError: SubjectError? = null
-    )
     ```
 === "iOS"
 
@@ -368,7 +347,6 @@ The SubjectError has the following structure:
     ```kotlin
     data class SubjectError(
         val userCanceled: Boolean,
-        val termsAndConditionsAccepted: Boolean,
         val featureError: FeatureError?
     )
     ```
@@ -402,6 +380,9 @@ structure of the Biometric data:
 
     ``` swift
     public struct Biometric {
+        public let type: BiometricType
+        public let format: BiometricFormat
+        public let position: BiometricTypePosition
         public let source: BiometricSource
         public let data: Data
         public let photo: UIImage?
@@ -417,14 +398,18 @@ The `BiometricFormat` will specify the format for the `data` string like so:
     * Biometric format type for both Face and Document captures
     */
     enum class BiometricFormat {
-        UNKNOWN, JPG, PNG
+        Unknown, Jpg, Png
     }
     ``` 
 
 === "iOS"
 
     ```swift
-        // TODO()
+    public enum BiometricFormat: String {
+        case unknown = "Unknown"
+        case jpg = "Jpg"
+        case png = "Png"
+    }
     ```
 
 The `BiometricSource` is a enum with the source of the biometric photo and will have the following structure:
@@ -432,10 +417,14 @@ The `BiometricSource` is a enum with the source of the biometric photo and will 
 === "Android"
 
     ```kotlin
+    /**
+    * Source of the provided photo. Identifies how it was obtained.
+    */
     enum class BiometricSource {
-        DOCUMENT,
-        CAPTURED,
-        ENROLLMENT
+        Unknown,
+        Face,
+        Ocr,
+        Chip
     }
     ```
 
@@ -443,36 +432,32 @@ The `BiometricSource` is a enum with the source of the biometric photo and will 
 
     ``` swift
     public enum BiometricSource: String {
-        case document = "DOCUMENT"
-        case captured = "CAPTURED"
-        case enrollment = "ENROLLMENT"
+        case documentChip = "Chip"
+        case documentOCR = "Ocr"
+        case faceCapture = "Face"
     }
     ```
 
-The `BiometricType` defines the type of the biometric according to the captured element. A face capture will have a `BiometricTypeFace` and a document will have a `BiometricTypeDocument`, see the details below
+The `BiometricType` defines the capture type of the biometric:
 
 === "Android"
 
     ```kotlin
     /**
-    * Biometrics type for the Face capture
-    */
-    enum class BiometricTypeFace: BiometricType {
-        UNKNOWN, ENROLMENT
-    }
-
-    /**
-    * Biometrics type for the Documents capture
-    */
-    enum class BiometricTypeDocument : BiometricType {
-        UNKNOWN, PAGE, SCAN, CHIP
+     * Biometrics type for the Face capture
+     */
+    enum class BiometricType {
+        Unknown, Enrolment
     }
     ```
 
 === "iOS"
 
     ```swift
-        // TODO()
+      public enum BiometricType: String {
+        case unknown = "Unknown"
+        case enrolment = "Enrolment"
+    }
     ```
 
 The `BiometricPosition` is something only present on face captured Biometrics 
@@ -480,15 +465,21 @@ The `BiometricPosition` is something only present on face captured Biometrics
 === "Android"
 
     ```kotlin
+        /**
+        * Biometric position of the source in question
+        */
         enum class BiometricPosition {
-            UNKNOWN, FACE
+            Unknown, Face
         }
     ```
 
 === "iOS"
 
     ```swift
-        // TODO()
+    public enum BiometricTypePosition: String {
+        case unknown = "Unknown"
+        case face = "Face"
+    }
     ```
 
 ## Subject Status
@@ -498,16 +489,14 @@ After adding a `Subject`, the `id` will be returned. This `id` can be used to ge
 === "Android"
 
     ``` kotlin
-        @Parcelize
-        data class SubjectStatus(val subjectId: String?, val status: Status, val detail: String?) :
-        Parcelable {
+        data class SubjectStatus(val subjectId: String?, val status: Status, val detail: String?) {
         
             enum class Status {
-                PENDING,
-                VALIDATING,
-                INVALID,
-                ENROLLED,
-                EXPIRED
+                Pending,
+                Validating,
+                Invalid,
+                Enrolled,
+                Expired
             }
         }
     ```
@@ -515,7 +504,10 @@ After adding a `Subject`, the `id` will be returned. This `id` can be used to ge
 === "iOS"
 
     ``` swift
-        // TODO()
+    public struct SubjectStatus {
+        public let id: String
+        public let status: Status
+    }
     ```
 
 The `SubjectStatus` is accessible through the `Enrolment` by calling one these methods below and registering the `OnSubjectStatusResult` callback.
@@ -565,6 +557,26 @@ The `SubjectStatus` is accessible through the `Enrolment` by calling one these m
 === "iOS"
 
     ``` swift
+    /// Get all status from server.
+    ///     /// - Parameters:
+    ///   - completionHandler: The completion handler to call when the get status operation is finished.
+    ///     This completion handler takes the following parameter:
+    ///
+    ///     Result<[SubjectStatus], SubjectError>
+    ///     Where `SubjectError` contains the possible errors that may occur during the process.
+    func getStatus(completionHandler: @escaping (Result<[SubjectStatus], SubjectError>) -> Void)
+
+    /// Get  status by id from server.
+    /// - Parameters:
+    ///   - subjectId: id to retrive
+    ///   - completionHandler: The completion handler to call when the get status operation is finished.
+    ///     This completion handler takes the following parameter:
+    ///
+    ///     Result<[SubjectStatus], SubjectError>
+    ///     Where `SubjectError` contains the possible errors that may occur during the process.
+
+    func getStatus(subjectId:String, completionHandler: @escaping (Result<SubjectStatus, SubjectError>) -> Void)
+
     ```
 
 ## SubjectCustomViews

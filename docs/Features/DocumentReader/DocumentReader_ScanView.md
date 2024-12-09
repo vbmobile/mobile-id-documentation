@@ -13,7 +13,7 @@ You can apply your own branding to our screens by overriding the resources we us
 
 ### Text resources
 
-This text is dynamic and has been translated into several languages (and cannot be changed)
+This text is dynamic and has been translated into several languages
 
 info "Supported languages:"
 
@@ -50,6 +50,10 @@ info "Supported languages:"
     - Vietnamese (vi)
     - Chinese Simplified (zh-Hans)
     - Chinese Traditional (zh-Hant)
+
+If you need additional localization support that is not on this list, then you need to follow this documentation steps:
+[Regula localization support](https://docs.regulaforensics.com/develop/doc-reader-sdk/mobile/customization/localization/)
+
 
 
 ### Colors

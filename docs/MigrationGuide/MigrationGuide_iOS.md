@@ -14,10 +14,6 @@
 #### Optional Changes
 - showRFIDInstructions have been added to the [ReadDocumentParameters](../Features/DocumentReader/DocumentReader_Index.md#initiate-scan), to be able to start the RFID scan automatically
 
-## From 7.1.0 to 8.0.0
-#### Required Changes
-- TODO
-
 ## From 7.0.0 to 7.1.0
 #### Required Changes
 - As part of the security improving efforts a `candidateHash` and `referenceHash` have been added to the [BiometricMatchParameters](../Features/BiometricMatch/BiometricMatch_Index.md#initiate-match), these can be found in the generated reports.

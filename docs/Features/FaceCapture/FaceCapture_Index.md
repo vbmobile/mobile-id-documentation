@@ -103,6 +103,7 @@ below. Below is an example of the BiometricFaceCaptureParameters:
     ```swift
     public enum BiometricFaceCaptureFrameOptions {
         case oval
+        @available(*, deprecated, message: "Will be removed in future versions (9.x)")
         case square
     }
     ```

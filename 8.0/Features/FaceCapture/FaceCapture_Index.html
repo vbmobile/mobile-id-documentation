@@ -2077,6 +2077,7 @@ below. Below is an example of the BiometricFaceCaptureParameters:</p>
 <p>The <strong>BiometricFaceCaptureFrameOptions</strong> is an enum that shapes the frame where the face must be centered to take the selfie. Currently it has two options:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">BiometricFaceCaptureFrameOptions</span> <span class="p">{</span>
     <span class="k">case</span> <span class="n">oval</span>
+    <span class="p">@</span><span class="n">available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="s">&quot;Will be removed in future versions (9.x)&quot;</span><span class="p">)</span>
     <span class="k">case</span> <span class="n">square</span>
 <span class="p">}</span>
 </code></pre></div>

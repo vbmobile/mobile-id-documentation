@@ -1,5 +1,16 @@
 # MobileID SDK - Release Notes
 
+## 8.0.1
+
+### Improvements
+
+- Added new IdDocument class to DocumentReport.
+- Added deinitialize method to Enrolment so that it's possible to initialize the enrolment with different parameters if necessary.
+- Removed unused parameters such as showRFIDStatus and showSecurityCheck.
+- Removed exceptions when invalid values were passed to timeouts, now the client app receives a controlled error.
+- Deprecated DocumentData class that will be removed in the next major release.
+- Document Reader Providers are now optional.
+
 ## 8.0.0
 
 ### What's new

@@ -1,6 +1,6 @@
 # MobileID SDK - Release Notes
 
-## 7.3.3
+## 7.3.2
 
 ### Changes
 

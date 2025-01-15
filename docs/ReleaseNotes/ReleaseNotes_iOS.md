@@ -21,6 +21,20 @@
 - The object DocumentData from the Document Reader feature will is **deprecated and will be removed in the future**, please update to the new object IdDocument.
 - The square option from BiometricFaceCaptureFrameOptions is **deprecated and will be removed in the future**, please use the oval option.  
 
+## 7.3.3
+
+### Improvements
+
+- Updated Regula SDK to version 7.5.
+
+## 7.3.2
+
+### Improvements
+
+- Fix issues with Camera permissions.
+- Updated Lottie SDK to version 4.4.1.
+- Fix face capture animation bug, where the face selection frame was moved to top left corner.
+
 ## 7.3.1
 
 ### Improvements

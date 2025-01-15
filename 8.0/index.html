@@ -2209,8 +2209,8 @@ You're not viewing the latest version.
 maven { url &quot;https://maven.regulaforensics.com/RegulaDocumentReader&quot; }
 </code></pre></div></li>
 <li>Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
-<div class="highlight"><pre><span></span><code>implementation(&quot;com.visionbox.mobileid.sdk:mid-sdk-enrolment:&lt;8.0.0&gt;@aar&quot;) { transitive = true }
-implementation(&quot;com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:&lt;1.0.0&gt;&quot;)
+<div class="highlight"><pre><span></span><code>implementation(&quot;com.visionbox.mobileid.sdk:mid-sdk-enrolment:&lt;8.0.1&gt;@aar&quot;) { transitive = true }
+implementation(&quot;com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:&lt;1.0.1&gt;&quot;)
 </code></pre></div></li>
 <li>Sync gradle.</li>
 </ol>
@@ -2284,14 +2284,6 @@ end
 <span class="w">        </span><span class="p">)</span>
 <span class="p">)</span>
 
-<span class="kd">val</span><span class="w"> </span><span class="nv">enrolmentCustomViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EnrolmentCustomViews</span><span class="p">(</span>
-<span class="w">    </span><span class="n">documentReaderCustomViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">documentReaderCustomViews</span><span class="p">,</span>
-<span class="w">    </span><span class="n">boardingPassCustomViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boardingPassCustomViews</span><span class="p">,</span>
-<span class="w">    </span><span class="n">faceCaptureCustomViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">faceCaptureCustomViews</span><span class="p">,</span>
-<span class="w">    </span><span class="n">faceMatchCustomViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">faceMatchCustomViews</span><span class="p">,</span>
-<span class="w">    </span><span class="n">subjectCustomViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subjectCustomViews</span>
-<span class="p">)</span>
-
 <span class="kd">val</span><span class="w"> </span><span class="nv">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">object</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">EnrolmentInitializerCallback</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onEnrolmentInitialized</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isAdded</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -2315,7 +2307,6 @@ end
 <span class="n">Enrolment</span><span class="p">.</span><span class="na">initialize</span><span class="p">(</span>
 <span class="w">    </span><span class="n">context</span><span class="p">,</span><span class="w"> </span>
 <span class="w">    </span><span class="n">enrolmentConfig</span><span class="p">,</span>
-<span class="w">    </span><span class="n">enrolmentCustomViews</span><span class="p">,</span>
 <span class="w">    </span><span class="n">documentReaderProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">regulaDocumentRfidProvider</span><span class="p">,</span>
 <span class="w">    </span><span class="n">rfidReaderProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">regulaDocumentRfidProvider</span><span class="p">,</span>
 <span class="w">    </span><span class="n">callback</span>
@@ -2526,8 +2517,8 @@ pinning for every network request made by the SDK.</p>
 <div class="tabbed-block">
 <p>The other configurations are used by their corresponding facade method:</p>
 <ul>
-<li>BoardingPassCustomViews - Specifies the boarding pass custom views;</li>
-<li>BiometricFaceCaptureCustomViews - Specifies the face capture custom views;</li>
+<li>BoardingPassCustomViews - Specifies the boarding pass custom views.</li>
+<li>BiometricFaceCaptureCustomViews - Specifies the face capture custom views.</li>
 <li>DocumentReaderCustomViews - Specifies the document reader custom views.</li>
 <li>BiometricFaceMatchCustomViews - Specifies the face match custom views.</li>
 <li>SubjectCustomViews - Specifies the subject custom views.</li>
@@ -2855,16 +2846,16 @@ It brings control and allows the maintenance of consistency in terms of brand co
 <ul>
 <li>com.google.mlkit:barcode-scanning:17.3.0</li>
 <li>com.google.mlkit:face-detection:17.1.0</li>
-<li>androidx.camera:camera-camera2:1.3.4</li>
-<li>androidx.camera:camera-lifecycle:1.3.4</li>
-<li>androidx.camera:camera-view:1.3.4</li>
+<li>androidx.camera:camera-camera2:1.4.0</li>
+<li>androidx.camera:camera-lifecycle:1.4.0</li>
+<li>androidx.camera:camera-view:1.4.0</li>
 </ul>
 </li>
 <li>
 <p>Regula</p>
 <ul>
-<li>com.regula.documentreader:api:7.4.10090@aar</li>
-<li>com.regula.documentreader.core:ocrandmrzrfid:7.4.11455@aar</li>
+<li>com.regula.documentreader:api:7.5.10412@aar</li>
+<li>com.regula.documentreader.core:ocrandmrzrfid:7.5.12253@aar</li>
 </ul>
 </li>
 <li>

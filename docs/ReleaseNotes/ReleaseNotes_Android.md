@@ -1,5 +1,16 @@
 # MobileID SDK - Release Notes
 
+## 8.0.1
+
+### What's new
+
+- Added **deinitialize** method to **Enrolment** to allow for re-initialization with different parameters as needed.
+
+### Improvements
+
+- Fixed crash when wrong timeout parameters are used.
+- Small Bug fixes.
+
 ## 8.0.0
 
 ### What's new

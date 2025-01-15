@@ -541,16 +541,16 @@ In order for the SDK to use the camera, the user must grant permission to do so.
         - androidx.camera:camera-view:1.3.0
 
     - Regula
-        - com.regula.documentreader:api:7.4.10090@aar
-        - com.regula.documentreader.core:ocrandmrzrfid:7.4.11455@aar
+        - com.regula.documentreader:api:7.5.10412@aar
+        - com.regula.documentreader.core:ocrandmrzrfid:7.5.12253@aar
 
     - Lottie
         - com.airbnb.android:lottie:6.1.0
         
 === "iOS"
 
-    - 'DocumentReader', '~> 7.4.0'
-    - 'DocumentReaderOCRRFID', '~> 7.4.0'
+    - 'DocumentReader', '~> 7.5.0'
+    - 'DocumentReaderOCRRFID', '~> 7.5.0'
     - 'Sentry', '8.32.0'
     - 'lottie-ios', '~> 4.3.4'
      

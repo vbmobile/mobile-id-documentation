@@ -35,8 +35,8 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
     ```
     2. Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
     ```
-    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<8.0.0>@aar") { transitive = true }
-    implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:<1.0.0>")
+    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<8.0.1>@aar") { transitive = true }
+    implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:<1.0.1>")
     ```
     3. Sync gradle.
     
@@ -126,14 +126,6 @@ The SDK also allows client apps to use their own custom views for its functional
             )
     )
 
-    val enrolmentCustomViews = EnrolmentCustomViews(
-        documentReaderCustomViews = documentReaderCustomViews,
-        boardingPassCustomViews = boardingPassCustomViews,
-        faceCaptureCustomViews = faceCaptureCustomViews,
-        faceMatchCustomViews = faceMatchCustomViews,
-        subjectCustomViews = subjectCustomViews
-    )
-
     val callback = object : EnrolmentInitializerCallback {
         override fun onEnrolmentInitialized() {
             if (isAdded) {
@@ -157,7 +149,6 @@ The SDK also allows client apps to use their own custom views for its functional
     Enrolment.initialize(
         context, 
         enrolmentConfig,
-        enrolmentCustomViews,
         documentReaderProvider = regulaDocumentRfidProvider,
         rfidReaderProvider = regulaDocumentRfidProvider,
         callback
@@ -382,8 +373,8 @@ pinning for every network request made by the SDK.
 
     The other configurations are used by their corresponding facade method:
 
-    - BoardingPassCustomViews - Specifies the boarding pass custom views;
-    - BiometricFaceCaptureCustomViews - Specifies the face capture custom views;
+    - BoardingPassCustomViews - Specifies the boarding pass custom views.
+    - BiometricFaceCaptureCustomViews - Specifies the face capture custom views.
     - DocumentReaderCustomViews - Specifies the document reader custom views.
     - BiometricFaceMatchCustomViews - Specifies the face match custom views.
     - SubjectCustomViews - Specifies the subject custom views.
@@ -598,13 +589,13 @@ In order for the SDK to use the camera, the user must grant permission to do so.
     - MLKit
         - com.google.mlkit:barcode-scanning:17.3.0
         - com.google.mlkit:face-detection:17.1.0
-        - androidx.camera:camera-camera2:1.3.4
-        - androidx.camera:camera-lifecycle:1.3.4
-        - androidx.camera:camera-view:1.3.4
+        - androidx.camera:camera-camera2:1.4.0
+        - androidx.camera:camera-lifecycle:1.4.0
+        - androidx.camera:camera-view:1.4.0
 
     - Regula
-        - com.regula.documentreader:api:7.4.10090@aar
-        - com.regula.documentreader.core:ocrandmrzrfid:7.4.11455@aar
+        - com.regula.documentreader:api:7.5.10412@aar
+        - com.regula.documentreader.core:ocrandmrzrfid:7.5.12253@aar
 
     - Lottie
         - com.airbnb.android:lottie:6.6.0

@@ -252,6 +252,11 @@ You can follow this platform specific guide to prepare your application to offli
     - app/src/main/assets/Regula
 
     Place the Database, Regula License and master list files in the new folder.
+    The names of the files must be the following:
+
+    - Database   -> "db.dat"
+    - License    -> "regula.license"
+    - Masterlist -> "csca_certificates.ldif"
 
     In your app's module build.gradle import the Bundled version of the ml-kit face-detection
     ```kotlin

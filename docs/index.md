@@ -212,6 +212,67 @@ There where some errors created to validate the enrolment configuration:
 
 If you try to call a feature while the Enrolment is not ready you will receive a NotReady error (013 - Enrolment is not ready yet. Wait for the callback.)
 
+## Offline Mode Support
+
+From version 8.1.0 onwards the SDK offers an offline mode, allowing apps without internet connection to still use some of the features.
+
+In offline mode we support the following features:
+
+- Face Capture (Without liveness)
+- Document Reader
+- Boarding Pass Scan
+
+Face match and subject management are not compatible as they need internet access to properly work.
+
+To ensure offline mode compatibility, you will need the following:
+
+- An offline license. (Contact your liaison in Vision-Box/Amadeus)
+- Put the Regula Database, license and master list in your app's assets (Optional for document reader feature)
+- Import the bundled version of face detection ml-kit library (Optional for face capture feature)
+
+You can follow this platform specific guide to prepare your application to offline mode support:
+
+=== "Android"
+
+    Instead of calling Enrolment.initialize, there's a new method in the facade Enrolment.initializeOffline:
+    ```kotlin
+    val license = "YOUR_LICENSE_CONTENT"
+    Enrolment.initializeOffline(
+        context = context, 
+        enrolmentConfig = enrolmentConfig,
+        documentReaderProvider = documentReaderProvider,
+        rfidReaderProvider = documentReaderProvider,
+        enrolmentInitializerCallback = callback,
+        license = license
+    )
+    ```
+
+    In your project, create a new folder named "Regula" in your app's assets folder:
+
+    - app/src/main/assets/Regula
+
+    Place the Database, Regula License and master list files in the new folder.
+    The names of the files must be the following:
+
+    - Database   -> "db.dat"
+    - License    -> "regula.license"
+    - Masterlist -> "csca_certificates.ldif"
+
+    In your app's module build.gradle import the Bundled version of the ml-kit face-detection
+    ```kotlin
+    dependencies {
+        // ...
+        // Use this dependency to bundle the model with your app
+        implementation 'com.google.mlkit:face-detection:16.1.7'
+    }
+    ```
+
+=== "iOS"
+
+    // TODO
+
+Note that these steps are bound to increase your final apk size as it contains files that were previously downloaded in runtime.
+
 ## Data Security
 
 In version 7.1, an hybrid encryption system was implemented to protect sensitive information and to prevent possible attacks.

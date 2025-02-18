@@ -1,5 +1,12 @@
 # MobileID SDK - Release Notes
 
+## 7.3.4
+
+### Improvements
+ 
+- **BiometricFaceCapture:**  reduced the time required to open the camera, improving user experience.
+- **Timezone Handling:** Corrected a problem with how the application handles timezone data.
+
 ## 7.3.3
 
 ### Changes

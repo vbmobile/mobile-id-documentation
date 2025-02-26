@@ -1,5 +1,11 @@
 # MobileID SDK - Release Notes
 
+## 7.3.5
+
+### Improvements
+
+- **Timezone Handling:** Corrected a problem with how the application handles timezone data.
+
 ## 7.3.4
 
 ### Improvements

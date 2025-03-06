@@ -1,0 +1,37 @@
+name: Deploy MkDocs Documentation
+
+on:
+  push:
+    branches:
+      - "release/*"  # Trigger only on branches matching 'release/x.y'
+
+permissions:
+  contents: write  # Required for pushing changes
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for gh-pages
+
+      - name: Set Up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Extract Version from Branch Name
+        run: echo "VERSION=$(echo ${GITHUB_REF#refs/heads/release/})" >> $GITHUB_ENV
+
+      - name: Deploy Documentation
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          mike deploy --push --update-aliases "$VERSION" latest

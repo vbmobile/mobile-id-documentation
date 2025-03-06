@@ -45,11 +45,19 @@ Inside the docs folder we have the following structure:
 - Release Notes - Contains markdown files and assets related to release notes.
 - Migration Guide - Contains markdown files and assets related to migration guide.
 
-
-## Tools Helper
-
 ### mkdocs
 https://squidfunk.github.io/mkdocs-material/
 
 ### Mike cmd 
-Install from oficial repo: https://github.com/jimporter/mike
+Install from official repo: https://github.com/jimporter/mike
+
+## Deployment Process
+Create a branch following this structure: "release/major.minor"
+
+Prepare documentation and commit changes.
+
+The github workflow "deploy-docs.yml" will create a pipeline to deploy the documentation automatically.
+
+Mike will extract the major.minor version from the branch name and deploy it with that name.
+
+**Warning** - Mike will always tag the version as latest, so if it's an hotfix it must be done manually.

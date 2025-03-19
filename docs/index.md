@@ -269,7 +269,31 @@ You can follow this platform specific guide to prepare your application to offli
 
 === "iOS"
 
-    // TODO
+    Instead of calling `Enrolment.shared.initWith`, there's a new method in the facade, `Enrolment.shared.initOffline`:
+    
+    ```swift
+    let license = "YOUR_LICENSE_CONTENT"
+    Enrolment.shared.initOffline(
+        enrolmentConfig: enrolmentConfig,
+        documentScanProvider: documentScanProvider,
+        documentRFIDProvider: documentRFIDProvider,
+        viewRegister: viewRegister,
+        jwtToken: jwtToken,
+        bundle: bundle,
+        completionHandler: completionHandler,
+    )
+    ```
+    
+    In your project, create a new folder named "Regula" in your app's assets folder:
+
+    - Resources/Regula
+    
+    Place the Database, Regula License and master list files in the new folder.
+    The names of the files must be the following:
+
+    - Database   -> "db.dat"
+    - License    -> "regula.license"
+    - Masterlist -> "csca_certificates.ldif"
 
 Note that these steps are bound to increase your final apk size as it contains files that were previously downloaded in runtime.
 

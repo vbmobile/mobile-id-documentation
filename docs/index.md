@@ -284,7 +284,7 @@ You can follow this platform specific guide to prepare your application to offli
     )
     ```
     
-    Place the Database, Regula License and master list files in your project's root folder.
+    Place the Database, Regula License and master list files in your project's folder.
     The names of the files must be the following:
 
     - Database   -> "db.dat"

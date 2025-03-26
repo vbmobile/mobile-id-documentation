@@ -284,11 +284,7 @@ You can follow this platform specific guide to prepare your application to offli
     )
     ```
     
-    In your project, create a new folder named "Regula" in your app's assets folder:
-
-    - Resources/Regula
-    
-    Place the Database, Regula License and master list files in the new folder.
+    Place the Database, Regula License and master list files in your project's root folder.
     The names of the files must be the following:
 
     - Database   -> "db.dat"

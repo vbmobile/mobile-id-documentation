@@ -321,8 +321,7 @@ There's also a data integrity validation system that checks if the response info
 
 ### EnrolmentConfig
 
-The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig. Besides these
-configurations you can set the logEvents flag, which is used to activate logs.
+The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig.
 
 === "Android"
 
@@ -330,7 +329,8 @@ configurations you can set the logEvents flag, which is used to activate logs.
     data class EnrolmentConfig(
         val apiConfig: APIConfig,
         val apiSecurityConfig: APISecurityConfig = APISecurityConfig(),
-        val language: Locale
+        val language: Locale,
+        val logConfiguration: List<LogConfiguration> = listOf(),
     )
     ```
     
@@ -348,6 +348,7 @@ configurations you can set the logEvents flag, which is used to activate logs.
 - apiSecurityConfig: Api security configuration;
 - language: You can set the language in which the SDK will appear. The default is the system
   language;
+- logConfiguration: Log Level and Strategy to be used.
 
 ### ApiConfig
 
@@ -369,7 +370,7 @@ key. You can also configure the timeout value for server responses and the log l
     data class APIConfig(
         val baseUrl: URL,
         val timeout: Long,
-        val logLevel: MobileAPILogLevel,
+        val logLevel: MobileAPILogLevel = MobileAPILogLevel.NONE,
         val apiKey: String,
         val publicKey: String? = null,
     )
@@ -389,7 +390,7 @@ key. You can also configure the timeout value for server responses and the log l
 
 - baseUrl: Url from Mobile API server;
 - timeout: timeout of a request in seconds;
-- logLevel: log level for requests;
+- logLevel: log level for requests; (Deprecated in favor of [Log Configuration](#log-configuration))
 - apiKey: key to authorize communication with Mobile API;
 - publicKey: key to use for ciphering/deciphering for secure communications
 
@@ -447,6 +448,34 @@ pinning for every network request made by the SDK.
     ```
 
 - certificates: used for certificate pinning
+
+### Log Configuration
+
+A log configuration can be added to the EnrolmentConfig to get additional info on some of the operations of the SDK. A Console and a File strategy are available, these can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.
+
+
+=== "Android"
+
+    ```kotlin
+    class LogConfiguration(
+        val logLevel: LogLevel,
+        val logStrategy: LogStrategy
+    )
+
+    enum class LogLevel {
+        WARN, ERROR, INFO, VERBOSE, DEBUG
+    }
+
+    enum class LogStrategy {
+        CONSOLE, FILE
+    }
+    ```
+
+=== "iOS"
+
+    ```swift
+    TODO
+    ```
 
 ## Advanced Configurations
 

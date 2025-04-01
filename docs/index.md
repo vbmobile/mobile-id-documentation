@@ -51,7 +51,8 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
     
     1. Add the following to your Podfile, with the latest version:
     ```
-    pod 'MobileIdSDKiOS', '8.0.XX'
+    pod 'MobileIdSDKiOS', '8.1.0'
+    pod 'VBOcrMrzRfidRegula', '1.0.0'
     ```
     2. Add Mobile ID’s cocoapods repo as a source in your podfile:
     ```
@@ -77,10 +78,15 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
 
     1. In Xcode, naviate to File > Add Package Dependencies.
     2. In the prompt that appears, enter the package URL:
-
-    ```
-    https://github.com/vbmobile/MobileIdSDKiOS
-    ```
+    
+        For **MobileIdSDKiOS**
+        ```
+        https://github.com/vbmobile/MobileIdSDKiOS
+        ```
+        For **VBOcrMrzRfidRegula**
+        ```
+        https://github.com/vbmobile/VBOcrMrzRfidRegula
+        ```
    
     3. Select the version you want to use. For new projects, we recommend using the newest version of SeamlessMobile SDK.
     4. Select the project you want to add the package.

@@ -35,8 +35,8 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
     ```
     2. Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
     ```
-    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<8.0.1>@aar") { transitive = true }
-    implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:<1.0.1>")
+    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<8.1.0>@aar") { transitive = true }
+    implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:<1.0.3>")
     ```
     3. Sync gradle.
     
@@ -330,7 +330,9 @@ The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig.
         val apiConfig: APIConfig,
         val apiSecurityConfig: APISecurityConfig = APISecurityConfig(),
         val language: Locale,
-        val logConfiguration: List<LogConfiguration> = listOf(),
+        val logConfiguration: List<LogConfiguration> = listOf(
+          LogConfiguration(logLevel = LogLevel.INFO, logStrategy = LogStrategy.CONSOLE)
+        ),
     )
     ```
     
@@ -397,6 +399,7 @@ key. You can also configure the timeout value for server responses and the log l
 === "Android"
 
     ```kotlin
+    @Deprecated(message = "API Log Level is going away. Check out LogConfiguration on EnrolmentConfig")
     enum class MobileAPILogLevel {
         /**
         * no logs.
@@ -474,7 +477,7 @@ A log configuration can be added to the EnrolmentConfig to get additional info o
 === "iOS"
 
     ```swift
-    TODO
+      TODO
     ```
 
 ## Advanced Configurations
@@ -704,8 +707,8 @@ In order for the SDK to use the camera, the user must grant permission to do so.
         - androidx.camera:camera-view:1.4.0
 
     - Regula
-        - com.regula.documentreader:api:7.5.10412@aar
-        - com.regula.documentreader.core:ocrandmrzrfid:7.5.12253@aar
+        - com.regula.documentreader:api:7.6.11270@aar
+        - com.regula.documentreader.core:ocrandmrzrfid:7.6.13479@aar
 
     - Lottie
         - com.airbnb.android:lottie:6.6.0

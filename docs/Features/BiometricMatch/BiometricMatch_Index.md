@@ -166,6 +166,7 @@ In case of success, the MatchReport has the following structure:
     data class MatchReport(
         val matchDuration: String,
         val photosMatched: Boolean,
+        val score: Double,
         val algorithm: String?,
         val referenceTemplate: String?,
         val candidateTemplate: String?,

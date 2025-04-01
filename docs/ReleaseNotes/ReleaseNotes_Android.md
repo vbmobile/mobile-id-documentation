@@ -1,5 +1,25 @@
 # MobileID SDK - Release Notes
 
+## 8.1.0
+
+### What's new
+
+- Added a new property to matchReport that indicates the score of the biometric match in success cases as well.
+- Added rotation configuration to SDK screens.
+- New **IdDocument** class that will replace DocumentData in the document reader report.
+- Added offline mode support.
+- New license mechanism via jwt token.
+- Allow to save biometric face capture in different formats such as JPEG or PNG.
+
+### Improvements
+
+- Fixed issue in face capture where the face was being cropped too much or not appearing at all.
+- Improved internal logging capabilities.
+- Fixed crash in document reader when cancelling during the initialization process.
+
+#### Warning
+- The object DocumentData from the Document Reader feature is **deprecated and will be removed in the future**, please update to the new object IdDocument.
+
 ## 8.0.1
 
 ### What's new
@@ -34,7 +54,6 @@
 - Sentry;
 
 #### Warning
-- The object DocumentData from the Document Reader feature will is **deprecated and will be removed in the future**, please update to the new object IdDocument.
 - The square option from FaceCaptureFrameFormat is **deprecated and will be removed in the future**, please use the oval option.
 
 ## 7.3.2

@@ -134,15 +134,13 @@ This method can perform a full travel document read in two steps:
 
     ```kotlin
     data class DocumentReaderParameters(
-        val rfidRead: Boolean,
-        val mrzReadTimeout: Long = TimeUnit.SECONDS.toMillis(30),
-        val rfidReadTimeout: Long = TimeUnit.SECONDS.toMillis(30),
-        val showRFIDInstructions: Boolean = true,
-    ) {
-    init {
-        require(!(mrzReadTimeout < TimeUnit.SECONDS.toMillis(10) || mrzReadTimeout > TimeUnit.SECONDS.toMillis(60))) { "mrzReadTimeout value must be between 10 and 60 seconds." }
-        require(!(rfidReadTimeout < TimeUnit.SECONDS.toMillis(10) || rfidReadTimeout > TimeUnit.SECONDS.toMillis(60))) { "rfidReadTimeout value must be between 10 and 60 seconds." }
-    }
+      val rfidRead: Boolean,
+      @IntRange(from = 10_000, to = 60_000)
+      val mrzReadTimeout: Long = TimeUnit.SECONDS.toMillis(30),
+      @IntRange(from = 10_000, to = 60_000)
+      val rfidReadTimeout: Long = TimeUnit.SECONDS.toMillis(30),
+      val showRFIDInstructions: Boolean = true,
+    ) : Parcelable
     ```
 
 === "iOS"
@@ -163,7 +161,7 @@ This method can perform a full travel document read in two steps:
     }
     ```
 
-Both mrzReadTimeout and rfidReadTimeout values must be between 10 and 60 seconds, otherwise an illegal argument exception will be thrown.
+Both mrzReadTimeout and rfidReadTimeout values must be between 10 and 60 seconds, otherwise an InvalidParameters error will occur.
 It's no longer possible to disable either of this timeout.
 
 If both scans are enabled and the RFID scan fails for some reason, the MRZ scan data is always
@@ -172,6 +170,26 @@ value in seconds before closing the document reading screen if no document is sc
 period.
 
 The showRFIDInstructions field, when set to false, allows the RFID Scan to start automatically as soon as the document has been read using OCR successfully, not showing the instructions screen when using it nor giving the chance to skip rfid scan.
+
+It's also possible to implement your own OCR scan and then use our DocumentReader just for the RFID reading process.
+For this, you will need to pass the DocumentReaderRFIDParameters and call the readDocumentRFID facade method:
+
+=== "Android"
+
+    ```kotlin
+    data class DocumentReaderRFIDParameters(
+      @IntRange(from = 10_000, to = 60_000)
+      val rfidReadTimeout: Long = TimeUnit.SECONDS.toMillis(30),
+      val showRFIDInstructions: Boolean = true,
+      val mrzString: String
+    ) : Parcelable
+    ```
+
+=== "iOS"
+
+    ``` swift
+    //TODO
+    ```
 
 ## Handle Result
 
@@ -229,14 +247,17 @@ Here is how you can get the document reader report and handle the result for doc
 === "Android"
 
     ```kotlin
+    @Serializable
     data class DocumentReaderReport(
-        val documentData: DocumentData,
-        val status: List<DocumentDataStatus>,
-        val rfidStatus: RFIDStatus,
-        val documentType: DocumentType,
-        val documentPhotoHash: String,
-        val documentDataHash: String,
-    )
+      val documentData: DocumentData,
+      val idDocument: IdDocument,
+      val status: List<DocumentDataStatus>,
+      val rfidStatus: RFIDStatus,
+      val documentType: DocumentType,
+      val documentPhotoHash: String, // Portrait Image
+      val documentDataHash: String, // DocumentData object
+      val idDocumentHash: String, // IdDocument object
+    ) : Parcelable
     ```
     
 === "iOS"
@@ -251,122 +272,171 @@ Here is how you can get the document reader report and handle the result for doc
     }
     ```
 
-The `DocumentReaderReport` includes two hash fields that that are used to verify data integrity when building a [Subject](../SubjectManagement/SubjectManagement_Index.md).
+The `DocumentReaderReport` includes three hash fields that that are used to verify data integrity when building a [Subject](../SubjectManagement/SubjectManagement_Index.md).
 
-The DocumentData contains the document data. You can check the structure here:
+The DocumentData is now deprecated and will be removed in the next major version.
+
+Instead, we recommend to start using the IdDocument class that contains more information with different sources depending on the document type. 
+
+You can check the structure here:
 
 === "Android"
 
     ```kotlin
-    data class DocumentData(
-        val hasChip: Boolean,
-        val documentNumber: DocumentDataField?,
-        val dateOfExpiry: Date?,
-        val dateOfBirth: Date?,
-        val age: DocumentDataField?,
-        val personalNumber: DocumentDataField?,
-        val sex: DocumentDataField?,
-        val issuingStateCode: DocumentDataField?,
-        val issuingState: DocumentDataField?,
-        val dateOfIssue: Date?,
-        val nationalityCode: DocumentDataField?,
-        val nationality: DocumentDataField?,
-        val givenNames: DocumentDataField?,
-        val surname: DocumentDataField?,
-        val surnameAndGivenNames: DocumentDataField?,
-        val documentClassCode: DocumentDataField?,
-        val documentNumberCheckDigit: DocumentDataField?,
-        val dateOfBirthCheckDigit: DocumentDataField?,
-        val dateOfExpiryCheckDigit: DocumentDataField?,
-        val optionalDataCheckDigit: DocumentDataField?,
-        val finalCheckDigit: DocumentDataField?,
-        val optionalData: DocumentDataField?,
-        val cardAccessNumber: DocumentDataField?,
-        val remainderTerm: DocumentDataField?,
-        val mrzType: DocumentDataField?,
-        val mrzStrings: DocumentDataField?,
-        val mrzStringsWithCorrectCheckSums: DocumentDataField?,
-        val dsCertificateSubject: DocumentDataField?,
-        val dsCertificateValidFrom: DocumentDataField?,
-        val dsCertificateValidTo: DocumentDataField?,
-        val documentImagePath: String,
-        val portraitPhotoPath: String,
-        val documentTypeData: DocumentTypeData?,
-        val chipPage: Int
-    )
+    data class IdDocument(
+      val info: InfoSection? = null,
+      val data: DataSection? = null,
+      val viz: VIZSection? = null,
+      val mrz: MRZSection? = null,
+      val rfid: RFIDSection? = null,
+      val validations: Validations? = null
+    ): Parcelable
     ```
     ```kotlin
-    data class DocumentDataField(
-        val value: String,
-        var status: DocumentDataFieldStatus
-    )
+    data class InfoSection(
+      val id: Int? = null, // A unique identifier for the document.
+      val documentName: String? = null, // Indicates the type and issuing country of the document
+      val icaoCode: String? = null, // The International Civil Aviation Organization code for the issuing country.
+      val type: String? = null, // Enum: ['P', 'I', 'D', 'C'], Passport, ID card, Drivers license, C?
+      val isElectronic: Int? = null, // Based on the chip page, will indicate if the document is electronic. Enum: [0, 1, 2] Description:  • 0: not electronic  • 1: Electronic  • 2: Unknown
+      val chipPage: Int? = null, // Determines the presence and location of an RFID chip in a document. Enum: [0, 1, 2, 3] Description:  0: no chip; 1: chip is located in the document data page; 2: chip is located in the back page or inlay of the document; 3: Unknown
+    ): Parcelable
     ```
     ```kotlin
-    enum class DocumentDataFieldStatus {
-        /**
-         * field was verified and passed verification successfully.
-         */
-        OK,
-      
-        /**
-         * verification of the field has failed for some non-specified reason, either it wasn't read correctly or
-         * the check digit verification failed. These data are not reliable and should not be used.
-         */
-        ERROR,
-      
-        /**
-         * field was not verified for correctness.
-         */
-        NOT_CHECKED
-    }
+    /**
+      * Data priority: chip > MRZ > VIZ
+    */
+    data class DataSection(
+      val mrzString: String? = null, // Combined raw MRZ data string.
+      val docType: String? = null, // Combined document type (e.g., “P” for passport). Data priority: chip > MRZ > VIZ Enum: ['P', 'PC', 'I', 'D', 'C', 'OTHER']
+      val surname: String? = null, // Combined passport holder’s surname.
+      val name: String? = null, // Combined passport holder’s given names.
+      val docNumber: String? = null, // Combined passport document number.
+      val checkDigit: String? = null, // Combined check digit for the document number.
+      val nationality: String? = null, // Combined nationality ISO code.
+      val birthDate: String? = null, // Combined date of birth in YY-MM-DD format.
+      val birthDateDigit: String? = null, // Combined check digit for the birth date.
+      val sex: String? = null, // Combined gender of the passport holder. Enum: ['M', 'F', 'X']
+      val expiryDate: String? = null, // Combined passport expiry date in YY-MM-DD format.
+      val expiryDateDigit: String? = null, // Combined check digit for the expiry date.
+      val optionalData: String? = null, // Combined additional optional data (e.g., personal identification number).
+      val optionalDataDigit: String? = null, // Combined check digit for the optional data.
+      val mrzType: String? = "unknown", // Combined format of the MRZ (e.g., “ID-3”). Enum: ['ID-1', 'ID-2', 'ID-3']
+      val docImagePath: String = PhotoPath.DOCUMENT_IMAGE_PATH,
+      val holderImagePath: String = PhotoPath.PORTRAIT_PHOTO_PATH,
+    ): Parcelable
     ```
     ```kotlin
-    data class DocumentTypeData(
-        val type: DocumentType,
-        val infoVal: DocumentTypeInfo?
-    )
+    data class VIZSection(
+      val docType: String? = null, // Document type in the VIZ. Enum: ['PC', 'ID', 'C', 'OTHER']
+      val issueState: String? = null, // Issuing country code.
+      val surname: String? = null, // Passport/ID card holder’s surname as shown in the VIZ.
+      val name: String? = null, // Passport/ID card holder’s given names as shown in the VIZ.
+      val sex: String? = null, // Gender of the passport holder. Enum: ['M', 'F', 'X'] Nullable: true
+      val docNumber: String? = null, // Passport/ID card document number.
+      val nationality: String? = null, // Nationality in native language.
+      val issueDate: String? = null, //Date when the passport/ID card was issued.
+      val personalNumber: String? = null, // Personal identification number.
+      val height: String? = null, // Height of the passport/ID card holder.
+      val expiryDate: String? = null, // Expiry date of the passport/ID card.
+      val docImagePath: String = PhotoPath.DOCUMENT_IMAGE_PATH,
+      val holderImagePath: String = PhotoPath.PORTRAIT_PHOTO_PATH,
+      val validations: VIZValidation = VIZValidation(), // Validation status indicating if the document is expired
+    ): Parcelable
     ```
     ```kotlin
-    enum class DocumentType { 
-        PASSPORT, 
-        VISA, 
-        ID_CARD, 
-        DRIVING_LICENSE, 
-        UNKNOWN
-    }
+    data class MRZSection(
+      val mrzString: String? = null, // Raw MRZ data string.
+      val docType: String? = null, // Document type from MRZ. Enum: ['P', 'I', 'A', 'V', 'C', 'OTHER']
+      val surname: String? = null, // Passport/ID card holder’s surname from MRZ.
+      val name: String? = null, // Passport/ID card holder’s given names from MRZ.
+      val docNumber: String? = null, // Passport/ID card document number from MRZ.
+      val checkDigit: String? = null, // Check digit for the document number from MRZ.
+      val nationality: String? = null, // Nationality code from MRZ.
+      val birthDate: String? = null, // Date of birth from MRZ in YY-MM-DD format.
+      val birthDateDigit: String? = null, // Check digit for the birth date from MRZ.
+      val sex: String? = null, // Gender from MRZ. Enum: ['M', 'F', 'X']
+      val expiryDate: String? = null, // Expiry date from MRZ in YY-MM-DD format.
+      val expiryDateDigit: String? = null, // Check digit for the expiry date from MRZ.
+      val optionalData: String? = null, // Optional data from MRZ.
+      val optionalDataDigit: String? = null, // Check digit for the optional data from MRZ.
+      val mrzType: String? = null, // Format of the MRZ. Enum: ['ID-1', 'ID-2', 'ID-3']
+      val validations: MRZValidation = MRZValidation(),
+    ): Parcelable
     ```
     ```kotlin
-    data class DocumentTypeInfo(
-        val documentId: Int,
-        val dTypeId: Int,
-        val documentName: String?,
-        val icaoCode: String?
-    )
+    data class RFIDSection(
+      val mrzString: String? = null, // Raw MRZ data string from RFID chip.
+      val docType: String? = null, // Document type from RFID chip. Enum: ['P', 'I', 'V', 'C']
+      val surname: String? = null, // Passport/ID card holder’s surname from RFID chip.
+      val name: String? = null, // Passport/ID card holder’s given names from RFID chip.
+      val docNumber: String? = null, // Passport/ID card document number from RFID chip.
+      val checkDigit: String? = null, // Check digit for the document number from RFID chip.
+      val nationality: String? = null, // Nationality code from RFID chip.
+      val birthDate: String? = null, // Date of birth from RFID chip in YY-MM-DD format.
+      val birthDateDigit: String? = null, // Check digit for the birth date from RFID chip.
+      val sex: String? = null, // Gender from RFID chip. Enum: ['M', 'F', 'X']
+      val expiryDate: String? = null, // Expiry date from RFID chip in YY-MM-DD format.
+      val expiryDateDigit: String? = null, // Check digit for the expiry date from RFID chip.
+      val optionalData: String? = null, // Optional data from RFID chip.
+      val optionalDataDigit: String? = null, // Check digit for the optional data from RFID chip.
+      val mrzType: String? = null, // Format of the MRZ from RFID chip. Enum: ['ID-1', 'ID-2', 'ID-3']
+      val holderImagePath: String = PhotoPath.PORTRAIT_PHOTO_PATH,
+      val validations: RFIDValidation = RFIDValidation(),
+    ): Parcelable
     ```
 
-    The DocumentDataStatus, RFIDStatus and DocumentType are enums that have the following possibilities:
+    The validations on each class contains information about the field status:
 
     ```kotlin
-    enum class DocumentDataStatus {
-        OK, 
-        VALIDATION_ERROR, 
-        EXPIRED_DOCUMENT,
-        RFID_PASSIVE_AUTHENTICATION,
-        MRZ_RFID_MISMATCH, 
-        RFID_TIMEOUT, 
-        RFID_PERMISSION_NOT_GRANTED, 
-        RFID_TAG_NOT_FOUND, 
-        RFID_NFC_NOT_SUPPORTED, 
-        RFID_GENERIC_ERROR, 
-        USER_SKIPPED_RFID
-    }
-    ```
-    ```kotlin
-    enum class RFIDStatus {
-        UNDEFINED, 
-        SUCCESS, 
-        ERROR
-    }
+    data class VIZValidation(
+      val expired: Int = 2, // Enum: [0, 1, 2] Description: • 0: Failed • 1: Success • 2: Unknown
+    ): Parcelable
+    
+    data class MRZValidation(
+      val checkDigit: Int = 2, // Enum: [0, 1, 2] Description: • 0: Failed • 1: Success • 2: Unknown
+      val format: Int = 2, // Enum: [0, 1, 2] Description: • 0: Failed • 1: Success • 2: Unknown
+      val expired: Int = 2, // Enum: [0, 1, 2] Description: • 0: Failed • 1: Success • 2: Unknown
+    ): Parcelable
+    
+    data class RFIDValidation(
+      val checkDigit: Int = 2, // Enum: [0, 1, 2] Description: • 0: Failed • 1: Success • 2: Unknown
+      val expired: Int = 2, // Enum: [0, 1, 2] Description: • 0: Failed • 1: Success • 2: Unknown
+    ): Parcelable
+    
+    /**
+      * Enum: [0, 1, 2]  0: Failed  • 1: Success  • 2: Unknown
+      * Data sources(exception on mrzType):
+      * - When chip read: chip + MRZ
+      * - When chip not read: MRZ + VIZ
+      * - When only MRZ: MRZ
+    */
+    data class Validations(
+      val status: Int = 2, // Overall validation/comparison status of the document.
+      val chip: Int = 2, // Overall validation of the chip read operation.
+      val docType: Int = 2, // Overall validation/comparison status of document type.
+      val surname: Int = 2, // Overall validation/comparison status of surname.
+      val name: Int = 2, // Overall validation/comparison status of name.
+      val docNumber: Int = 2, // Overall validation/comparison status of document number.
+      val checkDigit: Int = 2, // Overall validation/comparison status of check digit.
+      val nationality: Int = 2, // Overall validation/comparison status of nationality.
+      val birthDate: Int = 2, // Overall validation/comparison status of birth date.
+      val birthDateDigit: Int = 2, // Overall validation/comparison status of birth date check digit.
+      val sex: Int = 2, // Overall validation/comparison status of sex.
+      val expiryDate: Int = 2, // Overall validation/comparison status of expiry date.
+      val expiryDateDigit: Int = 2, // Overall validation/comparison status of expiry date check digit.
+      val optionalData: Int = 2, // Overall validation/comparison status of optional data.
+      val optionalDataDigit: Int = 2, // Overall validation/comparison status of optional data check digit.
+      val mrzType: Int = 2, // Overall validation/comparison status of MRZ type. When chip read: chip + MRZ  • When only MRZ: MRZ
+      val checkDigitCalculation: Int = 2, // Overall check digit calculation validation/comparison.
+      val expired: Int = 2, // Overall expiry validation/comparison indicating if the document is expired.
+      val aa: Int = 2, // Active Authentication status.
+      val bac: Int = 2, // Basic Access Control status.
+      val ca: Int = 2, // Chip Authentication status.
+      val pa: Int = 2, // Passive Authentication status.
+      val pace: Int = 2, // Password Authenticated Connection Establishment status.
+      val ta: Int = 2, // Terminal Authentication status.
+    ): Parcelable
     ```
     
 === "iOS"

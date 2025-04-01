@@ -116,7 +116,6 @@ The BoardingPassParserParameters object has the following structure:
     /**
     * Parameters for each [BoardingPass] parser operation.
     *
-    * @param showPreview if true, it will show a preview of [BoardingPass].
     * @param validate if true, it will perform validation of the [BoardingPass] fields.
     */
     @Parcelize
@@ -132,10 +131,8 @@ The BoardingPassParserParameters object has the following structure:
     @Parcelize
     data class BoardingPassStringParserParameters(
         val boardingPassData: BoardingPassData,
-        override val showPreview: Boolean,
         override val validate: Boolean
     ) : BoardingPassParserParameters(
-        showPreview,
         validate
     )
     
@@ -147,10 +144,8 @@ The BoardingPassParserParameters object has the following structure:
     @Parcelize
     data class BoardingPassImageParserParameters(
         val uri: Uri,
-        override val showPreview: Boolean,
         override val validate: Boolean
     ) : BoardingPassParserParameters(
-        showPreview,
         validate
     )
     ```

@@ -56,24 +56,23 @@ below. Below is an example of the BiometricFaceCaptureParameters:
 === "Android"
 
     ```kotlin
-    @Parcelize
     data class BiometricFaceCaptureParameters(
         val frameFormat: FaceCaptureFrameFormat = FaceCaptureFrameFormat.OVAL,
         val cameraConfig: CameraConfig,
-        val faceCaptureTimeout: Long? = null
-    ) : Parcelable{
-        init {
-            if (faceCaptureTimeout != null) {
-                require(faceCaptureTimeout >= TimeUnit.SECONDS.toMillis(30)) { "faceCaptureTimeout value must be at least 30 seconds." }
-            }
-        }
-    }
+        val faceCaptureTimeout: Long? = null,
+        val compressFormat: CompressFormat = CompressFormat.PNG
+    )
     ```
+    
+    Now it's also possible to pass the compress format for the resulting biometric face photo format. 
+
+    It defaults to PNG but it's possible to pass other formats such as JPEG.
 
     The **FaceCaptureFrameFormat** is an enum that shapes the frame where the face must be centered to take the selfie. Currently it has two options:
     
     ```kotlin
     enum class FaceCaptureFrameFormat {
+        @Deprecated(message = "SQUARE shape will be removed in the next major release", replaceWith = ReplaceWith("OVAL"))
         SQUARE,
         OVAL
     }
@@ -85,6 +84,7 @@ below. Below is an example of the BiometricFaceCaptureParameters:
         val enableCameraToggle: Boolean,
         val defaultCamera: CameraSelector,
     )
+
 === "iOS"
 
     ```swift

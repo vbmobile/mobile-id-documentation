@@ -143,13 +143,13 @@ data you can create the `BuildSubjectParameters` object. This object has the fol
     ```kotlin
     data class BuildSubjectParameters(
         val documentData: DocumentData,
-        val documentPhoto: Bitmap,
+        val documentPhoto: Bitmap?,
         val enrolmentPhoto: Bitmap,
         val boardingPass: BoardingPass? = null,
-        val processReport: ProcessReport? = null,
+        val processReport: FaceCaptureReport? = null,
         val matchReport: MatchReport? = null,
         val documentReaderReport: DocumentReaderReport? = null,
-        val language: Locale = Locale.getDefault(),
+        val language: Locale? = null,
     )
     ```
     

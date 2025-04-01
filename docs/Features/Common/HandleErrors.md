@@ -37,17 +37,18 @@ The FeatureError has the following structure:
         InternalError,
         CommunicationError,
         PermissionNotGrantedError,
-        UserRepeated,
         UserCanceled,
         ScanError,
         Timeout,
         BoardingPassInvalidError,
+        DocumentReaderError,
         FaceCaptureError,
         FaceMatchError,
         SubjectError,
         FormError,
         UnknownError,
         ConfigurationError,
+        BadConfigurationError
     }
     ```
 
@@ -90,10 +91,11 @@ Here you can find a list of all the error codes the SDK sends to the client appl
 
 | Name                            | Value | Feature           |
 |---------------------------------|-------|-------------------|
-| InvalidApiKey                   |  10   | Configuration     |
-| InvalidEndpoint                 |  11   | Configuration     |
-| InitFailed                      |  12   | Configuration     |
-| NotReady                        |  13   | Configuration     |
+| InvalidApiKey                   | 010   | Configuration     |
+| InvalidEndpoint                 | 011   | Configuration     |
+| InitFailed                      | 012   | Configuration     |
+| NotReady                        | 013   | Configuration     |
+| NotReady                        | 014   | Configuration     |
 | ConfigError                     | 100   | DocumentReader    |
 | NotReady                        | 101   | DocumentReader    |
 | InitFailed                      | 102   | DocumentReader    |
@@ -105,10 +107,15 @@ Here you can find a list of all the error codes the SDK sends to the client appl
 | FetchingResourcesFailed         | 120   | DocumentReader    |
 | TransactionFailed               | 121   | DocumentReader    |
 | InvalidDatabaseState            | 122   | DocumentReader    |
+| ProviderNotFound                | 140   | DocumentReader    |
+| InvalidParameters               | 141   | DocumentReader    |
 | MrzError                        | 150   | DocumentReader    |
 | RegulaError                     | 151   | DocumentReader    |
 | MrzTimeout                      | 152   | DocumentReader    |
-| Repeated                        | 160   | DocumentReader    |
+| RFIDError                       | 153   | DocumentReader    |
+| GenericError                    | 170   | DocumentReader    |
+| PAError                         | 171   | DocumentReader    |
+| MRZRFIDMismatch                 | 172   | DocumentReader    |
 | UnknownError                    | 180   | DocumentReader    |
 | ConfigError                     | 200   | BoardingPassScan  |
 | BarcodeUnsupported              | 201   | BoardingPassScan  |
@@ -121,7 +128,6 @@ Here you can find a list of all the error codes the SDK sends to the client appl
 | BoardingPassItemParserError     | 251   | BoardingPassScan  |
 | BoardingPassInvalid             | 252   | BoardingPassScan  |
 | BarcodeEmpty                    | 253   | BoardingPassScan  |
-| Repeated                        | 260   | BoardingPassScan  |
 | UnknownError                    | 280   | BoardingPassScan  |
 | ConfigError                     | 300   | BoardingPassParse |
 | BarcodeUnsupported              | 301   | BoardingPassParse |
@@ -133,7 +139,6 @@ Here you can find a list of all the error codes the SDK sends to the client appl
 | BarcodeEmpty                    | 352   | BoardingPassParse |
 | BoardingPassImageNoBarcodeFound | 353   | BoardingPassParse |
 | BoardingPassImageParseError     | 354   | BoardingPassParse |
-| Repeated                        | 360   | BoardingPassParse |
 | UnknownError                    | 380   | BoardingPassParse |
 | PermissionNotGranted            | 400   | FaceCapture       |
 | ErrorLoadingImageFromStorage    | 401   | FaceCapture       |
@@ -146,10 +151,10 @@ Here you can find a list of all the error codes the SDK sends to the client appl
 | PermissionNotGranted            | 420   | FaceCapture       |
 | ErrorLoadingImageFromStorage    | 422   | FaceCapture       |
 | PermissionNotGranted            | 430   | FaceCapture       |
+| InvalidParameters               | 440   | FaceCapture       |
 | ErrorLoadingImageFromStorage    | 450   | FaceCapture       |
 | PermissionNotGranted            | 451   | FaceCapture       |
 | ErrorLoadingImageFromStorage    | 452   | FaceCapture       |
-| Repeated                        | 460   | FaceCapture       |
 | UnknownError                    | 480   | FaceCapture       |
 | PermissionNotGranted            | 500   | FaceMatch         |
 | ErrorLoadingImages              | 501   | FaceMatch         |
@@ -157,7 +162,6 @@ Here you can find a list of all the error codes the SDK sends to the client appl
 | CommunicationError              | 521   | FaceMatch         |
 | MatchFailed                     | 550   | FaceMatch         |
 | DataIntegrityFailed             | 551   | FaceMatch         |
-| Repeated                        | 560   | FaceMatch         |
 | UnknownError                    | 580   | FaceMatch         |
 | PermissionNotGranted            | 600   | Subject           |
 | DataError                       | 601   | Subject           |
@@ -165,7 +169,6 @@ Here you can find a list of all the error codes the SDK sends to the client appl
 | CommunicationError              | 621   | Subject           |
 | SubjectServiceError             | 650   | Subject           |
 | MissingBCBP                     | 651   | Subject           |
-| Repeated                        | 660   | Subject           |
 | UnknownError                    | 680   | Subject           |
 | PermissionNotGranted            | 800   | Form              |
 | TransactionFailed               | 820   | Form              |

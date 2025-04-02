@@ -240,8 +240,7 @@ BarcodeFormat is an enumeration and it contains the following cases.
     Below is an example of usage:
 
     ```swift
-    let parameters = ScanBoardingPassParameters(
-                showPreview: true, showErrors: true, validateBoardingPass: preferences.useIataStandards())
+    let parameters = ScanBoardingPassParameters( validateBoardingPass: preferences.useIataStandards())
 
      self.enrolment.scanBoardingPass(parameters: parameters, viewController: vc) { [weak self] result in
             switch result {

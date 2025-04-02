@@ -39,7 +39,7 @@ nav:
         - Customization:
             - Loading view: Features/DocumentReader/DocumentReader_LoadingView.md
             - Scan view: Features/DocumentReader/DocumentReader_ScanView.md
-            - RFID read view: Features/DocumentReader/DocumentReader_HandleErrors.md
+            - RFID read view: Features/DocumentReader/DocumentReader_RFIDReadView.md
             - Chip reading:
                 - iOS:
                     - Read chip view: Features/DocumentReader/DocumentReader_ReadChipView_iOS.md

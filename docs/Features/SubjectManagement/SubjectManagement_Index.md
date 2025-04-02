@@ -157,7 +157,8 @@ data you can create the `BuildSubjectParameters` object. This object has the fol
 
     ``` swift 
     public struct BuildSubjectParameters {
-        public let documentData: DocumentData
+        public let documentData: DocumentData?
+        public let idDocument: IdDocument?
         public let documentDataValidated: Bool
         public let documentImage: UIImage
         public let enrolmentImage: UIImage
@@ -166,16 +167,19 @@ data you can create the `BuildSubjectParameters` object. This object has the fol
         public let formReport: FormReport?
         public let processReport: BiometricFaceCaptureReport?
         public let documentReaderReport: DocumentReaderReport?
-        
-        public init(documentData: DocumentData,
-                documentImage: UIImage,
-                enrolmentImage: UIImage,
-                boardingPass: BoardingPassSummary?,
-                documentReaderReport: DocumentReaderReport? = nil,
-                biometricFaceCaptureReport: BiometricFaceCaptureReport? = nil,
-                matchReport: MatchReport? = nil,
-                language: Locale? = nil,
-                formReport: FormReport? = nil)
+
+        public init(
+            documentData: DocumentData? = nil,
+            idDocument: IdDocument? = nil,
+            documentImage: UIImage,
+            enrolmentImage: UIImage,
+            boardingPass: BoardingPassSummary?,
+            documentReaderReport: DocumentReaderReport? = nil,
+            biometricFaceCaptureReport: BiometricFaceCaptureReport? = nil,
+            matchReport: MatchReport? = nil,
+            language: Locale? = nil,
+            formReport: FormReport? = nil
+        )
     }
     ```
     

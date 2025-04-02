@@ -179,6 +179,7 @@ In case of success, the MatchReport has the following structure:
     public struct MatchReport: Codable {
         public let matchDuration: String
         public let photosMatched: Bool
+        public let score: Double
         public let algorithm: String?
         public let referenceTemplate: Data?
         public let candidateTemplate: Data?

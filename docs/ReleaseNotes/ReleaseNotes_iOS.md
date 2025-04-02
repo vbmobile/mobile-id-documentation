@@ -1,5 +1,23 @@
 # MobileID SDK - Release Notes
 
+
+## 8.1.0
+
+### What's new
+
+- Added a new property to matchReport that indicates the score of the biometric match in success cases as well.
+- New **IdDocument** class that will replace DocumentData in the document reader report.
+- Added offline mode support.
+- New license mechanism via jwt token.
+
+### Improvements
+
+- Improved custom loading screen in subject feature
+- Improved internal logging capabilities.
+
+#### Warning
+- The object DocumentData from the Document Reader feature is **deprecated and will be removed in the future**, please update to the new object IdDocument.
+
 ## 8.0.0
 
 ### What's new

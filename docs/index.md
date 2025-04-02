@@ -18,7 +18,7 @@ hide:
     To integrate the **Mobile ID SDK** for iOS, the following prerequisites must be met: 
     
     - Install or update Xcode to latest version;
-    - Target iOS 12 or later. 
+    - Target iOS 13 or later. 
 
 You must also send an ID (Bundle ID or Application ID) to vision-box so that we can associate the API key with the application, this way your API key is protected with only authorized applications.
 
@@ -52,7 +52,7 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
     1. Add the following to your Podfile, with the latest version:
     ```
     pod 'MobileIdSDKiOS', '8.1.0'
-    pod 'VBOcrMrzRfidRegula', '1.0.0'
+    pod 'VBOcrMrzRfidRegula', '2.0.0'
     ```
     2. Add Mobile ID’s cocoapods repo as a source in your podfile:
     ```
@@ -180,8 +180,7 @@ The SDK also allows client apps to use their own custom views for its functional
     ))
 
     var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, 
-                                                    databaseID: "DatabaseName", 
-                                                    checkHologram: false)
+                                                    databaseID: "DatabaseName")
 
         Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
                                   documentScanProvider: RegulaDocumentReaderScan(config: documentReaderConfig),
@@ -234,7 +233,7 @@ To ensure offline mode compatibility, you will need the following:
 
 - An offline license. (Contact your liaison in Vision-Box/Amadeus)
 - Put the Regula Database, license and master list in your app's assets (Optional for document reader feature)
-- Import the bundled version of face detection ml-kit library (Optional for face capture feature)
+- Import the bundled version of face detection ml-kit library (Optional for face capture feature Android only)
 
 You can follow this platform specific guide to prepare your application to offline mode support:
 
@@ -460,11 +459,10 @@ pinning for every network request made by the SDK.
 
 ### Log Configuration
 
-A log configuration can be added to the EnrolmentConfig to get additional info on some of the operations of the SDK. A Console and a File strategy are available, these can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.
-
-
 === "Android"
 
+    A log configuration can be added to the EnrolmentConfig to get additional info on some of the operations of the SDK. A Console and a File strategy are available, these can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.
+    
     ```kotlin
     class LogConfiguration(
         val logLevel: LogLevel,
@@ -482,8 +480,34 @@ A log configuration can be added to the EnrolmentConfig to get additional info o
 
 === "iOS"
 
+    A log strategy  can be passed to the `Enrolment.initWith` to get additional info on some of the operations of the SDK. A Console strategy is available, this can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.
+    
     ```swift
-      TODO
+    public enum LogStrategy {
+    /// Outputs logs to the console/standard output
+    ///
+    /// - Parameter level: The minimum log level to display. Messages below
+    ///   this level will be filtered out. For example, if set to `.warn`,
+    ///   only warning and error messages will be logged.
+    case console(level: LogLevel)
+    }
+
+    public enum LogLevel: Int {
+    /// No logging will occur
+    case none
+
+    /// Logs error messages
+    /// Used for critical failures and exceptions
+    case error
+
+    /// Logs warning messages
+    /// Indicates potential issues that don't prevent execution
+    case warn
+
+    /// Logs user or SDK behavior
+    /// Suitable for tracking basic user interactions
+    case info
+    }
     ```
 
 ## Advanced Configurations

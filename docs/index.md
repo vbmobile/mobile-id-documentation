@@ -52,7 +52,7 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
     1. Add the following to your Podfile, with the latest version:
     ```
     pod 'MobileIdSDKiOS', '8.1.0'
-    pod 'VBOcrMrzRfidRegula', '2.0.0'
+    pod 'VBOcrMrzRfidRegula', '1.1.0'
     ```
     2. Add Mobile ID’s cocoapods repo as a source in your podfile:
     ```

@@ -1,0 +1,3307 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://vbmobile.github.io/mobile-id-documentation/8.1/index.html">
+      
+      
+      
+        <link rel="next" href="Features/Common/HandleErrors.html">
+      
+      
+      <link rel="icon" href="assets/vb-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+    
+    
+      
+        <title>MobileID SDK Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
+  
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M0%208a8%208%200%201%201%2016%200A8%208%200%200%201%200%208m8-6.5a6.5%206.5%200%201%200%200%2013%206.5%206.5%200%200%200%200-13M6.5%207.75A.75.75%200%200%201%207.25%207h1a.75.75%200%200%201%20.75.75v2.75h.25a.75.75%200%200%201%200%201.5h-2a.75.75%200%200%201%200-1.5h.25v-2h-.25a.75.75%200%200%201-.75-.75M8%206a1%201%200%201%201%200-2%201%201%200%200%201%200%202%22/%3E%3C/svg%3E');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#getting-started" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+You're not viewing the latest version.
+<a href="../.">
+    <strong>Click here to go to latest.</strong>
+</a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="MobileID SDK Documentation" class="md-header__button md-logo" aria-label="MobileID SDK Documentation" data-md-component="logo">
+      
+  <img src="assets/vb-logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MobileID SDK Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Getting started
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/vbmobile?tab=repositories" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Sample Apps
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="Features/Common/HandleErrors.html" class="md-tabs__link">
+          
+  
+  
+  Features
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="ReleaseNotes/ReleaseNotes_Android.html" class="md-tabs__link">
+          
+  
+  
+  Release notes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="MigrationGuide/MigrationGuide_Android.html" class="md-tabs__link">
+          
+  
+  
+  Migration guide
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="MobileID SDK Documentation" class="md-nav__button md-logo" aria-label="MobileID SDK Documentation" data-md-component="logo">
+      
+  <img src="assets/vb-logo.png" alt="logo">
+
+    </a>
+    MobileID SDK Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/vbmobile?tab=repositories" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Sample Apps
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Getting started
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting started
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#prerequisites" class="md-nav__link">
+        Prerequisites
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#enrolment-sdk-setup" class="md-nav__link">
+        Enrolment SDK setup
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#how-to-initialize-the-sdk" class="md-nav__link">
+        How to initialize the SDK
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#offline-mode-support" class="md-nav__link">
+        Offline Mode Support
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#data-security" class="md-nav__link">
+        Data Security
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#configurations" class="md-nav__link">
+        Configurations
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#advanced-configurations" class="md-nav__link">
+        Advanced Configurations
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#localization-support" class="md-nav__link">
+        Localization Support
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#rfid-chip-processing" class="md-nav__link">
+        RFID Chip Processing
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#camera-permissions" class="md-nav__link">
+        Camera Permissions
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#custom-styles" class="md-nav__link">
+        Custom Styles
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#dependencies" class="md-nav__link">
+        Dependencies
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#glossary-and-terminology" class="md-nav__link">
+        Glossary and Terminology
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Features
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Common
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Common
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/Common/HandleErrors.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to handle errors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/Common/ComposeSupport.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use compose for custom views
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Document reader
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Document reader
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/DocumentReader/DocumentReader_Index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/DocumentReader/DocumentReader_RegulaDB.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Regula database
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Customization
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/DocumentReader/DocumentReader_LoadingView.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Loading view
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/DocumentReader/DocumentReader_ScanView.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scan view
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/DocumentReader/DocumentReader_RFIDReadView.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RFID read view
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3_4" id="__nav_2_2_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chip reading
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_2_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Chip reading
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3_4_1" id="__nav_2_2_3_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    iOS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_2_2_3_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            iOS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/DocumentReader/DocumentReader_ReadChipView_iOS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Read chip view
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3_4_2" id="__nav_2_2_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Android
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_2_2_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Android
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/DocumentReader/DocumentReader_FindChipView_Android.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Find chip view
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/DocumentReader/DocumentReader_ReadChipView_Android.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Read chip view
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/DocumentReader/DocumentReader_PreviewView.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Preview view
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/DocumentReader/DocumentReader_HandleErrors.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Handle errors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Face capture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Face capture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/FaceCapture/FaceCapture_Index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Customization
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/FaceCapture/FaceCapture_LoadingView.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Loading view
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/FaceCapture/FaceCapture_ScanView.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scan view
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/FaceCapture/FaceCapture_PreviewView.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Preview view
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/FaceCapture/FaceCapture_HandleErrors.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Handle errors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Biometric match
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Biometric match
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/BiometricMatch/BiometricMatch_Index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Customization
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/BiometricMatch/BiometricMatch_LoadingView.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Loading view
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/BiometricMatch/BiometricMatch_HandleErrors.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Handle errors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Boarding pass reader
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Boarding pass reader
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/BoardingPass/BoardingPass_Index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_2" id="__nav_2_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Customization
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/BoardingPass/BoardingPass_LoadingView.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Loading view
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/BoardingPass/BoardingPass_ScanView.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scan view
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/BoardingPass/BoardingPass_PreviewView.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Preview view
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/BoardingPass/BoardingPass_HandleErrors.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Handle errors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Subject management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Subject management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/SubjectManagement/SubjectManagement_Index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6_2" id="__nav_2_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Customization
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/SubjectManagement/SubjectManagement_LoadingView.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Loading view
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/SubjectManagement/SubjectManagement_HandleErrors.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Handle errors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Features/Form/Form_Index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Form
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Release notes
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Release notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ReleaseNotes/ReleaseNotes_Android.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Android
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ReleaseNotes/ReleaseNotes_iOS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    iOS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Migration guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Migration guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="MigrationGuide/MigrationGuide_Android.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Android
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="MigrationGuide/MigrationGuide_iOS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    iOS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#prerequisites" class="md-nav__link">
+        Prerequisites
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#enrolment-sdk-setup" class="md-nav__link">
+        Enrolment SDK setup
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#how-to-initialize-the-sdk" class="md-nav__link">
+        How to initialize the SDK
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#offline-mode-support" class="md-nav__link">
+        Offline Mode Support
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#data-security" class="md-nav__link">
+        Data Security
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#configurations" class="md-nav__link">
+        Configurations
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#advanced-configurations" class="md-nav__link">
+        Advanced Configurations
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#localization-support" class="md-nav__link">
+        Localization Support
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#rfid-chip-processing" class="md-nav__link">
+        RFID Chip Processing
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#camera-permissions" class="md-nav__link">
+        Camera Permissions
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#custom-styles" class="md-nav__link">
+        Custom Styles
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#dependencies" class="md-nav__link">
+        Dependencies
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#glossary-and-terminology" class="md-nav__link">
+        Glossary and Terminology
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+  
+  
+
+
+<h1 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h1>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Android</label><label for="__tabbed_1_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>To integrate the Mobile ID SDK for Android, the following prerequisites must be met:</p>
+<ul>
+<li>Install or update Android Studio to latest version;</li>
+<li>Target API level 24 (Marshmallow) or later;</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p>To integrate the <strong>Mobile ID SDK</strong> for iOS, the following prerequisites must be met: </p>
+<ul>
+<li>Install or update Xcode to latest version;</li>
+<li>Target iOS 13 or later. </li>
+</ul>
+</div>
+</div>
+</div>
+<p>You must also send an ID (Bundle ID or Application ID) to vision-box so that we can associate the API key with the application, this way your API key is protected with only authorized applications.</p>
+<h2 id="enrolment-sdk-setup">Enrolment SDK setup<a class="headerlink" href="#enrolment-sdk-setup" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Android</label><label for="__tabbed_2_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>To add the Enrolment SDK to your app, perform the following steps:</p>
+<ol>
+<li>Add these new repositories in your app top level gradle file:
+<div class="highlight"><pre><span></span><code>maven { url &quot;https://vbmobileidstorage.blob.core.windows.net/android/&quot; }
+maven { url &quot;https://maven.regulaforensics.com/RegulaDocumentReader&quot; }
+</code></pre></div></li>
+<li>Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
+<div class="highlight"><pre><span></span><code>implementation(&quot;com.visionbox.mobileid.sdk:mid-sdk-enrolment:&lt;8.1.0&gt;@aar&quot;) { transitive = true }
+implementation(&quot;com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:&lt;1.0.3&gt;&quot;)
+</code></pre></div></li>
+<li>Sync gradle.</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<p>To add the Enrolment SDK to your app, perform the following steps:</p>
+<p><strong>CocoaPods</strong></p>
+<p>To always use the latest release, add the following to your Podfile:</p>
+<ol>
+<li>Add the following to your Podfile, with the latest version:
+<div class="highlight"><pre><span></span><code>pod &#39;MobileIdSDKiOS&#39;, &#39;8.1.0&#39;
+pod &#39;VBOcrMrzRfidRegula&#39;, &#39;2.0.0&#39;
+</code></pre></div></li>
+<li>Add Mobile ID’s cocoapods repo as a source in your podfile:
+<div class="highlight"><pre><span></span><code>source ‘https://cdn.cocoapods.org/
+</code></pre></div></li>
+<li>Run in Terminal the command below to install pods in your project:
+<div class="highlight"><pre><span></span><code>pod install
+</code></pre></div></li>
+</ol>
+<p><strong>NOTE:</strong> Due the necessity of the SDK to be built for distribution, a post installscript might be needed in your Podfile: (https://github.com/CocoaPods/CocoaPods/issues/9232).
+Example:
+<div class="highlight"><pre><span></span><code>post_install do |installer|
+    installer.pods_project.build_configurations.each do |config|
+        config.build_settings[&#39;BUILD_LIBRARY_FOR_DISTRIBUTION&#39;] = &#39;YES&#39;
+        config.build_settings[&quot;EXCLUDED_ARCHS[sdk=iphonesimulator*]&quot;] = &quot;arm64&quot;
+    end
+end
+</code></pre></div></p>
+<p><strong>SPM</strong></p>
+<ol>
+<li>In Xcode, naviate to File &gt; Add Package Dependencies.</li>
+<li>
+<p>In the prompt that appears, enter the package URL:</p>
+<p>For <strong>MobileIdSDKiOS</strong>
+<div class="highlight"><pre><span></span><code>https://github.com/vbmobile/MobileIdSDKiOS
+</code></pre></div>
+For <strong>VBOcrMrzRfidRegula</strong>
+<div class="highlight"><pre><span></span><code>https://github.com/vbmobile/VBOcrMrzRfidRegula
+</code></pre></div></p>
+</li>
+<li>
+<p>Select the version you want to use. For new projects, we recommend using the newest version of SeamlessMobile SDK.</p>
+</li>
+<li>Select the project you want to add the package.</li>
+<li>Click Add Package.</li>
+</ol>
+<p>Once you're finished, Xcode will begin downloading and resolving dependencies.</p>
+<p><strong>Migration from CocoaPods to SPM</strong></p>
+<p>If migrating from a CocoaPods-based project, run <code>pod deintegrate</code> to remove CocoaPods from your Xcode project. The CocoaPods-generated .xcworkspace file can safely be deleted afterward. </p>
+<p>If you're adding SeamlessMobile SDK Swift Packages to a project for the first time, ignore this notice.</p>
+</div>
+</div>
+</div>
+<h2 id="how-to-initialize-the-sdk">How to initialize the SDK<a class="headerlink" href="#how-to-initialize-the-sdk" title="Permanent link">&para;</a></h2>
+<p>The Enrolment provides access to all the SDK features in a simple way. Since version 8, this was changed to a Singleton to make it accessible anywhere in your application.</p>
+<p>You can also specify the configurations that will be needed depending on the SDK functionalities you intend to use on your app.</p>
+<p>You just need to call the initialize method and then you can call the getInstance method to access the features individually.</p>
+<p>The initialize method does asynchronous work to prepare everything you might need for each feature, so you will receive a callback function when it's ready to use.</p>
+<p>The SDK also allows client apps to use their own custom views for its functionalities. These custom views must be defined when creating the Enrolment instance. For more information on custom views, please check the <a href="#advanced-configurations">advanced configurations</a> section.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Android</label><label for="__tabbed_3_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">apiConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">APIConfig</span><span class="p">(</span>
+<span class="w">    </span><span class="n">baseUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">URL</span><span class="p">(</span><span class="s">&quot;YOUR BASE URL&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="n">timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">30</span><span class="p">,</span><span class="w"> </span><span class="c1">// timeout in seconds</span>
+<span class="w">    </span><span class="n">logLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MobileAPILogLevel</span><span class="p">.</span><span class="na">BASIC</span><span class="p">,</span>
+<span class="w">    </span><span class="n">apiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">publicKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;YOUR PUBLIC KEY&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Optional parameter to ensure requests are encrypted</span>
+<span class="p">)</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">(</span><span class="n">apiConfig</span><span class="p">)</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="nv">regulaDocumentRfidProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RegulaProvider</span><span class="p">.</span><span class="na">getInstance</span><span class="p">(</span>
+<span class="w">        </span><span class="n">DocumentReaderConfig</span><span class="p">(</span>
+<span class="w">            </span><span class="n">multipageProcessing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="n">databaseId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;DatabaseName&quot;</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="nv">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">object</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">EnrolmentInitializerCallback</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onEnrolmentInitialized</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isAdded</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">binding</span><span class="p">.</span><span class="na">state</span><span class="p">.</span><span class="na">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getString</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">sdk_state_ready</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="s">&quot;Enrolment&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;onEnrolmentInitialization: Enrolment initialized successfully!&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onEnrolmentInitializationError</span><span class="p">(</span><span class="n">error</span><span class="p">:</span><span class="w"> </span><span class="n">FeatureError</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="s">&quot;Enrolment&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;onEnrolmentInitializationError: </span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">description</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">activity</span><span class="o">?.</span><span class="na">runOnUiThread</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">binding</span><span class="p">.</span><span class="na">state</span><span class="p">.</span><span class="na">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getString</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">sdk_state_error</span><span class="p">)</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">builder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AlertDialog</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">requireContext</span><span class="p">())</span>
+<span class="w">            </span><span class="n">builder</span><span class="p">.</span><span class="na">setTitle</span><span class="p">(</span><span class="s">&quot;Enrolment Initialization Error&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="n">builder</span><span class="p">.</span><span class="na">setMessage</span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="na">description</span><span class="p">)</span>
+<span class="w">            </span><span class="n">builder</span><span class="p">.</span><span class="na">show</span><span class="p">()</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">Enrolment</span><span class="p">.</span><span class="na">initialize</span><span class="p">(</span>
+<span class="w">    </span><span class="n">context</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">enrolmentConfig</span><span class="p">,</span>
+<span class="w">    </span><span class="n">documentReaderProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">regulaDocumentRfidProvider</span><span class="p">,</span>
+<span class="w">    </span><span class="n">rfidReaderProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">regulaDocumentRfidProvider</span><span class="p">,</span>
+<span class="w">    </span><span class="n">callback</span>
+<span class="p">)</span>
+</code></pre></div>
+The following parameters must always be provided:</p>
+<ul>
+<li>Context - Application context;</li>
+<li>EnrolmentConfig - Enrolment configuration.</li>
+<li>EnrolmentCustomViews - Will overwrite any default view from the Enrolment SDK</li>
+<li>Document and RFID reader provider - The preferred provider for document and rfid read operations</li>
+<li>EnrolmentInitializerCallback - To receive a callback when the enrolment is initialized or when an error occurs during the process.</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">(</span><span class="w"> </span><span class="n">apiConfig</span><span class="p">:</span><span class="w"> </span><span class="n">APIConfig</span><span class="p">(</span>
+<span class="w">        </span><span class="n">baseURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR BASE URL&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="c1">// timeout in seconds</span>
+<span class="w">        </span><span class="n">logLevel</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">basic</span><span class="p">,</span>
+<span class="w">        </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">publicKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR PUBLIC KEY&quot;</span><span class="w"> </span><span class="c1">// Optional parameter to ensure requests are encrypted</span>
+<span class="p">))</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                                                </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DatabaseName&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">RegulaDocumentReaderScan</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">documentReaderConfig</span><span class="p">),</span>
+<span class="w">                              </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="n">RegulaDocumentReaderRFID</span><span class="p">(),</span>
+<span class="w">                              </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="n">viewRegister</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="kc">_</span><span class="p">):</span>
+<span class="w">        </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Success: SeamlessMobile SDK is ready to use&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nv">error</span><span class="p">):</span>
+<span class="w">        </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Failure: error.description&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div>
+<p>The following parameters must always be provided:</p>
+<ul>
+<li>EnrolmentConfig - Enrolment configuration.</li>
+<li>CompletionHandler - To receive a callback when the enrolment is initialized or when an error occurs during the process.</li>
+</ul>
+<p>The following parameters must be provided if you want read documents:</p>
+<ul>
+<li>Document and RFID reader provider - The preferred provider for document and rfid read operations</li>
+</ul>
+<p>The following parameters must be provided if you want customize the screens</p>
+<ul>
+<li>EnrolmentCustomViews - Will overwrite any default view from the Enrolment SDK</li>
+</ul>
+</div>
+</div>
+</div>
+<p>There where some errors created to validate the enrolment configuration:</p>
+<ul>
+<li>If the apiKey is not in a valid format, for example it has an extra character, you will receive via callback an InvalidApiKey error(010 - APIKey is invalid)</li>
+<li>If the baseUrl is not correctly defined, for example it's using HTTP instead of HTTPS, you will receive via callback an InvalidEndpoint error(011 - Endpoint is invalid)</li>
+<li>If an error occurs during the initialize method, for example internet connection during the fetch configurations, you will receive via callback an InitFailed error(012 - Error while fetching configurations. Please check your internet connection and API URL/API Key.)</li>
+</ul>
+<p>If you try to call a feature while the Enrolment is not ready you will receive a NotReady error (013 - Enrolment is not ready yet. Wait for the callback.)</p>
+<h2 id="offline-mode-support">Offline Mode Support<a class="headerlink" href="#offline-mode-support" title="Permanent link">&para;</a></h2>
+<p>From version 8.1.0 onwards the SDK offers an offline mode, allowing apps without internet connection to still use some of the features.</p>
+<p>In offline mode we support the following features:</p>
+<ul>
+<li>Face Capture (Without liveness)</li>
+<li>Document Reader</li>
+<li>Boarding Pass Scan</li>
+</ul>
+<p>Face match and subject management are not compatible as they need internet access to properly work.</p>
+<p>To ensure offline mode compatibility, you will need the following:</p>
+<ul>
+<li>An offline license. (Contact your liaison in Vision-Box/Amadeus)</li>
+<li>Put the Regula Database, license and master list in your app's assets (Optional for document reader feature)</li>
+<li>Import the bundled version of face detection ml-kit library (Optional for face capture feature Android only)</li>
+</ul>
+<p>You can follow this platform specific guide to prepare your application to offline mode support:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Android</label><label for="__tabbed_4_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Instead of calling Enrolment.initialize, there's a new method in the facade Enrolment.initializeOffline:
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;YOUR_LICENSE_CONTENT&quot;</span>
+<span class="n">Enrolment</span><span class="p">.</span><span class="na">initializeOffline</span><span class="p">(</span>
+<span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">enrolmentConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
+<span class="w">    </span><span class="n">documentReaderProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">documentReaderProvider</span><span class="p">,</span>
+<span class="w">    </span><span class="n">rfidReaderProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">documentReaderProvider</span><span class="p">,</span>
+<span class="w">    </span><span class="n">enrolmentInitializerCallback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">callback</span><span class="p">,</span>
+<span class="w">    </span><span class="n">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">license</span>
+<span class="p">)</span>
+</code></pre></div></p>
+<p>In your project, create a new folder named "Regula" in your app's assets folder:</p>
+<ul>
+<li>app/src/main/assets/Regula</li>
+</ul>
+<p>Place the Database, Regula License and master list files in the new folder.
+The names of the files must be the following:</p>
+<ul>
+<li>Database   -&gt; "db.dat"</li>
+<li>License    -&gt; "regula.license"</li>
+<li>Masterlist -&gt; "csca_certificates.ldif"</li>
+</ul>
+<p>In your app's module build.gradle import the Bundled version of the ml-kit face-detection
+<div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="c1">// Use this dependency to bundle the model with your app</span>
+<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="err">&#39;</span><span class="n">com</span><span class="p">.</span><span class="na">google</span><span class="p">.</span><span class="na">mlkit</span><span class="p">:</span><span class="n">face</span><span class="o">-</span><span class="n">detection</span><span class="p">:</span><span class="m">16.1</span><span class="p">.</span><span class="m">7</span><span class="err">&#39;</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</div>
+<div class="tabbed-block">
+<p>Instead of calling <code>Enrolment.shared.initWith</code>, there's a new method in the facade, <code>Enrolment.shared.initOffline</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nv">license</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;YOUR_LICENSE_CONTENT&quot;</span>
+<span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initOffline</span><span class="p">(</span>
+<span class="w">    </span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
+<span class="w">    </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">documentScanProvider</span><span class="p">,</span>
+<span class="w">    </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="n">documentRFIDProvider</span><span class="p">,</span>
+<span class="w">    </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="n">viewRegister</span><span class="p">,</span>
+<span class="w">    </span><span class="n">jwtToken</span><span class="p">:</span><span class="w"> </span><span class="n">jwtToken</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bundle</span><span class="p">:</span><span class="w"> </span><span class="n">bundle</span><span class="p">,</span>
+<span class="w">    </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Place the Database, Regula License and master list files in your project's folder.
+The names of the files must be the following:</p>
+<ul>
+<li>Database   -&gt; "db.dat"</li>
+<li>License    -&gt; "regula.license"</li>
+<li>Masterlist -&gt; "csca_certificates.ldif"</li>
+</ul>
+</div>
+</div>
+</div>
+<p>Note that these steps are bound to increase your final apk size as it contains files that were previously downloaded in runtime.</p>
+<h2 id="data-security">Data Security<a class="headerlink" href="#data-security" title="Permanent link">&para;</a></h2>
+<p>In version 7.1, an hybrid encryption system was implemented to protect sensitive information and to prevent possible attacks.</p>
+<p><img alt="Hybrid Encryption System" src="images/Request_Encryption.png" style="display: block; margin: 5px auto" title="Request Encryption Flow" /></p>
+<p>The requests that are sent from the mobile platforms (both iOS and Android) now encrypt the headers that contain sensitive information, and the api key is hashed to prevent it from being leaked.</p>
+<p>The algorithm used to encrypt the headers is RSA-ECB with a secure padding algorithm. 
+This cypher mechanism uses a public key to encrypt it and a private key that is only known by the Backend so that they are able to decrypt the headers and verify the data.</p>
+<p><strong>It is possible to pass a public key as a string in the APIConfig, but you need to pass us the matching private key so that it's uploaded into the backoffice, otherwise the default keys will be used.</strong></p>
+<p>The API key now also validates if the application that is making the request is known by checking it's ID. 
+This prevents unauthorized access by using leaked API keys.
+You need to give us the application IDs that should be allowed to use your API key.</p>
+<p>In matters of user sensitive information (eg: biometric face capture image), the body of every HTTP request is now encrypted by using AES and a secure padding with a dynamically generated IV.
+This aims to prevent leaked information by the use of proxy's or interceptors.</p>
+<p>There's also a data integrity validation system that checks if the response information was not tampered with by comparing the body's hashed value with one of the headers.</p>
+<p><img alt="Data Integrity Check" src="images/Data_Integrity_Check.png" style="display: block; margin: 5px auto" title="Data Integrity Check" /></p>
+<h2 id="configurations">Configurations<a class="headerlink" href="#configurations" title="Permanent link">&para;</a></h2>
+<h3 id="enrolmentconfig">EnrolmentConfig<a class="headerlink" href="#enrolmentconfig" title="Permanent link">&para;</a></h3>
+<p>The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Android</label><label for="__tabbed_5_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">EnrolmentConfig</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">apiConfig</span><span class="p">:</span><span class="w"> </span><span class="n">APIConfig</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">apiSecurityConfig</span><span class="p">:</span><span class="w"> </span><span class="n">APISecurityConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">APISecurityConfig</span><span class="p">(),</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">language</span><span class="p">:</span><span class="w"> </span><span class="n">Locale</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">logConfiguration</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">LogConfiguration</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span>
+<span class="w">      </span><span class="n">LogConfiguration</span><span class="p">(</span><span class="n">logLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LogLevel</span><span class="p">.</span><span class="na">INFO</span><span class="p">,</span><span class="w"> </span><span class="n">logStrategy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LogStrategy</span><span class="p">.</span><span class="na">CONSOLE</span><span class="p">)</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">(</span>
+<span class="w">    </span><span class="n">apiConfig</span><span class="p">:</span><span class="w"> </span><span class="n">apiConfig</span><span class="w"> </span><span class="p">,</span>
+<span class="w">    </span><span class="n">apiSecurityConfig</span><span class="p">,</span><span class="w"> </span><span class="n">apiSecurityConfig</span>
+<span class="w">    </span><span class="n">language</span><span class="p">:</span><span class="w"> </span><span class="n">language</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<ul>
+<li>apiConfig: Api configuration;</li>
+<li>apiSecurityConfig: Api security configuration;</li>
+<li>language: You can set the language in which the SDK will appear. The default is the system
+  language;</li>
+<li>logConfiguration: Log Level and Strategy to be used.</li>
+</ul>
+<h3 id="apiconfig">ApiConfig<a class="headerlink" href="#apiconfig" title="Permanent link">&para;</a></h3>
+<p>You always need to specify the baseUrl for your Mobile ID API instance, as well as your provided API
+key. You can also configure the timeout value for server responses and the log level.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Android</label><label for="__tabbed_6_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * Mobile API server config.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param baseUrl url from Mobile API server.</span>
+<span class="cm"> * @param timeout timeout of a request.</span>
+<span class="cm"> * @param logLevel log level for requests (e.g. Body, Headers).</span>
+<span class="cm"> * @param apiKey key to authorize communication with Mobile API.</span>
+<span class="cm"> * @param publicKey key to use for ciphering/deciphering for secure communications</span>
+<span class="cm"> */</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">APIConfig</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">baseUrl</span><span class="p">:</span><span class="w"> </span><span class="n">URL</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">timeout</span><span class="p">:</span><span class="w"> </span><span class="kt">Long</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">logLevel</span><span class="p">:</span><span class="w"> </span><span class="n">MobileAPILogLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MobileAPILogLevel</span><span class="p">.</span><span class="na">NONE</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">apiKey</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">publicKey</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="n">APIConfig</span><span class="p">(</span>
+<span class="w">    </span><span class="n">baseURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR BASE URL&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">logLevel</span><span class="p">:</span><span class="w">  </span><span class="p">.</span><span class="n">basic</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="w"> </span><span class="p">,</span>
+<span class="w">    </span><span class="n">publicKey</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="w">  </span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<ul>
+<li>baseUrl: Url from Mobile API server;</li>
+<li>timeout: timeout of a request in seconds;</li>
+<li>logLevel: log level for requests; (Deprecated in favor of <a href="#log-configuration">Log Configuration</a>)</li>
+<li>apiKey: key to authorize communication with Mobile API;</li>
+<li>publicKey: key to use for ciphering/deciphering for secure communications</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Android</label><label for="__tabbed_7_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="nd">@Deprecated</span><span class="p">(</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;API Log Level is going away. Check out LogConfiguration on EnrolmentConfig&quot;</span><span class="p">)</span>
+<span class="kd">enum</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">MobileAPILogLevel</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/**</span>
+<span class="cm">    * no logs.</span>
+<span class="cm">    */</span>
+<span class="w">    </span><span class="n">NONE</span><span class="p">,</span>
+
+<span class="w">    </span><span class="cm">/**</span>
+<span class="cm">    * logs request and response lines.</span>
+<span class="cm">    */</span>
+<span class="w">    </span><span class="n">BASIC</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">APILogLevel</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">/// No logs.</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="kr">none</span>
+<span class="w">    </span><span class="c1">/// Logs http status code and name of endpoint.</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">basic</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="apisecurityconfig">APISecurityConfig<a class="headerlink" href="#apisecurityconfig" title="Permanent link">&para;</a></h3>
+<p>You can use the security config to specify a list of SSL certificates to be trusted when connecting
+the SDK to a server instance. By providing this configuration, you are activating certificate
+pinning for every network request made by the SDK.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Android</label><label for="__tabbed_8_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">APISecurityConfig</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">certificates</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">X509Certificate</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">()</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">struct</span><span class="w"> </span><span class="nc">APISecurityConfig</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">/// Certificates to verify against Certificate Pinning</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">sslCertificates</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">SecCertificate</span><span class="p">]</span>
+<span class="w">    </span><span class="kd">init</span><span class="p">(</span><span class="n">sslCertificates</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">SecCertificate</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">sslCertificates</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">sslCertificates</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<ul>
+<li>certificates: used for certificate pinning</li>
+</ul>
+<h3 id="log-configuration">Log Configuration<a class="headerlink" href="#log-configuration" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">Android</label><label for="__tabbed_9_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A log configuration can be added to the EnrolmentConfig to get additional info on some of the operations of the SDK. A Console and a File strategy are available, these can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">LogConfiguration</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">logLevel</span><span class="p">:</span><span class="w"> </span><span class="n">LogLevel</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">logStrategy</span><span class="p">:</span><span class="w"> </span><span class="n">LogStrategy</span>
+<span class="p">)</span>
+
+<span class="kd">enum</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">LogLevel</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">WARN</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="n">INFO</span><span class="p">,</span><span class="w"> </span><span class="n">VERBOSE</span><span class="p">,</span><span class="w"> </span><span class="n">DEBUG</span>
+<span class="p">}</span>
+
+<span class="kd">enum</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">LogStrategy</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">CONSOLE</span><span class="p">,</span><span class="w"> </span><span class="n">FILE</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>A log strategy  can be passed to the <code>Enrolment.initWith</code> to get additional info on some of the operations of the SDK. A Console strategy is available, this can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">LogStrategy</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">/// Outputs logs to the console/standard output</span>
+<span class="c1">///</span>
+<span class="c1">/// - Parameter level: The minimum log level to display. Messages below</span>
+<span class="c1">///   this level will be filtered out. For example, if set to `.warn`,</span>
+<span class="c1">///   only warning and error messages will be logged.</span>
+<span class="k">case</span><span class="w"> </span><span class="n">console</span><span class="p">(</span><span class="n">level</span><span class="p">:</span><span class="w"> </span><span class="n">LogLevel</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">LogLevel</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">/// No logging will occur</span>
+<span class="k">case</span><span class="w"> </span><span class="kr">none</span>
+
+<span class="c1">/// Logs error messages</span>
+<span class="c1">/// Used for critical failures and exceptions</span>
+<span class="k">case</span><span class="w"> </span><span class="n">error</span>
+
+<span class="c1">/// Logs warning messages</span>
+<span class="c1">/// Indicates potential issues that don&#39;t prevent execution</span>
+<span class="k">case</span><span class="w"> </span><span class="n">warn</span>
+
+<span class="c1">/// Logs user or SDK behavior</span>
+<span class="c1">/// Suitable for tracking basic user interactions</span>
+<span class="k">case</span><span class="w"> </span><span class="n">info</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="advanced-configurations">Advanced Configurations<a class="headerlink" href="#advanced-configurations" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Android</label><label for="__tabbed_10_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The other configurations are used by their corresponding facade method:</p>
+<ul>
+<li>BoardingPassCustomViews - Specifies the boarding pass custom views.</li>
+<li>BiometricFaceCaptureCustomViews - Specifies the face capture custom views.</li>
+<li>DocumentReaderCustomViews - Specifies the document reader custom views.</li>
+<li>BiometricFaceMatchCustomViews - Specifies the face match custom views.</li>
+<li>SubjectCustomViews - Specifies the subject custom views.</li>
+</ul>
+<p>These custom views are instantiated in the sdk using reflection, so for this reason, pro-guard might obfuscate some constructors. It's important to use pro-guard rules on the custom views that you created to avoid issues on the building process.
+Check <a href="https://developer.android.com/studio/build/shrink-code#keep-code">here</a> for more details on how to create rules to keep the class.</p>
+<p>The following sections show some examples of the mentioned configurations.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">enrolmentCustomViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EnrolmentCustomViews</span><span class="p">(</span>
+<span class="w">    </span><span class="n">documentReaderCustomViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DocumentReaderCustomViews</span><span class="p">(</span>
+<span class="w">        </span><span class="n">loadingView</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DocumentReaderCustomViewLoading</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span><span class="p">,</span>
+<span class="w">        </span><span class="n">rfidInstructionsView</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DocumentReaderCustomViewRfidInstructions</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span><span class="p">,</span>
+<span class="w">        </span><span class="n">rfidSearchView</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DocumentReaderCustomViewRfidSearch</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span><span class="p">,</span>
+<span class="w">        </span><span class="n">rfidProcessView</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DocumentReaderCustomViewRfidProcess</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span><span class="p">,</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="n">boardingPassCustomViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BoardingPassCustomViews</span><span class="p">(</span>
+<span class="w">        </span><span class="n">loadingView</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BoardingPassCustomViewLoading</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="n">faceCaptureCustomViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BiometricFaceCaptureCustomViews</span><span class="p">(</span>
+<span class="w">        </span><span class="n">loadingView</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BiometricFaceCaptureCustomViewLoading</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="n">faceMatchCustomViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BiometricFaceMatchCustomViews</span><span class="p">(</span>
+<span class="w">        </span><span class="n">loadingView</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BiometricFaceMatchCustomViewLoading</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="n">subjectCustomViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SubjectCustomViews</span><span class="p">(</span>
+<span class="w">        </span><span class="n">loadingView</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SubjectCustomViewLoading</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="n">formCustomViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FormCustomViews</span><span class="p">(</span>
+<span class="w">        </span><span class="n">loadingView</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">FormCustomViewLoading</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span><span class="p">,</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">Enrolment</span><span class="p">.</span><span class="na">initialize</span><span class="p">(</span>
+<span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">requireContext</span><span class="p">().</span><span class="na">applicationContext</span><span class="p">,</span>
+<span class="w">    </span><span class="n">enrolmentConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
+<span class="w">    </span><span class="n">enrolmentCustomViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">enrolmentCustomViews</span><span class="p">,</span>
+<span class="w">    </span><span class="n">documentReaderProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">documentReaderProvider</span><span class="p">,</span>
+<span class="w">    </span><span class="n">rfidReaderProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">documentReaderProvider</span><span class="p">,</span>
+<span class="w">    </span><span class="n">enrolmentInitializerCallback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">enrolmentInitializerCallback</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>You can now apply and implement your own UI solutions for the SDK  with the new feature of custom views for the Mobile ID SDK, giving you even more control with the UI solutions. To enable this feature in your application, you need to create your view and make it conform to the view protocol that you intend to replace in the SDK. Then, you register that view in the new EnrolmentViewRegister class of the SDK  and you build the enrolment instance with that viewRegister  instance. </p>
+<p>The following code shows an example:
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nv">viewRegister</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">EnrolmentViewRegister</span><span class="p">()</span>
+<span class="n">viewRegister</span><span class="p">.</span><span class="n">registerBiometricFaceCaptureLoadingView</span><span class="p">(</span><span class="n">FaceCaptureLoadingView</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
+
+
+<span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">RegulaDocumentReaderScan</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">documentReaderConfig</span><span class="p">),</span>
+<span class="w">                          </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="n">RegulaDocumentReaderRFID</span><span class="p">(),</span>
+<span class="w">                          </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="n">viewRegister</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">)</span><span class="w">      </span>
+</code></pre></div></p>
+</div>
+</div>
+</div>
+<h2 id="localization-support">Localization Support<a class="headerlink" href="#localization-support" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Android</label><label for="__tabbed_11_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>If you wish to add localization support to your application or change some of the default values, you will need to add the strings used by Enrolment SDK to each locale strings.xml file.</p>
+<p>You can redefine each string in the Enrolment SDK with the appropriate translations.</p>
+<p>This ensures that the Enrolment SDK uses the correct string resources when the user's device is set to a language supported by your application.</p>
+<p>To do this, you'll need to reference the identifiers found in the values.xml file from the latest release.</p>
+<p>You can find the values.xml file with all available strings in the project: External Libraries -&gt; Gradle: com.visionbox.mobileid.sdk:mid-sdk-enrolment:x.x.x@aar -&gt; res -&gt; values -&gt; values.xml.</p>
+</div>
+<div class="tabbed-block">
+<p>If you wish to change the default string values, you will need to access the strings you want to change through EnrolmentProtocol.theme.strings. In the ThemeStrings struct you can find the various types of strings you can modify to your liking by assigning a localizable key or a literal string value.</p>
+<p>If you wish to add localization support to your application, you need to create a String File(s) for your app and specify which language the file represents.</p>
+<p>If you pass a language to EnrolmentConfig and do not have a String File that matches said language and the SDK does, the SDK will use its file, but if we do not have a String File of said language, the key value of the localizable key raw value will be used in the UI.</p>
+<p>If no language is passed to EnrolmentConfig, the SDK will select the device's default language and use a String File compatible with said language. The same logic applies in this case. If you do not have a file for the correspondent language, the SDK will select its file, but if it also does not have one, the localizable key raw values will be displayed in the UI. </p>
+</div>
+</div>
+</div>
+<h2 id="rfid-chip-processing">RFID Chip Processing<a class="headerlink" href="#rfid-chip-processing" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">Android</label><label for="__tabbed_12_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>In order to use the RFID feature, the user must give the NFC permission in runtime, otherwise it won't work. 
+We already handle the permission check and added to the manifest the following:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;uses-permission</span><span class="w"> </span><span class="na">android:name=</span><span class="s">&quot;android.permission.NFC&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</code></pre></div>
+<p>So when using the RFID feature, the user will be prompted to concede the permission if it hadn't already.</p>
+</div>
+<div class="tabbed-block">
+<p>Here you can find the necessary changes in order to read the RFID chip present in some documents:</p>
+<h3 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h3>
+<p>Add Near Field Communication Tag Reading under the Capabilities tab for the project’s target:
+<img alt="Permissions" src="images/DR_RFID_Permissions.PNG" style="display: block; margin: 5px auto" title="Permissions" />
+Add the NFCReaderUsageDescription permission to your Info.plist file as its needed to access the NFC hardware:
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">key</span><span class="p">&gt;</span>NFCReaderUsageDescription<span class="p">&lt;/</span><span class="nt">key</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>NFC tag to read NDEF messages<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+</code></pre></div>
+Declare com.apple.developer.nfc.readersession.iso7816.select-identifiers a list of application identifiers that the app
+must be able to read according to ISO7816:
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">key</span><span class="p">&gt;</span>com.apple.developer.nfc.readersession.iso7816.select-identifiers<span class="p">&lt;/</span><span class="nt">key</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">array</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>A0000002471001<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>E80704007F00070302<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>A000000167455349474E<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>A0000002480100<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>A0000002480200<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>A0000002480300<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>A00000045645444C2D3031<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">array</span><span class="p">&gt;</span>
+</code></pre></div></p>
+</div>
+</div>
+</div>
+<h2 id="camera-permissions">Camera Permissions<a class="headerlink" href="#camera-permissions" title="Permanent link">&para;</a></h2>
+<p>In order for the SDK to use the camera, the user must grant permission to do so.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">Android</label><label for="__tabbed_13_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>In order to use the camera related features, the user must give the camera permission in runtime, otherwise it won't work. 
+We already handle the permission check and added to the manifest the following:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;uses-permission</span><span class="w"> </span><span class="na">android:name=</span><span class="s">&quot;android.permission.CAMERA&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</code></pre></div>
+<p>So when using any feature that needs the camera, the user will be prompted to concede the permission if it hadn't already.</p>
+</div>
+<div class="tabbed-block">
+<p>To configure access alerts, follow the steps bellow.</p>
+<p>In the app's <strong>Info.plist</strong> file, include <strong>NSCameraUsageDescription</strong>.
+After including <strong>NSCameraUsageDescription</strong> in your <strong>Info.plist</strong> file, provide a message that explains the user why your app needs to capture media.
+<img alt="Permissions" src="images/Camera_Permissions.png" style="display: block; margin: 5px auto" title="Permissions" /></p>
+</div>
+</div>
+</div>
+<h2 id="custom-styles">Custom Styles<a class="headerlink" href="#custom-styles" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">Android</label><label for="__tabbed_14_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>You can apply your app’s own colors and fonts to all the provided SDK layout solutions, which means that the SDK views can adapt to your app’s design. 
+It brings control and allows the maintenance of consistency in terms of brand communication when using the SDK custom views for data presentation. </p>
+<p>The fonts we are using in the SDK are named enrolment_sdk_medium and enrolment_sdk_regular. If you use fonts with the same name in your app, they will be used, otherwise the SDK will use its own. 
+We do not advise to override strings. Our strings’ names in strings.xml end in _sdk_enrolment precisely to prevent any unexpected behaviors.</p>
+<p>The list of colors used in each screen will be available on their respective documentation for your reference.</p>
+</div>
+<div class="tabbed-block">
+<p>You can apply your app’s own styles to all the provided SDK  layout solutions, which means that the SDK  views can adapt to your app’s design. 
+It brings control and allows the maintenance of consistency in terms of brand communication when using the SDK  custom views for data presentation.</p>
+<p>The following image shows an example of how you could override SDK  values for fonts, colors and strings:
+<div class="highlight"><pre><span></span><code><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">theme</span><span class="p">.</span><span class="n">fonts</span><span class="p">.</span><span class="n">medium</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">FontDescription</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;FontName-Medium&quot;</span><span class="p">)</span>
+<span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">theme</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">stateError</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="bp">UIColor</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">colorPrimary</span><span class="p">)</span>
+<span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">theme</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Face Capture Title&quot;</span>
+</code></pre></div></p>
+<p>Please check the complete list of colors for your reference:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Section</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>common.clear</td>
+<td>Clear_SdkEnrolment</td>
+<td>Base</td>
+</tr>
+<tr>
+<td>common.black</td>
+<td>Black_SdkEnrolment</td>
+<td>Base</td>
+</tr>
+<tr>
+<td>component.dismissButton</td>
+<td>DismissButton_SdkEnrolment</td>
+<td>Base</td>
+</tr>
+<tr>
+<td>component.transparentOverlay</td>
+<td>TransparentOverlay_SdkEnrolment</td>
+<td>Base</td>
+</tr>
+<tr>
+<td>component.animationIndicatorBackground</td>
+<td>AnimationIndicationBackgroud_SdkEnrolment</td>
+<td>Base</td>
+</tr>
+<tr>
+<td>component.animationIndicatorMessage</td>
+<td>AnimationIndicatorMessage_SdkEnrolment</td>
+<td>Base</td>
+</tr>
+<tr>
+<td>datafield.title</td>
+<td>DataFieldTitle_SdkEnrolment</td>
+<td>Base</td>
+</tr>
+<tr>
+<td>datafield.value</td>
+<td>DataFieldValue_SdkEnrolment</td>
+<td>Base</td>
+</tr>
+<tr>
+<td>datafield.error</td>
+<td>DataFieldError_SdkEnrolment</td>
+<td>Base</td>
+</tr>
+<tr>
+<td>button.primaryTitle</td>
+<td>ButtonPrimaryTitle_SdkEnrolment</td>
+<td>Button</td>
+</tr>
+<tr>
+<td>button.primaryBackground</td>
+<td>ButtonPrimaryBackground_SdkEnrolment</td>
+<td>Button</td>
+</tr>
+<tr>
+<td>button.secondaryTitle</td>
+<td>ButtonSecondaryTitle_SdkEnrolment</td>
+<td>Button</td>
+</tr>
+<tr>
+<td>button.secondaryBackground</td>
+<td>ButtonSecondaryBackground_SdkEnrolment</td>
+<td>Button</td>
+</tr>
+<tr>
+<td>button.secondaryBorder</td>
+<td>ButtonSecondaryBorder_SdkEnrolment</td>
+<td>Button</td>
+</tr>
+<tr>
+<td>documentData.background</td>
+<td>DocumentDataBackground_SdkEnrolment</td>
+<td>Document read</td>
+</tr>
+<tr>
+<td>documentData.title</td>
+<td>DocumentDataTitleSdkEnrolment</td>
+<td>Document read</td>
+</tr>
+<tr>
+<td>documentData.subtitle</td>
+<td>DocumentDataSubtitle_SdkEnrolment</td>
+<td>Document read</td>
+</tr>
+<tr>
+<td>documentData.detailBackground</td>
+<td>DocumentDataDetailBackground_SdkEnrolment</td>
+<td>Document read</td>
+</tr>
+<tr>
+<td>rfidData.background</td>
+<td>RfidDataBackground_SdkEnrolment</td>
+<td>Document read</td>
+</tr>
+<tr>
+<td>rfidData.title</td>
+<td>RfidDataTitle_SdkEnrolment</td>
+<td>Document read</td>
+</tr>
+<tr>
+<td>rfidData.subtitle</td>
+<td>RfidDataSubtitle_SdkEnrolment</td>
+<td>Document read</td>
+</tr>
+<tr>
+<td>faceCapture.background</td>
+<td>FaceCaptureBackground_SdkEnrolment</td>
+<td>Face capture</td>
+</tr>
+<tr>
+<td>faceCapture.title</td>
+<td>FaceCaptureTitle_SdkEnrolment</td>
+<td>Face capture</td>
+</tr>
+<tr>
+<td>faceCapture.flash</td>
+<td>FaceCaptureFlash_SdkEnrolment</td>
+<td>Face capture</td>
+</tr>
+<tr>
+<td>faceCapture.stateLabel</td>
+<td>FaceCaptureStateLabel_SdkEnrolment</td>
+<td>Face capture</td>
+</tr>
+<tr>
+<td>faceCapture.stateValid</td>
+<td>FaceCaptureStateValid_SdkEnrolment</td>
+<td>Face capture</td>
+</tr>
+<tr>
+<td>faceCapture.stateError</td>
+<td>FaceCaptureStateError_SdkEnrolment</td>
+<td>Face capture</td>
+</tr>
+<tr>
+<td>faceCapture.stateNeutral</td>
+<td>FaceCaptureStateNeutral_SdkEnrolment</td>
+<td>Face capture</td>
+</tr>
+<tr>
+<td>boardingPassScan.background</td>
+<td>BoardingPassScanBackground_SdkEnrolment</td>
+<td>Boarding pass scan</td>
+</tr>
+<tr>
+<td>boardingPassPreview.background</td>
+<td>BoardingPassPreviewBackground_SdkEnrolment</td>
+<td>Boarding pass scan</td>
+</tr>
+<tr>
+<td>boardingPassPreview.legHeader</td>
+<td>BoardingPassPreviewLegHeader_SdkEnrolment</td>
+<td>Boarding pass scan</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="15:2"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><input id="__tabbed_15_2" name="__tabbed_15" type="radio" /><div class="tabbed-labels"><label for="__tabbed_15_1">Android</label><label for="__tabbed_15_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ul>
+<li>
+<p>MLKit</p>
+<ul>
+<li>com.google.mlkit:barcode-scanning:17.3.0</li>
+<li>com.google.mlkit:face-detection:17.1.0</li>
+<li>androidx.camera:camera-camera2:1.4.0</li>
+<li>androidx.camera:camera-lifecycle:1.4.0</li>
+<li>androidx.camera:camera-view:1.4.0</li>
+</ul>
+</li>
+<li>
+<p>Regula</p>
+<ul>
+<li>com.regula.documentreader:api:7.6.11270@aar</li>
+<li>com.regula.documentreader.core:ocrandmrzrfid:7.6.13479@aar</li>
+</ul>
+</li>
+<li>
+<p>Lottie</p>
+<ul>
+<li>com.airbnb.android:lottie:6.6.0</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<ul>
+<li>'DocumentReader', '~&gt; 7.5.0'</li>
+<li>'DocumentReaderOCRRFID', '~&gt; 7.5.0'</li>
+<li>'lottie-ios', '4.4.1'</li>
+</ul>
+</div>
+</div>
+</div>
+<h2 id="glossary-and-terminology">Glossary and Terminology<a class="headerlink" href="#glossary-and-terminology" title="Permanent link">&para;</a></h2>
+<p>The following descriptions include the terminology found within this manual:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">API (Application Program Interface)</td>
+<td style="text-align: left;">An application program interface is a set of routines, protocols, and tools for building software applications. Basically, an API specifies how software components should interact.</td>
+</tr>
+<tr>
+<td style="text-align: left;">APIS (Advance Passenger Information System)</td>
+<td style="text-align: left;">An electronic data interchange system intended to enhance border security. An APIS collects and shares limited data on passengers and crew members, such as identification details from the passport and basic flight information. Passengers must provide this data before traveling to or from certain countries. Then the airlines or vessel operators share it with the computer system of the destination state.</td>
+</tr>
+<tr>
+<td style="text-align: left;">BCBP (Bar-Coded Boarding Pass)</td>
+<td style="text-align: left;">A standard issued by the International Air Transport Association (IATA) that defines the format and content of electronic boarding passes. BCBP defines the two-dimensional (2D) barcode and the symbologies used for paper and mobile boarding passes. Airlines, airports, and other air industry stakeholders use barcode readers to capture the data from the electronic boarding passes to process the security check and boarding of travelers.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Certificate</td>
+<td style="text-align: left;">Electronic document establishing a digital identity by combining the identity name or identifier with the public key of the identity, a validity period, and an electronic signature by a third party.</td>
+</tr>
+<tr>
+<td style="text-align: left;">DK (Data Key)</td>
+<td style="text-align: left;">A key used to protect an entity, where in this instance an entity is biographic data related to a TD, a BCBP, biometric data or other entity relating to a natural person.</td>
+</tr>
+<tr>
+<td style="text-align: left;">IATA (International Air Transport Association)</td>
+<td style="text-align: left;">A trade association representing airlines worldwide. IATA supports many areas of aviation activity and formulates industry policies on critical aviation issues. IATA works with other international bodies, such as ICAO and WCO.</td>
+</tr>
+<tr>
+<td style="text-align: left;">LED (Light Emitting Diode)</td>
+<td style="text-align: left;">A two-lead semiconductor light source. LEDs provide many advantages when used for environmental lighting, such as smaller volume, longer lifetime, and lower energy requirements.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Liveness</td>
+<td style="text-align: left;">Indication whether an acquired biometric sample comes from a genuine living passenger or not. The liveness detection is used to detect if a passenger is trying to spoof the system.</td>
+</tr>
+<tr>
+<td style="text-align: left;">MRZ (Machine Readable Zone)</td>
+<td style="text-align: left;">MRZ Machine Readable ZoneThe area of the travel document containing data in an optical character recognition format that allows the information to be read automatically by a machine, such as a passport reader.</td>
+</tr>
+<tr>
+<td style="text-align: left;">NFC (Near Field Communication)</td>
+<td style="text-align: left;">NFC Near Field CommunicationA method of wireless data transfer that evolved from Radio-Frequency Identification (RFID) technology. This method detects and enables two electronic devices near establish communication without the need for an internet connection. Devices with an NFC chip (for example, smartphones) can detect a chip from another device and transfer data when both devices are held within 4 cm (2 in.) from each other.</td>
+</tr>
+<tr>
+<td style="text-align: left;">QR code (Quick Response Code)</td>
+<td style="text-align: left;">A type of 2D barcode used to provide easy access to information through a smartphone. A QR code consists of black modules (square dots) arranged in a square grid on a white background, which can be read by an imaging device (such as a camera or scanner). The required data is extracted from the patterns that are present in both horizontal and vertical components of the image. The QR code system became widespread due to its fast readability and greater storage capacity compared to standard barcodes. It is commonly used in item identification, product tracking, time tracking, and document management.</td>
+</tr>
+<tr>
+<td style="text-align: left;">RFID (Radio-Frequency Identification)</td>
+<td style="text-align: left;">A technology of wireless communication that uses radio waves to automatically identify and track objects. The objects contain tags that store electronic information. An RFID system enables readers to retrieve data from identification documents, such as smart cards. RFID devices work within a vicinity of between a few centimeters to several meters (up to 20 feet) for high-frequency devices.</td>
+</tr>
+<tr>
+<td style="text-align: left;">TD (Travel Document)</td>
+<td style="text-align: left;">A passport or ID card in ICAO format authorised for border control.</td>
+</tr>
+<tr>
+<td style="text-align: left;">TLS/SSL</td>
+<td style="text-align: left;">TLS SSL Transport Layer Security (TLS) and its predecessor, Secure Sockets Layer (SSL), are cryptographic protocols designed to provide communications security over a computer network.</td>
+</tr>
+<tr>
+<td style="text-align: left;">User</td>
+<td style="text-align: left;">A person that uses the equipment under the supervision of trained staff.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Workflow</td>
+<td style="text-align: left;">Orchestrated and repeatable pattern of processes, running in the touchpoints, which represents the desired behaviour of the cluster.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": ".", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "content.tabs.link", "content.code.copy"], "search": "assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>

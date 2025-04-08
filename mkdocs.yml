@@ -10,8 +10,8 @@ theme:
     repo: fontawesome/brands/github
     admonition:
         info: octicons/info-16
-  logo: assets/vb-logo.png
-  favicon: assets/vb-favicon.png
+  logo: assets/1a-logo.png
+  favicon: assets/1a-favicon.png
   features:
     - navigation.instant
     - navigation.tabs
@@ -19,8 +19,8 @@ theme:
     - content.tabs.link
     - content.code.copy
   palette:
-      primary: light blue
-      accent: blue
+      primary: white
+      accent: indigo
 extra:
   version:
     provider:

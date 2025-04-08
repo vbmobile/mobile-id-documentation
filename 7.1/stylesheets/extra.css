@@ -2,3 +2,14 @@
     width: auto;
     height: 60px;
 }
+
+/* Override background and text color for the outdated version banner */
+.md-banner--warning {
+  background-color: #f9c846 !important; /* Light yellow */
+  color: #000 !important; /* Dark text for contrast */
+}
+
+.md-banner--warning a {
+  color: #000 !important; /* Match the link color too */
+  text-decoration: underline;
+}

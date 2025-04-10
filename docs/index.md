@@ -461,7 +461,7 @@ pinning for every network request made by the SDK.
 
 === "Android"
 
-    A log configuration can be added to the EnrolmentConfig to get additional info on some of the operations of the SDK. A Console and a File strategy are available, these can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.
+    A log configuration can be added to the EnrolmentConfig to get additional info on some of the operations of the SDK. Console and File strategies are available, these can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.
     
     ```kotlin
     class LogConfiguration(
@@ -480,7 +480,7 @@ pinning for every network request made by the SDK.
 
 === "iOS"
 
-    A log strategy  can be passed to the `Enrolment.initWith` to get additional info on some of the operations of the SDK. A Console strategy is available, this can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.
+    A log strategy  can be passed to the `Enrolment.initWith` to get additional info on some of the operations of the SDK. Console and File strategies are available, this can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.
     
     ```swift
     public enum LogStrategy {
@@ -509,6 +509,11 @@ pinning for every network request made by the SDK.
     case info
     }
     ```
+    
+    In order to find the log files in the iPhone's Files application, the **INFOPLIST_KEY_UISupportsDocumentBrowser** setting in Build Settings should be set to **Yes**
+    
+    ![Supports Document Browser location](images/iOS_LogFile_Setting.png "INFOPLIST_KEY_UISupportsDocumentBrowser location"){: style="display: block; margin: 5px auto"}
+    
 
 ## Advanced Configurations
 

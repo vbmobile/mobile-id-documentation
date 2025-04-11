@@ -2272,7 +2272,7 @@ end
 <span class="w">    </span><span class="n">timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">30</span><span class="p">,</span><span class="w"> </span><span class="c1">// timeout in seconds</span>
 <span class="w">    </span><span class="n">logLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MobileAPILogLevel</span><span class="p">.</span><span class="na">BASIC</span><span class="p">,</span>
 <span class="w">    </span><span class="n">apiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="n">publicKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;YOUR PUBLIC KEY&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Optional parameter to ensure requests are encrypted</span>
+<span class="w">    </span><span class="n">publicKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Base64</span><span class="p">.</span><span class="na">encodeToString</span><span class="p">(</span><span class="s">&quot;YOUR PUBLIC KEY&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Base64</span><span class="p">.</span><span class="na">DEFAULT</span><span class="p">),</span><span class="w"> </span><span class="c1">// Optional parameter to ensure requests are encrypted</span>
 <span class="p">)</span>
 
 <span class="kd">val</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">(</span><span class="n">apiConfig</span><span class="p">)</span>
@@ -2427,7 +2427,7 @@ key. You can also configure the timeout value for server responses and the log l
 <span class="cm"> * @param timeout timeout of a request.</span>
 <span class="cm"> * @param logLevel log level for requests (e.g. Body, Headers).</span>
 <span class="cm"> * @param apiKey key to authorize communication with Mobile API.</span>
-<span class="cm"> * @param publicKey key to use for ciphering/deciphering for secure communications</span>
+<span class="cm"> * @param publicKey key to use for ciphering/deciphering for secure communications.</span>
 <span class="cm"> */</span>
 <span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">APIConfig</span><span class="p">(</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">baseUrl</span><span class="p">:</span><span class="w"> </span><span class="n">URL</span><span class="p">,</span>
@@ -2455,7 +2455,7 @@ key. You can also configure the timeout value for server responses and the log l
 <li>timeout: timeout of a request in seconds;</li>
 <li>logLevel: log level for requests;</li>
 <li>apiKey: key to authorize communication with Mobile API;</li>
-<li>publicKey: key to use for ciphering/deciphering for secure communications</li>
+<li>publicKey: key to use for ciphering/deciphering for secure communications. It needs to be encoded in Base64.</li>
 </ul>
 <div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Android</label><label for="__tabbed_6_2">iOS</label></div>
 <div class="tabbed-content">

@@ -115,7 +115,7 @@ By using the available EnrolmentBuilder, you can instantiate the enrolment like 
         timeout = 30, // timeout in seconds
         logLevel = MobileAPILogLevel.BASIC,
         apiKey = "YOUR KEY",
-        publicKey = "YOUR PUBLIC KEY", // Optional parameter to ensure requests are encrypted
+        publicKey = Base64.encodeToString("YOUR PUBLIC KEY", Base64.DEFAULT), // Optional parameter to ensure requests are encrypted
     )
 
     val enrolmentConfig = EnrolmentConfig(apiConfig)
@@ -222,7 +222,7 @@ key. You can also configure the timeout value for server responses and the log l
      * @param timeout timeout of a request.
      * @param logLevel log level for requests (e.g. Body, Headers).
      * @param apiKey key to authorize communication with Mobile API.
-     * @param publicKey key to use for ciphering/deciphering for secure communications
+     * @param publicKey key to use for ciphering/deciphering for secure communications.
      */
     data class APIConfig(
         val baseUrl: URL,
@@ -249,7 +249,7 @@ key. You can also configure the timeout value for server responses and the log l
 - timeout: timeout of a request in seconds;
 - logLevel: log level for requests;
 - apiKey: key to authorize communication with Mobile API;
-- publicKey: key to use for ciphering/deciphering for secure communications
+- publicKey: key to use for ciphering/deciphering for secure communications. It needs to be encoded in Base64.
 
 === "Android"
 

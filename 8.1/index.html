@@ -2367,8 +2367,8 @@ You're not viewing the latest version.
 maven { url &quot;https://maven.regulaforensics.com/RegulaDocumentReader&quot; }
 </code></pre></div></li>
 <li>Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
-<div class="highlight"><pre><span></span><code>implementation(&quot;com.visionbox.mobileid.sdk:mid-sdk-enrolment:&lt;8.1.0&gt;@aar&quot;) { transitive = true }
-implementation(&quot;com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:&lt;1.0.3&gt;&quot;)
+<div class="highlight"><pre><span></span><code>implementation(&quot;com.visionbox.mobileid.sdk:mid-sdk-enrolment:&lt;8.1.1&gt;@aar&quot;) { transitive = true }
+implementation(&quot;com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:&lt;1.0.4&gt;&quot;)
 </code></pre></div>
 Or declare Mobile ID SDK and document reader provider following the BOM pattern instead:
 <div class="highlight"><pre><span></span><code>implementation(platform(&#39;com.visionbox.mobileid.sdk:mobileid-bom:8.1.1&#39;))

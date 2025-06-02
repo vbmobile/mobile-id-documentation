@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="assets/1a-favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.4af4bdda.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.342714a4.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
@@ -2369,6 +2369,19 @@ maven { url &quot;https://maven.regulaforensics.com/RegulaDocumentReader&quot; }
 <li>Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
 <div class="highlight"><pre><span></span><code>implementation(&quot;com.visionbox.mobileid.sdk:mid-sdk-enrolment:&lt;8.1.0&gt;@aar&quot;) { transitive = true }
 implementation(&quot;com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:&lt;1.0.3&gt;&quot;)
+</code></pre></div>
+Or declare Mobile ID SDK and document reader provider following the BOM pattern instead:
+<div class="highlight"><pre><span></span><code>implementation(platform(&#39;com.visionbox.mobileid.sdk:mobileid-bom:8.1.1&#39;))
+implementation(&quot;com.visionbox.mobileid.sdk:mid-sdk-enrolment&quot;)
+implementation(&quot;com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula&quot;)
+</code></pre></div></li>
+<li>Add these rules to proguard if you have problems running the application with minify enabled:
+<div class="highlight"><pre><span></span><code>-keepclassmembers enum * { *; }
+-dontwarn org.joda.convert.FromString
+-dontwarn org.joda.convert.ToString
+
+# Keep Data classes so we can use Moshi to parse the internal BuildSubjectParameters from firebase to spoof document, bcbp and face capture data
+-keep class com.visionbox.mobileid.sdk.enrolment.data.** { *; }
 </code></pre></div></li>
 <li>Sync gradle.</li>
 </ol>
@@ -2756,7 +2769,7 @@ pinning for every network request made by the SDK.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">Android</label><label for="__tabbed_9_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>A log configuration can be added to the EnrolmentConfig to get additional info on some of the operations of the SDK. A Console and a File strategy are available, these can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.</p>
+<p>A log configuration can be added to the EnrolmentConfig to get additional info on some of the operations of the SDK. Console and File strategies are available, these can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">LogConfiguration</span><span class="p">(</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">logLevel</span><span class="p">:</span><span class="w"> </span><span class="n">LogLevel</span><span class="p">,</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">logStrategy</span><span class="p">:</span><span class="w"> </span><span class="n">LogStrategy</span>
@@ -2772,7 +2785,7 @@ pinning for every network request made by the SDK.</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>A log strategy  can be passed to the <code>Enrolment.initWith</code> to get additional info on some of the operations of the SDK. A Console strategy is available, this can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.</p>
+<p>A log strategy  can be passed to the <code>Enrolment.initWith</code> to get additional info on some of the operations of the SDK. Console and File strategies are available, this can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">LogStrategy</span><span class="w"> </span><span class="p">{</span>
 <span class="c1">/// Outputs logs to the console/standard output</span>
 <span class="c1">///</span>
@@ -2799,6 +2812,8 @@ pinning for every network request made by the SDK.</p>
 <span class="k">case</span><span class="w"> </span><span class="n">info</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>In order to find the log files in the iPhone's Files application, the <strong>INFOPLIST_KEY_UISupportsDocumentBrowser</strong> setting in Build Settings should be set to <strong>Yes</strong></p>
+<p><img alt="Supports Document Browser location" src="images/iOS_LogFile_Setting.png" style="display: block; margin: 5px auto" title="INFOPLIST_KEY_UISupportsDocumentBrowser location" /></p>
 </div>
 </div>
 </div>
@@ -3297,10 +3312,10 @@ It brings control and allows the maintenance of consistency in terms of brand co
     
     
       
-      <script id="__config" type="application/json">{"base": ".", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "content.tabs.link", "content.code.copy"], "search": "assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"base": ".", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "content.tabs.link", "content.code.copy"], "search": "assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.c8b220af.min.js"></script>
+      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
       
     
   </body>

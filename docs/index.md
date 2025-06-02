@@ -35,8 +35,8 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
     ```
     2. Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
     ```
-    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<8.1.0>@aar") { transitive = true }
-    implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:<1.0.3>")
+    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<8.1.1>@aar") { transitive = true }
+    implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:<1.0.4>")
     ```
     Or declare Mobile ID SDK and document reader provider following the BOM pattern instead:
     ```

@@ -1,5 +1,18 @@
 # MobileID SDK - Release Notes
 
+## 8.1.1
+
+### What's new
+
+- Added BOM configuration to ensure version compatibility over document reader providers and the SDK.
+
+### Improvements
+
+- Fixed the overlapping of face capture frame with the text in portrait tablets.
+- Fixed issues with boarding pass parser during the validation phase.
+- Updated IdDocument's properties issuingState and nationality to use the country ISO Code instead of its name.
+- Released Regula Provider 1.0.4 with Regula SDK version 7.7.
+
 ## 8.1.0
 
 ### What's new

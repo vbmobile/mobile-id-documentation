@@ -38,7 +38,22 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
     implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<8.1.0>@aar") { transitive = true }
     implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:<1.0.3>")
     ```
-    3. Sync gradle.
+    Or declare Mobile ID SDK and document reader provider following the BOM pattern instead:
+    ```
+    implementation(platform('com.visionbox.mobileid.sdk:mobileid-bom:8.1.1'))
+    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment")
+    implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula")
+    ```
+    3. Add these rules to proguard if you have problems running the application with minify enabled:
+    ```
+    -keepclassmembers enum * { *; }
+    -dontwarn org.joda.convert.FromString
+    -dontwarn org.joda.convert.ToString
+    
+    # Keep Data classes so we can use Moshi to parse the internal BuildSubjectParameters from firebase to spoof document, bcbp and face capture data
+    -keep class com.visionbox.mobileid.sdk.enrolment.data.** { *; }
+    ```
+    4. Sync gradle.
     
 
 === "iOS"

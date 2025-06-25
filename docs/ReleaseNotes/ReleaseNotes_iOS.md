@@ -1,5 +1,12 @@
 # MobileID SDK - Release Notes
 
+## 8.1.2
+
+### Improvements
+
+- Removed dependency on external JWTDecoder library
+- Enhanced UI layout consistency - by improving ui margins
+- Fixed issue on square biometric face capture callback being triggered multiple times
 
 ## 8.1.0
 

@@ -1,5 +1,11 @@
 # MobileID SDK - Release Notes
 
+## 8.1.3
+
+### Improvements
+
+- Improved animation time in the Biometric Face Capture Feature
+
 ## 8.1.2
 
 ### Improvements

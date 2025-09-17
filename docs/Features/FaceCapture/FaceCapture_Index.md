@@ -92,12 +92,20 @@ below. Below is an example of the BiometricFaceCaptureParameters:
         public let frameShape: BiometricFaceCaptureFrameOptions
         public let cameraConfig: CameraConfig
         public let faceCaptureTimeout: TimeInterval?
+        public let fillAnimationDuration: TimeInterval
+        public let resultAnimationDuration: TimeInterval
         
         public init(frameShape:BiometricFaceCaptureFrameOptions = .oval,
                 cameraConfig: CameraConfig = CameraConfig(),
-                faceCaptureTimeout: TimeInterval? = nil)
+                faceCaptureTimeout: TimeInterval? = nil,
+                fillAnimationDuration: TimeInterval = 1.0,
+                resultAnimationDuration: TimeInterval = 1.0)
     ```
-
+    
+    The **fillAnimationDuration** has a default value of 1 second and allows you to control the duration that the frame takes to fill after the liveness result or the total time in case the liveness is not active
+    
+    The **resultAnimationDuration** has a default value of 1 second and allows you to control the duration that the success or failure symbol takes to appear after the frame is filled
+    
     The **BiometricFaceCaptureFrameOptions** is an enum that shapes the frame where the face must be centered to take the selfie. Currently it has two options:
     
     ```swift

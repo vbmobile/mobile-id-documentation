@@ -1,5 +1,11 @@
 # MobileID SDK - Release Notes
 
+## 8.1.4
+
+### Improvements
+
+- Adding new parameters to **BiometricFaceCaptureParameters** that allow controlling animation times.
+
 ## 8.1.3
 
 ### Improvements

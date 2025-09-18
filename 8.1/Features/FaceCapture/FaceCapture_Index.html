@@ -2179,7 +2179,9 @@ below. Below is an example of the BiometricFaceCaptureParameters:</p>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">frameFormat</span><span class="p">:</span><span class="w"> </span><span class="n">FaceCaptureFrameFormat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FaceCaptureFrameFormat</span><span class="p">.</span><span class="na">OVAL</span><span class="p">,</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">cameraConfig</span><span class="p">:</span><span class="w"> </span><span class="n">CameraConfig</span><span class="p">,</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">faceCaptureTimeout</span><span class="p">:</span><span class="w"> </span><span class="kt">Long?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">compressFormat</span><span class="p">:</span><span class="w"> </span><span class="n">CompressFormat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CompressFormat</span><span class="p">.</span><span class="na">PNG</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">compressFormat</span><span class="p">:</span><span class="w"> </span><span class="n">CompressFormat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CompressFormat</span><span class="p">.</span><span class="na">PNG</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">fillAnimationDuration</span><span class="p">:</span><span class="w"> </span><span class="kt">Long</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="n">_000L</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">resultAnimationDuration</span><span class="p">:</span><span class="w"> </span><span class="kt">Long</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="n">_000L</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>Now it's also possible to pass the compress format for the resulting biometric face photo format. </p>
@@ -2196,6 +2198,8 @@ below. Below is an example of the BiometricFaceCaptureParameters:</p>
     val enableCameraToggle: Boolean,
     val defaultCamera: CameraSelector,
 )</p>
+<p>The <strong>fillAnimationDuration</strong> has a default value of 1 second and allows you to control the duration that the frame takes to fill after the liveness result or the total time in case the liveness is not active.</p>
+<p>The <strong>resultAnimationDuration</strong> has a default value of 1 second and allows you to control the duration that the success or failure symbol takes to appear after the frame is filled.</p>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">BiometricFaceCaptureParameters</span><span class="w"> </span><span class="p">{</span>

@@ -60,7 +60,9 @@ below. Below is an example of the BiometricFaceCaptureParameters:
         val frameFormat: FaceCaptureFrameFormat = FaceCaptureFrameFormat.OVAL,
         val cameraConfig: CameraConfig,
         val faceCaptureTimeout: Long? = null,
-        val compressFormat: CompressFormat = CompressFormat.PNG
+        val compressFormat: CompressFormat = CompressFormat.PNG,
+        val fillAnimationDuration: Long = 1_000L
+        val resultAnimationDuration: Long = 1_000L
     )
     ```
     
@@ -84,6 +86,10 @@ below. Below is an example of the BiometricFaceCaptureParameters:
         val enableCameraToggle: Boolean,
         val defaultCamera: CameraSelector,
     )
+    
+    The **fillAnimationDuration** has a default value of 1 second and allows you to control the duration that the frame takes to fill after the liveness result or the total time in case the liveness is not active.
+    
+    The **resultAnimationDuration** has a default value of 1 second and allows you to control the duration that the success or failure symbol takes to appear after the frame is filled.
 
 === "iOS"
 

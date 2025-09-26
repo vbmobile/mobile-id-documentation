@@ -2215,7 +2215,7 @@ that the user must present on the physical gate for a full authentication.</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">Subject</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">Subject</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="w">  </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">document</span><span class="p">:</span><span class="w"> </span><span class="n">Document</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">biometrics</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">Biometric</span><span class="p">]?</span>
@@ -2242,7 +2242,7 @@ need to call the method getQRCodeImage().</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">SubjectToken</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">SubjectToken</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">qrCodeBase64</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">qrCodeImage</span><span class="p">:</span><span class="w"> </span><span class="bp">UIImage</span><span class="p">?</span>
 <span class="p">}</span>
@@ -2262,7 +2262,7 @@ need to call the method getQRCodeImage().</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">ValidationStatus</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">ValidationStatus</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">/// Field indicating if the Enrolment photos matched.</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">biometryMatched</span><span class="p">:</span><span class="w"> </span><span class="nb">Bool</span>
 <span class="w">    </span><span class="c1">/// Field indicating if the liveness check test was performed with success.</span>
@@ -2552,7 +2552,7 @@ structure of the Biometric data:</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">Biometric</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">Biometric</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="w">  </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">type</span><span class="p">:</span><span class="w"> </span><span class="n">BiometricType</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">format</span><span class="p">:</span><span class="w"> </span><span class="n">BiometricFormat</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">position</span><span class="p">:</span><span class="w"> </span><span class="n">BiometricTypePosition</span>
@@ -2577,7 +2577,7 @@ structure of the Biometric data:</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">BiometricFormat</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">BiometricFormat</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="w">  </span><span class="p">{</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">unknown</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Unknown&quot;</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">jpg</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Jpg&quot;</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">png</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Png&quot;</span>
@@ -2602,7 +2602,7 @@ structure of the Biometric data:</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">BiometricSource</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">BiometricSource</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="w">  </span><span class="p">{</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">documentChip</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Chip&quot;</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">documentOCR</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Ocr&quot;</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">faceCapture</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Face&quot;</span>
@@ -2624,7 +2624,7 @@ structure of the Biometric data:</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">BiometricType</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">BiometricType</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="w">  </span><span class="p">{</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">unknown</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Unknown&quot;</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">enrolment</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Enrolment&quot;</span>
 <span class="p">}</span>
@@ -2645,7 +2645,7 @@ structure of the Biometric data:</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">BiometricTypePosition</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">BiometricTypePosition</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="w">  </span><span class="p">{</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">unknown</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Unknown&quot;</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">face</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Face&quot;</span>
 <span class="p">}</span>
@@ -2671,9 +2671,18 @@ structure of the Biometric data:</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">SubjectStatus</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">SubjectStatus</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">status</span><span class="p">:</span><span class="w"> </span><span class="n">Status</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">Status</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">pending</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Pending&quot;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">validating</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Validating&quot;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">invalid</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Invalid&quot;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">enrolled</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Enrolled&quot;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">finished</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Finished&quot;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">expired</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Expired&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>

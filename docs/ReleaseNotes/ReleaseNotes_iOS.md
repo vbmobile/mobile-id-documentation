@@ -1,5 +1,11 @@
 # MobileID SDK - Release Notes
 
+## 8.1.5
+
+### Improvements
+
+- **SubjectStatus** and **Subject** are now compliant with the codable protocol
+
 ## 8.1.4
 
 ### Improvements

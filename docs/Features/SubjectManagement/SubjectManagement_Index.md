@@ -31,7 +31,7 @@ that the user must present on the physical gate for a full authentication.
 === "iOS"
 
     ``` swift
-    public struct Subject {
+    public struct Subject: Codable  {
         public let id: String
         public let document: Document
         public let biometrics: [Biometric]?
@@ -61,7 +61,7 @@ The SubjectToken will have the following structure:
 === "iOS"
 
     ``` swift
-    public struct SubjectToken {
+    public struct SubjectToken: Codable {
         public var qrCodeBase64: String
         public var qrCodeImage: UIImage?
     }
@@ -82,7 +82,7 @@ The ValidationStatus will have the following structure:
 === "iOS"
 
     ``` swift 
-    public struct ValidationStatus {
+    public struct ValidationStatus: Codable {
         /// Field indicating if the Enrolment photos matched.
         public var biometryMatched: Bool
         /// Field indicating if the liveness check test was performed with success.
@@ -383,7 +383,7 @@ structure of the Biometric data:
 === "iOS"
 
     ``` swift
-    public struct Biometric {
+    public struct Biometric: Codable  {
         public let type: BiometricType
         public let format: BiometricFormat
         public let position: BiometricTypePosition
@@ -409,7 +409,7 @@ The `BiometricFormat` will specify the format for the `data` string like so:
 === "iOS"
 
     ```swift
-    public enum BiometricFormat: String {
+    public enum BiometricFormat: String, Codable  {
         case unknown = "Unknown"
         case jpg = "Jpg"
         case png = "Png"
@@ -435,7 +435,7 @@ The `BiometricSource` is a enum with the source of the biometric photo and will 
 === "iOS"
 
     ``` swift
-    public enum BiometricSource: String {
+    public enum BiometricSource: String, Codable  {
         case documentChip = "Chip"
         case documentOCR = "Ocr"
         case faceCapture = "Face"
@@ -458,7 +458,7 @@ The `BiometricType` defines the capture type of the biometric:
 === "iOS"
 
     ```swift
-      public enum BiometricType: String {
+      public enum BiometricType: String, Codable  {
         case unknown = "Unknown"
         case enrolment = "Enrolment"
     }
@@ -480,7 +480,7 @@ The `BiometricPosition` is something only present on face captured Biometrics
 === "iOS"
 
     ```swift
-    public enum BiometricTypePosition: String {
+    public enum BiometricTypePosition: String, Codable  {
         case unknown = "Unknown"
         case face = "Face"
     }
@@ -508,9 +508,18 @@ After adding a `Subject`, the `id` will be returned. This `id` can be used to ge
 === "iOS"
 
     ``` swift
-    public struct SubjectStatus {
+    public struct SubjectStatus: Codable {
         public let id: String
         public let status: Status
+    }
+    
+    public enum Status: String, Codable{
+        case pending = "Pending"
+        case validating = "Validating"
+        case invalid = "Invalid"
+        case enrolled = "Enrolled"
+        case finished = "Finished"
+        case expired = "Expired"
     }
     ```
 

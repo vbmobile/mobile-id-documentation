@@ -37,6 +37,13 @@
 - The object DocumentData from the Document Reader feature will is **deprecated and will be removed in the future**, please update to the new object IdDocument.
 - The square option from FaceCaptureFrameFormat is **deprecated and will be removed in the future**, please use the oval option.
 
+## 7.3.3
+
+### Improvements
+
+- Fixed issue regarding incorrect year in DocumentData Date fields.
+- Fixed issue with reading malformed BCBPs.
+
 ## 7.3.2
 
 ### Improvements

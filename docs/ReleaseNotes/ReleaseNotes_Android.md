@@ -1,5 +1,12 @@
 # MobileID SDK - Release Notes
 
+## 7.3.3
+
+### Improvements
+
+- Fixed issue regarding incorrect year in DocumentData Date fields.
+- Fixed issue with reading malformed BCBPs.
+
 ## 7.3.2
 
 ### Improvements

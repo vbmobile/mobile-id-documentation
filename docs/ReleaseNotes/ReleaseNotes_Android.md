@@ -1,5 +1,11 @@
 # MobileID SDK - Release Notes
 
+## 8.1.3
+
+### Improvements
+
+- Fixed issue with reading malformed BCBPs reported in version 7.
+
 ## 8.1.2
 
 ### Improvements

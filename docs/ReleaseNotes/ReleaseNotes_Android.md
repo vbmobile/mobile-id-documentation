@@ -1,5 +1,12 @@
 # MobileID SDK - Release Notes
 
+## 8.1.4
+
+### Improvements
+
+- Updated Regula SDK to version 8.3.
+- Release regula provider 2.0.2 & adjust SDK for compatibility.
+
 ## 8.1.3
 
 ### Improvements

@@ -297,14 +297,19 @@ In case of success, the BoardingPass has the following structure:
 === "iOS"
 
     ``` swift
-    public struct BoardingPass: Codable {
+    public class BoardingPassSummary: Codable, Equatable {
         public let formatCode: String
-        public let barcodeType: String
-        public let numberOfLegsEncoded: Int
+        public let type: String
         public let passengerName: String
         public let electronicTicketIndicator: String?
-        public let rawBoardingPass: String
-        public let expiryDate: Date
+        public let raw: String
+        public let creationOn: Date
+        public let expirationOn: Date
+        public let numberOfLegsEncoded: Int
+        public var legs: [LegSummary]
+    }
+    
+    public class BoardingPassFull: BoardingPassSummary {
         public let beginningOfVersionNumber: String?
         public let versionNumber: Int?
         public let passengerDescription: String?
@@ -317,7 +322,7 @@ In case of success, the BoardingPass has the following structure:
         public let firstNonConsecutiveBaggageTagNumber: String?
         public let secondNonConsecutiveBaggageTagNumber: String?
         public let securityDataBeginning: String?
-        public let legs: [Leg]
+        public var legsFull: [LegFull]
     }
     ```
 The Leg has the following structure:
@@ -353,7 +358,7 @@ The Leg has the following structure:
 === "iOS"
 
     ``` swift
-    public struct Leg: Codable {
+    public class LegSummary: Codable, Equatable {
         public let flightNumber: String?
         public let frequentFlyerNumber: String?
         public let documentSerialNumber: String?
@@ -369,6 +374,9 @@ The Leg has the following structure:
         public let originAirport: String?
         public let carrierPnrCode: String?
         public let frequentFlyerAirlineDesignator: String?
+    }
+    
+    public class LegFull: LegSummary {
         public let selecteeIndicator: Int?
         public let internationalDocumentVerification: Int?
         public let marketingCarrierDesignator: String?

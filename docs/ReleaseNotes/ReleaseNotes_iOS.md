@@ -1,5 +1,18 @@
 # MobileID SDK - Release Notes
 
+## 8.1.7
+ 
+### Improvements
+ 
+- Fixed issue when starting the database update in the background with the **startUpdateDatabase** function.
+
+## 8.1.6
+ 
+### Improvements
+ 
+- **BoardingPassSummary** and **BoardingPassFull** now fully support the Codable and Equatable protocols, improving data serialization and comparison.
+- Fixed an issue in **parseBoardingPass** function when passing an image without a QR code on the  **ParseBoardingPassParameters** 
+
 ## 8.1.5
 
 ### Improvements

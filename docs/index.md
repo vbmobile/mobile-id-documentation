@@ -35,12 +35,12 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
     ```
     2. Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
     ```
-    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<8.1.1>@aar") { transitive = true }
-    implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:<1.0.4>")
+    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<8.1.4>@aar") { transitive = true }
+    implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:<2.0.2>")
     ```
     Or declare Mobile ID SDK and document reader provider following the BOM pattern instead:
     ```
-    implementation(platform('com.visionbox.mobileid.sdk:mobileid-bom:8.1.1'))
+    implementation(platform('com.visionbox.mobileid.sdk:mobileid-bom:8.1.4'))
     implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment")
     implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula")
     ```
@@ -757,8 +757,8 @@ In order for the SDK to use the camera, the user must grant permission to do so.
         - androidx.camera:camera-view:1.4.0
 
     - Regula
-        - com.regula.documentreader:api:7.6.11270@aar
-        - com.regula.documentreader.core:ocrandmrzrfid:7.6.13479@aar
+        - com.regula.documentreader:api:8.3
+        - com.regula.documentreader.core:fullrfid:8.3
 
     - Lottie
         - com.airbnb.android:lottie:6.6.0

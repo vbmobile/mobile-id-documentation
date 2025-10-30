@@ -1,5 +1,18 @@
 # MobileID SDK - Release Notes
 
+## 8.1.4
+
+### Improvements
+
+- Updated Regula SDK to version 8.3.
+- Release regula provider 2.0.2 & adjust SDK for compatibility.
+
+## 8.1.3
+
+### Improvements
+
+- Fixed issue with reading malformed BCBPs reported in version 7.
+
 ## 8.1.2
 
 ### Improvements
@@ -74,6 +87,13 @@
 
 #### Warning
 - The square option from FaceCaptureFrameFormat is **deprecated and will be removed in the future**, please use the oval option.
+
+## 7.3.3
+
+### Improvements
+
+- Fixed issue regarding incorrect year in DocumentData Date fields.
+- Fixed issue with reading malformed BCBPs.
 
 ## 7.3.2
 

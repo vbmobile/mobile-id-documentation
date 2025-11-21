@@ -14,7 +14,13 @@ This provider uses Regula services and supports both OCR Document Reading and RF
 === "Android"
 
     ```kotlin
-    //TODO:
+    implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:<2.0.2>")
+    ```
+    Or declare Mobile ID SDK and document reader provider following the BOM pattern instead:
+
+    ```kotlin
+    implementation(platform('com.visionbox.mobileid.sdk:mobileid-bom:8.1.4'))
+    implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula")
     ```
 
 === "iOS"
@@ -40,54 +46,70 @@ This provider uses Regula services and supports both OCR Document Reading and RF
 
 ### How to Instantiate: 
 
-This provider allows you to create both a **RegulaDocumentReaderScan** and a **RegulaDocumentReaderRFID** instance.
-
-The **RegulaDocumentReaderScan** requires a **DocumentReaderConfig** to initialize. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.html#Configure).
-
 === "Android"
 
+    The **RegulaProvider** requires a **DocumentReaderConfig** to initialize. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.html#Configure).
+
     ```kotlin
-    //TODO:
+    val regulaDocumentRfidProvider = RegulaProvider.getInstance(
+        DocumentReaderConfig(
+            multipageProcessing = true,
+            databaseId = "Passports"
+        )
+    )
     ```
     
 === "iOS"
+    
+    This provider allows you to create both a **RegulaDocumentReaderScan** and a **RegulaDocumentReaderRFID** instance.
+
+    The **RegulaDocumentReaderScan** requires a **DocumentReaderConfig** to initialize. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.html#Configure).
 
     ``` swift
-    var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, databaseID: "Full_id_passport", checkHologram: false)
+    var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, databaseID: "Passports", checkHologram: false)
     
     RegulaDocumentReaderScan(config: documentReaderConfig)
-    
     ```
 
-The **RegulaDocumentReaderRFID** has no initialization requirements and can be instantiated as follows:
-
-=== "Android"
-
-    ```kotlin
-    //TODO:
-    ```
-    
-=== "iOS"
+    The **RegulaDocumentReaderRFID** has no initialization requirements and can be instantiated as follows:
 
     ``` swift
     RegulaDocumentReaderRFID()
     
     ```
     
-### How to Use: 
-
-Once both providers are initialized, simply pass them as parameters to the Enrolment initialization as shown below. For more information on initializing, see [Enrolment](../../index.html#how-to-initialize-the-sdk).
+### How to Use:
 
 === "Android"
 
+    After initializing the provider, simply pass it as a parameter to the Enrolment initialization as shown below. For more information on initializing, see [Enrolment](../../index.html#how-to-initialize-the-sdk).
+
     ```kotlin
-    //TODO:
+    val context = ...
+    val enrolmentConfig = ...
+    val callback = ...
+    val regulaDocumentRfidProvider = RegulaProvider.getInstance(
+        DocumentReaderConfig(
+            multipageProcessing = true,
+            databaseId = "Passports"
+        )
+    )
+
+    Enrolment.initialize(
+        context = context, 
+        enrolmentConfig = enrolmentConfig,
+        documentReaderProvider = regulaDocumentRfidProvider,
+        rfidReaderProvider = regulaDocumentRfidProvider,
+        callbackcallback
+    )
     ```
     
 === "iOS"
 
+    Once both providers are initialized, simply pass them as parameters to the Enrolment initialization as shown below. For more information on initializing, see [Enrolment](../../index.html#how-to-initialize-the-sdk).
+
     ``` swift
-    var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, databaseID: "Full_id_passport", checkHologram: false)
+    var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, databaseID: "Passports", checkHologram: false)
     
     var regulaDocumentReaderScan = RegulaDocumentReaderScan(config: documentReaderConfig)
     var regulaDocumentReaderRFID = RegulaDocumentReaderRFID()
@@ -102,15 +124,13 @@ Once both providers are initialized, simply pass them as parameters to the Enrol
     
 ## Amadeus Provider
 
-This provider uses Regula services and supports both OCR Document Reading and RFID scanning functionalities.
+This provider uses Amadeus services and supports both OCR Document Reading and RFID scanning functionalities.
 
 ### How to Import: 
 
 === "Android"
 
-    ```kotlin
-    //TODO:
-    ```
+    It will be available soon.
 
 === "iOS"
 
@@ -124,40 +144,34 @@ This provider uses Regula services and supports both OCR Document Reading and RF
 
 ### How to Instantiate: 
 
-This provider allows you to create both a **DocumentReaderScan** and a **DocumentReaderRFID** instance.
-
-The **DocumentReaderScan** requires a **DocumentReaderConfig** to initialize. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.html#Configure).
 
 === "Android"
 
+    To initialize the **VBProvider**. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.html#Configure).
+
     ```kotlin
-    //TODO:
+    val vbProvider = VBProvider.getInstance()
     ```
     
 === "iOS"
+
+    This provider allows you to create both a **DocumentReaderScan** and a **DocumentReaderRFID** instance.
+    
+    The **DocumentReaderScan** requires a **DocumentReaderConfig** to initialize. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.html#Configure).
 
     ``` swift
-    var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, databaseID: "Full_id_passport", checkHologram: false)
+    var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, databaseID: "Passports", checkHologram: false)
     
     DocumentReaderScan(config: documentReaderConfig)
-    
     ```
 
-The **DocumentReaderRFID** has no initialization requirements and can be instantiated as follows:
-
-=== "Android"
-
-    ```kotlin
-    //TODO:
-    ```
-    
-=== "iOS"
+    The **DocumentReaderRFID** has no initialization requirements and can be instantiated as follows:
 
     ``` swift
     DocumentReaderRFID()
     
     ```
-    
+
 ### How to Use: 
 
 Once both providers are initialized, simply pass them as parameters to the Enrolment initialization as shown below. For more information on initializing, see [Enrolment](../../index.html#how-to-initialize-the-sdk).
@@ -165,13 +179,24 @@ Once both providers are initialized, simply pass them as parameters to the Enrol
 === "Android"
 
     ```kotlin
-    //TODO:
+    val context = ...
+    val enrolmentConfig = ...
+    val callback = ...
+    val vbDocumentReaderProvider = VBProvider.getInstance()
+
+    Enrolment.initialize(
+        context = context, 
+        enrolmentConfig = enrolmentConfig,
+        documentReaderProvider = vbDocumentReaderProvider,
+        rfidReaderProvider = vbDocumentReaderProvider,
+        callbackcallback
+    )
     ```
     
 === "iOS"
 
     ``` swift
-    var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, databaseID: "Full_id_passport", checkHologram: false)
+    var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, databaseID: "Passports", checkHologram: false)
     
     var documentReaderScan = DocumentReaderScan(config: documentReaderConfig)
     var documentReaderRFID = DocumentReaderRFID()
@@ -183,3 +208,4 @@ Once both providers are initialized, simply pass them as parameters to the Enrol
                               completionHandler: completionHandler)
     
     ```
+ 

@@ -7,7 +7,7 @@
 
 ## From 7.1.2 to 7.2.0
 #### Optional Changes
-- faceCaptureTimeout have been added to the [BiometricFaceCaptureParameters](../Features/FaceCapture/FaceCapture_Index.md#initiate-scan), to be able to start the RFID scan automatically
+- faceCaptureTimeout have been added to the [BiometricFaceCaptureParameters](../Features/FaceCapture/FaceCapture_Index.md#initiate-face-capture), to be able to start the RFID scan automatically
 - If you mention the ScanTimeout Error type somewhere, you need to change it to Timeout due to the name change.
 
 ## From 7.1.0 to 7.1.1

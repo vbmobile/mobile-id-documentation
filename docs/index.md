@@ -617,7 +617,7 @@ Each provider has unique characteristics, such as specific initializers and conf
 
 For more information about the full list of providers, please refer to the page dedicated to each SDK feature.
 
-- [Document Reader](./Features/DocumentReader/DocumentReader_Providers.html)
+- [Document Reader](./Features/DocumentReader/DocumentReader_Providers.md)
     
 
 ## Localization Support

@@ -48,7 +48,7 @@ This provider uses Regula services and supports both OCR Document Reading and RF
 
 === "Android"
 
-    The **RegulaProvider** requires a **DocumentReaderConfig** to initialize. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.html#Configure).
+    The **RegulaProvider** requires a **DocumentReaderConfig** to initialize. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.md#configure).
 
     ```kotlin
     val regulaDocumentRfidProvider = RegulaProvider.getInstance(
@@ -63,7 +63,7 @@ This provider uses Regula services and supports both OCR Document Reading and RF
     
     This provider allows you to create both a **RegulaDocumentReaderScan** and a **RegulaDocumentReaderRFID** instance.
 
-    The **RegulaDocumentReaderScan** requires a **DocumentReaderConfig** to initialize. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.html#Configure).
+    The **RegulaDocumentReaderScan** requires a **DocumentReaderConfig** to initialize. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.md#configure).
 
     ``` swift
     var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, databaseID: "Passports", checkHologram: false)
@@ -82,7 +82,7 @@ This provider uses Regula services and supports both OCR Document Reading and RF
 
 === "Android"
 
-    After initializing the provider, simply pass it as a parameter to the Enrolment initialization as shown below. For more information on initializing, see [Enrolment](../../index.html#how-to-initialize-the-sdk).
+    After initializing the provider, simply pass it as a parameter to the Enrolment initialization as shown below. For more information on initializing, see [Enrolment](../../index.md#how-to-initialize-the-sdk).
 
     ```kotlin
     val context = ...
@@ -106,7 +106,7 @@ This provider uses Regula services and supports both OCR Document Reading and RF
     
 === "iOS"
 
-    Once both providers are initialized, simply pass them as parameters to the Enrolment initialization as shown below. For more information on initializing, see [Enrolment](../../index.html#how-to-initialize-the-sdk).
+    Once both providers are initialized, simply pass them as parameters to the Enrolment initialization as shown below. For more information on initializing, see [Enrolment](../../index.md#how-to-initialize-the-sdk).
 
     ``` swift
     var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, databaseID: "Passports", checkHologram: false)
@@ -147,7 +147,7 @@ This provider uses Amadeus services and supports both OCR Document Reading and R
 
 === "Android"
 
-    To initialize the **VBProvider**. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.html#Configure).
+    To initialize the **VBProvider**. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.md#configure).
 
     ```kotlin
     val vbProvider = VBProvider.getInstance()
@@ -157,7 +157,7 @@ This provider uses Amadeus services and supports both OCR Document Reading and R
 
     This provider allows you to create both a **DocumentReaderScan** and a **DocumentReaderRFID** instance.
     
-    The **DocumentReaderScan** requires a **DocumentReaderConfig** to initialize. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.html#Configure).
+    The **DocumentReaderScan** requires a **DocumentReaderConfig** to initialize. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.md#configure).
 
     ``` swift
     var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, databaseID: "Passports", checkHologram: false)
@@ -174,7 +174,7 @@ This provider uses Amadeus services and supports both OCR Document Reading and R
 
 ### How to Use: 
 
-Once both providers are initialized, simply pass them as parameters to the Enrolment initialization as shown below. For more information on initializing, see [Enrolment](../../index.html#how-to-initialize-the-sdk).
+Once both providers are initialized, simply pass them as parameters to the Enrolment initialization as shown below. For more information on initializing, see [Enrolment](../../index.md#how-to-initialize-the-sdk).
 
 === "Android"
 

@@ -107,7 +107,7 @@
 
 ### Improvements
 
-- Add choice of the scenarios for the [document capture](../Features/DocumentReader/DocumentReader_Index.html#configure)
+- Add choice of the scenarios for the [document capture](../Features/DocumentReader/DocumentReader_Index.md#configure)
 - Remove Sentry has an external dependency
 
 ## 7.2.2

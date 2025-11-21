@@ -2497,7 +2497,7 @@ Or declare Mobile ID SDK and document reader provider following the BOM pattern 
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Android</label><label for="__tabbed_2_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>The <strong>RegulaProvider</strong> requires a <strong>DocumentReaderConfig</strong> to initialize. It can be done as follows. For more information, see <a href="./DocumentReader_Index.html#Configure">DocumentReaderConfig</a>.</p>
+<p>The <strong>RegulaProvider</strong> requires a <strong>DocumentReaderConfig</strong> to initialize. It can be done as follows. For more information, see <a href="DocumentReader_Index.html#configure">DocumentReaderConfig</a>.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">regulaDocumentRfidProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RegulaProvider</span><span class="p">.</span><span class="na">getInstance</span><span class="p">(</span>
 <span class="w">    </span><span class="n">DocumentReaderConfig</span><span class="p">(</span>
 <span class="w">        </span><span class="n">multipageProcessing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
@@ -2508,7 +2508,7 @@ Or declare Mobile ID SDK and document reader provider following the BOM pattern 
 </div>
 <div class="tabbed-block">
 <p>This provider allows you to create both a <strong>RegulaDocumentReaderScan</strong> and a <strong>RegulaDocumentReaderRFID</strong> instance.</p>
-<p>The <strong>RegulaDocumentReaderScan</strong> requires a <strong>DocumentReaderConfig</strong> to initialize. It can be done as follows. For more information, see <a href="./DocumentReader_Index.html#Configure">DocumentReaderConfig</a>.</p>
+<p>The <strong>RegulaDocumentReaderScan</strong> requires a <strong>DocumentReaderConfig</strong> to initialize. It can be done as follows. For more information, see <a href="DocumentReader_Index.html#configure">DocumentReaderConfig</a>.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Passports&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">checkHologram</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
 
 <span class="n">RegulaDocumentReaderScan</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">documentReaderConfig</span><span class="p">)</span>
@@ -2579,13 +2579,13 @@ Or declare Mobile ID SDK and document reader provider following the BOM pattern 
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Android</label><label for="__tabbed_5_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>To initialize the <strong>VBProvider</strong>. It can be done as follows. For more information, see <a href="./DocumentReader_Index.html#Configure">DocumentReaderConfig</a>.</p>
+<p>To initialize the <strong>VBProvider</strong>. It can be done as follows. For more information, see <a href="DocumentReader_Index.html#configure">DocumentReaderConfig</a>.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">vbProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VBProvider</span><span class="p">.</span><span class="na">getInstance</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <p>This provider allows you to create both a <strong>DocumentReaderScan</strong> and a <strong>DocumentReaderRFID</strong> instance.</p>
-<p>The <strong>DocumentReaderScan</strong> requires a <strong>DocumentReaderConfig</strong> to initialize. It can be done as follows. For more information, see <a href="./DocumentReader_Index.html#Configure">DocumentReaderConfig</a>.</p>
+<p>The <strong>DocumentReaderScan</strong> requires a <strong>DocumentReaderConfig</strong> to initialize. It can be done as follows. For more information, see <a href="DocumentReader_Index.html#configure">DocumentReaderConfig</a>.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Passports&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">checkHologram</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
 
 <span class="n">DocumentReaderScan</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">documentReaderConfig</span><span class="p">)</span>

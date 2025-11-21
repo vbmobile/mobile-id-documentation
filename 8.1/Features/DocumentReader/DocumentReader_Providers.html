@@ -2471,7 +2471,11 @@ You're not viewing the latest version.
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Android</label><label for="__tabbed_1_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="c1">//TODO:</span>
+<p><div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:&lt;2.0.2&gt;&quot;</span><span class="p">)</span>
+</code></pre></div>
+Or declare Mobile ID SDK and document reader provider following the BOM pattern instead:</p>
+<div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="n">platform</span><span class="p">(</span><span class="err">&#39;</span><span class="n">com</span><span class="p">.</span><span class="na">visionbox</span><span class="p">.</span><span class="na">mobileid</span><span class="p">.</span><span class="na">sdk</span><span class="p">:</span><span class="n">mobileid</span><span class="o">-</span><span class="n">bom</span><span class="p">:</span><span class="m">8.1</span><span class="p">.</span><span class="m">4</span><span class="err">&#39;</span><span class="p">))</span>
+<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula&quot;</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2490,45 +2494,58 @@ You're not viewing the latest version.
 </div>
 </div>
 <h3 id="how-to-instantiate">How to Instantiate:<a class="headerlink" href="#how-to-instantiate" title="Permanent link">&para;</a></h3>
-<p>This provider allows you to create both a <strong>RegulaDocumentReaderScan</strong> and a <strong>RegulaDocumentReaderRFID</strong> instance.</p>
-<p>The <strong>RegulaDocumentReaderScan</strong> requires a <strong>DocumentReaderConfig</strong> to initialize. It can be done as follows. For more information, see <a href="./DocumentReader_Index.html#Configure">DocumentReaderConfig</a>.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Android</label><label for="__tabbed_2_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="c1">//TODO:</span>
+<p>The <strong>RegulaProvider</strong> requires a <strong>DocumentReaderConfig</strong> to initialize. It can be done as follows. For more information, see <a href="./DocumentReader_Index.html#Configure">DocumentReaderConfig</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">regulaDocumentRfidProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RegulaProvider</span><span class="p">.</span><span class="na">getInstance</span><span class="p">(</span>
+<span class="w">    </span><span class="n">DocumentReaderConfig</span><span class="p">(</span>
+<span class="w">        </span><span class="n">multipageProcessing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="n">databaseId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Passports&quot;</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">)</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Full_id_passport&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">checkHologram</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<p>This provider allows you to create both a <strong>RegulaDocumentReaderScan</strong> and a <strong>RegulaDocumentReaderRFID</strong> instance.</p>
+<p>The <strong>RegulaDocumentReaderScan</strong> requires a <strong>DocumentReaderConfig</strong> to initialize. It can be done as follows. For more information, see <a href="./DocumentReader_Index.html#Configure">DocumentReaderConfig</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Passports&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">checkHologram</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
 
 <span class="n">RegulaDocumentReaderScan</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">documentReaderConfig</span><span class="p">)</span>
 </code></pre></div>
-</div>
-</div>
-</div>
 <p>The <strong>RegulaDocumentReaderRFID</strong> has no initialization requirements and can be instantiated as follows:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Android</label><label for="__tabbed_3_2">iOS</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="c1">//TODO:</span>
-</code></pre></div>
-</div>
-<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="n">RegulaDocumentReaderRFID</span><span class="p">()</span>
 </code></pre></div>
 </div>
 </div>
 </div>
 <h3 id="how-to-use">How to Use:<a class="headerlink" href="#how-to-use" title="Permanent link">&para;</a></h3>
-<p>Once both providers are initialized, simply pass them as parameters to the Enrolment initialization as shown below. For more information on initializing, see <a href="../../index.html#how-to-initialize-the-sdk">Enrolment</a>.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Android</label><label for="__tabbed_4_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Android</label><label for="__tabbed_3_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="c1">//TODO:</span>
+<p>After initializing the provider, simply pass it as a parameter to the Enrolment initialization as shown below. For more information on initializing, see <a href="../../index.html#how-to-initialize-the-sdk">Enrolment</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">regulaDocumentRfidProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RegulaProvider</span><span class="p">.</span><span class="na">getInstance</span><span class="p">(</span>
+<span class="w">    </span><span class="n">DocumentReaderConfig</span><span class="p">(</span>
+<span class="w">        </span><span class="n">multipageProcessing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="n">databaseId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Passports&quot;</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">Enrolment</span><span class="p">.</span><span class="na">initialize</span><span class="p">(</span>
+<span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">enrolmentConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
+<span class="w">    </span><span class="n">documentReaderProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">regulaDocumentRfidProvider</span><span class="p">,</span>
+<span class="w">    </span><span class="n">rfidReaderProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">regulaDocumentRfidProvider</span><span class="p">,</span>
+<span class="w">    </span><span class="n">callbackcallback</span>
+<span class="p">)</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Full_id_passport&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">checkHologram</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<p>Once both providers are initialized, simply pass them as parameters to the Enrolment initialization as shown below. For more information on initializing, see <a href="../../index.html#how-to-initialize-the-sdk">Enrolment</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Passports&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">checkHologram</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
 
 <span class="kd">var</span><span class="w"> </span><span class="nv">regulaDocumentReaderScan</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">RegulaDocumentReaderScan</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">documentReaderConfig</span><span class="p">)</span>
 <span class="kd">var</span><span class="w"> </span><span class="nv">regulaDocumentReaderRFID</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">RegulaDocumentReaderRFID</span><span class="p">()</span>
@@ -2543,13 +2560,12 @@ You're not viewing the latest version.
 </div>
 </div>
 <h2 id="amadeus-provider">Amadeus Provider<a class="headerlink" href="#amadeus-provider" title="Permanent link">&para;</a></h2>
-<p>This provider uses Regula services and supports both OCR Document Reading and RFID scanning functionalities.</p>
+<p>This provider uses Amadeus services and supports both OCR Document Reading and RFID scanning functionalities.</p>
 <h3 id="how-to-import_1">How to Import:<a class="headerlink" href="#how-to-import_1" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Android</label><label for="__tabbed_5_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Android</label><label for="__tabbed_4_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="c1">//TODO:</span>
-</code></pre></div>
+<p>It will be available soon.</p>
 </div>
 <div class="tabbed-block">
 <p><strong>CocoaPods</strong></p>
@@ -2560,30 +2576,21 @@ You're not viewing the latest version.
 </div>
 </div>
 <h3 id="how-to-instantiate_1">How to Instantiate:<a class="headerlink" href="#how-to-instantiate_1" title="Permanent link">&para;</a></h3>
-<p>This provider allows you to create both a <strong>DocumentReaderScan</strong> and a <strong>DocumentReaderRFID</strong> instance.</p>
-<p>The <strong>DocumentReaderScan</strong> requires a <strong>DocumentReaderConfig</strong> to initialize. It can be done as follows. For more information, see <a href="./DocumentReader_Index.html#Configure">DocumentReaderConfig</a>.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Android</label><label for="__tabbed_6_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Android</label><label for="__tabbed_5_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="c1">//TODO:</span>
+<p>To initialize the <strong>VBProvider</strong>. It can be done as follows. For more information, see <a href="./DocumentReader_Index.html#Configure">DocumentReaderConfig</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">vbProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VBProvider</span><span class="p">.</span><span class="na">getInstance</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Full_id_passport&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">checkHologram</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<p>This provider allows you to create both a <strong>DocumentReaderScan</strong> and a <strong>DocumentReaderRFID</strong> instance.</p>
+<p>The <strong>DocumentReaderScan</strong> requires a <strong>DocumentReaderConfig</strong> to initialize. It can be done as follows. For more information, see <a href="./DocumentReader_Index.html#Configure">DocumentReaderConfig</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Passports&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">checkHologram</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
 
 <span class="n">DocumentReaderScan</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">documentReaderConfig</span><span class="p">)</span>
 </code></pre></div>
-</div>
-</div>
-</div>
 <p>The <strong>DocumentReaderRFID</strong> has no initialization requirements and can be instantiated as follows:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Android</label><label for="__tabbed_7_2">iOS</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="c1">//TODO:</span>
-</code></pre></div>
-</div>
-<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="n">DocumentReaderRFID</span><span class="p">()</span>
 </code></pre></div>
 </div>
@@ -2591,14 +2598,25 @@ You're not viewing the latest version.
 </div>
 <h3 id="how-to-use_1">How to Use:<a class="headerlink" href="#how-to-use_1" title="Permanent link">&para;</a></h3>
 <p>Once both providers are initialized, simply pass them as parameters to the Enrolment initialization as shown below. For more information on initializing, see <a href="../../index.html#how-to-initialize-the-sdk">Enrolment</a>.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Android</label><label for="__tabbed_8_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Android</label><label for="__tabbed_6_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="c1">//TODO:</span>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">vbDocumentReaderProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VBProvider</span><span class="p">.</span><span class="na">getInstance</span><span class="p">()</span>
+
+<span class="n">Enrolment</span><span class="p">.</span><span class="na">initialize</span><span class="p">(</span>
+<span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">enrolmentConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
+<span class="w">    </span><span class="n">documentReaderProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vbDocumentReaderProvider</span><span class="p">,</span>
+<span class="w">    </span><span class="n">rfidReaderProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vbDocumentReaderProvider</span><span class="p">,</span>
+<span class="w">    </span><span class="n">callbackcallback</span>
+<span class="p">)</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Full_id_passport&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">checkHologram</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Passports&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">checkHologram</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
 
 <span class="kd">var</span><span class="w"> </span><span class="nv">documentReaderScan</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderScan</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">documentReaderConfig</span><span class="p">)</span>
 <span class="kd">var</span><span class="w"> </span><span class="nv">documentReaderRFID</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderRFID</span><span class="p">()</span>

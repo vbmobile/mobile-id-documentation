@@ -3,6 +3,7 @@
 This page contains all available providers for the **Document Reader** feature, as well as instructions on how to import and implement them in a project using the SeamlessMobile SDK.
 
 - [Regula Provider](#regula-provider)
+- [Amadeus Provider](#amadeus-provider)
 
 ## Regula Provider
 
@@ -94,6 +95,90 @@ Once both providers are initialized, simply pass them as parameters to the Enrol
     Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
                               documentScanProvider: regulaDocumentReaderScan,
                               documentRFIDProvider: regulaDocumentReaderRFID,
+                              viewRegister: viewRegister,
+                              completionHandler: completionHandler)
+    
+    ```
+    
+## Amadeus Provider
+
+This provider uses Regula services and supports both OCR Document Reading and RFID scanning functionalities.
+
+### How to Import: 
+
+=== "Android"
+
+    ```kotlin
+    //TODO:
+    ```
+
+=== "iOS"
+
+    **CocoaPods**
+   
+    It will be available soon.
+
+    **SPM**
+
+    It will be available soon.
+
+### How to Instantiate: 
+
+This provider allows you to create both a **DocumentReaderScan** and a **DocumentReaderRFID** instance.
+
+The **DocumentReaderScan** requires a **DocumentReaderConfig** to initialize. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.html#Configure).
+
+=== "Android"
+
+    ```kotlin
+    //TODO:
+    ```
+    
+=== "iOS"
+
+    ``` swift
+    var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, databaseID: "Full_id_passport", checkHologram: false)
+    
+    DocumentReaderScan(config: documentReaderConfig)
+    
+    ```
+
+The **DocumentReaderRFID** has no initialization requirements and can be instantiated as follows:
+
+=== "Android"
+
+    ```kotlin
+    //TODO:
+    ```
+    
+=== "iOS"
+
+    ``` swift
+    DocumentReaderRFID()
+    
+    ```
+    
+### How to Use: 
+
+Once both providers are initialized, simply pass them as parameters to the Enrolment initialization as shown below. For more information on initializing, see [Enrolment](../../index.html#how-to-initialize-the-sdk).
+
+=== "Android"
+
+    ```kotlin
+    //TODO:
+    ```
+    
+=== "iOS"
+
+    ``` swift
+    var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, databaseID: "Full_id_passport", checkHologram: false)
+    
+    var documentReaderScan = DocumentReaderScan(config: documentReaderConfig)
+    var documentReaderRFID = DocumentReaderRFID()
+    
+    Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
+                              documentScanProvider: documentReaderScan,
+                              documentRFIDProvider: documentReaderRFID,
                               viewRegister: viewRegister,
                               completionHandler: completionHandler)
     

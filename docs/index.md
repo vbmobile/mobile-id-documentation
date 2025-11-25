@@ -20,7 +20,7 @@ hide:
     - Install or update Xcode to latest version;
     - Target iOS 13 or later. 
 
-You must also send an ID (Bundle ID or Application ID) to vision-box so that we can associate the API key with the application, this way your API key is protected with only authorized applications.
+You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can associate the API key with the application, this way your API key is protected with only authorized applications.
 
 ## Enrolment SDK setup
 
@@ -246,7 +246,7 @@ Face match and subject management are not compatible as they need internet acces
 
 To ensure offline mode compatibility, you will need the following:
 
-- An offline license. (Contact your liaison in Vision-Box/Amadeus)
+- An offline license. (Contact your liaison in Amadeus)
 - Put the Regula Database, license and master list in your app's assets (Optional for document reader feature)
 - Import the bundled version of face detection ml-kit library (Optional for face capture feature Android only)
 

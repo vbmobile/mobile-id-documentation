@@ -240,11 +240,11 @@ When you call one of our facade methods, then you will need to pass a completion
 
 This is a brief overview of what each ErrorType corresponds to:
 
-- When it's an internal error, you have to contact VisionBox and share some stacktrace or way to replicate the bug. It usually means that there is some invalid configuration or missing property from our backoffice.
-- Communication errors are mostly caused by internet connection issues, so trying again can solve the problem, it's recommended to allow the user to re-send the request. It can also mean an invalid url of some sort, so if the problem persists you can contact VisionBox.
+- When it's an internal error, you have to contact Amadeus and share some stacktrace or way to replicate the bug. It usually means that there is some invalid configuration or missing property from our backoffice.
+- Communication errors are mostly caused by internet connection issues, so trying again can solve the problem, it's recommended to allow the user to re-send the request. It can also mean an invalid url of some sort, so if the problem persists you can contact Amadeus.
 - PermissionNotGrantedError means that the user didn't grant permission to use some part of the hardware that is required, as recommended you should have a rationale to explain why that permission is required and block the user from proceeding until he grants the permission.
 - User repeated and user canceled are not exactly errors, they are just warnings to inform that the user wants to try again or canceled the operation.
-- Scan error happens when there is a regula error or any error with the scan of the boarding pass, this usually requires debugging, so it's recommended to share the stacktrace and communicate to VisionBox.
+- Scan error happens when there is a regula error or any error with the scan of the boarding pass, this usually requires debugging, so it's recommended to share the stacktrace and communicate to Amadeus.
 - Timeout it means that either the timer of document reader or face capture has reached the end and it wasn't possible to capture the image successfully, you can inform the user of that, suggesting how he should scan the document (on the table, with a high contrast from the table, with the proper angle etc..), or take the selfie in better conditions and let the user try again.
 - Boarding pass invalid means that the scan or parse of the boarding pass was correct but some issues were found. Can be the format that is not supported by us, or simply it's not actually a boarding pass barcode.
 - FaceCaptureError means that the feature failed, either due to our quality tests failing, and in that case you will receive a report saying which tests failed, or liveness service failed due to the quality of the image or being a image of an image and not a real person.

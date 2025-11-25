@@ -18,7 +18,7 @@
 #### Required Changes
 - As part of the security improving efforts a `candidateHash` and `referenceHash` have been added to the [BiometricMatchParameters](../Features/BiometricMatch/BiometricMatch_Index.md#initiate-match), these can be found in the generated reports.
 - Similarly, the build subject operation needs the generated `ProcessReport` and `DocumentReaderReport` that include the above hashes to verify data integrity. If you already use these parameters on the [BuildSubjectParameters](../Features/SubjectManagement/SubjectManagement_Index.md#subject-operations) you don't need to take any action.
-- The package name now needs to be added to the backoffice. You may need to contact Vision-Box for this update.
+- The package name now needs to be added to the backoffice. You may need to contact Amadeus for this update.
 
 #### Optional Changes
 - Add a public key on the [initial configuration](../index.md#apiconfig) together with a private key setup on the backoffice to ensure encrypted requests.
@@ -60,8 +60,8 @@
 
 #### Required Changes
 - Removed BoardingPassScanConfig. The Boarding Pass configuration is now on backend side;
-- Removed Vision-Box parameters from the **BiometricFaceCaptureParameters**. These configurations are now on backoffice;
-- Removed Vision-Box parameters from the **BiometricMatchParameters**. These configurations are now on backoffice;
+- Removed Amadeus parameters from the **BiometricFaceCaptureParameters**. These configurations are now on backoffice;
+- Removed Amadeus parameters from the **BiometricMatchParameters**. These configurations are now on backoffice;
 - Removed **Subject**'s **validateBiometricQuality** configuration. This configuration is now on backoffice;
 - Removed Alamofire lib;
 - Removed specific feature loadings and created a generic one, e.g. remove calls for BoardingPassScannerLoadingView & BoardingPassScannerLoadingView and replace it with the new one LoadingOverlayViewType.

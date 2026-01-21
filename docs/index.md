@@ -20,7 +20,7 @@ hide:
     - Install or update Xcode to latest version;
     - Target iOS 13 or later. 
 
-You must also send an ID (Bundle ID or Application ID) to vision-box so that we can associate the API key with the application, this way your API key is protected with only authorized applications.
+You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can associate the API key with the application, this way your API key is protected with only authorized applications.
 
 ## Enrolment SDK setup
 
@@ -71,7 +71,7 @@ You must also send an ID (Bundle ID or Application ID) to vision-box so that we 
     ```
     2. Add Mobile ID’s cocoapods repo as a source in your podfile:
     ```
-    source ‘https://cdn.cocoapods.org/
+    source 'https://cdn.cocoapods.org/'
     ```
     3. Run in Terminal the command below to install pods in your project:
     ```
@@ -180,7 +180,7 @@ The SDK also allows client apps to use their own custom views for its functional
     - Context - Application context;
     - EnrolmentConfig - Enrolment configuration.
     - EnrolmentCustomViews - Will overwrite any default view from the Enrolment SDK
-    - Document and RFID reader provider - The preferred provider for document and rfid read operations
+    - Document and RFID reader provider - The preferred provider for document and rfid read operations. More info in [custom providers](#custom-providers)
     - EnrolmentInitializerCallback - To receive a callback when the enrolment is initialized or when an error occurs during the process.
 
 === "iOS"
@@ -218,7 +218,7 @@ The SDK also allows client apps to use their own custom views for its functional
     
     The following parameters must be provided if you want read documents:
     
-    - Document and RFID reader provider - The preferred provider for document and rfid read operations
+    - Document and RFID reader provider - The preferred provider for document and rfid read operations. More info in [custom providers](#custom-providers)
     
     The following parameters must be provided if you want customize the screens
     
@@ -246,7 +246,7 @@ Face match and subject management are not compatible as they need internet acces
 
 To ensure offline mode compatibility, you will need the following:
 
-- An offline license. (Contact your liaison in Vision-Box/Amadeus)
+- An offline license. (Contact your liaison in Amadeus)
 - Put the Regula Database, license and master list in your app's assets (Optional for document reader feature)
 - Import the bundled version of face detection ml-kit library (Optional for face capture feature Android only)
 
@@ -598,6 +598,27 @@ pinning for every network request made by the SDK.
                               viewRegister: viewRegister,
                               completionHandler: completionHandler)      
     ```
+
+## Custom Providers
+    
+Starting with SeamlessMobile SDK version 8, a new concept of Providers has been introduced.
+
+The purpose of this feature is to allow SeamlessMobile SDK integrators to select from a list of different providers to perform a given task, and allows to reduce the size of the SeamlessMobile SDK if some features are not used..
+
+Currently, this functionality is only available in the **Document Reader**.
+
+It is achieved by importing the **VBOcrMrzRfidRegula**, which is currently the only provider available in production.
+
+This design allows you to pass both a **DocumentScanProvider** and a **DocumentRFIDProvider** when initializing Enrolment.
+
+Providing these providers is **mandatory** if you intend to use the **Document Reader** feature.
+
+Each provider has unique characteristics, such as specific initializers and configuration flags, which define how the document reading and RFID scanning operations are performed.
+
+For more information about the full list of providers, please refer to the page dedicated to each SDK feature.
+
+- [Document Reader](./Features/DocumentReader/DocumentReader_Providers.md)
+    
 
 ## Localization Support
 

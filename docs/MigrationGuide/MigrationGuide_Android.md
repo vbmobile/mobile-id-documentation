@@ -19,7 +19,7 @@
 #### Required Changes
 - As part of the security improving efforts a `candidateHash` and `referenceHash` have been added to the [BiometricMatchParameters](../Features/BiometricMatch/BiometricMatch_Index.md#initiate-match), these can be found in the generated reports.
 - Similarly, the build subject operation needs the generated `ProcessReport` and `DocumentReaderReport` that include the above hashes to verify data integrity. If you already use these parameters on the [BuildSubjectParameters](../Features/SubjectManagement/SubjectManagement_Index.md#subject-operations) you don't need to take any action.
-- The package name now needs to be added to the backoffice. You may need to contact Vision-Box for this update.
+- The package name now needs to be added to the backoffice. You may need to contact Amadeus for this update.
 
 #### Optional Changes
 - Add a public key on the [initial configuration](../index.md#apiconfig) together with a private key setup on the backoffice to ensure encrypted requests.
@@ -34,7 +34,7 @@
 
 ## From 5.2.1 to 5.2.2
 #### Required Changes
-- Contact Vision-Box to update apiKey used before testing new version. (Threshold values changed)
+- Contact Amadeus to update apiKey used before testing new version. (Threshold values changed)
 
 ## From 5.1.0 to 5.2.0
 #### Required Changes
@@ -73,8 +73,8 @@
 - Rename SubjectBuilderError path to "com.visionbox.mobileid.sdk.enrolment.data.subject.subjectBuilder.error.SubjectBuilderError";
 - Rename BuildSubjectParameters path to "com.visionbox.mobileid.sdk.enrolment.data.subject.subjectBuilder.BuildSubjectParameters";
 - Rename SubjectPermissionDenied to SubjectPermissionDeniedError and rename SubjectNotFound to SubjectNotFoundError;
-- Removed Vision-Box parameters from the **BiometricFaceCaptureParameters**. These configurations are now on backoffice;
-- Removed Vision-Box parameters from the **BiometricMatchParameters**. These configurations are now on backoffice;
+- Removed Amadeus parameters from the **BiometricFaceCaptureParameters**. These configurations are now on backoffice;
+- Removed Amadeus parameters from the **BiometricMatchParameters**. These configurations are now on backoffice;
 - Removed **Subject**'s **validateBiometricQuality** configuration. This configuration is now on backoffice;
 - Removed BoardingPassScanConfig. The Boarding Pass configuration is now on backend level;
 - All Serializable classes changed to Parcelable. Check your onActivityResult methods and change "getSerializableExtra" to "getParcelableExtra";

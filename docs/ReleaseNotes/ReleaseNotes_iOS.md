@@ -1,5 +1,18 @@
 # MobileID SDK - Release Notes
 
+## 8.1.7
+ 
+### Improvements
+ 
+- Fixed issue when starting the database update in the background with the **startUpdateDatabase** function.
+
+## 8.1.6
+ 
+### Improvements
+ 
+- **BoardingPassSummary** and **BoardingPassFull** now fully support the Codable and Equatable protocols, improving data serialization and comparison.
+- Fixed an issue in **parseBoardingPass** function when passing an image without a QR code on the  **ParseBoardingPassParameters** 
+
 ## 8.1.5
 
 ### Improvements
@@ -94,7 +107,7 @@
 
 ### Improvements
 
-- Add choice of the scenarios for the [document capture](../Features/DocumentReader/DocumentReader_Index.html#configure)
+- Add choice of the scenarios for the [document capture](../Features/DocumentReader/DocumentReader_Index.md#configure)
 - Remove Sentry has an external dependency
 
 ## 7.2.2

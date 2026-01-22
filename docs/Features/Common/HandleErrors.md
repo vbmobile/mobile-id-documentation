@@ -95,7 +95,7 @@ Here you can find a list of all the error codes the SDK sends to the client appl
 | InvalidEndpoint                 | 011   | Configuration     |
 | InitFailed                      | 012   | Configuration     |
 | NotReady                        | 013   | Configuration     |
-| NotReady                        | 014   | Configuration     |
+| InvalidLicense                  | 014   | Configuration     |
 | ConfigError                     | 100   | DocumentReader    |
 | NotReady                        | 101   | DocumentReader    |
 | InitFailed                      | 102   | DocumentReader    |

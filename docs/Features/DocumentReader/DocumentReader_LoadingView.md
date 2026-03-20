@@ -1,7 +1,6 @@
 # Loading View
 
 The first view of the document reader flow is the loading view, it appears when the feature is initializing.
-In this step, if the regula database is not yet downloaded or it's outdated, the download will begin automatically.
 
 ![Document Reader Example](Assets/DR_Loading.png "Document Reader Default Loading Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
 
@@ -19,8 +18,6 @@ You can apply your own branding to our screens by overriding the resources we us
     ```xml
     <string name="document_reader_loading_overlay_title_sdk_enrolment">Loading Document Reader</string>
     <string name="document_reader_initializing_overlay_message_sdk_enrolment">This may take a moment</string>
-    <!-- In case the regula database needs to be downloaded we show the progress in text -->
-    <string name="document_read_reader_download_progress_sdk_enrolment">Downloading resources: %d%%</string>
     <!-- When the feature is ready to start we display this message in the subtitle -->
     <string name="document_reader_loading_overlay_subtitle_sdk_enrolment">We\'ll first take a picture of your document</string>
     ```

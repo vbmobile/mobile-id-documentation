@@ -256,17 +256,6 @@ You can follow this platform specific guide to prepare your application to offli
     )
     ```
 
-    In your project, create a new folder named "Regula" in your app's assets folder:
-
-    - app/src/main/assets/Regula
-
-    Place the Database, Regula License and master list files in the new folder.
-    The names of the files must be the following:
-
-    - Database   -> "db.dat"
-    - License    -> "regula.license"
-    - Masterlist -> "csca_certificates.ldif"
-
     In your app's module build.gradle import the Bundled version of the ml-kit face-detection
     ```kotlin
     dependencies {
@@ -292,13 +281,6 @@ You can follow this platform specific guide to prepare your application to offli
         completionHandler: completionHandler,
     )
     ```
-    
-    Place the Database, Regula License and master list files in your project's folder.
-    The names of the files must be the following:
-
-    - Database   -> "db.dat"
-    - License    -> "regula.license"
-    - Masterlist -> "csca_certificates.ldif"
 
 Note that these steps are bound to increase your final apk size as it contains files that were previously downloaded in runtime.
 
@@ -765,10 +747,6 @@ In order for the SDK to use the camera, the user must grant permission to do so.
         - androidx.camera:camera-camera2:1.4.0
         - androidx.camera:camera-lifecycle:1.4.0
         - androidx.camera:camera-view:1.4.0
-
-    - Regula
-        - com.regula.documentreader:api:8.3
-        - com.regula.documentreader.core:fullrfid:8.3
 
     - Lottie
         - com.airbnb.android:lottie:6.6.0

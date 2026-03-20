@@ -36,7 +36,6 @@ nav:
     - Document reader:
         - Overview: Features/DocumentReader/DocumentReader_Index.md
         - Custom Providers: Features/DocumentReader/DocumentReader_Providers.md
-        - Regula database: Features/DocumentReader/DocumentReader_RegulaDB.md
         - Customization:
             - Loading view: Features/DocumentReader/DocumentReader_LoadingView.md
             - Scan view: Features/DocumentReader/DocumentReader_ScanView.md

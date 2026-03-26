@@ -31,18 +31,14 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
     1. Add these new repositories in your app top level gradle file:
     ```
     maven { url "https://vbmobileidstorage.blob.core.windows.net/android/" }
-    maven { url "https://maven.regulaforensics.com/RegulaDocumentReader" }
     ```
     2. Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
     ```
-    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<8.1.4>@aar") { transitive = true }
-    implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula:<2.0.2>")
-    ```
-    Or declare Mobile ID SDK and document reader provider following the BOM pattern instead:
-    ```
-    implementation(platform('com.visionbox.mobileid.sdk:mobileid-bom:8.1.4'))
-    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment")
-    implementation("com.visionbox.mobileid.sdk:vb-ocrmrzrfid-regula")
+    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<9.0.0>@aar") { transitive = true }
+
+    // Optional dependency if you want to use the Document Reader feature
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<1.0.0-rc01>")
+
     ```
     3. Add these rules to proguard if you have problems running the application with minify enabled:
     ```
@@ -130,6 +126,7 @@ The SDK also allows client apps to use their own custom views for its functional
 === "Android"
 
     ```kotlin
+
     val apiConfig = APIConfig(
         baseUrl = URL("YOUR BASE URL"),
         timeout = 30, // timeout in seconds
@@ -139,13 +136,6 @@ The SDK also allows client apps to use their own custom views for its functional
     )
 
     val enrolmentConfig = EnrolmentConfig(apiConfig)
-
-    val regulaDocumentRfidProvider = RegulaProvider.getInstance(
-            DocumentReaderConfig(
-                multipageProcessing = true,
-                databaseId = "DatabaseName"
-            )
-    )
 
     val callback = object : EnrolmentInitializerCallback {
         override fun onEnrolmentInitialized() {
@@ -168,11 +158,10 @@ The SDK also allows client apps to use their own custom views for its functional
     }
 
     Enrolment.initialize(
-        context, 
-        enrolmentConfig,
-        documentReaderProvider = regulaDocumentRfidProvider,
-        rfidReaderProvider = regulaDocumentRfidProvider,
-        callback
+        context = requireContext().applicationContext,
+        enrolmentConfig = enrolmentConfig,
+        documentReaderProvider = <YOUR INITIATED DOCUMENT READER PROVIDER INSTANCE>,
+        enrolmentInitializerCallback = callback
     )
     ```
     The following parameters must always be provided:
@@ -267,17 +256,6 @@ You can follow this platform specific guide to prepare your application to offli
     )
     ```
 
-    In your project, create a new folder named "Regula" in your app's assets folder:
-
-    - app/src/main/assets/Regula
-
-    Place the Database, Regula License and master list files in the new folder.
-    The names of the files must be the following:
-
-    - Database   -> "db.dat"
-    - License    -> "regula.license"
-    - Masterlist -> "csca_certificates.ldif"
-
     In your app's module build.gradle import the Bundled version of the ml-kit face-detection
     ```kotlin
     dependencies {
@@ -303,13 +281,6 @@ You can follow this platform specific guide to prepare your application to offli
         completionHandler: completionHandler,
     )
     ```
-    
-    Place the Database, Regula License and master list files in your project's folder.
-    The names of the files must be the following:
-
-    - Database   -> "db.dat"
-    - License    -> "regula.license"
-    - Masterlist -> "csca_certificates.ldif"
 
 Note that these steps are bound to increase your final apk size as it contains files that were previously downloaded in runtime.
 
@@ -607,7 +578,7 @@ The purpose of this feature is to allow SeamlessMobile SDK integrators to select
 
 Currently, this functionality is only available in the **Document Reader**.
 
-It is achieved by importing the **VBOcrMrzRfidRegula**, which is currently the only provider available in production.
+It is achieved by importing the **DocScanMrz**, which is currently the only provider available in production.
 
 This design allows you to pass both a **DocumentScanProvider** and a **DocumentRFIDProvider** when initializing Enrolment.
 
@@ -776,10 +747,6 @@ In order for the SDK to use the camera, the user must grant permission to do so.
         - androidx.camera:camera-camera2:1.4.0
         - androidx.camera:camera-lifecycle:1.4.0
         - androidx.camera:camera-view:1.4.0
-
-    - Regula
-        - com.regula.documentreader:api:8.3
-        - com.regula.documentreader.core:fullrfid:8.3
 
     - Lottie
         - com.airbnb.android:lottie:6.6.0

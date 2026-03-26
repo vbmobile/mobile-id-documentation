@@ -11,50 +11,6 @@ It contains a title(1), a message(2), a frame(3) and a cancel button (4) that ca
 
 You can apply your own branding to our screens by overriding the resources we use.
 
-### Text resources
-
-This text is dynamic and has been translated into several languages
-
-info "Supported languages:"
-
-    - Arabic (ar)
-    - Bangla (bn)
-    - Czech (cs)
-    - Danish (da)
-    - German (de)
-    - Greek (el)
-    - English (en)
-    - Spanish (es)
-    - Finnish (fi)
-    - French (fr)
-    - Hebrew (he)
-    - Hindi (hi)
-    - Croatian (hr)
-    - Hungarian (hu)
-    - Indonesian (id)
-    - Italian (it)
-    - Japanese (ja)
-    - Korean (ko)
-    - Malay (ms)
-    - Norwegian (nb)
-    - Dutch (nl)
-    - Polish (pl)
-    - Portuguese (pt)
-    - Romanian (ro)
-    - Russian (ru)
-    - Slovak (sk)
-    - Swedish (sv)
-    - Thai (th)
-    - Turkish (tr)
-    - Ukrainian (uk)
-    - Vietnamese (vi)
-    - Chinese Simplified (zh-Hans)
-    - Chinese Traditional (zh-Hant)
-
-If you need additional localization support that is not on this list, then you need to follow this documentation steps:
-[Regula localization support](https://docs.regulaforensics.com/develop/doc-reader-sdk/mobile/customization/localization/)
-
-
 
 ### Colors
 === "Android"

@@ -1,10 +1,37 @@
 # Ultralight Integration
 
-Ultralight enables **Beamsync**, a proximity-based data transmission mechanism that sends passenger
-data to nearby touchpoints (for example, gates or kiosks).
+Ultralight enables **Beamsync**, a proximity-based data transmission mechanism that broadcasts
+passenger data to nearby airport touchpoints (for example, e-gates or self-service kiosks).
+This allows passengers to pass through airport processes without re-scanning their documents at each step.
 
-In the current SDK architecture, Ultralight is integrated through the **Enrolment SDK** facade.
-You provide your own `UltralightProvider` during initialization, and Enrolment exposes methods to control sharing.
+In the current SDK architecture, Ultralight is integrated through the Enrolment SDK facade.
+You provide your own `UltralightProvider` during initialization, and Enrolment exposes two methods to
+control the sharing lifecycle: `share()` (sets passengers and starts broadcasting) and `stopSharing()`.
+
+## Prerequisites
+
+Before integrating Ultralight, ensure you have:
+
+- **Ultralight API key** — Contact your Amadeus liaison to obtain one
+- **Ultralight provider dependency** — Added to your project (see import instructions below)
+
+=== "Android"
+
+    - **Minimum SDK level 26** (same as Enrolment SDK)
+    - **Required permissions** (brought transitively by the Ultralight provider dependency):
+        - `BLUETOOTH_SCAN`, `BLUETOOTH_CONNECT` (Bluetooth Low Energy)
+        - `ACCESS_FINE_LOCATION`, `ACCESS_COARSE_LOCATION` (required for BLE scanning)
+    - **Runtime requirements:**
+        - Bluetooth must be enabled on the device
+        - Location services must be enabled on the device
+
+    !!! note
+        The SDK validates that Bluetooth and Location are enabled before starting Beamsync
+        and returns a descriptive `FeatureError` if either is disabled.
+
+=== "iOS"
+
+    - Requirements will be available soon
 
 ## How to Import
 
@@ -29,7 +56,7 @@ You provide your own `UltralightProvider` during initialization, and Enrolment e
 
 ### Step 1: Create and Initialize UltralightProvider
 
-Before initializing Enrolment, create and configure your UltralightProvider instance:
+Before initializing Enrolment, create and configure your `UltralightProvider` instance:
 
 === "Android"
 
@@ -38,7 +65,7 @@ Before initializing Enrolment, create and configure your UltralightProvider inst
         val ultralightApiKey = "<your-ultralight-api-key>"
         
         // Initialize UltralightSdk
-        UltralightSdk.softStart(context = requireContext())
+        UltralightSdk.initialize(context = requireContext())
         UltralightSdk.getInstance().initialiseBeamSync(ultralightApiKey)
         
         return UltralightSdk.getInstance()
@@ -62,7 +89,7 @@ Before initializing Enrolment, create and configure your UltralightProvider inst
 
 ### Step 2: Pass Provider to Enrolment Initialization
 
-Pass the UltralightProvider to Enrolment during initialization:
+Pass the `UltralightProvider` to `Enrolment.initialize()`:
 
 === "Android"
 
@@ -80,49 +107,6 @@ Pass the UltralightProvider to Enrolment during initialization:
     )
     ```
 
-    Offline mode follows the same pattern:
-
-    ```kotlin
-    val ultralightProvider = initializeUltralight()
-    
-    Enrolment.initializeOffline(
-        context = requireContext().applicationContext,
-        enrolmentConfig = enrolmentConfig,
-        enrolmentCustomViews = enrolmentCustomViews,
-        documentReaderProvider = documentReaderProvider,
-        ultralightProvider = ultralightProvider, // Pass the provider
-        rfidReaderProvider = null,
-        enrolmentInitializerCallback = callback,
-        license = token
-    )
-    ```
-
-=== "iOS"
-
-    It will be available soon.
-
-## Start Beamsync
-
-Start Beamsync using the Enrolment facade method `startSharing()`:
-
-=== "Android"
-
-    ```kotlin
-    val result = Enrolment.getInstance().startSharing()
-    
-    when (result) {
-        "SUCCESS" -> {
-            // Beamsync initialized successfully
-        }
-        "ERROR" -> {
-            // Initialization failed
-        }
-    }
-    ```
-
-    The method returns:
-    - `"SUCCESS"` if Beamsync started successfully or was already running
-    - `"ERROR"` if initialization failed or provider is not available
 
 === "iOS"
 
@@ -130,17 +114,17 @@ Start Beamsync using the Enrolment facade method `startSharing()`:
 
 ## Share Passenger Data
 
-Set the list of passengers to be broadcast through Beamsync using the `share()` method:
+The `share()` method sets the passenger list **and** starts sharing in a single call.
+It returns a `Pair<Boolean, FeatureError>`
 
 === "Android"
 
     ```kotlin
-    import com.amadeus.mdi.mob.sdk.doc_model.api.models.Ultralight.Passenger
-    
+
     val passengers = listOf(
         Passenger(
             language = "en",
-            mrz = "<mrz-line-1>\\n<mrz-line-2>",
+            mrz = "<mrz-line-1>\n<mrz-line-2>",
             boardingPasses = listOf("<bcbp-barcode-string>"),
             docPhotoBase64 = "<base64-encoded-document-photo>",
             selfieBase64 = "<base64-encoded-selfie>",
@@ -149,31 +133,30 @@ Set the list of passengers to be broadcast through Beamsync using the `share()` 
             tag = null
         )
     )
+
+    val (success, featureError) = Enrolment.getInstance().share(passengers)
     
-    Enrolment.getInstance().share(passengers) { result, error ->
-        if (result == true) {
-            // Passengers data set successfully
-        } else {
-            // Failed to set passenger data
-            Log.e("Ultralight", "Error: $error")
-        }
+    if (success) {
+        // Passengers set and Beamsync started successfully
+    } else {
+        // Check featureError.description for details
+        Log.e("Ultralight", "Error: ${featureError.description}")
     }
     ```
 
-    Passenger model:
+    **Passenger model:**
 
-    ```kotlin
-    data class Passenger(
-        val language: String,
-        val mrz: String,
-        val boardingPasses: List<String>,
-        val docPhotoBase64: String,
-        val selfieBase64: String,
-        val ePassport: Boolean,
-        val eBagTagId: String? = null,
-        val tag: String? = null
-    )
-    ```
+    | Field             | Type           | Description                              |
+    |-------------------|----------------|------------------------------------------|
+    | `language`        | `String`       | Language code (e.g., `"en"`, `"fr"`)     |
+    | `mrz`             | `String`       | MRZ string (`\n` separating lines)       |
+    | `boardingPasses`  | `List<String>` | Raw BCBP barcode strings                 |
+    | `docPhotoBase64`  | `String`       | Base64-encoded document holder photo     |
+    | `selfieBase64`    | `String`       | Base64-encoded selfie                    |
+    | `ePassport`       | `Boolean`      | Whether the document is an e-Passport    |
+    | `eBagTagId`       | `String?`      | Optional electronic bag tag ID           |
+    | `tag`             | `String?`      | Optional custom tag                      |
+
 
 === "iOS"
 
@@ -194,11 +177,7 @@ Stop Beamsync when the flow ends (for example, when leaving the screen or destro
     ```kotlin
     override fun onDestroyView() {
         super.onDestroyView()
-        try {
-            Enrolment.getInstance().stopSharing()
-        } catch (e: Exception) {
-            Log.e(TAG, "Error stopping beamsync", e)
-        }
+        Enrolment.getInstance().stopSharing()
     }
     ```
 
@@ -208,7 +187,7 @@ Stop Beamsync when the flow ends (for example, when leaving the screen or destro
 
 ## Complete Example
 
-Here's a complete example integrating Ultralight with Enrolment:
+Here's a complete example integrating Ultralight with the Enrolment SDK:
 
 === "Android"
 
@@ -218,9 +197,8 @@ Here's a complete example integrating Ultralight with Enrolment:
         // Initialize Ultralight provider
         private fun initializeUltralight(): UltralightProvider? {
             val ultralightApiKey = "<your-api-key>"
-            if (ultralightApiKey.isNullOrEmpty()) return null
             
-            UltralightSdk.softStart(context = requireContext())
+            UltralightSdk.initialize(context = requireContext())
             UltralightSdk.getInstance().initialiseBeamSync(ultralightApiKey)
             return UltralightSdk.getInstance()
         }
@@ -248,39 +226,40 @@ Here's a complete example integrating Ultralight with Enrolment:
             )
         }
         
-        // Start Beamsync
-        private fun startBeamsync() {
-            val result = Enrolment.getInstance().startSharing()
-            
-            if (result == "SUCCESS") {
-                Log.d(TAG, "Beamsync started successfully")
-                prepareAndSharePassenger()
-            } else {
-                Log.e(TAG, "Failed to start Beamsync")
-            }
-        }
-        
         // Prepare and share passenger data
-        private fun prepareAndSharePassenger() {
-            // Build passenger from collected data
-            val passenger = Passenger(
-                language = "en",
-                mrz = idDocument.mrz,
-                boardingPasses = listOf(boardingPass.rawBoardingPass),
-                docPhotoBase64 = documentPhoto,
-                selfieBase64 = selfiePhoto,
-                ePassport = idDocument.isElectronic
-            )
-            
-            // Share passengers
-            Enrolment.getInstance().share(listOf(passenger)) { result, error ->
-                activity?.runOnUiThread {
-                    if (result == true) {
-                        Log.d(TAG, "Passenger data set successfully")
-                    } else {
-                        Log.e(TAG, "Failed to set passenger: $error")
+        private fun prepareAndSharePassenger(): Pair<Boolean, String?> {
+            try {
+                val idDocument = EnrolmentData.documentReaderReport?.idDocument
+                    ?: return false to "No ID document"
+                val boardingPass = EnrolmentData.boardingPass
+                val selfieBitmap = readPhotoFromInternalStorage(
+                    requireContext(),
+                    EnrolmentData.faceCapturePhotoFilename ?: ""
+                )
+
+                // Build passenger from collected enrolment data
+                val passenger = Passenger(
+                    language = "en",
+                    mrz = idDocument.mrz,
+                    boardingPasses = listOf(boardingPass.rawBoardingPass),
+                    docPhotoBase64 = documentPhoto,
+                    selfieBase64 = selfiePhoto,
+                    ePassport = idDocument.isElectronic
+                )
+
+                val (success, featureError) = Enrolment.getInstance()
+                    .share(listOf(passenger))
+
+                return if (success) {
+                    true to null
+                } else {
+                    false to featureError.description.ifBlank {
+                        featureError.publicMessage.ifBlank { "Unknown error" }
                     }
                 }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error preparing passenger", e)
+                return false to e.message
             }
         }
         
@@ -292,12 +271,7 @@ Here's a complete example integrating Ultralight with Enrolment:
         
         override fun onDestroyView() {
             super.onDestroyView()
-            // Always stop beamsync when leaving
-            try {
-                Enrolment.getInstance().stopSharing()
-            } catch (e: Exception) {
-                Log.e(TAG, "Error stopping beamsync", e)
-            }
+            Enrolment.getInstance().stopSharing()
         }
     }
     ```
@@ -306,11 +280,11 @@ Here's a complete example integrating Ultralight with Enrolment:
 
     It will be available soon.
 
-
-
 ## Notes
 
-- The `UltralightProvider` must be initialized before passing it to Enrolment
-- All sharing operations are handled through the Enrolment facade methods
-- `share()` uses a callback for async result notification
+- The `UltralightProvider` must be initialized **before** passing it to `Enrolment.initialize()`
+- Ultralight is **not available** in offline mode (`initializeOffline`)
+- `share()` is a **blocking** call — always invoke it from a background thread
+- `share()` both sets the passenger data **and** starts Beamsync (there is no separate `startSharing()` step)
+- The SDK performs pre-flight checks for Bluetooth and Location before starting Beamsync
 - Always call `stopSharing()` when cleaning up (e.g., in `onDestroyView()`)

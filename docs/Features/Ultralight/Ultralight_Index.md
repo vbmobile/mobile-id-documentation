@@ -31,8 +31,14 @@ Before integrating Ultralight, ensure you have:
 
 === "iOS"
 
-    - Requirements will be available soon
+    - **Minimum iOS Verion: 15** (same as Enrolment SDK)
+    - **Required permissions on Info.plist** (brought transitively by the Ultralight provider dependency):
 
+```xml
+<key>NSBluetoothAlwaysUsageDescription</key>
+<string>We need access BT (UltraLight)</string>
+```
+        
 ## How to Import
 
 === "Android"
@@ -50,7 +56,7 @@ Before integrating Ultralight, ensure you have:
 
 === "iOS"
 
-    It will be available soon.
+    Ultralight is exposed through Swift Package Manager at [https://github.com/vbmobile/AmaShareUltralight](https://github.com/vbmobile/AmaShareUltralight)
 
 ## Configure Ultralight in Enrolment Initialization
 
@@ -85,8 +91,13 @@ Before initializing Enrolment, create and configure your `UltralightProvider` in
 
 === "iOS"
 
-    It will be available soon.
+    ```swift
+    let ultralightProvider: AMAShareUltralight.Ultralight = .init()
+    ultralightProvider.initialise(apiKey: "<your-ultralight-api-key>")
+    ```
 
+
+                                  
 ### Step 2: Pass Provider to Enrolment Initialization
 
 Pass the `UltralightProvider` to `Enrolment.initialize()`:
@@ -110,7 +121,14 @@ Pass the `UltralightProvider` to `Enrolment.initialize()`:
 
 === "iOS"
 
-    It will be available soon.
+    ```swift
+    Enrolment.shared.initWith(enrolmentConfig: <your-enrolment-config>,
+                             documentScanProvider: <your-document-scan-provider>,
+                             documentRFIDProvider: <your-rfid-scanner-provider>,
+                             ultralightProvider: ultralightProvider,
+                             viewRegister: EnrolmentViewRegister(),
+                             completionHandler: completionHandler)
+    ```
 
 ## Share Passenger Data
 

@@ -178,7 +178,105 @@ It returns a `Pair<Boolean, FeatureError>`
 
 === "iOS"
 
-    It will be available soon.
+
+```swift
+let passenger = Passenger(language: "en",
+             mrz: "<mrz-line-1>\n<mrz-line-2>",
+             boardingPasses: ["<bcbp-barcode-string>"],
+             docPhotoBase64: "<base64-encoded-document-photo>",
+             selfieBase64: "<base64-encoded-selfie>",
+             ePassport: true,
+             tag: nil,
+             ebagtagId: nil)
+guard let shareResult = await enrolment?.share(passengers: [passenger]) else {
+    print("Precondition failed: nil shareResult")
+    return
+}
+if shareResult.result ?? false {
+    // Passengers set and Beamsync started successfully
+} else {
+    // Check featureError.description for details
+    print(shareResult.error ?? "")
+}
+```
+
+Given a document (`IdDocument`), a selfie (`UIImage`) and the boarding passe (`BoardingPassFull`) we can use the following extension to create a `Passanger`
+
+
+```swift
+import UIKit
+import MobileIdSDKiOS
+import AMADocModeliOS
+
+extension IdDocument {
+    
+    func mapToPassenger(faceCapture: UIImage, boardingPassesFull: [BoardingPassFull]) -> Passenger {
+        mapToPassenger(faceCapture: faceCapture,
+                       boardingPasses: boardingPassesFull.compactMap({ $0.raw })
+        )
+    }
+    
+    func mapToPassenger(faceCapture: UIImage, boardingPasses: [String]) -> Passenger {
+        guard let holderImage = data?.holderImage else {
+            fatalError("Invalid holderImage")
+        }
+        let docPhotoBase64 = Data(holderImage).base64EncodedString()
+        guard !docPhotoBase64.isEmpty else {
+            fatalError("Invalid docPhotoBase64")
+        }
+        guard let faceCaptureBase64 = faceCapture.resized?.base64 else {
+            fatalError("Invalid selfieBase64")
+        }
+        guard let mrz = mrz?.mrzString, !mrz.isEmpty else {
+            fatalError("Invalid mrz")
+        }
+        return .init(language: "en",
+                     mrz: mrz,
+                     boardingPasses: boardingPasses,
+                     docPhotoBase64: docPhotoBase64,
+                     selfieBase64: faceCaptureBase64,
+                     ePassport: info?.isElectronic == .electronic,
+                     tag: nil,
+                     ebagtagId: nil)
+    }
+}
+
+extension UIImage {
+
+    var resized: UIImage? {
+        let maxDimension: CGFloat = 500
+        let width = size.width
+        let height = size.height
+        let maxCurrent = max(width, height)
+        if maxCurrent <= maxDimension { return self }
+        let scale = maxDimension / maxCurrent
+        let newSize = CGSize(width: width * scale, height: height * scale)
+        let format = UIGraphicsImageRendererFormat.default()
+        format.scale = scale
+        format.opaque = false
+        let renderer = UIGraphicsImageRenderer(size: newSize, format: format)
+        return renderer.image { _ in
+            self.draw(in: CGRect(origin: .zero, size: newSize))
+        }
+    }
+  
+    var base64: String? {
+        if let jpegData = self.jpegData(compressionQuality: 1) {
+            return jpegData.base64EncodedString()
+        }
+        if let jpegData = self.jpegData(compressionQuality: 0.9) {
+            return jpegData.base64EncodedString()
+        }
+        if let jpegData = self.jpegData(compressionQuality: 0.8) {
+            return jpegData.base64EncodedString()
+        }
+        if let pngData = self.pngData() {
+            return pngData.base64EncodedString()
+        }
+        return nil
+    }
+}
+```
 
 ## Stop Beamsync
 
@@ -201,7 +299,22 @@ Stop Beamsync when the flow ends (for example, when leaving the screen or destro
 
 === "iOS"
 
-    It will be available soon.
+
+It's recommended to call `stopSharing()` in your view lifecycle:
+
+
+```swift
+deinit {
+   presenter.unbind()
+   presenter.shouldStopSharing { _ in } // MVP Arquitecture
+}
+```
+
+or call it ha hoc 
+
+```swift
+enrolment?.stopSharing()
+```
 
 ## Complete Example
 
@@ -296,7 +409,83 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 
 === "iOS"
 
-    It will be available soon.
+```swift
+import MobileIdSDKiOS
+import AMADocModeliOS
+import AMAShareUltralight
+
+class UltralightSample {
+
+    func initializeUltralight() -> UltralightProtocol? {
+        let ultralightProvider: AMAShareUltralight.Ultralight = .init()
+        ultralightProvider.initialise(apiKey: "<your-ultralight-api-key>")
+        return ultralightProvider
+      }
+    
+    func initializeEnrolment() async -> EnrolmentProtocol {
+        return await withCheckedContinuation { continuation in
+            let enrolmentConfig = EnrolmentConfig(
+                apiConfig: APIConfig(
+                    baseURL: "<your-url>",
+                    timeout: 30,
+                    logLevel: .basic,
+                    apiKey: "<your-enrolment-api-key>"
+                ))
+            Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
+                                      documentScanProvider: nil,
+                                      documentRFIDProvider: nil,
+                                      ultralightProvider: initializeUltralight(),
+                                      viewRegister: nil,
+                                      completionHandler:  { result in
+                switch result {
+                case .success:
+                    continuation.resume(returning: Enrolment.shared)
+                case .failure(let featureError):
+                    print(featureError.description)
+                    continuation.resume(returning: Enrolment.shared)
+                }
+            })
+        }
+    }
+    
+    func stopSharing(enrolment: EnrolmentProtocol?) {
+        enrolment?.stopSharing()
+    }
+    
+    func prepareAndSharePassenger(enrolment: EnrolmentProtocol?) {
+        guard EnrolmentData.idDocument != nil else {
+            print("Precondition failed: Have not read document")
+            return
+        }
+        guard let faceCapture = EnrolmentData.biometricFaceCaptureReport?.photo else {
+            print("Precondition failed: Have not read face")
+            return
+        }
+        guard EnrolmentData.boardingPass != nil else {
+            print("Precondition failed: Have not read boarding pass")
+            return
+        }
+        guard let idDocument = EnrolmentData.idDocument else {
+            print("Precondition failed: idDocument missing")
+            return
+        }
+        let boardPass = EnrolmentData.boardingPass?.raw ?? ""
+        let passenger = idDocument.mapToPassenger(faceCapture: faceCapture, boardingPasses: [boardPass])
+        Task {
+            guard let shareResult = await enrolment?.share(passengers: [passenger]) else {
+                print("Precondition failed: nil shareResult")
+                return
+            }
+            if shareResult.result ?? false {
+                // Passengers set and Beamsync started successfully
+            } else {
+                // Check featureError.description for details
+                print(shareResult.error ?? "")
+            }
+        }
+    }
+}
+```
 
 ## Notes
 

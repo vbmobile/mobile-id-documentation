@@ -31,7 +31,7 @@ Before integrating Ultralight, ensure you have:
 
 === "iOS"
 
-    - **Minimum iOS Verion: 15** (same as Enrolment SDK)
+    - **Minimum iOS Version: 15** (same as Enrolment SDK)
     - **Required permissions on Info.plist** (brought transitively by the Ultralight provider dependency):
 
 ```xml
@@ -56,7 +56,47 @@ Before integrating Ultralight, ensure you have:
 
 === "iOS"
 
-    Ultralight is exposed through Swift Package Manager at [https://github.com/vbmobile/AmaShareUltralight](https://github.com/vbmobile/AmaShareUltralight)
+Ultralight is distributed for iOS via **Swift Package Manager (SPM)**.
+
+__Install using Xcode__
+
+1. Open your project in **Xcode**
+2. Go to **File ▸ Add Packages…**
+3. Enter the package repository URL:
+
+   ```
+   https://github.com/vbmobile/AmaShareUltralight
+   ```
+
+4. Select the desired version (recommended: exact or up to next major)
+5. Add the **AmaShareUltralight** product to your app target
+
+__Install using `Package.swift`__
+
+If you are managing dependencies manually, add Ultralight to your `Package.swift`:
+
+```swift
+dependencies: [
+    .package(
+        url: "https://github.com/vbmobile/AmaShareUltralight",
+        exact: "1.0.0"
+    )
+],
+```
+
+Then include it in your target dependencies:
+
+```swift
+.target(
+    name: "YourAppTarget",
+    dependencies: [
+        .product(name: "AmaShareUltralight", package: "AmaShareUltralight")
+    ]
+)
+```
+
+Once added, Ultralight APIs are available to your application through the Enrolment SDK integration flow.
+
 
 ## Configure Ultralight in Enrolment Initialization
 
@@ -91,12 +131,13 @@ Before initializing Enrolment, create and configure your `UltralightProvider` in
 
 === "iOS"
 
-    ```swift
+```swift
+func initializeUltralight() -> UltralightProtocol? {
     let ultralightProvider: AMAShareUltralight.Ultralight = .init()
-    ultralightProvider.initialise(apiKey: "<your-ultralight-api-key>")
-    ```
-
-
+    ultralightProvider.initialiseBeamSync(apiKey: "<your-ultralight-api-key>")
+    return ultralightProvider
+  }
+```
                                   
 ### Step 2: Pass Provider to Enrolment Initialization
 
@@ -121,14 +162,32 @@ Pass the `UltralightProvider` to `Enrolment.initialize()`:
 
 === "iOS"
 
-    ```swift
-    Enrolment.shared.initWith(enrolmentConfig: <your-enrolment-config>,
-                             documentScanProvider: <your-document-scan-provider>,
-                             documentRFIDProvider: <your-rfid-scanner-provider>,
-                             ultralightProvider: ultralightProvider,
-                             viewRegister: EnrolmentViewRegister(),
-                             completionHandler: completionHandler)
-    ```
+```swift
+func initializeEnrolment() async -> EnrolmentProtocol {
+    return await withCheckedContinuation { continuation in
+        let enrolmentConfig = EnrolmentConfig(
+            apiConfig: APIConfig(
+                baseURL: "<your-url>",
+                timeout: 30,
+                logLevel: .basic,
+                apiKey: "<your-enrolment-api-key>"
+            ))
+        Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
+                                  documentScanProvider: nil,
+                                  documentRFIDProvider: nil,
+                                  ultralightProvider: initializeUltralight(),
+                                  viewRegister: nil,
+                                  completionHandler:  { result in
+            switch result {
+            case .success:
+                continuation.resume(returning: Enrolment.shared)
+            case .failure(let featureError):
+                print(featureError.description)
+                continuation.resume(returning: Enrolment.shared)
+            }
+        })
+    }
+```
 
 ## Share Passenger Data
 
@@ -197,84 +256,6 @@ if shareResult.result ?? false {
 } else {
     // Check featureError.description for details
     print(shareResult.error ?? "")
-}
-```
-
-Given a document (`IdDocument`), a selfie (`UIImage`) and the boarding passe (`BoardingPassFull`) we can use the following extension to create a `Passanger`
-
-
-```swift
-import UIKit
-import MobileIdSDKiOS
-import AMADocModeliOS
-
-extension IdDocument {
-    
-    func mapToPassenger(faceCapture: UIImage, boardingPassesFull: [BoardingPassFull]) -> Passenger {
-        mapToPassenger(faceCapture: faceCapture,
-                       boardingPasses: boardingPassesFull.compactMap({ $0.raw })
-        )
-    }
-    
-    func mapToPassenger(faceCapture: UIImage, boardingPasses: [String]) -> Passenger {
-        guard let holderImage = data?.holderImage else {
-            fatalError("Invalid holderImage")
-        }
-        let docPhotoBase64 = Data(holderImage).base64EncodedString()
-        guard !docPhotoBase64.isEmpty else {
-            fatalError("Invalid docPhotoBase64")
-        }
-        guard let faceCaptureBase64 = faceCapture.resized?.base64 else {
-            fatalError("Invalid selfieBase64")
-        }
-        guard let mrz = mrz?.mrzString, !mrz.isEmpty else {
-            fatalError("Invalid mrz")
-        }
-        return .init(language: "en",
-                     mrz: mrz,
-                     boardingPasses: boardingPasses,
-                     docPhotoBase64: docPhotoBase64,
-                     selfieBase64: faceCaptureBase64,
-                     ePassport: info?.isElectronic == .electronic,
-                     tag: nil,
-                     ebagtagId: nil)
-    }
-}
-
-extension UIImage {
-
-    var resized: UIImage? {
-        let maxDimension: CGFloat = 500
-        let width = size.width
-        let height = size.height
-        let maxCurrent = max(width, height)
-        if maxCurrent <= maxDimension { return self }
-        let scale = maxDimension / maxCurrent
-        let newSize = CGSize(width: width * scale, height: height * scale)
-        let format = UIGraphicsImageRendererFormat.default()
-        format.scale = scale
-        format.opaque = false
-        let renderer = UIGraphicsImageRenderer(size: newSize, format: format)
-        return renderer.image { _ in
-            self.draw(in: CGRect(origin: .zero, size: newSize))
-        }
-    }
-  
-    var base64: String? {
-        if let jpegData = self.jpegData(compressionQuality: 1) {
-            return jpegData.base64EncodedString()
-        }
-        if let jpegData = self.jpegData(compressionQuality: 0.9) {
-            return jpegData.base64EncodedString()
-        }
-        if let jpegData = self.jpegData(compressionQuality: 0.8) {
-            return jpegData.base64EncodedString()
-        }
-        if let pngData = self.pngData() {
-            return pngData.base64EncodedString()
-        }
-        return nil
-    }
 }
 ```
 
@@ -418,7 +399,7 @@ class UltralightSample {
 
     func initializeUltralight() -> UltralightProtocol? {
         let ultralightProvider: AMAShareUltralight.Ultralight = .init()
-        ultralightProvider.initialise(apiKey: "<your-ultralight-api-key>")
+        ultralightProvider.initialiseBeamSync(apiKey: "<your-ultralight-api-key>")
         return ultralightProvider
       }
     
@@ -445,6 +426,27 @@ class UltralightSample {
                     continuation.resume(returning: Enrolment.shared)
                 }
             })
+        }
+    }
+    
+    func sampleShare(enrolment: EnrolmentProtocol?) async {
+        let passenger = Passenger(language: "en",
+                     mrz: "<mrz-line-1>\n<mrz-line-2>",
+                     boardingPasses: ["<bcbp-barcode-string>"],
+                     docPhotoBase64: "<base64-encoded-document-photo>",
+                     selfieBase64: "<base64-encoded-selfie>",
+                     ePassport: true,
+                     tag: nil,
+                     ebagtagId: nil)
+        guard let shareResult = await enrolment?.share(passengers: [passenger]) else {
+            print("Precondition failed: nil shareResult")
+            return
+        }
+        if shareResult.result ?? false {
+            // Passengers set and Beamsync started successfully
+        } else {
+            // Check featureError.description for details
+            print(shareResult.error ?? "")
         }
     }
     
@@ -484,6 +486,8 @@ class UltralightSample {
             }
         }
     }
+    
+
 }
 ```
 

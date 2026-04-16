@@ -452,17 +452,6 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
-    <a href="#offline-mode-support" class="md-nav__link">
-        Offline Mode Support
-    </a>
-
-    <!-- Table of contents list -->
-    
-    
-</li>
-      
-        <!-- Table of contents item -->
-<li class="md-nav__item">
     <a href="#data-security" class="md-nav__link">
         Data Security
     </a>
@@ -2693,17 +2682,6 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
-    <a href="#offline-mode-support" class="md-nav__link">
-        Offline Mode Support
-    </a>
-
-    <!-- Table of contents list -->
-    
-    
-</li>
-      
-        <!-- Table of contents item -->
-<li class="md-nav__item">
     <a href="#data-security" class="md-nav__link">
         Data Security
     </a>
@@ -2883,51 +2861,30 @@ implementation(&quot;com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:&lt;1.0.0-rc01&gt;
 </div>
 <div class="tabbed-block">
 <p>To add the Enrolment SDK to your app, perform the following steps:</p>
-<p><strong>CocoaPods</strong></p>
-<p>To always use the latest release, add the following to your Podfile:</p>
-<ol>
-<li>Add the following to your Podfile, with the latest version:
-<div class="highlight"><pre><span></span><code>pod &#39;MobileIdSDKiOS&#39;, &#39;8.1.0&#39;
-pod &#39;VBOcrMrzRfidRegula&#39;, &#39;1.1.0&#39;
-</code></pre></div></li>
-<li>Add Mobile ID’s cocoapods repo as a source in your podfile:
-<div class="highlight"><pre><span></span><code>source &#39;https://cdn.cocoapods.org/&#39;
-</code></pre></div></li>
-<li>Run in Terminal the command below to install pods in your project:
-<div class="highlight"><pre><span></span><code>pod install
-</code></pre></div></li>
-</ol>
-<p><strong>NOTE:</strong> Due the necessity of the SDK to be built for distribution, a post installscript might be needed in your Podfile: (https://github.com/CocoaPods/CocoaPods/issues/9232).
-Example:
-<div class="highlight"><pre><span></span><code>post_install do |installer|
-    installer.pods_project.build_configurations.each do |config|
-        config.build_settings[&#39;BUILD_LIBRARY_FOR_DISTRIBUTION&#39;] = &#39;YES&#39;
-        config.build_settings[&quot;EXCLUDED_ARCHS[sdk=iphonesimulator*]&quot;] = &quot;arm64&quot;
-    end
-end
-</code></pre></div></p>
-<p><strong>SPM</strong></p>
 <ol>
 <li>In Xcode, naviate to File &gt; Add Package Dependencies.</li>
 <li>
 <p>In the prompt that appears, enter the package URL:</p>
 <p>For <strong>MobileIdSDKiOS</strong>
 <div class="highlight"><pre><span></span><code>https://github.com/vbmobile/MobileIdSDKiOS
-</code></pre></div>
-For <strong>VBOcrMrzRfidRegula</strong>
-<div class="highlight"><pre><span></span><code>https://github.com/vbmobile/VBOcrMrzRfidRegula
+</code></pre></div></p>
+<p>For <strong>AMAShareUltralight</strong>
+<div class="highlight"><pre><span></span><code>https://github.com/vbmobile/AmaShareUltralight
+</code></pre></div></p>
+<p>For <strong>AMADocScanMrziOS</strong>
+<div class="highlight"><pre><span></span><code>https://github.com/vbmobile/AMADocScanMrziOS
+</code></pre></div></p>
+<p>For <strong>AMADocScanRegulaiOS</strong>
+<div class="highlight"><pre><span></span><code>https://github.com/vbmobile/AMADocScanRegulaiOS
 </code></pre></div></p>
 </li>
 <li>
-<p>Select the version you want to use. For new projects, we recommend using the newest version of SeamlessMobile SDK.</p>
+<p>Select the version you want to use. For new projects, we recommend using the newest - <em>1.0.0-rc24</em> - version of SeamlessMobile SDK.</p>
 </li>
 <li>Select the project you want to add the package.</li>
 <li>Click Add Package.</li>
 </ol>
 <p>Once you're finished, Xcode will begin downloading and resolving dependencies.</p>
-<p><strong>Migration from CocoaPods to SPM</strong></p>
-<p>If migrating from a CocoaPods-based project, run <code>pod deintegrate</code> to remove CocoaPods from your Xcode project. The CocoaPods-generated .xcworkspace file can safely be deleted afterward. </p>
-<p>If you're adding SeamlessMobile SDK Swift Packages to a project for the first time, ignore this notice.</p>
 </div>
 </div>
 </div>
@@ -2987,29 +2944,37 @@ The following parameters must always be provided:</p>
 </ul>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">(</span><span class="w"> </span><span class="n">apiConfig</span><span class="p">:</span><span class="w"> </span><span class="n">APIConfig</span><span class="p">(</span>
-<span class="w">        </span><span class="n">baseURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR BASE URL&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="c1">// timeout in seconds</span>
-<span class="w">        </span><span class="n">logLevel</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">basic</span><span class="p">,</span>
-<span class="w">        </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">publicKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR PUBLIC KEY&quot;</span><span class="w"> </span><span class="c1">// Optional parameter to ensure requests are encrypted</span>
-<span class="p">))</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">(</span><span class="w"> </span><span class="n">apiConfig</span><span class="p">:</span><span class="w"> </span><span class="n">APIConfig</span><span class="p">(</span>
+<span class="w">            </span><span class="n">baseURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR BASE URL&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="c1">// timeout in seconds</span>
+<span class="w">            </span><span class="n">logLevel</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">basic</span><span class="p">,</span>
+<span class="w">            </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">publicKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR PUBLIC KEY&quot;</span><span class="w"> </span><span class="c1">// Optional parameter to ensure requests are encrypted</span>
+<span class="w">    </span><span class="p">))</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
-<span class="w">                                                </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DatabaseName&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">bounds</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="bp">UIScreen</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="n">bounds</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">documentScanProvider</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderScan</span><span class="p">(</span>
+<span class="w">        </span><span class="n">documentType</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">td3</span><span class="p">,</span>
+<span class="w">        </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">pixelWidth</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">width</span><span class="p">),</span>
+<span class="w">        </span><span class="n">pixelHeight</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">Ultralight</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">()</span>
+<span class="w">    </span><span class="n">ultralightProvider</span><span class="p">.</span><span class="n">initialiseBeamSync</span><span class="p">(</span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">)</span>
 
 <span class="w">    </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">RegulaDocumentReaderScan</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">documentReaderConfig</span><span class="p">),</span>
+<span class="w">                              </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">documentScanProvider</span><span class="p">,</span>
 <span class="w">                              </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="n">RegulaDocumentReaderRFID</span><span class="p">(),</span>
-<span class="w">                              </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="n">viewRegister</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">ultralightProvider</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentViewRegister</span><span class="p">(),</span>
 <span class="w">                              </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
-<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="kc">_</span><span class="p">):</span>
-<span class="w">        </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Success: SeamlessMobile SDK is ready to use&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nv">error</span><span class="p">):</span>
-<span class="w">        </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Failure: error.description&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">})</span>
+<span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="kc">_</span><span class="p">):</span>
+<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Success: SeamlessMobile SDK is ready to use&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nv">error</span><span class="p">):</span>
+<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">})</span>
 </code></pre></div>
 <p>The following parameters must always be provided:</p>
 <ul>
@@ -3034,27 +2999,32 @@ The following parameters must always be provided:</p>
 <li>If an error occurs during the initialize method, for example internet connection during the fetch configurations, you will receive via callback an InitFailed error(012 - Error while fetching configurations. Please check your internet connection and API URL/API Key.)</li>
 </ul>
 <p>If you try to call a feature while the Enrolment is not ready you will receive a NotReady error (013 - Enrolment is not ready yet. Wait for the callback.)</p>
-<h2 id="offline-mode-support">Offline Mode Support<a class="headerlink" href="#offline-mode-support" title="Permanent link">&para;</a></h2>
-<p>From version 8.1.0 onwards the SDK offers an offline mode, allowing apps without internet connection to still use some of the features.</p>
-<p>In offline mode we support the following features:</p>
-<ul>
-<li>Face Capture (Without liveness)</li>
-<li>Document Reader</li>
-<li>Boarding Pass Scan</li>
-</ul>
-<p>Face match and subject management are not compatible as they need internet access to properly work.</p>
-<p>To ensure offline mode compatibility, you will need the following:</p>
-<ul>
-<li>An offline license. (Contact your liaison in Amadeus)</li>
-<li>Put the Regula Database, license and master list in your app's assets (Optional for document reader feature)</li>
-<li>Import the bundled version of face detection ml-kit library (Optional for face capture feature Android only)</li>
-</ul>
-<p>You can follow this platform specific guide to prepare your application to offline mode support:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Android</label><label for="__tabbed_4_2">iOS</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p>Instead of calling Enrolment.initialize, there's a new method in the facade Enrolment.initializeOffline:
-<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;YOUR_LICENSE_CONTENT&quot;</span>
+<!--
+
+## Offline Mode Support
+
+From version 8.1.0 onwards the SDK offers an offline mode, allowing apps without internet connection to still use some of the features.
+
+In offline mode we support the following features:
+
+- Face Capture (Without liveness)
+- Document Reader
+- Boarding Pass Scan
+
+Face match and subject management are not compatible as they need internet access to properly work.
+
+To ensure offline mode compatibility, you will need the following:
+
+- An offline license. (Contact your liaison in Amadeus)
+- Put the Regula Database, license and master list in your app's assets (Optional for document reader feature)
+- Import the bundled version of face detection ml-kit library (Optional for face capture feature Android only)
+
+You can follow this platform specific guide to prepare your application to offline mode support:
+
+=== "Android"
+
+    Instead of calling Enrolment.initialize, there's a new method in the facade Enrolment.initializeOffline:
+    <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;YOUR_LICENSE_CONTENT&quot;</span>
 <span class="n">Enrolment</span><span class="p">.</span><span class="na">initializeOffline</span><span class="p">(</span>
 <span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">,</span><span class="w"> </span>
 <span class="w">    </span><span class="n">enrolmentConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
@@ -3063,18 +3033,21 @@ The following parameters must always be provided:</p>
 <span class="w">    </span><span class="n">enrolmentInitializerCallback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">callback</span><span class="p">,</span>
 <span class="w">    </span><span class="n">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">license</span>
 <span class="p">)</span>
-</code></pre></div></p>
-<p>In your app's module build.gradle import the Bundled version of the ml-kit face-detection
-<div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
+</code></pre></div>
+
+    In your app's module build.gradle import the Bundled version of the ml-kit face-detection
+    <div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// ...</span>
 <span class="w">    </span><span class="c1">// Use this dependency to bundle the model with your app</span>
 <span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="err">&#39;</span><span class="n">com</span><span class="p">.</span><span class="na">google</span><span class="p">.</span><span class="na">mlkit</span><span class="p">:</span><span class="n">face</span><span class="o">-</span><span class="n">detection</span><span class="p">:</span><span class="m">16.1</span><span class="p">.</span><span class="m">7</span><span class="err">&#39;</span>
 <span class="p">}</span>
-</code></pre></div></p>
-</div>
-<div class="tabbed-block">
-<p>Instead of calling <code>Enrolment.shared.initWith</code>, there's a new method in the facade, <code>Enrolment.shared.initOffline</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nv">license</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;YOUR_LICENSE_CONTENT&quot;</span>
+</code></pre></div>
+
+=== "iOS"
+
+    Instead of calling `Enrolment.shared.initWith`, there's a new method in the facade, `Enrolment.shared.initOffline`:
+
+    <div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nv">license</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;YOUR_LICENSE_CONTENT&quot;</span>
 <span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initOffline</span><span class="p">(</span>
 <span class="w">    </span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
 <span class="w">    </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">documentScanProvider</span><span class="p">,</span>
@@ -3085,10 +3058,10 @@ The following parameters must always be provided:</p>
 <span class="w">    </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
-</div>
-</div>
-</div>
-<p>Note that these steps are bound to increase your final apk size as it contains files that were previously downloaded in runtime.</p>
+
+Note that these steps are bound to increase your final apk size as it contains files that were previously downloaded in runtime.
+-->
+
 <h2 id="data-security">Data Security<a class="headerlink" href="#data-security" title="Permanent link">&para;</a></h2>
 <p>In version 7.1, an hybrid encryption system was implemented to protect sensitive information and to prevent possible attacks.</p>
 <p><img alt="Hybrid Encryption System" src="images/Request_Encryption.png" style="display: block; margin: 5px auto" title="Request Encryption Flow" /></p>
@@ -3106,7 +3079,7 @@ This aims to prevent leaked information by the use of proxy's or interceptors.</
 <h2 id="configurations">Configurations<a class="headerlink" href="#configurations" title="Permanent link">&para;</a></h2>
 <h3 id="enrolmentconfig">EnrolmentConfig<a class="headerlink" href="#enrolmentconfig" title="Permanent link">&para;</a></h3>
 <p>The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Android</label><label for="__tabbed_5_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Android</label><label for="__tabbed_4_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">EnrolmentConfig</span><span class="p">(</span>
@@ -3139,7 +3112,7 @@ This aims to prevent leaked information by the use of proxy's or interceptors.</
 <h3 id="apiconfig">ApiConfig<a class="headerlink" href="#apiconfig" title="Permanent link">&para;</a></h3>
 <p>You always need to specify the baseUrl for your Mobile ID API instance, as well as your provided API
 key. You can also configure the timeout value for server responses and the log level.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Android</label><label for="__tabbed_6_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Android</label><label for="__tabbed_5_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="cm">/**</span>
@@ -3179,7 +3152,7 @@ key. You can also configure the timeout value for server responses and the log l
 <li>apiKey: key to authorize communication with Mobile API;</li>
 <li>publicKey: key to use for ciphering/deciphering for secure communications. It needs to be encoded in Base64.</li>
 </ul>
-<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Android</label><label for="__tabbed_7_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Android</label><label for="__tabbed_6_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nd">@Deprecated</span><span class="p">(</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;API Log Level is going away. Check out LogConfiguration on EnrolmentConfig&quot;</span><span class="p">)</span>
@@ -3211,7 +3184,7 @@ key. You can also configure the timeout value for server responses and the log l
 <p>You can use the security config to specify a list of SSL certificates to be trusted when connecting
 the SDK to a server instance. By providing this configuration, you are activating certificate
 pinning for every network request made by the SDK.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Android</label><label for="__tabbed_8_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Android</label><label for="__tabbed_7_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">APISecurityConfig</span><span class="p">(</span>
@@ -3235,7 +3208,7 @@ pinning for every network request made by the SDK.</p>
 <li>certificates: used for certificate pinning</li>
 </ul>
 <h3 id="log-configuration">Log Configuration<a class="headerlink" href="#log-configuration" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">Android</label><label for="__tabbed_9_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Android</label><label for="__tabbed_8_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>A log configuration can be added to the EnrolmentConfig to get additional info on some of the operations of the SDK. Console and File strategies are available, these can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.</p>
@@ -3287,7 +3260,7 @@ pinning for every network request made by the SDK.</p>
 </div>
 </div>
 <h2 id="advanced-configurations">Advanced Configurations<a class="headerlink" href="#advanced-configurations" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Android</label><label for="__tabbed_10_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">Android</label><label for="__tabbed_9_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The other configurations are used by their corresponding facade method:</p>
@@ -3364,7 +3337,7 @@ Check <a href="https://developer.android.com/studio/build/shrink-code#keep-code"
 <li><a href="Features/DocumentReader/DocumentReader_Providers.html">Document Reader</a></li>
 </ul>
 <h2 id="localization-support">Localization Support<a class="headerlink" href="#localization-support" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Android</label><label for="__tabbed_11_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Android</label><label for="__tabbed_10_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>If you wish to add localization support to your application or change some of the default values, you will need to add the strings used by Enrolment SDK to each locale strings.xml file.</p>
@@ -3382,7 +3355,7 @@ Check <a href="https://developer.android.com/studio/build/shrink-code#keep-code"
 </div>
 </div>
 <h2 id="rfid-chip-processing">RFID Chip Processing<a class="headerlink" href="#rfid-chip-processing" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">Android</label><label for="__tabbed_12_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Android</label><label for="__tabbed_11_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>In order to use the RFID feature, the user must give the NFC permission in runtime, otherwise it won't work. 
@@ -3418,7 +3391,7 @@ must be able to read according to ISO7816:
 </div>
 <h2 id="camera-permissions">Camera Permissions<a class="headerlink" href="#camera-permissions" title="Permanent link">&para;</a></h2>
 <p>In order for the SDK to use the camera, the user must grant permission to do so.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">Android</label><label for="__tabbed_13_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">Android</label><label for="__tabbed_12_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>In order to use the camera related features, the user must give the camera permission in runtime, otherwise it won't work. 
@@ -3436,7 +3409,7 @@ After including <strong>NSCameraUsageDescription</strong> in your <strong>Info.p
 </div>
 </div>
 <h2 id="custom-styles">Custom Styles<a class="headerlink" href="#custom-styles" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">Android</label><label for="__tabbed_14_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">Android</label><label for="__tabbed_13_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>You can apply your app’s own colors and fonts to all the provided SDK layout solutions, which means that the SDK views can adapt to your app’s design. 
@@ -3624,7 +3597,7 @@ It brings control and allows the maintenance of consistency in terms of brand co
 </div>
 </div>
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="15:2"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><input id="__tabbed_15_2" name="__tabbed_15" type="radio" /><div class="tabbed-labels"><label for="__tabbed_15_1">Android</label><label for="__tabbed_15_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">Android</label><label for="__tabbed_14_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <ul>

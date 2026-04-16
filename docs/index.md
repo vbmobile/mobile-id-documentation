@@ -55,37 +55,6 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 === "iOS"
 
     To add the Enrolment SDK to your app, perform the following steps:
-    
-    **CocoaPods**
-    
-    To always use the latest release, add the following to your Podfile:
-    
-    1. Add the following to your Podfile, with the latest version:
-    ```
-    pod 'MobileIdSDKiOS', '8.1.0'
-    pod 'VBOcrMrzRfidRegula', '1.1.0'
-    ```
-    2. Add Mobile ID’s cocoapods repo as a source in your podfile:
-    ```
-    source 'https://cdn.cocoapods.org/'
-    ```
-    3. Run in Terminal the command below to install pods in your project:
-    ```
-    pod install
-    ```
-
-    **NOTE:** Due the necessity of the SDK to be built for distribution, a post installscript might be needed in your Podfile: (https://github.com/CocoaPods/CocoaPods/issues/9232).
-    Example:
-    ```
-    post_install do |installer|
-        installer.pods_project.build_configurations.each do |config|
-            config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
-            config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
-        end
-    end
-    ```
-    
-    **SPM**
 
     1. In Xcode, naviate to File > Add Package Dependencies.
     2. In the prompt that appears, enter the package URL:
@@ -94,22 +63,27 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
         ```
         https://github.com/vbmobile/MobileIdSDKiOS
         ```
-        For **VBOcrMrzRfidRegula**
+        
+        For **AMAShareUltralight**
         ```
-        https://github.com/vbmobile/VBOcrMrzRfidRegula
+        https://github.com/vbmobile/AmaShareUltralight
+        ```
+        
+        For **AMADocScanMrziOS**
+        ```
+        https://github.com/vbmobile/AMADocScanMrziOS
+        ```
+        
+        For **AMADocScanRegulaiOS**
+        ```
+        https://github.com/vbmobile/AMADocScanRegulaiOS
         ```
    
-    3. Select the version you want to use. For new projects, we recommend using the newest version of SeamlessMobile SDK.
+    3. Select the version you want to use. For new projects, we recommend using the newest - _1.0.0-rc24_ - version of SeamlessMobile SDK.
     4. Select the project you want to add the package.
     5. Click Add Package.
     
     Once you're finished, Xcode will begin downloading and resolving dependencies.
-
-    **Migration from CocoaPods to SPM**
-
-    If migrating from a CocoaPods-based project, run `pod deintegrate` to remove CocoaPods from your Xcode project. The CocoaPods-generated .xcworkspace file can safely be deleted afterward. 
-    
-    If you're adding SeamlessMobile SDK Swift Packages to a project for the first time, ignore this notice.
 
 ## How to initialize the SDK
 
@@ -175,29 +149,37 @@ The SDK also allows client apps to use their own custom views for its functional
 === "iOS"
 
     ```swift
-    private let enrolmentConfig = EnrolmentConfig( apiConfig: APIConfig(
-            baseURL: "YOUR BASE URL",
-            timeout: 30, // timeout in seconds
-            logLevel: .basic,
+        let enrolmentConfig = EnrolmentConfig( apiConfig: APIConfig(
+                baseURL: "YOUR BASE URL",
+                timeout: 30, // timeout in seconds
+                logLevel: .basic,
+                apiKey: "YOUR KEY",
+                publicKey: "YOUR PUBLIC KEY" // Optional parameter to ensure requests are encrypted
+        ))
+
+        let bounds = UIScreen.main.bounds
+        let documentScanProvider = DocumentReaderScan(
+            documentType: .td3,
             apiKey: "YOUR KEY",
-            publicKey: "YOUR PUBLIC KEY" // Optional parameter to ensure requests are encrypted
-    ))
-
-    var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, 
-                                                    databaseID: "DatabaseName")
-
+            pixelWidth: Int(bounds.width),
+            pixelHeight: Int(bounds.height)
+        )
+        let ultralightProvider: AMAShareUltralight.Ultralight = .init()
+        ultralightProvider.initialiseBeamSync(apiKey: "YOUR KEY")
+        
         Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
-                                  documentScanProvider: RegulaDocumentReaderScan(config: documentReaderConfig),
+                                  documentScanProvider: documentScanProvider,
                                   documentRFIDProvider: RegulaDocumentReaderRFID(),
-                                  viewRegister: viewRegister,
+                                  ultralightProvider: ultralightProvider,
+                                  viewRegister: EnrolmentViewRegister(),
                                   completionHandler: { result in
-        switch result {
-        case .success(_):
-            print("Success: SeamlessMobile SDK is ready to use")
-        case .failure(let error):
-            print("Failure: error.description")
-        }
-    })
+            switch result {
+            case .success(_):
+                print("Success: SeamlessMobile SDK is ready to use")
+            case .failure(let error):
+                print("Failure: \(error)")
+            }
+        })
     ```
 
     The following parameters must always be provided:
@@ -220,6 +202,8 @@ There where some errors created to validate the enrolment configuration:
 - If an error occurs during the initialize method, for example internet connection during the fetch configurations, you will receive via callback an InitFailed error(012 - Error while fetching configurations. Please check your internet connection and API URL/API Key.)
 
 If you try to call a feature while the Enrolment is not ready you will receive a NotReady error (013 - Enrolment is not ready yet. Wait for the callback.)
+
+<!--
 
 ## Offline Mode Support
 
@@ -283,6 +267,7 @@ You can follow this platform specific guide to prepare your application to offli
     ```
 
 Note that these steps are bound to increase your final apk size as it contains files that were previously downloaded in runtime.
+-->
 
 ## Data Security
 

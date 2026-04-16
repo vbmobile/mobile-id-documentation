@@ -79,10 +79,12 @@ If you are managing dependencies manually, add Ultralight to your `Package.swift
 dependencies: [
     .package(
         url: "https://github.com/vbmobile/AmaShareUltralight",
-        exact: "1.0.0"
+        exact: "1.0.0-rc23"
     )
 ],
 ```
+
+where `1.0.0-rc23` is the pretended version. 
 
 Then include it in your target dependencies:
 

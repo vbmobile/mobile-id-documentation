@@ -2465,6 +2465,17 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#from-800-to-900" class="md-nav__link">
+        From 8.0.0 to 9.0.0
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#from-720-to-800" class="md-nav__link">
         From 7.2.0 to 8.0.0
     </a>
@@ -2595,6 +2606,17 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#from-800-to-900" class="md-nav__link">
+        From 8.0.0 to 9.0.0
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#from-720-to-800" class="md-nav__link">
         From 7.2.0 to 8.0.0
     </a>
@@ -2702,8 +2724,16 @@ You're not viewing the latest version.
 
 
 <h1 id="migration-guide">Migration Guide<a class="headerlink" href="#migration-guide" title="Permanent link">&para;</a></h1>
-<h2 id="from-720-to-800">From 7.2.0 to 8.0.0<a class="headerlink" href="#from-720-to-800" title="Permanent link">&para;</a></h2>
+<h2 id="from-800-to-900">From 8.0.0 to 9.0.0<a class="headerlink" href="#from-800-to-900" title="Permanent link">&para;</a></h2>
 <h4 id="required-changes">Required Changes<a class="headerlink" href="#required-changes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Replace old provider dependency with v9 provider dependency. Check the updated <a href="../Features/DocumentReader/DocumentReader_Providers.html">Document Reader Providers</a> page for more details on the new providers.</li>
+<li>Update provider initialization to the new model.</li>
+<li>Update Enrolment.initialize call to the new parameter set. Check the updated <a href="../index.html">Getting Started</a> page for more details.</li>
+<li></li>
+</ul>
+<h2 id="from-720-to-800">From 7.2.0 to 8.0.0<a class="headerlink" href="#from-720-to-800" title="Permanent link">&para;</a></h2>
+<h4 id="required-changes_1">Required Changes<a class="headerlink" href="#required-changes_1" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Developers are now required to specify the provider for the orz/mrz and rfid features. Check the updated <a href="../index.html">Getting Started</a> page</li>
 <li>Enrolment is now a Singleton, instead of a builder you need to call Enrolment.shared, passing the required parameters to make the Enrolment available anywhere. Check homepage for more details.</li>
@@ -2720,7 +2750,7 @@ You're not viewing the latest version.
 <li>showRFIDInstructions have been added to the <a href="../Features/DocumentReader/DocumentReader_Index.html#initiate-scan">ReadDocumentParameters</a>, to be able to start the RFID scan automatically</li>
 </ul>
 <h2 id="from-700-to-710">From 7.0.0 to 7.1.0<a class="headerlink" href="#from-700-to-710" title="Permanent link">&para;</a></h2>
-<h4 id="required-changes_1">Required Changes<a class="headerlink" href="#required-changes_1" title="Permanent link">&para;</a></h4>
+<h4 id="required-changes_2">Required Changes<a class="headerlink" href="#required-changes_2" title="Permanent link">&para;</a></h4>
 <ul>
 <li>As part of the security improving efforts a <code>candidateHash</code> and <code>referenceHash</code> have been added to the <a href="../Features/BiometricMatch/BiometricMatch_Index.html#initiate-match">BiometricMatchParameters</a>, these can be found in the generated reports.</li>
 <li>Similarly, the build subject operation needs the generated <code>ProcessReport</code> and <code>DocumentReaderReport</code> that include the above hashes to verify data integrity. If you already use these parameters on the <a href="../Features/SubjectManagement/SubjectManagement_Index.html#subject-operations">BuildSubjectParameters</a> you don't need to take any action.</li>
@@ -2731,7 +2761,7 @@ You're not viewing the latest version.
 <li>Add a public key on the <a href="../index.html#apiconfig">initial configuration</a> together with a private key setup on the backoffice to ensure encrypted requests.</li>
 </ul>
 <h2 id="from-523-to-700">From 5.2.3 to 7.0.0<a class="headerlink" href="#from-523-to-700" title="Permanent link">&para;</a></h2>
-<h3 id="required-changes_2">Required Changes<a class="headerlink" href="#required-changes_2" title="Permanent link">&para;</a></h3>
+<h3 id="required-changes_3">Required Changes<a class="headerlink" href="#required-changes_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Remove the <code>get</code>, <code>update</code> and <code>delete</code> <code>Subject</code> operations. You should now save the <code>Subject</code> locally if you want to have a copy to check later. Updating a <code>Subject</code> is no longer supported as well so, you must create a new one if you want to for example, add a boarding pass;</li>
 <li>Handle errors by new field ErrorType instead of checking every possible errors;</li>
@@ -2739,7 +2769,7 @@ You're not viewing the latest version.
 <li>Rename enums to PascalCase, MALE is now Male, etc.</li>
 </ul>
 <h2 id="from-510-to-520">From 5.1.0 to 5.2.0<a class="headerlink" href="#from-510-to-520" title="Permanent link">&para;</a></h2>
-<h4 id="required-changes_3">Required Changes<a class="headerlink" href="#required-changes_3" title="Permanent link">&para;</a></h4>
+<h4 id="required-changes_4">Required Changes<a class="headerlink" href="#required-changes_4" title="Permanent link">&para;</a></h4>
 <ul>
 <li>If you are using a value of less than 10 seconds or greater than 60 for the scannerTimeout or rfidTimeout in  <strong>ReadDocumentParameters</strong> you need to change the value.</li>
 </ul>
@@ -2751,7 +2781,7 @@ You're not viewing the latest version.
 <li>Update remaining custom views with their new protocols.</li>
 </ul>
 <h2 id="from-500-to-510">From 5.0.0 to 5.1.0<a class="headerlink" href="#from-500-to-510" title="Permanent link">&para;</a></h2>
-<h4 id="required-changes_4">Required Changes<a class="headerlink" href="#required-changes_4" title="Permanent link">&para;</a></h4>
+<h4 id="required-changes_5">Required Changes<a class="headerlink" href="#required-changes_5" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Removed liveness status parameter from the <strong>BiometricFaceCaptureParameters</strong>.</li>
 </ul>
@@ -2768,7 +2798,7 @@ You're not viewing the latest version.
 <ul>
 <li>Run pod update &amp; install</li>
 </ul>
-<h4 id="required-changes_5">Required Changes<a class="headerlink" href="#required-changes_5" title="Permanent link">&para;</a></h4>
+<h4 id="required-changes_6">Required Changes<a class="headerlink" href="#required-changes_6" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Removed BoardingPassScanConfig. The Boarding Pass configuration is now on backend side;</li>
 <li>Removed Amadeus parameters from the <strong>BiometricFaceCaptureParameters</strong>. These configurations are now on backoffice;</li>

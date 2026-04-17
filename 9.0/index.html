@@ -2860,31 +2860,72 @@ implementation(&quot;com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:&lt;1.0.0-rc01&gt;
 </ol>
 </div>
 <div class="tabbed-block">
-<p>To add the Enrolment SDK to your app, perform the following steps:</p>
+<p>The Enrolment SDK and its optional components are distributed for iOS via <strong>Swift Package Manager (SPM)</strong>.</p>
+<p>You can integrate them either directly through <strong>Xcode</strong> or by editing your <code>Package.swift</code> manually.</p>
+<hr />
+<h3 id="install-using-xcode">Install using Xcode<a class="headerlink" href="#install-using-xcode" title="Permanent link">&para;</a></h3>
 <ol>
-<li>In Xcode, naviate to File &gt; Add Package Dependencies.</li>
 <li>
-<p>In the prompt that appears, enter the package URL:</p>
-<p>For <strong>MobileIdSDKiOS</strong>
-<div class="highlight"><pre><span></span><code>https://github.com/vbmobile/MobileIdSDKiOS
-</code></pre></div></p>
-<p>For <strong>AMAShareUltralight</strong>
-<div class="highlight"><pre><span></span><code>https://github.com/vbmobile/AmaShareUltralight
-</code></pre></div></p>
-<p>For <strong>AMADocScanMrziOS</strong>
-<div class="highlight"><pre><span></span><code>https://github.com/vbmobile/AMADocScanMrziOS
-</code></pre></div></p>
-<p>For <strong>AMADocScanRegulaiOS</strong>
-<div class="highlight"><pre><span></span><code>https://github.com/vbmobile/AMADocScanRegulaiOS
-</code></pre></div></p>
+<p>Open your project in <strong>Xcode</strong>.</p>
 </li>
 <li>
-<p>Select the version you want to use. For new projects, we recommend using the newest - <em>1.0.0-rc24</em> - version of SeamlessMobile SDK.</p>
+<p>Navigate to <strong>File ▸ Add Packages…</strong></p>
 </li>
-<li>Select the project you want to add the package.</li>
-<li>Click Add Package.</li>
+<li>
+<p>In the dialog that appears, enter the package repository URL for the SDK you want to add:</p>
+<p><strong>MobileIdSDKiOS</strong></p>
+<pre><code>https://github.com/vbmobile/MobileIdSDKiOS
+</code></pre>
+<p><strong>AmaShareUltralight</strong></p>
+<pre><code>https://github.com/vbmobile/AmaShareUltralight
+</code></pre>
+<p><strong>AMADocScanMrziOS</strong></p>
+<pre><code>https://github.com/vbmobile/AMADocScanMrziOS
+</code></pre>
+<p><strong>AMADocScanRegulaiOS</strong></p>
+<pre><code>https://github.com/vbmobile/AMADocScanRegulaiOS
+</code></pre>
+</li>
+<li>
+<p>Select the version to integrate.<br />
+    For new projects, we recommend using the latest available release (for example: <strong><code>1.0.0-rc24</code></strong>).</p>
+</li>
+<li>
+<p>Choose the project and target to which the package should be added.</p>
+</li>
+<li>
+<p>Click <strong>Add Package</strong>.</p>
+</li>
 </ol>
-<p>Once you're finished, Xcode will begin downloading and resolving dependencies.</p>
+<p>Once completed, Xcode will download the package and resolve all required dependencies automatically.</p>
+<hr />
+<h3 id="install-using-packageswift">Install Using <code>Package.swift</code><a class="headerlink" href="#install-using-packageswift" title="Permanent link">&para;</a></h3>
+<p>If you manage dependencies manually, add the SDKs to your <code>Package.swift</code> file.</p>
+<h4 id="1-add-the-dependency">1. Add the dependency<a class="headerlink" href="#1-add-the-dependency" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">.</span><span class="n">package</span><span class="p">(</span>
+<span class="w">        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/vbmobile/MobileIdSDKiOS&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0.0-rc24&quot;</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">]</span>
+</code></pre></div>
+<blockquote>
+<p>Replace <code>1.0.0-rc24</code> with the intended version you wish to use.</p>
+</blockquote>
+<hr />
+<h4 id="2-link-the-product-to-your-target">2. Link the product to your target<a class="headerlink" href="#2-link-the-product-to-your-target" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="n">target</span><span class="p">(</span>
+<span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YourAppTarget&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MobileIdSDKiOS&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">package</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MobileIdSDKiOS&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div>
+<hr />
+<blockquote>
+<p>Repeat the process for <code>AmaShareUltralight</code>, <code>AMADocScanMrziOS</code> and <code>AMADocScanRegulaiOS</code></p>
+</blockquote>
+<p>Once added, the Enrolment SDK APIs (and any integrated optional modules such as Ultralight or Document Scanning providers) become available to your application through the standard Enrolment SDK integration flow.</p>
 </div>
 </div>
 </div>
@@ -2944,61 +2985,73 @@ The following parameters must always be provided:</p>
 </ul>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">(</span><span class="w"> </span><span class="n">apiConfig</span><span class="p">:</span><span class="w"> </span><span class="n">APIConfig</span><span class="p">(</span>
-<span class="w">            </span><span class="n">baseURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR BASE URL&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="n">timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="c1">// timeout in seconds</span>
-<span class="w">            </span><span class="n">logLevel</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">basic</span><span class="p">,</span>
-<span class="w">            </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="n">publicKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR PUBLIC KEY&quot;</span><span class="w"> </span><span class="c1">// Optional parameter to ensure requests are encrypted</span>
-<span class="w">    </span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nv">apiConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">APIConfig</span><span class="p">(</span>
+<span class="w">    </span><span class="n">baseURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR BASE URL&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="c1">// timeout in seconds</span>
+<span class="w">    </span><span class="n">logLevel</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">basic</span><span class="p">,</span>
+<span class="w">    </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">publicKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR PUBLIC KEY&quot;</span><span class="w"> </span><span class="c1">// Optional parameter to ensure requests are encrypted</span>
+<span class="p">)</span>
 
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">bounds</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="bp">UIScreen</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="n">bounds</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">documentScanProvider</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderScan</span><span class="p">(</span>
-<span class="w">        </span><span class="n">documentType</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">td3</span><span class="p">,</span>
-<span class="w">        </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">pixelWidth</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">width</span><span class="p">),</span>
-<span class="w">        </span><span class="n">pixelHeight</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
-<span class="w">    </span><span class="p">)</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">Ultralight</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">()</span>
-<span class="w">    </span><span class="n">ultralightProvider</span><span class="p">.</span><span class="n">initialiseBeamSync</span><span class="p">(</span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">)</span>
+<span class="kd">let</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">(</span><span class="n">apiConfig</span><span class="p">:</span><span class="w"> </span><span class="n">apiConfig</span><span class="p">)</span>
 
-<span class="w">    </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">documentScanProvider</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="n">RegulaDocumentReaderRFID</span><span class="p">(),</span>
-<span class="w">                              </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">ultralightProvider</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentViewRegister</span><span class="p">(),</span>
-<span class="w">                              </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
-<span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="kc">_</span><span class="p">):</span>
-<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Success: SeamlessMobile SDK is ready to use&quot;</span><span class="p">)</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nv">error</span><span class="p">):</span>
-<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">})</span>
+<span class="kd">let</span><span class="w"> </span><span class="nv">bounds</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="bp">UIScreen</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="n">bounds</span>
+<span class="kd">let</span><span class="w"> </span><span class="nv">documentScanProvider</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderScan</span><span class="p">(</span>
+<span class="w">    </span><span class="n">documentType</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">td3</span><span class="p">,</span>
+<span class="w">    </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">pixelWidth</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">width</span><span class="p">),</span>
+<span class="w">    </span><span class="n">pixelHeight</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="kd">let</span><span class="w"> </span><span class="nv">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">Ultralight</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">()</span>
+<span class="n">ultralightProvider</span><span class="p">.</span><span class="n">initialiseBeamSync</span><span class="p">(</span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">)</span>
+
+<span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">documentScanProvider</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="n">RegulaDocumentReaderRFID</span><span class="p">(),</span>
+<span class="w">                          </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">ultralightProvider</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentViewRegister</span><span class="p">(),</span>
+<span class="w">                          </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
+<span class="w">                              </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                              </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
+<span class="w">                                  </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Success: SeamlessMobile SDK is ready to use&quot;</span><span class="p">)</span>
+<span class="w">                              </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
+<span class="w">                                  </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">                              </span><span class="p">}</span>
+<span class="w">                          </span><span class="p">})</span>
 </code></pre></div>
 <p>The following parameters must always be provided:</p>
 <ul>
-<li>EnrolmentConfig - Enrolment configuration.</li>
-<li>CompletionHandler - To receive a callback when the enrolment is initialized or when an error occurs during the process.</li>
+<li>
+<p>EnrolmentConfig - Enrolment configuration.</p>
+</li>
+<li>
+<p>CompletionHandler - To receive a callback when the enrolment is initialized or when an error occurs during the process.</p>
+</li>
 </ul>
 <p>The following parameters must be provided if you want read documents:</p>
 <ul>
 <li>Document and RFID reader provider - The preferred provider for document and rfid read operations. More info in <a href="#custom-providers">custom providers</a></li>
 </ul>
-<p>The following parameters must be provided if you want customize the screens</p>
+<p>The following parameters must be provided if you want customize the screens:</p>
 <ul>
 <li>EnrolmentCustomViews - Will overwrite any default view from the Enrolment SDK</li>
 </ul>
-</div>
-</div>
-</div>
 <p>There where some errors created to validate the enrolment configuration:</p>
 <ul>
-<li>If the apiKey is not in a valid format, for example it has an extra character, you will receive via callback an InvalidApiKey error(010 - APIKey is invalid)</li>
-<li>If the baseUrl is not correctly defined, for example it's using HTTP instead of HTTPS, you will receive via callback an InvalidEndpoint error(011 - Endpoint is invalid)</li>
-<li>If an error occurs during the initialize method, for example internet connection during the fetch configurations, you will receive via callback an InitFailed error(012 - Error while fetching configurations. Please check your internet connection and API URL/API Key.)</li>
+<li>
+<p>If the apiKey is not in a valid format, for example it has an extra character, you will receive via callback an InvalidApiKey error(010 - APIKey is invalid)</p>
+</li>
+<li>
+<p>If the baseUrl is not correctly defined, for example it's using HTTP instead of HTTPS, you will receive via callback an InvalidEndpoint error(011 - Endpoint is invalid)</p>
+</li>
+<li>
+<p>If an error occurs during the initialize method, for example internet connection during the fetch configurations, you will receive via callback an InitFailed error(012 - Error while fetching configurations. Please check your internet connection and API URL/API Key.)</p>
+</li>
 </ul>
 <p>If you try to call a feature while the Enrolment is not ready you will receive a NotReady error (013 - Enrolment is not ready yet. Wait for the callback.)</p>
+</div>
+</div>
+</div>
 <!--
 
 ## Offline Mode Support

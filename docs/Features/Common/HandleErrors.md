@@ -170,6 +170,13 @@ Here you can find a list of all the error codes the SDK sends to the client appl
 | SubjectServiceError             | 650   | Subject           |
 | MissingBCBP                     | 651   | Subject           |
 | UnknownError                    | 680   | Subject           |
+| ConfigError                     | 700   | Ultralight        |
+| NotReady                        | 701   | Ultralight        |
+| InitFailed                      | 702   | Ultralight        |
+| BluetoothNotGranted             | 703   | Ultralight        |
+| BluetoothNotEnabled             | 704   | Ultralight        |
+| LocationNotEnabled              | 780   | Ultralight        |
+| UnknownError                    | 705   | Ultralight        |
 | PermissionNotGranted            | 800   | Form              |
 | TransactionFailed               | 820   | Form              |
 | CommunicationError              | 821   | Form              |

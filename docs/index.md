@@ -54,36 +54,84 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 
 === "iOS"
 
-    To add the Enrolment SDK to your app, perform the following steps:
+	The Enrolment SDK and its optional components are distributed for iOS via **Swift Package Manager (SPM)**.
+	
+	You can integrate them either directly through **Xcode** or by editing your `Package.swift` manually.
+	
+	***
+	
+	### Install using Xcode
+	
+	1.  Open your project in **Xcode**.
+	
+	2.  Navigate to **File ▸ Add Packages…**
+	
+	3.  In the dialog that appears, enter the package repository URL for the SDK you want to add:
+	
+	    **MobileIdSDKiOS**
+	
+	        https://github.com/vbmobile/MobileIdSDKiOS
+	
+	    **AmaShareUltralight**
+	
+	        https://github.com/vbmobile/AmaShareUltralight
+	
+	    **AMADocScanMrziOS**
+	
+	        https://github.com/vbmobile/AMADocScanMrziOS
+	
+	    **AMADocScanRegulaiOS**
+	
+	        https://github.com/vbmobile/AMADocScanRegulaiOS
+	
+	4.  Select the version to integrate.  
+	    For new projects, we recommend using the latest available release (for example: **`1.0.0-rc24`**).
+	
+	5.  Choose the project and target to which the package should be added.
+	
+	6.  Click **Add Package**.
+	
+	Once completed, Xcode will download the package and resolve all required dependencies automatically.
+	
+	***
+	
+	### Install Using `Package.swift`
+	
+	If you manage dependencies manually, add the SDKs to your `Package.swift` file.
+	
+	#### 1. Add the dependency
+	
+	```swift
+	dependencies: [
+	    .package(
+	        url: "https://github.com/vbmobile/MobileIdSDKiOS",
+	        exact: "1.0.0-rc24"
+	    )
+	]
+	```
+	
+	> Replace `1.0.0-rc24` with the intended version you wish to use.
+	
+	
+	***
+	
+	#### 2. Link the product to your target
+	
+	```swift
+	.target(
+	    name: "YourAppTarget",
+	    dependencies: [
+	        .product(name: "MobileIdSDKiOS", package: "MobileIdSDKiOS")
+	    ]
+	)
+	```
+	
+	***
+	
+	> Repeat the process for `AmaShareUltralight`, `AMADocScanMrziOS` and `AMADocScanRegulaiOS`
+	
+	Once added, the Enrolment SDK APIs (and any integrated optional modules such as Ultralight or Document Scanning providers) become available to your application through the standard Enrolment SDK integration flow.
 
-    1. In Xcode, naviate to File > Add Package Dependencies.
-    2. In the prompt that appears, enter the package URL:
-    
-        For **MobileIdSDKiOS**
-        ```
-        https://github.com/vbmobile/MobileIdSDKiOS
-        ```
-        
-        For **AMAShareUltralight**
-        ```
-        https://github.com/vbmobile/AmaShareUltralight
-        ```
-        
-        For **AMADocScanMrziOS**
-        ```
-        https://github.com/vbmobile/AMADocScanMrziOS
-        ```
-        
-        For **AMADocScanRegulaiOS**
-        ```
-        https://github.com/vbmobile/AMADocScanRegulaiOS
-        ```
-   
-    3. Select the version you want to use. For new projects, we recommend using the newest - _1.0.0-rc24_ - version of SeamlessMobile SDK.
-    4. Select the project you want to add the package.
-    5. Click Add Package.
-    
-    Once you're finished, Xcode will begin downloading and resolving dependencies.
 
 ## How to initialize the SDK
 
@@ -148,60 +196,67 @@ The SDK also allows client apps to use their own custom views for its functional
 
 === "iOS"
 
-    ```swift
-        let enrolmentConfig = EnrolmentConfig( apiConfig: APIConfig(
-                baseURL: "YOUR BASE URL",
-                timeout: 30, // timeout in seconds
-                logLevel: .basic,
-                apiKey: "YOUR KEY",
-                publicKey: "YOUR PUBLIC KEY" // Optional parameter to ensure requests are encrypted
-        ))
+	```swift
+	let apiConfig = APIConfig(
+	    baseURL: "YOUR BASE URL",
+	    timeout: 30, // timeout in seconds
+	    logLevel: .basic,
+	    apiKey: "YOUR KEY",
+	    publicKey: "YOUR PUBLIC KEY" // Optional parameter to ensure requests are encrypted
+	)
+	
+	let enrolmentConfig = EnrolmentConfig(apiConfig: apiConfig)
+	
+	let bounds = UIScreen.main.bounds
+	let documentScanProvider = DocumentReaderScan(
+	    documentType: .td3,
+	    apiKey: "YOUR KEY",
+	    pixelWidth: Int(bounds.width),
+	    pixelHeight: Int(bounds.height)
+	)
+	let ultralightProvider: AMAShareUltralight.Ultralight = .init()
+	ultralightProvider.initialiseBeamSync(apiKey: "YOUR KEY")
+	
+	Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
+	                          documentScanProvider: documentScanProvider,
+	                          documentRFIDProvider: RegulaDocumentReaderRFID(),
+	                          ultralightProvider: ultralightProvider,
+	                          viewRegister: EnrolmentViewRegister(),
+	                          completionHandler: { result in
+	                              switch result {
+	                              case .success:
+	                                  print("Success: SeamlessMobile SDK is ready to use")
+	                              case let .failure(error):
+	                                  print("Failure: \(error)")
+	                              }
+	                          })
+	```
 
-        let bounds = UIScreen.main.bounds
-        let documentScanProvider = DocumentReaderScan(
-            documentType: .td3,
-            apiKey: "YOUR KEY",
-            pixelWidth: Int(bounds.width),
-            pixelHeight: Int(bounds.height)
-        )
-        let ultralightProvider: AMAShareUltralight.Ultralight = .init()
-        ultralightProvider.initialiseBeamSync(apiKey: "YOUR KEY")
-        
-        Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
-                                  documentScanProvider: documentScanProvider,
-                                  documentRFIDProvider: RegulaDocumentReaderRFID(),
-                                  ultralightProvider: ultralightProvider,
-                                  viewRegister: EnrolmentViewRegister(),
-                                  completionHandler: { result in
-            switch result {
-            case .success(_):
-                print("Success: SeamlessMobile SDK is ready to use")
-            case .failure(let error):
-                print("Failure: \(error)")
-            }
-        })
-    ```
 
-    The following parameters must always be provided:
-    
-    - EnrolmentConfig - Enrolment configuration.
-    - CompletionHandler - To receive a callback when the enrolment is initialized or when an error occurs during the process.
-    
-    The following parameters must be provided if you want read documents:
-    
-    - Document and RFID reader provider - The preferred provider for document and rfid read operations. More info in [custom providers](#custom-providers)
-    
-    The following parameters must be provided if you want customize the screens
-    
-    - EnrolmentCustomViews - Will overwrite any default view from the Enrolment SDK
-    
-There where some errors created to validate the enrolment configuration:
+	The following parameters must always be provided:
+	
+	- EnrolmentConfig - Enrolment configuration.
+	
+	- CompletionHandler - To receive a callback when the enrolment is initialized or when an error occurs during the process.
+	    
+	The following parameters must be provided if you want read documents:
+	
+	- Document and RFID reader provider - The preferred provider for document and rfid read operations. More info in [custom providers](#custom-providers)
+	    
+	The following parameters must be provided if you want customize the screens:
+	
+	- EnrolmentCustomViews - Will overwrite any default view from the Enrolment SDK
+	    
+	There where some errors created to validate the enrolment configuration:
+	
+	- If the apiKey is not in a valid format, for example it has an extra character, you will receive via callback an InvalidApiKey error(010 - APIKey is invalid)
+	
+	- If the baseUrl is not correctly defined, for example it's using HTTP instead of HTTPS, you will receive via callback an InvalidEndpoint error(011 - Endpoint is invalid)
+	
+	- If an error occurs during the initialize method, for example internet connection during the fetch configurations, you will receive via callback an InitFailed error(012 - Error while fetching configurations. Please check your internet connection and API URL/API Key.)
+	
+	If you try to call a feature while the Enrolment is not ready you will receive a NotReady error (013 - Enrolment is not ready yet. Wait for the callback.)
 
-- If the apiKey is not in a valid format, for example it has an extra character, you will receive via callback an InvalidApiKey error(010 - APIKey is invalid)
-- If the baseUrl is not correctly defined, for example it's using HTTP instead of HTTPS, you will receive via callback an InvalidEndpoint error(011 - Endpoint is invalid)
-- If an error occurs during the initialize method, for example internet connection during the fetch configurations, you will receive via callback an InitFailed error(012 - Error while fetching configurations. Please check your internet connection and API URL/API Key.)
-
-If you try to call a feature while the Enrolment is not ready you will receive a NotReady error (013 - Enrolment is not ready yet. Wait for the callback.)
 
 <!--
 

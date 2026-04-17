@@ -1,5 +1,13 @@
 # MobileID SDK - Release Notes
 
+## 9.0.0
+
+### What's new
+
+- Document Reader provider setup changed.
+- Enrolment initialization parameters changed for Document Reader integration.
+- Migration required. See [Migration Guide section From 8.0.0 to 9.0.0](../MigrationGuide/MigrationGuide_iOS.md#from-800-to-900) for exact steps.
+
 ## 8.1.7
  
 ### Improvements

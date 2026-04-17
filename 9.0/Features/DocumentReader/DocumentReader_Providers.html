@@ -2590,17 +2590,55 @@ You're not viewing the latest version.
 <p>Work in progress...</p>
 </div>
 <div class="tabbed-block">
-<p><strong>CocoaPods</strong></p>
-<p>Add the following to your Podfile, with the latest version:
-<div class="highlight"><pre><span></span><code>pod &#39;VBOcrMrzRfidRegula&#39;, &#39;1.1.0&#39;
-</code></pre></div></p>
-<p>Run in Terminal the command below to install pods in your project:
-<div class="highlight"><pre><span></span><code>pod install
-</code></pre></div></p>
-<p><strong>SPM</strong></p>
-<p>Enter the package URL:
-<div class="highlight"><pre><span></span><code>https://github.com/vbmobile/VBOcrMrzRfidRegula
-</code></pre></div></p>
+<h3 id="install-using-xcode">Install using Xcode<a class="headerlink" href="#install-using-xcode" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Open your project in <strong>Xcode</strong>.</p>
+</li>
+<li>
+<p>Navigate to <strong>File ▸ Add Packages…</strong></p>
+</li>
+<li>
+<p>In the dialog that appears, enter the package repository URL for the SDK you want to add:</p>
+<p><strong>AMADocScanRegulaiOS</strong></p>
+<pre><code>https://github.com/vbmobile/AMADocScanRegulaiOS
+</code></pre>
+</li>
+<li>
+<p>Select the version to integrate.<br />
+    For new projects, we recommend using the latest available release (for example: <strong><code>1.0.0-rc24</code></strong>).</p>
+</li>
+<li>
+<p>Choose the project and target to which the package should be added.</p>
+</li>
+<li>
+<p>Click <strong>Add Package</strong>.</p>
+</li>
+</ol>
+<p>Once completed, Xcode will download the package and resolve all required dependencies automatically.</p>
+<hr />
+<h3 id="install-using-packageswift">Install Using <code>Package.swift</code><a class="headerlink" href="#install-using-packageswift" title="Permanent link">&para;</a></h3>
+<p>If you manage dependencies manually, add the SDKs to your <code>Package.swift</code> file.</p>
+<h4 id="1-add-the-dependency">1. Add the dependency<a class="headerlink" href="#1-add-the-dependency" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">.</span><span class="n">package</span><span class="p">(</span>
+<span class="w">        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/vbmobile/AMADocScanRegulaiOS&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0.0-rc24&quot;</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">]</span>
+</code></pre></div>
+<blockquote>
+<p>Replace <code>1.0.0-rc24</code> with the intended version you wish to use.</p>
+</blockquote>
+<hr />
+<h4 id="2-link-the-product-to-your-target">2. Link the product to your target<a class="headerlink" href="#2-link-the-product-to-your-target" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="n">target</span><span class="p">(</span>
+<span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YourAppTarget&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AMADocScanRegulaiOS&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">package</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AMADocScanRegulaiOS&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div>
 </div>
 </div>
 </div>
@@ -2611,18 +2649,50 @@ You're not viewing the latest version.
 <p>Work in progress...</p>
 </div>
 <div class="tabbed-block">
-<p>This provider allows you to create both a <strong>RegulaDocumentReaderScan</strong> and a <strong>RegulaDocumentReaderRFID</strong> instance.</p>
-<p>The <strong>RegulaDocumentReaderScan</strong> requires a <strong>DocumentReaderConfig</strong> to initialize. It can be done as follows. For more information, see <a href="DocumentReader_Index.html#configure">DocumentReaderConfig</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Passports&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">checkHologram</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">bounds</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="bp">UIScreen</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="n">bounds</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">documentScanProvider</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderScan</span><span class="p">(</span>
+<span class="w">        </span><span class="n">documentType</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">td3</span><span class="p">,</span>
+<span class="w">        </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">pixelWidth</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">width</span><span class="p">),</span>
+<span class="w">        </span><span class="n">pixelHeight</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
 
-<span class="n">RegulaDocumentReaderScan</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">documentReaderConfig</span><span class="p">)</span>
+<span class="w">    </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">documentScanProvider</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentViewRegister</span><span class="p">(),</span>
+<span class="w">                              </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
+<span class="w">                                  </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                                  </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
+<span class="w">                                      </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;SDK is ready to use&quot;</span><span class="p">)</span>
+<span class="w">                                  </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
+<span class="w">                                      </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">                                  </span><span class="p">}</span>
+<span class="w">                              </span><span class="p">})</span>
 </code></pre></div>
-<p>The <strong>RegulaDocumentReaderRFID</strong> has no initialization requirements and can be instantiated as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="n">RegulaDocumentReaderRFID</span><span class="p">()</span>
+</div>
+</div>
+</div>
+<!--
+    This provider allows you to create both a **RegulaDocumentReaderScan** and a **RegulaDocumentReaderRFID** instance.
+
+    The **RegulaDocumentReaderScan** requires a **DocumentReaderConfig** to initialize. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.md#configure).
+
+    <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">bounds</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="bp">UIScreen</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="n">bounds</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">documentScanProvider</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderScan</span><span class="p">(</span>
+<span class="w">        </span><span class="n">documentType</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">td3</span><span class="p">,</span>
+<span class="w">        </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">pixelWidth</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">width</span><span class="p">),</span>
+<span class="w">        </span><span class="n">pixelHeight</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
 </code></pre></div>
-</div>
-</div>
-</div>
+
+    The **RegulaDocumentReaderRFID** has no initialization requirements and can be instantiated as follows:
+
+    <div class="highlight"><pre><span></span><code><span class="n">RegulaDocumentReaderRFID</span><span class="p">()</span>
+</code></pre></div>
+-->
+
 <h3 id="how-to-use">How to Use:<a class="headerlink" href="#how-to-use" title="Permanent link">&para;</a></h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Android</label><label for="__tabbed_3_2">iOS</label></div>
 <div class="tabbed-content">

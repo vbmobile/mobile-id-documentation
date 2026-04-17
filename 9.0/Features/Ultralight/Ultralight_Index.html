@@ -2766,7 +2766,7 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 <div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">.</span><span class="n">package</span><span class="p">(</span>
 <span class="w">        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/vbmobile/AmaShareUltralight&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0.0-rc23&quot;</span>
+<span class="w">        </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0.0-rc24&quot;</span>
 <span class="w">    </span><span class="p">)</span>
 <span class="p">],</span>
 </code></pre></div>
@@ -2805,15 +2805,16 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 <span class="p">}</span>
 </code></pre></div>
 </div>
-<div class="tabbed-block"></div>
-</div>
-</div>
-<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">initializeUltralight</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">UltralightProtocol</span><span class="p">?</span><span class="w"> </span><span class="p">{</span>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">ultralightProvider</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">UltralightProtocol</span><span class="p">?</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">Ultralight</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">()</span>
 <span class="w">    </span><span class="n">ultralightProvider</span><span class="p">.</span><span class="n">initialiseBeamSync</span><span class="p">(</span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;your-ultralight-api-key&gt;&quot;</span><span class="p">)</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ultralightProvider</span>
-<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
+</div>
+</div>
+</div>
 <h3 id="step-2-pass-provider-to-enrolment-initialization">Step 2: Pass Provider to Enrolment Initialization<a class="headerlink" href="#step-2-pass-provider-to-enrolment-initialization" title="Permanent link">&para;</a></h3>
 <p>Pass the <code>UltralightProvider</code> to <code>Enrolment.initialize()</code>:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Android</label><label for="__tabbed_4_2">iOS</label></div>
@@ -2832,34 +2833,29 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 <span class="p">)</span>
 </code></pre></div>
 </div>
-<div class="tabbed-block"></div>
-</div>
-</div>
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">initializeEnrolment</span><span class="p">()</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">EnrolmentProtocol</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">withCheckedContinuation</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">continuation</span><span class="w"> </span><span class="k">in</span>
-<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">(</span>
-<span class="w">            </span><span class="n">apiConfig</span><span class="p">:</span><span class="w"> </span><span class="n">APIConfig</span><span class="p">(</span>
-<span class="w">                </span><span class="n">baseURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;your-url&gt;&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="n">timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
-<span class="w">                </span><span class="n">logLevel</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">basic</span><span class="p">,</span>
-<span class="w">                </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;your-enrolment-api-key&gt;&quot;</span>
-<span class="w">            </span><span class="p">))</span>
-<span class="w">        </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
+<span class="w">        </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">                                  </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">                                  </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
-<span class="w">                                  </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">initializeUltralight</span><span class="p">(),</span>
+<span class="w">                                  </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">ultralightProvider</span><span class="p">(),</span>
 <span class="w">                                  </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
-<span class="w">                                  </span><span class="n">completionHandler</span><span class="p">:</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
-<span class="w">            </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
-<span class="w">                </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">returning</span><span class="p">:</span><span class="w"> </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">)</span>
-<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nv">featureError</span><span class="p">):</span>
-<span class="w">                </span><span class="bp">print</span><span class="p">(</span><span class="n">featureError</span><span class="p">.</span><span class="n">description</span><span class="p">)</span>
-<span class="w">                </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">returning</span><span class="p">:</span><span class="w"> </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">)</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">})</span>
+<span class="w">                                  </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
+<span class="w">                                      </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                                      </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
+<span class="w">                                          </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">returning</span><span class="p">:</span><span class="w"> </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">)</span>
+<span class="w">                                      </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">featureError</span><span class="p">):</span>
+<span class="w">                                          </span><span class="bp">print</span><span class="p">(</span><span class="n">featureError</span><span class="p">.</span><span class="n">description</span><span class="p">)</span>
+<span class="w">                                          </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">returning</span><span class="p">:</span><span class="w"> </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">)</span>
+<span class="w">                                      </span><span class="p">}</span>
+<span class="w">                                  </span><span class="p">})</span>
 <span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
+</div>
+</div>
+</div>
 <h2 id="share-passenger-data">Share Passenger Data<a class="headerlink" href="#share-passenger-data" title="Permanent link">&para;</a></h2>
 <p>The <code>share()</code> method sets the passenger list <strong>and</strong> starts sharing in a single call.
 It returns a <code>Pair&lt;Boolean, FeatureError&gt;</code></p>
@@ -2941,17 +2937,15 @@ It returns a <code>Pair&lt;Boolean, FeatureError&gt;</code></p>
 </tbody>
 </table>
 </div>
-<div class="tabbed-block"></div>
-</div>
-</div>
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nv">passenger</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Passenger</span><span class="p">(</span><span class="n">language</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p">,</span>
-<span class="w">             </span><span class="n">mrz</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;mrz-line-1&gt;</span><span class="se">\n</span><span class="s">&lt;mrz-line-2&gt;&quot;</span><span class="p">,</span>
-<span class="w">             </span><span class="n">boardingPasses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;&lt;bcbp-barcode-string&gt;&quot;</span><span class="p">],</span>
-<span class="w">             </span><span class="n">docPhotoBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-document-photo&gt;&quot;</span><span class="p">,</span>
-<span class="w">             </span><span class="n">selfieBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-selfie&gt;&quot;</span><span class="p">,</span>
-<span class="w">             </span><span class="n">ePassport</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">             </span><span class="n">tag</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
-<span class="w">             </span><span class="n">ebagtagId</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="w">                          </span><span class="n">mrz</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;mrz-line-1&gt;</span><span class="se">\n</span><span class="s">&lt;mrz-line-2&gt;&quot;</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">boardingPasses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;&lt;bcbp-barcode-string&gt;&quot;</span><span class="p">],</span>
+<span class="w">                          </span><span class="n">docPhotoBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-document-photo&gt;&quot;</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">selfieBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-selfie&gt;&quot;</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">ePassport</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">tag</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">ebagtagId</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
 <span class="k">guard</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">shareResult</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">enrolment</span><span class="p">?.</span><span class="n">share</span><span class="p">(</span><span class="n">passengers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">passenger</span><span class="p">])</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Precondition failed: nil shareResult&quot;</span><span class="p">)</span>
 <span class="w">    </span><span class="k">return</span>
@@ -2963,6 +2957,9 @@ It returns a <code>Pair&lt;Boolean, FeatureError&gt;</code></p>
 <span class="w">    </span><span class="bp">print</span><span class="p">(</span><span class="n">shareResult</span><span class="p">.</span><span class="n">error</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
+</div>
+</div>
+</div>
 <h2 id="stop-beamsync">Stop Beamsync<a class="headerlink" href="#stop-beamsync" title="Permanent link">&para;</a></h2>
 <p>Stop Beamsync when the flow ends (for example, when leaving the screen or destroying the view):</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Android</label><label for="__tabbed_6_2">iOS</label></div>
@@ -2977,9 +2974,7 @@ It returns a <code>Pair&lt;Boolean, FeatureError&gt;</code></p>
 <span class="p">}</span>
 </code></pre></div>
 </div>
-<div class="tabbed-block"></div>
-</div>
-</div>
+<div class="tabbed-block">
 <p>It's recommended to call <code>stopSharing()</code> in your view lifecycle:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">deinit</span><span class="w"> </span><span class="p">{</span>
 <span class="w">   </span><span class="n">presenter</span><span class="p">.</span><span class="n">unbind</span><span class="p">()</span>
@@ -2989,6 +2984,9 @@ It returns a <code>Pair&lt;Boolean, FeatureError&gt;</code></p>
 <p>or call it ha hoc </p>
 <div class="highlight"><pre><span></span><code><span class="n">enrolment</span><span class="p">?.</span><span class="n">stopSharing</span><span class="p">()</span>
 </code></pre></div>
+</div>
+</div>
+</div>
 <h2 id="complete-example">Complete Example<a class="headerlink" href="#complete-example" title="Permanent link">&para;</a></h2>
 <p>Here's a complete example integrating Ultralight with the Enrolment SDK:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Android</label><label for="__tabbed_7_2">iOS</label></div>
@@ -3078,56 +3076,46 @@ It returns a <code>Pair&lt;Boolean, FeatureError&gt;</code></p>
 <span class="p">}</span>
 </code></pre></div>
 </div>
-<div class="tabbed-block"></div>
-</div>
-</div>
-<div class="highlight"><pre><span></span><code><span class="kd">import</span><span class="w"> </span><span class="nc">MobileIdSDKiOS</span>
-<span class="kd">import</span><span class="w"> </span><span class="nc">AMADocModeliOS</span>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">import</span><span class="w"> </span><span class="nc">AMADocModeliOS</span>
 <span class="kd">import</span><span class="w"> </span><span class="nc">AMAShareUltralight</span>
+<span class="kd">import</span><span class="w"> </span><span class="nc">MobileIdSDKiOS</span>
 
-<span class="kd">class</span><span class="w"> </span><span class="nc">UltralightSample</span><span class="w"> </span><span class="p">{</span>
-
-<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">initializeUltralight</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">UltralightProtocol</span><span class="p">?</span><span class="w"> </span><span class="p">{</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">UltralightProviderSample</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">ultralightProvider</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">UltralightProtocol</span><span class="p">?</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">Ultralight</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">()</span>
 <span class="w">        </span><span class="n">ultralightProvider</span><span class="p">.</span><span class="n">initialiseBeamSync</span><span class="p">(</span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;your-ultralight-api-key&gt;&quot;</span><span class="p">)</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ultralightProvider</span>
-<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">initializeEnrolment</span><span class="p">()</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">EnrolmentProtocol</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">withCheckedContinuation</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">continuation</span><span class="w"> </span><span class="k">in</span>
-<span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">(</span>
-<span class="w">                </span><span class="n">apiConfig</span><span class="p">:</span><span class="w"> </span><span class="n">APIConfig</span><span class="p">(</span>
-<span class="w">                    </span><span class="n">baseURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;your-url&gt;&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="n">timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
-<span class="w">                    </span><span class="n">logLevel</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">basic</span><span class="p">,</span>
-<span class="w">                    </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;your-enrolment-api-key&gt;&quot;</span>
-<span class="w">                </span><span class="p">))</span>
-<span class="w">            </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
+<span class="w">            </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">                                      </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">                                      </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
-<span class="w">                                      </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">initializeUltralight</span><span class="p">(),</span>
+<span class="w">                                      </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">ultralightProvider</span><span class="p">(),</span>
 <span class="w">                                      </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
-<span class="w">                                      </span><span class="n">completionHandler</span><span class="p">:</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
-<span class="w">                </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
-<span class="w">                    </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">returning</span><span class="p">:</span><span class="w"> </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">)</span>
-<span class="w">                </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nv">featureError</span><span class="p">):</span>
-<span class="w">                    </span><span class="bp">print</span><span class="p">(</span><span class="n">featureError</span><span class="p">.</span><span class="n">description</span><span class="p">)</span>
-<span class="w">                    </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">returning</span><span class="p">:</span><span class="w"> </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">)</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">})</span>
+<span class="w">                                      </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
+<span class="w">                                          </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                                          </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
+<span class="w">                                              </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">returning</span><span class="p">:</span><span class="w"> </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">)</span>
+<span class="w">                                          </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">featureError</span><span class="p">):</span>
+<span class="w">                                              </span><span class="bp">print</span><span class="p">(</span><span class="n">featureError</span><span class="p">.</span><span class="n">description</span><span class="p">)</span>
+<span class="w">                                              </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">returning</span><span class="p">:</span><span class="w"> </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">)</span>
+<span class="w">                                          </span><span class="p">}</span>
+<span class="w">                                      </span><span class="p">})</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">sampleShare</span><span class="p">(</span><span class="n">enrolment</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentProtocol</span><span class="p">?)</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">passenger</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Passenger</span><span class="p">(</span><span class="n">language</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p">,</span>
-<span class="w">                     </span><span class="n">mrz</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;mrz-line-1&gt;</span><span class="se">\n</span><span class="s">&lt;mrz-line-2&gt;&quot;</span><span class="p">,</span>
-<span class="w">                     </span><span class="n">boardingPasses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;&lt;bcbp-barcode-string&gt;&quot;</span><span class="p">],</span>
-<span class="w">                     </span><span class="n">docPhotoBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-document-photo&gt;&quot;</span><span class="p">,</span>
-<span class="w">                     </span><span class="n">selfieBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-selfie&gt;&quot;</span><span class="p">,</span>
-<span class="w">                     </span><span class="n">ePassport</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">                     </span><span class="n">tag</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
-<span class="w">                     </span><span class="n">ebagtagId</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="w">                                  </span><span class="n">mrz</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;mrz-line-1&gt;</span><span class="se">\n</span><span class="s">&lt;mrz-line-2&gt;&quot;</span><span class="p">,</span>
+<span class="w">                                  </span><span class="n">boardingPasses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;&lt;bcbp-barcode-string&gt;&quot;</span><span class="p">],</span>
+<span class="w">                                  </span><span class="n">docPhotoBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-document-photo&gt;&quot;</span><span class="p">,</span>
+<span class="w">                                  </span><span class="n">selfieBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-selfie&gt;&quot;</span><span class="p">,</span>
+<span class="w">                                  </span><span class="n">ePassport</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                                  </span><span class="n">tag</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">                                  </span><span class="n">ebagtagId</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
 <span class="w">        </span><span class="k">guard</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">shareResult</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">enrolment</span><span class="p">?.</span><span class="n">share</span><span class="p">(</span><span class="n">passengers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">passenger</span><span class="p">])</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Precondition failed: nil shareResult&quot;</span><span class="p">)</span>
 <span class="w">            </span><span class="k">return</span>
@@ -3176,10 +3164,11 @@ It returns a <code>Pair&lt;Boolean, FeatureError&gt;</code></p>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
-
-
 <span class="p">}</span>
 </code></pre></div>
+</div>
+</div>
+</div>
 <h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
 <ul>
 <li>The <code>UltralightProvider</code> must be initialized <strong>before</strong> passing it to <code>Enrolment.initialize()</code></li>

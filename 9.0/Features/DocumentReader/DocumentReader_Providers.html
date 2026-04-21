@@ -2605,8 +2605,7 @@ You're not viewing the latest version.
 </code></pre>
 </li>
 <li>
-<p>Select the version to integrate.<br />
-    For new projects, we recommend using the latest available release (for example: <strong><code>1.0.0-rc24</code></strong>).</p>
+<p>Select the version to integrate. For new projects, we recommend using the latest available release (for example: <strong><code>1.0.0-rc24</code></strong>).</p>
 </li>
 <li>
 <p>Choose the project and target to which the package should be added.</p>
@@ -2639,6 +2638,9 @@ You're not viewing the latest version.
 <span class="w">    </span><span class="p">]</span>
 <span class="p">)</span>
 </code></pre></div>
+<blockquote>
+<p>Replace <code>YourAppTarget</code> with the intended target you wish to use.</p>
+</blockquote>
 </div>
 </div>
 </div>
@@ -2649,18 +2651,42 @@ You're not viewing the latest version.
 <p>Work in progress...</p>
 </div>
 <div class="tabbed-block">
-<p>Creates a <code>DocumentReaderScanProtocol</code> using <code>Regula</code> provider</p>
-<div class="highlight"><pre><span></span><code><span class="kd">static</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">regulaDocumentReaderScan</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">guard</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">licensePath</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Bundle</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="n">path</span><span class="p">(</span><span class="n">forResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;YOUR_REGULA_LICENCE_FILE&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ofType</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">),</span>
-<span class="w">          </span><span class="p">(</span><span class="k">try</span><span class="p">?</span><span class="w"> </span><span class="n">Data</span><span class="p">(</span><span class="n">contentsOf</span><span class="p">:</span><span class="w"> </span><span class="n">URL</span><span class="p">(</span><span class="n">fileURLWithPath</span><span class="p">:</span><span class="w"> </span><span class="n">licensePath</span><span class="p">)))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="bp">fatalError</span><span class="p">(</span><span class="s">&quot;Unable to read Regula License&quot;</span><span class="p">)</span>
+<p>Creates a <code>DocumentReaderScanProtocol</code> using <code>AMADocScanRegulaiOS</code> provider</p>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">amaDocScanRegulaiOSProviderSetup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">!</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
+
+<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">amaDocScanRegulaiOS</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">guard</span>
+<span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="nv">licensePath</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Bundle</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="n">path</span><span class="p">(</span>
+<span class="w">                </span><span class="n">forResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;YOUR_REGULA_LICENCE_FILE&gt;&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="n">ofType</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span>
+<span class="w">            </span><span class="p">),</span>
+<span class="w">            </span><span class="p">(</span><span class="k">try</span><span class="p">?</span><span class="w"> </span><span class="n">Data</span><span class="p">(</span><span class="n">contentsOf</span><span class="p">:</span><span class="w"> </span><span class="n">URL</span><span class="p">(</span><span class="n">fileURLWithPath</span><span class="p">:</span><span class="w"> </span><span class="n">licensePath</span><span class="p">)))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span>
+<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="bp">fatalError</span><span class="p">(</span><span class="s">&quot;Unable to read Regula License&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="p">:</span><span class="w"> </span><span class="n">mdi_mob_sdk_doc_mrz_regula_ios</span><span class="p">.</span><span class="n">DocumentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span>
+<span class="w">            </span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="c1">// Single-page scanning</span>
+<span class="w">            </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;YOUR_DATA_BASE_ID&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Database id</span>
+<span class="w">            </span><span class="n">scenario</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">mrz</span><span class="w"> </span><span class="c1">// MRZ scanning scenario</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">RegulaDocumentReaderScan</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">documentReaderConfig</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span>
-<span class="w">        </span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">        </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">scenario</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">mrz</span>
-<span class="w">    </span><span class="p">)</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">RegulaDocumentReaderScan</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">documentReaderConfig</span><span class="p">)</span>
+
+<span class="w">    </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">amaDocScanRegulaiOS</span><span class="p">(),</span>
+<span class="w">                              </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
+<span class="w">                              </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
+<span class="w">                              </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
+<span class="w">                                  </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                                  </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
+<span class="w">                                      </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;SDK is ready to use&quot;</span><span class="p">)</span>
+
+<span class="w">                                  </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
+<span class="w">                                      </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">                                  </span><span class="p">}</span>
+<span class="w">                              </span><span class="p">})</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -2692,53 +2718,25 @@ You're not viewing the latest version.
 <p>Work in progress...</p>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1">// Does a pre-initialization, if necessary, of the document reader</span>
-<span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">softStart</span><span class="p">(</span><span class="n">provider</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="p">)</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kr">throws</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">withCheckedThrowingContinuation</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">continuation</span><span class="w"> </span><span class="k">in</span>
-<span class="w">            </span><span class="n">provider</span><span class="p">.</span><span class="n">softStart</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">progress</span><span class="w"> </span><span class="k">in</span>
-<span class="w">                </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;softStart progress - </span><span class="si">\(</span><span class="n">progress</span><span class="si">)</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="si">\(</span><span class="kc">Self</span><span class="p">.</span><span class="kc">self</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="n">completion</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
-<span class="w">                </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
-<span class="w">                    </span><span class="bp">print</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="si">\(</span><span class="kc">Self</span><span class="p">.</span><span class="kc">self</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">                    </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">()</span>
-<span class="w">                </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nv">error</span><span class="p">):</span>
-<span class="w">                    </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="si">\(</span><span class="kc">Self</span><span class="p">.</span><span class="kc">self</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">                    </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">throwing</span><span class="p">:</span><span class="w"> </span><span class="n">error</span><span class="p">)</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">readDocumentSampleUsage</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="c1">// The view controller responsible for presenting the document scanner camera interface</span>
+<span class="w">     </span><span class="kd">var</span><span class="w"> </span><span class="nv">viewController</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">!</span>
 
-<span class="w">    </span><span class="c1">// Starts the OCR scan</span>
-<span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">recognize</span><span class="p">(</span><span class="n">data</span><span class="p">:</span><span class="w"> </span><span class="n">Data</span><span class="p">,</span><span class="w"> </span><span class="n">provider</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="p">)</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kr">throws</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">IdDocument</span><span class="p">?</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">await</span><span class="w"> </span><span class="n">withCheckedContinuation</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">continuation</span><span class="w"> </span><span class="k">in</span>
-<span class="w">            </span><span class="n">provider</span><span class="p">.</span><span class="n">recognize</span><span class="p">(</span><span class="n">imageData</span><span class="p">:</span><span class="w"> </span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">in</span>
-<span class="w">                </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Error Read OCR: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="si">\(</span><span class="kc">Self</span><span class="p">.</span><span class="kc">self</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">                </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">returning</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
-<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="n">onSuccess</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">idDocument</span><span class="p">,</span><span class="w"> </span><span class="kc">_</span><span class="w"> </span><span class="k">in</span>
-<span class="w">                </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Read OCR data&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="si">\(</span><span class="kc">Self</span><span class="p">.</span><span class="kc">self</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">                </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">returning</span><span class="p">:</span><span class="w"> </span><span class="n">idDocument</span><span class="p">)</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="c1">// Starts the OCR scan</span>
-<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">startScan</span><span class="p">(</span><span class="kc">_</span><span class="w"> </span><span class="n">presenter</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">,</span><span class="w"> </span><span class="n">provider</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="p">)</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kr">throws</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">IdDocument</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">withCheckedThrowingContinuation</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">continuation</span><span class="w"> </span><span class="k">in</span>
-<span class="w">            </span><span class="n">DispatchQueue</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="k">async</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">provider</span><span class="p">.</span><span class="n">startScan</span><span class="p">(</span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="n">presenter</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">in</span>
-<span class="w">                    </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="si">\(</span><span class="kc">Self</span><span class="p">.</span><span class="kc">self</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">                    </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">throwing</span><span class="p">:</span><span class="w"> </span><span class="n">error</span><span class="p">)</span>
-<span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="n">onUserCancel</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">throwing</span><span class="p">:</span><span class="w"> </span><span class="bp">NSError</span><span class="p">(</span><span class="n">domain</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Cancel&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">code</span><span class="p">:</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-<span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="n">onSuccess</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">idDocument</span><span class="p">,</span><span class="w"> </span><span class="kc">_</span><span class="w"> </span><span class="k">in</span>
-<span class="w">                    </span><span class="bp">print</span><span class="p">(</span><span class="n">idDocument</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="si">\(</span><span class="kc">Self</span><span class="p">.</span><span class="kc">self</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">                    </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">returning</span><span class="p">:</span><span class="w"> </span><span class="n">idDocument</span><span class="p">)</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">     </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">readDocument</span><span class="p">(</span>
+<span class="w">        </span><span class="n">parameters</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">readRFID</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">),</span>
+<span class="w">         </span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="n">viewController</span>
+<span class="w">     </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
+<span class="w">         </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="n">report</span><span class="p">):</span>
+<span class="w">             </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Document Read: Success!&quot;</span><span class="p">)</span>
+<span class="w">             </span><span class="bp">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+<span class="w">             </span><span class="bp">print</span><span class="p">(</span><span class="n">report</span><span class="p">.</span><span class="n">idDocument</span><span class="p">)</span>
+<span class="w">             </span><span class="bp">print</span><span class="p">(</span><span class="n">report</span><span class="p">.</span><span class="n">documentStatuses</span><span class="p">)</span>
+<span class="w">         </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
+<span class="w">             </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="n">featureError</span><span class="p">.</span><span class="n">description</span><span class="p">)</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">}</span>
+<span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -2820,6 +2818,9 @@ You're not viewing the latest version.
 <span class="w">    </span><span class="p">]</span>
 <span class="p">)</span>
 </code></pre></div>
+<blockquote>
+<p>Replace <code>YourAppTarget</code> with the intended target you wish to use.</p>
+</blockquote>
 </div>
 </div>
 </div>
@@ -2852,16 +2853,40 @@ You're not viewing the latest version.
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>Creates a <code>DocumentReaderScanProtocol</code> using <code>PSS</code> provider</p>
-<div class="highlight"><pre><span></span><code><span class="kd">static</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">documentReaderProviderB</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">documentType</span><span class="p">:</span><span class="w"> </span><span class="n">DSDocumentType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">td3</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">bounds</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="bp">UIScreen</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="n">bounds</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">DocumentReaderScan</span><span class="p">(</span>
-<span class="w">        </span><span class="n">documentType</span><span class="p">:</span><span class="w"> </span><span class="n">documentType</span><span class="p">,</span>
-<span class="w">        </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;YOUR_KEY&gt;&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">pixelWidth</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">width</span><span class="p">),</span>
-<span class="w">        </span><span class="n">pixelHeight</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
-<span class="w">    </span><span class="p">)</span>
+<p>Creates a <code>DocumentReaderScanProtocol</code> using <code>AMADocScanMrziOS</code> provider</p>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">docScanMrziOSProviderSetup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">!</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
+
+<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">amaDocScanMrziOS</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">/// Specifies the expected document type (e.g. passport)</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">documentType</span><span class="p">:</span><span class="w"> </span><span class="n">DSDocumentType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">td3</span>
+
+<span class="w">        </span><span class="c1">/// Uses screen size to configure capture resolution</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">bounds</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="bp">UIScreen</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="n">bounds</span>
+
+<span class="w">        </span><span class="c1">/// Returns a PSS-based document scanner</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">DocumentReaderScan</span><span class="p">(</span>
+<span class="w">            </span><span class="n">documentType</span><span class="p">:</span><span class="w"> </span><span class="n">documentType</span><span class="p">,</span>
+<span class="w">            </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;YOUR_KEY&gt;&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">pixelWidth</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">width</span><span class="p">),</span>
+<span class="w">            </span><span class="n">pixelHeight</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">amaDocScanMrziOS</span><span class="p">(),</span>
+<span class="w">                              </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
+<span class="w">                              </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
+<span class="w">                              </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
+<span class="w">                                  </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                                  </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
+<span class="w">                                      </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;SDK is ready to use&quot;</span><span class="p">)</span>
+
+<span class="w">                                  </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
+<span class="w">                                      </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">                                  </span><span class="p">}</span>
+<span class="w">                              </span><span class="p">})</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -2874,53 +2899,23 @@ You're not viewing the latest version.
 <p>Work in progress...</p>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1">// Does a pre-initialization, if necessary, of the document reader</span>
-<span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">softStart</span><span class="p">(</span><span class="n">provider</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="p">)</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kr">throws</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">withCheckedThrowingContinuation</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">continuation</span><span class="w"> </span><span class="k">in</span>
-<span class="w">            </span><span class="n">provider</span><span class="p">.</span><span class="n">softStart</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">progress</span><span class="w"> </span><span class="k">in</span>
-<span class="w">                </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;softStart progress - </span><span class="si">\(</span><span class="n">progress</span><span class="si">)</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="si">\(</span><span class="kc">Self</span><span class="p">.</span><span class="kc">self</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="n">completion</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
-<span class="w">                </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
-<span class="w">                    </span><span class="bp">print</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="si">\(</span><span class="kc">Self</span><span class="p">.</span><span class="kc">self</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">                    </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">()</span>
-<span class="w">                </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nv">error</span><span class="p">):</span>
-<span class="w">                    </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="si">\(</span><span class="kc">Self</span><span class="p">.</span><span class="kc">self</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">                    </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">throwing</span><span class="p">:</span><span class="w"> </span><span class="n">error</span><span class="p">)</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="c1">// The view controller responsible for presenting the document scanner camera interface</span>
+<span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">viewController</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">!</span>
 
-<span class="w">    </span><span class="c1">// Starts the OCR scan</span>
-<span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">recognize</span><span class="p">(</span><span class="n">data</span><span class="p">:</span><span class="w"> </span><span class="n">Data</span><span class="p">,</span><span class="w"> </span><span class="n">provider</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="p">)</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kr">throws</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">IdDocument</span><span class="p">?</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">await</span><span class="w"> </span><span class="n">withCheckedContinuation</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">continuation</span><span class="w"> </span><span class="k">in</span>
-<span class="w">            </span><span class="n">provider</span><span class="p">.</span><span class="n">recognize</span><span class="p">(</span><span class="n">imageData</span><span class="p">:</span><span class="w"> </span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">in</span>
-<span class="w">                </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Error Read OCR: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="si">\(</span><span class="kc">Self</span><span class="p">.</span><span class="kc">self</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">                </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">returning</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
-<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="n">onSuccess</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">idDocument</span><span class="p">,</span><span class="w"> </span><span class="kc">_</span><span class="w"> </span><span class="k">in</span>
-<span class="w">                </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Read OCR data&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="si">\(</span><span class="kc">Self</span><span class="p">.</span><span class="kc">self</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">                </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">returning</span><span class="p">:</span><span class="w"> </span><span class="n">idDocument</span><span class="p">)</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="c1">// Starts the OCR scan</span>
-<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">startScan</span><span class="p">(</span><span class="kc">_</span><span class="w"> </span><span class="n">presenter</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">,</span><span class="w"> </span><span class="n">provider</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="p">)</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kr">throws</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">IdDocument</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">withCheckedThrowingContinuation</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">continuation</span><span class="w"> </span><span class="k">in</span>
-<span class="w">            </span><span class="n">DispatchQueue</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="k">async</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">provider</span><span class="p">.</span><span class="n">startScan</span><span class="p">(</span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="n">presenter</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">in</span>
-<span class="w">                    </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="si">\(</span><span class="kc">Self</span><span class="p">.</span><span class="kc">self</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">                    </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">throwing</span><span class="p">:</span><span class="w"> </span><span class="n">error</span><span class="p">)</span>
-<span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="n">onUserCancel</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">throwing</span><span class="p">:</span><span class="w"> </span><span class="bp">NSError</span><span class="p">(</span><span class="n">domain</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Cancel&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">code</span><span class="p">:</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-<span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="n">onSuccess</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">idDocument</span><span class="p">,</span><span class="w"> </span><span class="kc">_</span><span class="w"> </span><span class="k">in</span>
-<span class="w">                    </span><span class="bp">print</span><span class="p">(</span><span class="n">idDocument</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="si">\(</span><span class="kc">Self</span><span class="p">.</span><span class="kc">self</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">                    </span><span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">returning</span><span class="p">:</span><span class="w"> </span><span class="n">idDocument</span><span class="p">)</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w"> </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">readDocument</span><span class="p">(</span>
+<span class="w">    </span><span class="n">parameters</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">readRFID</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">),</span>
+<span class="w">     </span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="n">viewController</span>
+<span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
+<span class="w">     </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="n">report</span><span class="p">):</span>
+<span class="w">         </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Document Read: Success!&quot;</span><span class="p">)</span>
+<span class="w">         </span><span class="bp">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+<span class="w">         </span><span class="bp">print</span><span class="p">(</span><span class="n">report</span><span class="p">.</span><span class="n">idDocument</span><span class="p">)</span>
+<span class="w">         </span><span class="bp">print</span><span class="p">(</span><span class="n">report</span><span class="p">.</span><span class="n">documentStatuses</span><span class="p">)</span>
+<span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
+<span class="w">         </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="n">featureError</span><span class="p">.</span><span class="n">description</span><span class="p">)</span>
+<span class="w">     </span><span class="p">}</span>
+<span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 </div>
 </div>

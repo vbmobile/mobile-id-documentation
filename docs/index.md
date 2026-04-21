@@ -126,6 +126,9 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	)
 	```
 	
+	> Replace `YourAppTarget ` with the intended app target you wish to use.
+
+	
 	***
 	
 	> Repeat the process for `AmaShareUltralight`, `AMADocScanMrziOS` and `AMADocScanRegulaiOS`
@@ -196,44 +199,8 @@ The SDK also allows client apps to use their own custom views for its functional
 
 === "iOS"
 
-	```swift
-	let apiConfig = APIConfig(
-	    baseURL: "YOUR BASE URL",
-	    timeout: 30, // timeout in seconds
-	    logLevel: .basic,
-	    apiKey: "YOUR KEY",
-	    publicKey: "YOUR PUBLIC KEY" // Optional parameter to ensure requests are encrypted
-	)
-	
-	let enrolmentConfig = EnrolmentConfig(apiConfig: apiConfig)
-	
-	let bounds = UIScreen.main.bounds
-	let documentScanProvider = DocumentReaderScan(
-	    documentType: .td3,
-	    apiKey: "YOUR KEY",
-	    pixelWidth: Int(bounds.width),
-	    pixelHeight: Int(bounds.height)
-	)
-	let ultralightProvider: AMAShareUltralight.Ultralight = .init()
-	ultralightProvider.initialiseBeamSync(apiKey: "YOUR KEY")
-	
-	Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
-	                          documentScanProvider: documentScanProvider,
-	                          documentRFIDProvider: RegulaDocumentReaderRFID(),
-	                          ultralightProvider: ultralightProvider,
-	                          viewRegister: EnrolmentViewRegister(),
-	                          completionHandler: { result in
-	                              switch result {
-	                              case .success:
-	                                  print("Success: SeamlessMobile SDK is ready to use")
-	                              case let .failure(error):
-	                                  print("Failure: \(error)")
-	                              }
-	                          })
-	```
 
-
-	The following parameters must always be provided:
+	To initialize the enrrolment, the following parameters must always be provided:
 	
 	- EnrolmentConfig - Enrolment configuration.
 	
@@ -256,6 +223,129 @@ The SDK also allows client apps to use their own custom views for its functional
 	- If an error occurs during the initialize method, for example internet connection during the fetch configurations, you will receive via callback an InitFailed error(012 - Error while fetching configurations. Please check your internet connection and API URL/API Key.)
 	
 	If you try to call a feature while the Enrolment is not ready you will receive a NotReady error (013 - Enrolment is not ready yet. Wait for the callback.)
+
+	As for the provider for document read operations, the user can choose any, as long as it complies with `DocumentReaderScanProtocol`. See example bellow: 
+	
+	```swift
+	import AMADocModeliOS
+	import mdi_mob_sdk_doc_mrz_regula_ios
+	import mdi_mob_sdk_doc_scanner_ios
+	
+	/// Factory responsible for creating document scan providers
+	/// that conform to `DocumentReaderScanProtocol`.
+	struct DocumentScanProvidersBuilder {
+	
+	    // MARK: - Regula Provider (Provider A)
+	
+	    /// Creates a document scanner backed by the Regula SDK.
+	    /// Uses MRZ-based scanning scenarios.
+	    static func providerA() -> DocumentReaderScanProtocol {
+	
+	        /// Ensures the Regula license file exists and is readable
+	        guard
+	            let licensePath = Bundle.main.path(
+	                forResource: "<YOUR_REGULA_LICENCE_FILE>",
+	                ofType: nil
+	            ),
+	            (try? Data(contentsOf: URL(fileURLWithPath: licensePath))) != nil
+	        else {
+	            fatalError("Unable to read Regula License")
+	        }
+	
+	        /// Regula document reader configuration
+	        let documentReaderConfig = DocumentReaderConfig(
+	            multipageProcessing: false, // Single-page scanning
+	            databaseID: "",             // Default internal database
+	            scenario: .mrz              // MRZ scanning scenario
+	        )
+	
+	        /// Returns a Regula-based document scanner
+	        return RegulaDocumentReaderScan(config: documentReaderConfig)
+	    }
+	
+	    // MARK: - PSS Provider (Provider B)
+	
+	    /// Creates a document scanner backed by the PSS provider.
+	    static func providerB() -> DocumentReaderScanProtocol {
+	
+	        /// Specifies the expected document type (e.g. passport)
+	        let documentType: DSDocumentType = .td3
+	
+	        /// Uses screen size to configure capture resolution
+	        let bounds = UIScreen.main.bounds
+	
+	        /// Returns a PSS-based document scanner
+	        return DocumentReaderScan(
+	            documentType: documentType,
+	            apiKey: "<YOUR_KEY>",
+	            pixelWidth: Int(bounds.width),
+	            pixelHeight: Int(bounds.height)
+	        )
+	    }
+	}
+	```
+
+	We are not ready to finish the implementation of the Enrolment initial setup 
+
+	```swift
+    // MARK: - API Configuration
+
+    /// Configuration used by all backend-related SDK modules
+    let apiConfig = APIConfig(
+        baseURL: "YOUR BASE URL",
+        timeout: 30,                   // Network timeout (seconds)
+        logLevel: .basic,              // SDK logging verbosity
+        apiKey: "YOUR KEY",            // API authentication key
+        publicKey: "YOUR PUBLIC KEY"   // Optional: enables request encryption
+    )
+
+    /// High-level enrolment configuration
+    let enrolmentConfig = EnrolmentConfig(apiConfig: apiConfig)
+
+    // MARK: - Ultralight Provider
+
+    /// Ultralight provider used for Bluetooth-based interactions (BeamSync)
+    let ultralightProvider: AMAShareUltralight.Ultralight = .init()
+
+    /// Initializes BeamSync with the provided API key
+    ultralightProvider.initialiseBeamSync(apiKey: "YOUR KEY")
+
+    // MARK: - Document Scanner Providers
+
+    /// Document scanner based on Regula SDK (MRZ / OCR scanning)
+    let documentScanProviderA: DocumentReaderScanProtocol =
+        DocumentScanProvidersBuilder.providerA()
+
+    /// Document scanner based on PSS provider
+    let documentScanProviderB: DocumentReaderScanProtocol =
+        DocumentScanProvidersBuilder.providerB()
+
+    // MARK: - Enrolment SDK Initialization
+
+    /// Initializes the Enrolment SDK using:
+    /// - A randomly selected document scanner provider
+    /// - A fixed RFID provider (Regula)
+    /// - Ultralight provider for Bluetooth processing
+    Enrolment.shared.initWith(
+        enrolmentConfig: enrolmentConfig,
+        documentScanProvider: Bool.random()
+            ? documentScanProviderA
+            : documentScanProviderB,
+        documentRFIDProvider: RegulaDocumentReaderRFID(),
+        ultralightProvider: ultralightProvider,
+        viewRegister: EnrolmentViewRegister(),
+        completionHandler: { result in
+            switch result {
+            case .success:
+                print("SDK is ready to use")
+            case let .failure(error):
+                print("Failure: \(error)")
+            }
+        }
+    )
+	```
+
+
 
 
 <!--
@@ -350,39 +440,6 @@ There's also a data integrity validation system that checks if the response info
 
 ## Configurations
 
-### EnrolmentConfig
-
-The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig.
-
-=== "Android"
-
-    ```kotlin
-    data class EnrolmentConfig(
-        val apiConfig: APIConfig,
-        val apiSecurityConfig: APISecurityConfig = APISecurityConfig(),
-        val language: Locale,
-        val logConfiguration: List<LogConfiguration> = listOf(
-          LogConfiguration(logLevel = LogLevel.INFO, logStrategy = LogStrategy.CONSOLE)
-        ),
-    )
-    ```
-    
-=== "iOS"
-
-    ```swift
-    private let enrolmentConfig = EnrolmentConfig(
-        apiConfig: apiConfig ,
-        apiSecurityConfig, apiSecurityConfig
-        language: language
-    )
-    ```
-
-- apiConfig: Api configuration;
-- apiSecurityConfig: Api security configuration;
-- language: You can set the language in which the SDK will appear. The default is the system
-  language;
-- logConfiguration: Log Level and Strategy to be used.
-
 ### ApiConfig
 
 You always need to specify the baseUrl for your Mobile ID API instance, as well as your provided API
@@ -412,12 +469,12 @@ key. You can also configure the timeout value for server responses and the log l
 === "iOS"
 
     ```swift
-    APIConfig(
-        baseURL: "YOUR BASE URL",
-        timeout: 30, 
-        logLevel:  .basic, 
-        apiKey: "YOUR KEY" ,
-        publicKey: String? = nil  
+    let apiConfig = APIConfig(
+        baseURL: "YOUR BASE URL",      
+        timeout: 30,                   
+        logLevel: .basic,              
+        apiKey: "YOUR KEY",            
+        publicKey: "YOUR PUBLIC KEY"   
     )
     ```
 
@@ -483,6 +540,8 @@ pinning for every network request made by the SDK.
 
 - certificates: used for certificate pinning
 
+
+
 ### Log Configuration
 
 === "Android"
@@ -536,10 +595,55 @@ pinning for every network request made by the SDK.
     }
     ```
     
-    In order to find the log files in the iPhone's Files application, the **INFOPLIST_KEY_UISupportsDocumentBrowser** setting in Build Settings should be set to **Yes**
+    In order to find the log files in the iPhone's Files application, the _Info.plist_ key `UISupportsDocumentBrowser` setting in Build Settings should be set to **Yes**
     
     ![Supports Document Browser location](images/iOS_LogFile_Setting.png "INFOPLIST_KEY_UISupportsDocumentBrowser location"){: style="display: block; margin: 5px auto"}
     
+### EnrolmentConfig
+
+The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig.
+
+=== "Android"
+
+    ```kotlin
+    data class EnrolmentConfig(
+        val apiConfig: APIConfig,
+        val apiSecurityConfig: APISecurityConfig = APISecurityConfig(),
+        val language: Locale,
+        val logConfiguration: List<LogConfiguration> = listOf(
+          LogConfiguration(logLevel = LogLevel.INFO, logStrategy = LogStrategy.CONSOLE)
+        ),
+    )
+    ```
+    
+=== "iOS"
+
+    ```swift
+    func apiConfig() -> MobileIdSDKiOS.APIConfig {
+        fatalError("Provide your APIConfig")
+    }
+    func apiSecurityConfig() -> MobileIdSDKiOS.APISecurityConfig {
+        fatalError("Provide your APISecurityConfig")
+    }
+    func logStrategies() -> [VBUtils.LogStrategy] {
+        fatalError("Provide your LogStrategy")
+    }
+    func language() -> Locale {
+        fatalError("Provide your Locale")
+    }
+    let enrolmentConfig = EnrolmentConfig(apiConfig: apiConfig(),
+                                          apiSecurityConfig: apiSecurityConfig(),
+                                          logStrategies: logStrategies(),
+                                          language: language())
+    ```
+
+- apiConfig: Api configuration;
+- apiSecurityConfig: Api security configuration;
+- language: You can set the language in which the SDK will appear. The default is the system
+  language;
+- logStrategies: Log Level and Strategy to be used.
+
+
 
 ## Advanced Configurations
 
@@ -600,14 +704,49 @@ pinning for every network request made by the SDK.
     The following code shows an example:
     ```swift
     let viewRegister = EnrolmentViewRegister()
-    viewRegister.registerBiometricFaceCaptureLoadingView(FaceCaptureLoadingView.self)
 
-    
+    let biometricFaceCaptureCustomViewsEnabled = Bool.random()
+    if biometricFaceCaptureCustomViewsEnabled {
+        viewRegister.registerBiometricFaceCaptureLoadingView(BiometricFaceCaptureSampleLoadingView.self)
+    }
+
+    let boardingPassScanCustomViewsEnabled = Bool.random()
+    if boardingPassScanCustomViewsEnabled {
+        viewRegister.registerBoardingPassScannerLoadingView(BoardingPassScanLoadingView.self)
+    }
+
+    let documentReaderCustomViewsEnabled = Bool.random()
+    if documentReaderCustomViewsEnabled {
+        viewRegister.registerDocumentReaderLoadingView(DocumentReaderSampleLoadingOverlayView.self)
+        viewRegister.registerDocumentReaderRFIDInstructionsView(DocumentReaderSampleRFIDInstructionsView.self)
+    }
+
+    let faceMatchCustomViewsEnabled = Bool.random()
+    if faceMatchCustomViewsEnabled {
+        viewRegister.registerBiometricMatchLoadingView(BiometricMatchSampleLoadingOverlayView.self)
+    }
+
+    let subjectCustomViewsEnabled = Bool.random()
+    if subjectCustomViewsEnabled {
+        viewRegister.registerSubjectLoadingView(SubjectSampleLoadingOverlayView.self)
+    }
+
+    var enrolmentConfig: EnrolmentConfig!
+
     Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
-                              documentScanProvider: RegulaDocumentReaderScan(config: documentReaderConfig),
-                              documentRFIDProvider: RegulaDocumentReaderRFID(),
+                              documentScanProvider: nil,
+                              documentRFIDProvider: nil,
+                              ultralightProvider: nil,
                               viewRegister: viewRegister,
-                              completionHandler: completionHandler)      
+                              completionHandler: { result in
+        switch result {
+        case .success:
+            print("SDK is ready to use")
+
+        case let .failure(error):
+            print("Failure: \(error)")
+        }
+    }) 
     ```
 
 ## Custom Providers
@@ -793,10 +932,24 @@ In order for the SDK to use the camera, the user must grant permission to do so.
         
 === "iOS"
 
-    - 'DocumentReader', '~> 7.5.0'
-    - 'DocumentReaderOCRRFID', '~> 7.5.0'
-    - 'lottie-ios', '4.4.1'
-     
+	| Name                   | Version    | Repository                                                |
+	| ---------------------- | ---------- | --------------------------------------------------------- |
+	| AMADocModeliOS         | 1.0.0-rc24 | <https://github.com/vbmobile/AMADocModeliOS>              |
+	| CwlCatchException      | 2.2.1      | <https://github.com/mattgallagher/CwlCatchException>      |
+	| CwlPreconditionTesting | 2.2.2      | <https://github.com/mattgallagher/CwlPreconditionTesting> |
+	| Lottie (SPM)           | 4.4.1      | <https://github.com/airbnb/lottie-spm>                    |
+	| Matomo SDK iOS         | 7.7.0      | <https://github.com/vbmobile/matomo-sdk-ios>              |
+	| Nimble                 | 12.3.0     | <https://github.com/Quick/Nimble>                         |
+	| OHHTTPStubs            | 9.1.0      | <https://github.com/AliSoftware/OHHTTPStubs>              |
+	| Quick                  | 7.6.2      | <https://github.com/Quick/Quick>                          |
+	| Swift Algorithms       | 1.2.1      | <https://github.com/apple/swift-algorithms>               |
+	| Swift Argument Parser  | 1.7.1      | <https://github.com/apple/swift-argument-parser>          |
+	| Swift Numerics         | 1.1.1      | <https://github.com/apple/swift-numerics>                 |
+	| VBDependencyInjector   | 1.0.7      | <https://github.com/vbmobile/VBDependencyInjector>        |
+	| VBImageProcessor       | 1.2.2      | <https://github.com/vbmobile/VBImageProcessor>            |
+	| VBNetworkClient        | 5.1.1      | <https://github.com/vbmobile/VBNetworkClient>             |
+	| VBUtils                | 2.0.2      | <https://github.com/vbmobile/VBUtils>                     |
+	  
 
 ## Glossary and Terminology
 

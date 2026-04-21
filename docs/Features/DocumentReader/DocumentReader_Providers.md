@@ -29,8 +29,7 @@ This provider uses Regula services and supports both OCR Document Reading and RF
 	
 	        https://github.com/vbmobile/AMADocScanRegulaiOS
 	
-	4.  Select the version to integrate.  
-	    For new projects, we recommend using the latest available release (for example: **`1.0.0-rc24`**).
+	4.  Select the version to integrate. For new projects, we recommend using the latest available release (for example: **`1.0.0-rc24`**).
 	
 	5.  Choose the project and target to which the package should be added.
 	
@@ -57,7 +56,6 @@ This provider uses Regula services and supports both OCR Document Reading and RF
 	
 	> Replace `1.0.0-rc24` with the intended version you wish to use.
 	
-	
 	***
 	
 	#### 2. Link the product to your target
@@ -70,6 +68,9 @@ This provider uses Regula services and supports both OCR Document Reading and RF
 	    ]
 	)
 	```
+	
+	> Replace `YourAppTarget` with the intended target you wish to use.
+
 
 ### How to Instantiate: 
 
@@ -79,20 +80,44 @@ This provider uses Regula services and supports both OCR Document Reading and RF
     
 === "iOS"
     
-    Creates a `DocumentReaderScanProtocol` using `Regula` provider
+    Creates a `DocumentReaderScanProtocol` using `AMADocScanRegulaiOS ` provider
     
     ```swift
-    static func regulaDocumentReaderScan() -> DocumentReaderScanProtocol {
-        guard let licensePath = Bundle.main.path(forResource: "<YOUR_REGULA_LICENCE_FILE>", ofType: nil),
-              (try? Data(contentsOf: URL(fileURLWithPath: licensePath))) != nil else {
-            fatalError("Unable to read Regula License")
+    func amaDocScanRegulaiOSProviderSetup() {
+        var enrolmentConfig: EnrolmentConfig! // Not relevant for this example
+
+        func amaDocScanRegulaiOS() -> DocumentReaderScanProtocol {
+            guard
+                let licensePath = Bundle.main.path(
+                    forResource: "<YOUR_REGULA_LICENCE_FILE>",
+                    ofType: nil
+                ),
+                (try? Data(contentsOf: URL(fileURLWithPath: licensePath))) != nil
+            else {
+                fatalError("Unable to read Regula License")
+            }
+            let documentReaderConfig: mdi_mob_sdk_doc_mrz_regula_ios.DocumentReaderConfig = DocumentReaderConfig(
+                multipageProcessing: false, // Single-page scanning
+                databaseID: "<YOUR_DATA_BASE_ID>", // Database id
+                scenario: .mrz // MRZ scanning scenario
+            )
+            return RegulaDocumentReaderScan(config: documentReaderConfig)
         }
-        let documentReaderConfig = DocumentReaderConfig(
-            multipageProcessing: false,
-            databaseID: "",
-            scenario: .mrz
-        )
-        return RegulaDocumentReaderScan(config: documentReaderConfig)
+
+        Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
+                                  documentScanProvider: amaDocScanRegulaiOS(),
+                                  documentRFIDProvider: nil, // Not relevant for this example
+                                  ultralightProvider: nil, // Not relevant for this example
+                                  viewRegister: nil,
+                                  completionHandler: { result in
+                                      switch result {
+                                      case .success:
+                                          print("SDK is ready to use")
+
+                                      case let .failure(error):
+                                          print("Failure: \(error)")
+                                      }
+                                  })
     }
 	```
     
@@ -127,53 +152,25 @@ This provider uses Regula services and supports both OCR Document Reading and RF
 === "iOS"
 
 	```swift
-	    // Does a pre-initialization, if necessary, of the document reader
-	    static func softStart(provider: DocumentReaderScanProtocol) async throws {
-	        try await withCheckedThrowingContinuation { continuation in
-	            provider.softStart { progress in
-	                print("softStart progress - \(progress)", "\(Self.self)")
-	            } completion: { result in
-	                switch result {
-	                case .success:
-	                    print(result, "\(Self.self)")
-	                    continuation.resume()
-	                case .failure(let error):
-	                    print(error, "\(Self.self)")
-	                    continuation.resume(throwing: error)
-	                }
-	            }
-	        }
-	    }
-	
-	    // Starts the OCR scan
-	    static func recognize(data: Data, provider: DocumentReaderScanProtocol) async throws -> IdDocument? {
-	        await withCheckedContinuation { continuation in
-	            provider.recognize(imageData: data) { error in
-	                print("Error Read OCR: \(error)", "\(Self.self)")
-	                continuation.resume(returning: nil)
-	            } onSuccess: { idDocument, _ in
-	                print("Read OCR data", "\(Self.self)")
-	                continuation.resume(returning: idDocument)
-	            }
-	        }
-	    }
-	
-	    // Starts the OCR scan
-	    func startScan(_ presenter: UIViewController, provider: DocumentReaderScanProtocol) async throws -> IdDocument {
-	        try await withCheckedThrowingContinuation { continuation in
-	            DispatchQueue.main.async {
-	                provider.startScan(viewController: presenter) { error in
-	                    print(error, "\(Self.self)")
-	                    continuation.resume(throwing: error)
-	                } onUserCancel: {
-	                    continuation.resume(throwing: NSError(domain: "Cancel", code: -1))
-	                } onSuccess: { idDocument, _ in
-	                    print(idDocument, "\(Self.self)")
-	                    continuation.resume(returning: idDocument)
-	                }
-	            }
-	        }
-	    }
+     func readDocumentSampleUsage() {
+         // The view controller responsible for presenting the document scanner camera interface
+         var viewController: UIViewController!
+         
+         Enrolment.shared.readDocument(
+            parameters: .init(readRFID: false),
+             viewController: viewController
+         ) { result in
+             switch result {
+             case let .success(report):
+                 print("Document Read: Success!")
+                 print(report)
+                 print(report.idDocument)
+                 print(report.documentStatuses)
+             case let .failure(error):
+                 print(error.featureError.description)
+             }
+         }
+     }
 	```
 
 <!--
@@ -250,7 +247,6 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
 	
 	> Replace `1.0.0-rc24` with the intended version you wish to use.
 	
-	
 	***
 	
 	#### 2. Link the product to your target
@@ -263,6 +259,8 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
 	    ]
 	)
 	```
+
+	> Replace `YourAppTarget` with the intended target you wish to use.
 
 ### How to Instantiate: 
 
@@ -298,18 +296,42 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
     
 === "iOS"
 
-	Creates a `DocumentReaderScanProtocol` using `PSS` provider
+    Creates a `DocumentReaderScanProtocol` using `AMADocScanMrziOS ` provider
 
 	```swift
-    static func documentReaderProviderB() -> DocumentReaderScanProtocol {
-        let documentType: DSDocumentType = .td3
-        let bounds = UIScreen.main.bounds
-        return DocumentReaderScan(
-            documentType: documentType,
-            apiKey: "<YOUR_KEY>",
-            pixelWidth: Int(bounds.width),
-            pixelHeight: Int(bounds.height)
-        )
+    func docScanMrziOSProviderSetup() {
+        var enrolmentConfig: EnrolmentConfig! // Not relevant for this example
+
+        func amaDocScanMrziOS() -> DocumentReaderScanProtocol {
+            /// Specifies the expected document type (e.g. passport)
+            let documentType: DSDocumentType = .td3
+
+            /// Uses screen size to configure capture resolution
+            let bounds = UIScreen.main.bounds
+
+            /// Returns a PSS-based document scanner
+            return DocumentReaderScan(
+                documentType: documentType,
+                apiKey: "<YOUR_KEY>",
+                pixelWidth: Int(bounds.width),
+                pixelHeight: Int(bounds.height)
+            )
+        }
+
+        Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
+                                  documentScanProvider: amaDocScanMrziOS(),
+                                  documentRFIDProvider: nil, // Not relevant for this example
+                                  ultralightProvider: nil, // Not relevant for this example
+                                  viewRegister: nil,
+                                  completionHandler: { result in
+                                      switch result {
+                                      case .success:
+                                          print("SDK is ready to use")
+
+                                      case let .failure(error):
+                                          print("Failure: \(error)")
+                                      }
+                                  })
     }
     ```
 
@@ -322,51 +344,21 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
 === "iOS"
 
 	```swift
-	    // Does a pre-initialization, if necessary, of the document reader
-	    static func softStart(provider: DocumentReaderScanProtocol) async throws {
-	        try await withCheckedThrowingContinuation { continuation in
-	            provider.softStart { progress in
-	                print("softStart progress - \(progress)", "\(Self.self)")
-	            } completion: { result in
-	                switch result {
-	                case .success:
-	                    print(result, "\(Self.self)")
-	                    continuation.resume()
-	                case .failure(let error):
-	                    print(error, "\(Self.self)")
-	                    continuation.resume(throwing: error)
-	                }
-	            }
-	        }
-	    }
-	
-	    // Starts the OCR scan
-	    static func recognize(data: Data, provider: DocumentReaderScanProtocol) async throws -> IdDocument? {
-	        await withCheckedContinuation { continuation in
-	            provider.recognize(imageData: data) { error in
-	                print("Error Read OCR: \(error)", "\(Self.self)")
-	                continuation.resume(returning: nil)
-	            } onSuccess: { idDocument, _ in
-	                print("Read OCR data", "\(Self.self)")
-	                continuation.resume(returning: idDocument)
-	            }
-	        }
-	    }
-	
-	    // Starts the OCR scan
-	    func startScan(_ presenter: UIViewController, provider: DocumentReaderScanProtocol) async throws -> IdDocument {
-	        try await withCheckedThrowingContinuation { continuation in
-	            DispatchQueue.main.async {
-	                provider.startScan(viewController: presenter) { error in
-	                    print(error, "\(Self.self)")
-	                    continuation.resume(throwing: error)
-	                } onUserCancel: {
-	                    continuation.resume(throwing: NSError(domain: "Cancel", code: -1))
-	                } onSuccess: { idDocument, _ in
-	                    print(idDocument, "\(Self.self)")
-	                    continuation.resume(returning: idDocument)
-	                }
-	            }
-	        }
-	    }
+     // The view controller responsible for presenting the document scanner camera interface
+     var viewController: UIViewController!
+     
+     Enrolment.shared.readDocument(
+        parameters: .init(readRFID: false),
+         viewController: viewController
+     ) { result in
+         switch result {
+         case let .success(report):
+             print("Document Read: Success!")
+             print(report)
+             print(report.idDocument)
+             print(report.documentStatuses)
+         case let .failure(error):
+             print(error.featureError.description)
+         }
+     }
 	```

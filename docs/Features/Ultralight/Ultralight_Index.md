@@ -34,10 +34,10 @@ Before integrating Ultralight, ensure you have:
     - **Minimum iOS Version: 15** (same as Enrolment SDK)
     - **Required permissions on Info.plist** (brought transitively by the Ultralight provider dependency):
 
-```xml
-<key>NSBluetoothAlwaysUsageDescription</key>
-<string>We need access BT (UltraLight)</string>
-```
+    ``` xml
+    <key>NSBluetoothAlwaysUsageDescription</key>
+    <string>We need access BT (UltraLight)</string>
+    ```
         
 ## How to Import
 
@@ -55,50 +55,49 @@ Before integrating Ultralight, ensure you have:
     ```
 
 === "iOS"
+   
+      Ultralight is distributed for iOS via **Swift Package Manager (SPM)**.
+   
+    __Install using Xcode__
+   
+    1. Open your project in **Xcode**
+    2. Go to **File ▸ Add Packages…**
+    3. Enter the package repository URL:
+   
+    ```
+    https://github.com/vbmobile/AmaShareUltralight
+    ```
+   
+    4. Select the desired version (recommended: exact or up to next major)
+    5. Add the **AmaShareUltralight** product to your app target
 
-Ultralight is distributed for iOS via **Swift Package Manager (SPM)**.
+    __Install using `Package.swift`__
+   
+    If you are managing dependencies manually, add Ultralight to your `Package.swift`:
 
-__Install using Xcode__
-
-1. Open your project in **Xcode**
-2. Go to **File ▸ Add Packages…**
-3. Enter the package repository URL:
-
-   ```
-   https://github.com/vbmobile/AmaShareUltralight
-   ```
-
-4. Select the desired version (recommended: exact or up to next major)
-5. Add the **AmaShareUltralight** product to your app target
-
-__Install using `Package.swift`__
-
-If you are managing dependencies manually, add Ultralight to your `Package.swift`:
-
-```swift
-dependencies: [
-    .package(
-        url: "https://github.com/vbmobile/AmaShareUltralight",
-        exact: "1.0.0-rc24"
-    )
-],
-```
-
-where `1.0.0-rc23` is the pretended version. 
-
-Then include it in your target dependencies:
-
-```swift
-.target(
-    name: "YourAppTarget",
+    ``` swift
     dependencies: [
-        .product(name: "AmaShareUltralight", package: "AmaShareUltralight")
-    ]
-)
-```
+       .package(
+           url: "https://github.com/vbmobile/AmaShareUltralight",
+           exact: "1.0.0-rc24"
+       )
+    ],
+    ```
 
-Once added, Ultralight APIs are available to your application through the Enrolment SDK integration flow.
+    where `1.0.0-rc23` is the pretended version. 
+   
+    Then include it in your target dependencies:
 
+    ``` swift
+    .target(
+        name: "YourAppTarget",
+        dependencies: [
+            .product(name: "AmaShareUltralight", package: "AmaShareUltralight")
+        ]
+    )
+    ```
+
+    Once added, Ultralight APIs are available to your application through the Enrolment SDK integration flow.
 
 ## Configure Ultralight in Enrolment Initialization
 
@@ -160,7 +159,6 @@ Pass the `UltralightProvider` to `Enrolment.initialize()`:
         enrolmentInitializerCallback = callback
     )
     ```
-
 
 === "iOS"
 
@@ -229,7 +227,6 @@ It returns a `Pair<Boolean, FeatureError>`
     | `ePassport`       | `Boolean`      | Whether the document is an e-Passport    |
     | `eBagTagId`       | `String?`      | Optional electronic bag tag ID           |
     | `tag`             | `String?`      | Optional custom tag                      |
-
 
 === "iOS"
 

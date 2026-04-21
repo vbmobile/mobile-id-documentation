@@ -203,7 +203,7 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
 === "Android"
 
     ```kotlin
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<1.0.0-rc01>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<1.0.0>")
     ```
 
 === "iOS"

@@ -37,7 +37,7 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
     implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<9.0.0>@aar") { transitive = true }
 
     // Optional dependency if you want to use the Document Reader feature
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<1.0.0-rc01>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<1.0.0>")
 
     ```
     3. Add these rules to proguard if you have problems running the application with minify enabled:

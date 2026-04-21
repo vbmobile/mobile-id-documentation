@@ -4,6 +4,7 @@ This page contains all available providers for the **Document Reader** feature, 
 
 - [Regula Provider](#regula-provider)
 - [Amadeus DocScanMrz Provider](#amadeus-docscanmrz-provider)
+- [Amadeus Doc RFID Read Provider](#amadeus-doc-rfid-read-provider)
 
 ## Regula Provider
 
@@ -276,7 +277,7 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
         docScanMrzKey: <YOUR DOC SCAN MRZ KEY>,
     )
 
-    DocScanMrz.softStart(
+    DocScanMrz.initialize(
         context = this,
         docScanMrzConfig = docScanMrzConfig
     )
@@ -362,3 +363,58 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
          }
      }
 	```
+
+## Amadeus Doc RFID Read Provider
+
+This provider uses Amadeus services and supports RFID scanning functionalities.
+
+### How to Import:
+
+=== "Android"
+
+    ```kotlin
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:<1.0.0>")
+    ```
+
+=== "iOS"
+
+    Work in progress...
+
+### How to Instantiate:
+
+=== "Android"
+
+    To initialize the Enrolment with the **DocRfidRead**. It can be done as follows.
+
+    ```kotlin
+
+    val docRfidReadConfig = DocRfidReadConfig(
+            apiConfig = DocRfidReadApiConfig(
+                baseUrl = <YOUR DOC RFID READ BASE URL>,
+                apiKey = <YOUR DOC RFID READ API KEY>
+            ),
+            enableLogs = <ENABLE LOGS>,
+        )
+
+    DocRfidRead.initialize(
+        context = this,
+        docRfidReadConfig = docRfidReadConfig
+    )
+
+    val context = ...
+    val enrolmentConfig = ...
+    val callback = ...
+    val documentRfidReaderProvider = DocRfidRead.getInstance()
+
+    Enrolment.initialize(
+        context = context, 
+        enrolmentConfig = enrolmentConfig,
+        rfidReaderProvider = documentRfidReaderProvider,
+        callback = callback
+    )
+    ```
+
+=== "iOS"
+
+    Work in progress...
+

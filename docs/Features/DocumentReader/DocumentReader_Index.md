@@ -1,4 +1,4 @@
-# Document Reader
+# Overview
 
 The document reader is used to extract the user’s document information and perform all necessary
 security validations. This functionality works in two steps: the MRZ of the travel document is
@@ -487,7 +487,7 @@ You can check the structure here:
     
 === "iOS"
 
-    ## IdDocument
+    #### IdDocument
 
     ```swift
 	public final class IdDocument: Codable, Sendable, Equatable {
@@ -551,7 +551,7 @@ You can check the structure here:
 	}
     ```
     
-    ## InfoSection
+    #### InfoSection
 
     ```swift
     public enum InfoTypeEnum: String, Codable, Sendable {
@@ -615,7 +615,7 @@ You can check the structure here:
 	}
     ```
 
-	## DataSection
+	#### DataSection
 	
     ```swift
 	public enum DocTypeEnum: String, Codable, Sendable {
@@ -767,7 +767,7 @@ You can check the structure here:
 	}
     ```
     
-    ## VIZSection
+    #### VIZSection
     
     ```swift
 	public final class VIZSection: Codable, Sendable, Equatable {
@@ -901,7 +901,7 @@ You can check the structure here:
 
     ```
     
-    ## MRZSection
+    #### MRZSection
     
     ```swift
 	public final class MRZSection: Codable, Sendable, Equatable {
@@ -1060,7 +1060,7 @@ You can check the structure here:
 	}
     ```
     
-    ## RRIDSection
+    #### RRIDSection
     
     ```swift
 	public final class RFIDSection: Codable, Sendable, Equatable {

@@ -213,28 +213,17 @@ The SDK also allows client apps to use their own custom views for its functional
 	
 	- EnrolmentCustomViews - Will overwrite any default view from the Enrolment SDK
 	    
-	There where some errors created to validate the enrolment configuration:
-	
-	- If the apiKey is not in a valid format, for example it has an extra character, you will receive via callback an InvalidApiKey error(010 - APIKey is invalid)
-	
-	- If the baseUrl is not correctly defined, for example it's using HTTP instead of HTTPS, you will receive via callback an InvalidEndpoint error(011 - Endpoint is invalid)
-	
-	- If an error occurs during the initialize method, for example internet connection during the fetch configurations, you will receive via callback an InitFailed error(012 - Error while fetching configurations. Please check your internet connection and API URL/API Key.)
-	
-	If you try to call a feature while the Enrolment is not ready you will receive a NotReady error (013 - Enrolment is not ready yet. Wait for the callback.)
+
 
 	As for the provider for document read operations, the user can choose any, as long as it complies with `DocumentReaderScanProtocol`. See example bellow: 
 	
 	```swift
-	import Foundation
 	import UIKit
-	
 	import AMADocModeliOS
 	import mdi_mob_sdk_doc_mrz_regula_ios
 	import mdi_mob_sdk_doc_scanner_ios
 	
 	enum DocumentScanProviderSampleBuilder {
-	    // MARK: - Regula Provider (Provider A)
 	
 	    /// Creates a document scanner backed by the Regula SDK.
 	    /// Uses MRZ-based scanning scenarios.
@@ -253,15 +242,13 @@ The SDK also allows client apps to use their own custom views for its functional
 	        /// Regula document reader configuration
 	        let documentReaderConfig = DocumentReaderConfig(
 	            multipageProcessing: false, // Single-page scanning
-	            databaseID: "<YOUR_DATA_BASE_ID>", // Default internal database
+	            databaseID: "<YOUR_DATA_BASE_ID>", // Database id
 	            scenario: .mrz // MRZ scanning scenario
 	        )
 	
 	        /// Returns a Regula-based document scanner
 	        return RegulaDocumentReaderScan(config: documentReaderConfig)
 	    }
-	
-	    // MARK: - PSS Provider (Provider B)
 	
 	    /// Creates a document scanner backed by the PSS provider.
 	    static func amaDocScanMrziOS() -> DocumentReaderScanProtocol {
@@ -282,53 +269,63 @@ The SDK also allows client apps to use their own custom views for its functional
 	}
 	```
 
-	We are not ready to finish the implementation of the Enrolment initial setup 
+	We are now ready to finish the implementation of the Enrolment initial setup 
 
 	```swift
-    let viewRegister = EnrolmentViewRegister()
+    /// Configuration used by all backend-related SDK modules
+    let apiConfig = APIConfig(
+        baseURL: "YOUR BASE URL", // Server base URL.
+        timeout: 30, // Network timeout (seconds)
+        logLevel: .basic, // SDK logging verbosity
+        apiKey: "YOUR KEY", // API authentication key
+        publicKey: "YOUR PUBLIC KEY" // Public key
+    )
 
-    let biometricFaceCaptureCustomViewsEnabled = Bool.random()
-    if biometricFaceCaptureCustomViewsEnabled {
-        viewRegister.registerBiometricFaceCaptureLoadingView(BiometricFaceCaptureSampleLoadingView.self)
-    }
+    /// High-level enrolment configuration
+    let enrolmentConfig = EnrolmentConfig(apiConfig: apiConfig)
 
-    let boardingPassScanCustomViewsEnabled = Bool.random()
-    if boardingPassScanCustomViewsEnabled {
-        viewRegister.registerBoardingPassScannerLoadingView(BoardingPassScanLoadingView.self)
-    }
+    /// Ultralight provider used for Bluetooth-based interactions
+    let ultralightProvider: AMAShareUltralight.Ultralight = .init()
+    ultralightProvider.initialiseBeamSync(apiKey: "YOUR KEY")
 
-    let documentReaderCustomViewsEnabled = Bool.random()
-    if documentReaderCustomViewsEnabled {
-        viewRegister.registerDocumentReaderLoadingView(DocumentReaderSampleLoadingOverlayView.self)
-        viewRegister.registerDocumentReaderRFIDInstructionsView(DocumentReaderSampleRFIDInstructionsView.self)
-    }
+    /// Document scanner based on Regula SDK (MRZ / OCR scanning)
+    let documentScanProviderA: DocumentReaderScanProtocol =
+        DocumentScanProviderSampleBuilder.amaDocScanRegulaiOS()
 
-    let faceMatchCustomViewsEnabled = Bool.random()
-    if faceMatchCustomViewsEnabled {
-        viewRegister.registerBiometricMatchLoadingView(BiometricMatchSampleLoadingOverlayView.self)
-    }
+    /// Document scanner based on Amadeus PSS provider
+    let documentScanProviderB: DocumentReaderScanProtocol =
+        DocumentScanProviderSampleBuilder.amaDocScanMrziOS()
 
-    let subjectCustomViewsEnabled = Bool.random()
-    if subjectCustomViewsEnabled {
-        viewRegister.registerSubjectLoadingView(SubjectSampleLoadingOverlayView.self)
-    }
-
-    var enrolmentConfig: EnrolmentConfig! // Not relevant for this example
-
-    Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
-                              documentScanProvider: nil, // Not relevant for this example
-                              documentRFIDProvider: nil, // Not relevant for this example
-                              ultralightProvider: nil, // Not relevant for this example
-                              viewRegister: viewRegister,
-                              completionHandler: { result in
-                                  switch result {
-                                  case .success:
-                                      print("SDK is ready to use")
-                                  case let .failure(error):
-                                      print("Failure: \(error)")
-                                  }
-                              })
+    let documentScanProvider: DocumentReaderScanProtocol = Bool.random()
+        ? documentScanProviderA // Can be any provider, as long as it complies with DocumentReaderScanProtocol
+        : documentScanProviderB // Can be any provider, as long as it complies with DocumentReaderScanProtocol
+    
+    Enrolment.shared.initWith(
+        enrolmentConfig: enrolmentConfig,
+        documentScanProvider: documentScanProvider, // Any, as long as it complies with DocumentReaderScanProtocol
+        documentRFIDProvider: RegulaDocumentReaderRFID(),
+        ultralightProvider: ultralightProvider, // Any, as long as it complies with UltralightProtocol
+        viewRegister: EnrolmentViewRegister(),
+        completionHandler: { result in
+            switch result {
+            case .success:
+                print("SDK is ready to use")
+            case let .failure(error):
+                print("Failure: \(error)")
+            }
+        }
+    )
 	```
+
+	There where some errors created to validate the enrolment configuration:
+	
+	- If the apiKey is not in a valid format, for example it has an extra character, you will receive via callback an InvalidApiKey error(010 - APIKey is invalid)
+	
+	- If the baseUrl is not correctly defined, for example it's using HTTP instead of HTTPS, you will receive via callback an InvalidEndpoint error(011 - Endpoint is invalid)
+	
+	- If an error occurs during the initialize method, for example internet connection during the fetch configurations, you will receive via callback an InitFailed error(012 - Error while fetching configurations. Please check your internet connection and API URL/API Key.)
+	
+	If you try to call a feature while the Enrolment is not ready you will receive a NotReady error (013 - Enrolment is not ready yet. Wait for the callback.)
 
 <!--
 
@@ -451,13 +448,19 @@ key. You can also configure the timeout value for server responses and the log l
 === "iOS"
 
     ```swift
-    let apiConfig = APIConfig(
-        baseURL: "YOUR BASE URL",      
-        timeout: 30,                   
-        logLevel: .basic,              
-        apiKey: "YOUR KEY",            
-        publicKey: "YOUR PUBLIC KEY"   
-    )
+	/// Configuration to communicate with the Mobile API
+	public struct APIConfig {
+	    /// Server base URL.
+	    public let baseURL: String
+	    /// Request timeout.
+	    public let timeout: TimeInterval
+	    /// Logging level.
+	    public let logLevel: MobileIdSDKiOS.APILogLevel
+	    /// API Key
+	    public let apiKey: String
+	    /// Public Key
+	    public let publicKey: String?
+	}
     ```
 
 - baseUrl: Url from Mobile API server;
@@ -521,7 +524,6 @@ pinning for every network request made by the SDK.
     ```
 
 - certificates: used for certificate pinning
-
 
 
 ### Log Configuration
@@ -599,6 +601,20 @@ The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig.
     ```
     
 === "iOS"
+
+	```swift
+	/// Configuration for SDK in general
+	public struct EnrolmentConfig {
+	
+	    /// Configuration to communicate with the Mobile API
+	    public let apiConfig: MobileIdSDKiOS.APIConfig
+	
+	    /// Configuration to verify security against Certificate Pinning
+	    public let apiSecurityConfig: MobileIdSDKiOS.APISecurityConfig
+	
+	    public init(apiConfig: MobileIdSDKiOS.APIConfig, apiSecurityConfig: MobileIdSDKiOS.APISecurityConfig = APISecurityConfig(sslCertificates: []), logStrategies: [VBUtils.LogStrategy] = [.console(level: .info)], language: Locale? = nil)
+	}	
+	```
 
     ```swift
     func apiConfig() -> APIConfig {
@@ -683,120 +699,142 @@ The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig.
 
     You can now apply and implement your own UI solutions for the SDK  with the new feature of custom views for the Mobile ID SDK, giving you even more control with the UI solutions. To enable this feature in your application, you need to create your view and make it conform to the view protocol that you intend to replace in the SDK. Then, you register that view in the new EnrolmentViewRegister class of the SDK  and you build the enrolment instance with that viewRegister  instance. 
 
-    The following code shows an example:
     ```swift
-    let viewRegister = EnrolmentViewRegister()
+    /// Demonstrates how an SDK integrator can optionally register
+    /// custom UI views for different enrolment steps.
+    ///
+    /// In a real integration, each `Bool.random()` represents
+    /// a conscious decision made by the app developer using the SDK.
+    /// These are random ONLY for demonstration purposes.
+    func viewRegister() {
 
-    let biometricFaceCaptureCustomViewsEnabled = Bool.random()
-    if biometricFaceCaptureCustomViewsEnabled {
-        viewRegister.registerBiometricFaceCaptureLoadingView(BiometricFaceCaptureSampleLoadingView.self)
-    }
+        let viewRegister = EnrolmentViewRegister()
 
-    let boardingPassScanCustomViewsEnabled = Bool.random()
-    if boardingPassScanCustomViewsEnabled {
-        viewRegister.registerBoardingPassScannerLoadingView(BoardingPassScanLoadingView.self)
-    }
+        // MARK: - Biometric Face Capture (Optional)
 
-    let documentReaderCustomViewsEnabled = Bool.random()
-    if documentReaderCustomViewsEnabled {
-        viewRegister.registerDocumentReaderLoadingView(DocumentReaderSampleLoadingOverlayView.self)
-        viewRegister.registerDocumentReaderRFIDInstructionsView(DocumentReaderSampleRFIDInstructionsView.self)
-    }
-
-    let faceMatchCustomViewsEnabled = Bool.random()
-    if faceMatchCustomViewsEnabled {
-        viewRegister.registerBiometricMatchLoadingView(BiometricMatchSampleLoadingOverlayView.self)
-    }
-
-    let subjectCustomViewsEnabled = Bool.random()
-    if subjectCustomViewsEnabled {
-        viewRegister.registerSubjectLoadingView(SubjectSampleLoadingOverlayView.self)
-    }
-
-    var enrolmentConfig: EnrolmentConfig!
-
-    Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
-                              documentScanProvider: nil, // Not relevant for this example
-                              documentRFIDProvider: nil, // Not relevant for this example
-                              ultralightProvider: nil, // Not relevant for this example
-                              viewRegister: viewRegister,
-                              completionHandler: { result in
-        switch result {
-        case .success:
-            print("SDK is ready to use")
-
-        case let .failure(error):
-            print("Failure: \(error)")
+        let enableBiometricFaceCaptureCustomViews = Bool.random()
+        if enableBiometricFaceCaptureCustomViews {
+            viewRegister.registerBiometricFaceCaptureLoadingView(
+                BiometricFaceCaptureSampleLoadingView.self
+            )
         }
-    })
+
+        // MARK: - Boarding Pass Scanner (Optional)
+
+        let enableBoardingPassCustomViews = Bool.random()
+        if enableBoardingPassCustomViews {
+            viewRegister.registerBoardingPassScannerLoadingView(
+                BoardingPassScanLoadingView.self
+            )
+        }
+
+        // MARK: - Document Reader (Optional)
+
+        let enableDocumentReaderCustomViews = Bool.random()
+        if enableDocumentReaderCustomViews {
+            viewRegister.registerDocumentReaderLoadingView(
+                DocumentReaderSampleLoadingOverlayView.self
+            )
+
+            viewRegister.registerDocumentReaderRFIDInstructionsView(
+                DocumentReaderSampleRFIDInstructionsView.self
+            )
+        }
+
+        // MARK: - Face Match (Optional)
+
+        let enableFaceMatchCustomViews = Bool.random()
+        if enableFaceMatchCustomViews {
+            viewRegister.registerBiometricMatchLoadingView(
+                BiometricMatchSampleLoadingOverlayView.self
+            )
+        }
+
+        // MARK: - Subject Processing (Optional)
+
+        let enableSubjectCustomViews = Bool.random()
+        if enableSubjectCustomViews {
+            viewRegister.registerSubjectLoadingView(
+                SubjectSampleLoadingOverlayView.self
+            )
+        }
+
+        // Not relevant for this example
+        let enrolmentConfig: EnrolmentConfig! = nil
+
+        // SDK initialization
+        Enrolment.shared.initWith(
+            enrolmentConfig: enrolmentConfig,
+            documentScanProvider: nil,
+            documentRFIDProvider: nil,
+            ultralightProvider: nil,
+            viewRegister: viewRegister
+        ) { result in
+            switch result {
+            case .success:
+                print("SDK is ready to use")
+            case .failure(let error):
+                print("Failure: \(error)")
+            }
+        }
+    }
     ```
-<!--
-## Custom Providers
-    
-Starting with SeamlessMobile SDK version 8, a new concept of Providers has been introduced.
-
-The purpose of this feature is to allow SeamlessMobile SDK integrators to select from a list of different providers to perform a given task, and allows to reduce the size of the SeamlessMobile SDK if some features are not used..
-
-Currently, this functionality is only available in the **Document Reader**.
-
-It is achieved by importing the **DocScanMrz**, which is currently the only provider available in production.
-
-This design allows you to pass both a **DocumentScanProvider** and a **DocumentRFIDProvider** when initializing Enrolment.
-
-Providing these providers is **mandatory** if you intend to use the **Document Reader** feature.
-
-Each provider has unique characteristics, such as specific initializers and configuration flags, which define how the document reading and RFID scanning operations are performed.
-
-For more information about the full list of providers, please refer to the page dedicated to each SDK feature.
--->
+    	
+	The calls guarded by `Bool.random()` are **for demonstration purposes only**, simulating the decisions an SDK consumer may take when integrating the SDK into their application.
+	
+	In a real-world integration:
+	
+	*   The app developer explicitly decides **which custom views to provide**
+	*   Any view **not registered** will fall back to the SDK’s **default UI**
+	*   Multiple, one, or no custom views can be registered
+	
+	Example of a real integration (non-random):
+	
+	```swift
+	viewRegister.registerDocumentReaderLoadingView(MyCustomLoadingView.self)
+	viewRegister.registerDocumentReaderRFIDInstructionsView(MyRFIDHelpView.self)
+	```
 
 ## Custom Providers
 
-Starting with **SeamlessMobile SDK version 8**, a new **Provider-based architecture** has been introduced.
+=== "Android"
 
-The purpose of this feature is to allow SeamlessMobile SDK integrators to **select from multiple providers** to perform a given task.  
-This approach improves flexibility and allows reducing the overall SDK size by including only the features that are actually used.
+	to do
+	
+=== "iOS"
 
-Currently, this functionality is available for the **Document Reader** feature.
-
-***
-
-### Available Document Reader Providers
-
-The Document Reader functionality is enabled by importing one or more provider modules.  
-At the moment, **two custom providers are available**:
-
-```swift
-import mdi_mob_sdk_doc_mrz_regula_ios
-import mdi_mob_sdk_doc_scanner_ios
-```
-
-Each provider implements the `DocumentReaderScanProtocol` and exposes its own **initializers and configuration options**, defining how document scanning and recognition are performed.
-
-***
-
-### Supported Providers
-
-| Provider                | Description                                                                    |
-| ----------------------- | ------------------------------------------------------------------------------ |
-| **Regula MRZ Provider** | MRZ-based document reader backed by the Regula SDK.                            |
-| **Scanner Provider**    | MRZ-based document reader backed by Amadeus Internal SDKs. |
-
-***
-
-### Enrolment Initialization with Providers
-
-This design allows you to inject both a:
-
-*   **`DocumentScanProvider`**
-*   **`DocumentRFIDProvider`**
-
-when initializing the Enrolment SDK.
-
-> ⚠️ **Providing these providers is mandatory** if you intend to use the **Document Reader** feature.
-
-- [Document Reader](./Features/DocumentReader/DocumentReader_Providers.md)
-    
+	Starting with **SeamlessMobile SDK version 8**, a new **Provider-based architecture** has been introduced.
+	
+	The purpose of this feature is to allow SeamlessMobile SDK integrators to **select from multiple providers** to perform a given task.  
+	This approach improves flexibility and allows reducing the overall SDK size by including only the features that are actually used.
+	
+	Currently, this functionality is available for the **Document Reader** feature.
+	
+	***
+	
+	### Available Document Reader Providers
+	
+	The Document Reader functionality is enabled by importing one or more provider modules.  
+	At the moment, **two custom providers are available**:
+	
+	```swift
+	import mdi_mob_sdk_doc_mrz_regula_ios
+	import mdi_mob_sdk_doc_scanner_ios
+	```
+	
+	Each provider implements the `DocumentReaderScanProtocol` and exposes its own **initializers and configuration options**, defining how document scanning and recognition are performed.
+	
+	***
+	
+	### Supported Providers
+	
+	| Provider                | Description                                                                    |
+	| ----------------------- | ------------------------------------------------------------------------------ |
+	| **Regula MRZ Provider** | MRZ-based document reader backed by the Regula SDK.                            |
+	| **Scanner Provider**    | MRZ-based document reader backed by Amadeus Internal SDKs. |
+	
+	***
+	   
 
 ## Localization Support
 

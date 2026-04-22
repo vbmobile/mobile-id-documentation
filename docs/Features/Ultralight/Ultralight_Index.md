@@ -1,7 +1,6 @@
-# Ultralight Integration
+# Ultraligh
 
-Ultralight enables **Beamsync**, a proximity-based data transmission mechanism that broadcasts
-passenger data to nearby airport touchpoints (for example, e-gates or self-service kiosks).
+Ultralight enables **Beamsync**, a proximity-based data transmission mechanism that broadcasts passenger data to nearby airport touchpoints (for example, e-gates or self-service kiosks).
 This allows passengers to pass through airport processes without re-scanning their documents at each step.
 
 In the current SDK architecture, Ultralight is integrated through the Enrolment SDK facade.
@@ -12,7 +11,7 @@ control the sharing lifecycle: `share()` (sets passengers and starts broadcastin
 
 Before integrating Ultralight, ensure you have:
 
-- **Ultralight API key** — Contact your Amadeus liaison to obtain one
+- **Ultralight API key** — Contact your Amadeus Lisbon to obtain one
 - **Ultralight provider dependency** — Added to your project (see import instructions below)
 
 === "Android"
@@ -36,8 +35,13 @@ Before integrating Ultralight, ensure you have:
 
     ``` xml
     <key>NSBluetoothAlwaysUsageDescription</key>
-    <string>We need access BT (UltraLight)</string>
+    <string>Bluetooth is used to communicate with nearby UltraLight devices</string>
     ```
+    
+	``` xml
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location is required to detect nearby Bluetooth devices.</string>
+	```
         
 ## How to Import
 
@@ -84,7 +88,7 @@ Before integrating Ultralight, ensure you have:
     ],
     ```
 
-    where `1.0.0-rc23` is the pretended version. 
+	 > Replace ``1.0.0-rc24` is the pretended version. 
    
     Then include it in your target dependencies:
 
@@ -96,6 +100,8 @@ Before integrating Ultralight, ensure you have:
         ]
     )
     ```
+
+	> Replace `YourAppTarget ` with the intended app target you wish to use.
 
     Once added, Ultralight APIs are available to your application through the Enrolment SDK integration flow.
 
@@ -163,12 +169,13 @@ Pass the `UltralightProvider` to `Enrolment.initialize()`:
 === "iOS"
 
 	```swift
-	func initializeEnrolment() async -> EnrolmentProtocol {
+	func initializeEnrolment(provider: UltralightProtocol?) async -> EnrolmentProtocol {
+	    let ultralightProvider = provider ?? ultralightProvider()
 	    return await withCheckedContinuation { continuation in
 	        Enrolment.shared.initWith(enrolmentConfig: nil,
 	                                  documentScanProvider: nil,
 	                                  documentRFIDProvider: nil,
-	                                  ultralightProvider: ultralightProvider(),
+	                                  ultralightProvider: ultralightProvider,
 	                                  viewRegister: nil,
 	                                  completionHandler: { result in
 	                                      switch result {
@@ -179,14 +186,26 @@ Pass the `UltralightProvider` to `Enrolment.initialize()`:
 	                                          continuation.resume(returning: Enrolment.shared)
 	                                      }
 	                                  })
-	    }
-	}
+        }
 	```
 
 ## Share Passenger Data
 
 The `share()` method sets the passenger list **and** starts sharing in a single call.
 It returns a `Pair<Boolean, FeatureError>`
+
+**Passenger model:**
+
+| Field             | Type           | Description                              |
+|-------------------|----------------|------------------------------------------|
+| `language`        | `String`       | Language code (e.g., `"en"`, `"fr"`)     |
+| `mrz`             | `String`       | MRZ string (`\n` separating lines)       |
+| `boardingPasses`  | `List<String>` | Raw BCBP barcode strings                 |
+| `docPhotoBase64`  | `String`       | Base64-encoded document holder photo     |
+| `selfieBase64`    | `String`       | Base64-encoded selfie                    |
+| `ePassport`       | `Boolean`      | Whether the document is an e-Passport    |
+| `eBagTagId`       | `String?`      | Optional electronic bag tag ID           |
+| `tag`             | `String?`      | Optional custom tag                      |
 
 === "Android"
 
@@ -215,40 +234,29 @@ It returns a `Pair<Boolean, FeatureError>`
     }
     ```
 
-    **Passenger model:**
-
-    | Field             | Type           | Description                              |
-    |-------------------|----------------|------------------------------------------|
-    | `language`        | `String`       | Language code (e.g., `"en"`, `"fr"`)     |
-    | `mrz`             | `String`       | MRZ string (`\n` separating lines)       |
-    | `boardingPasses`  | `List<String>` | Raw BCBP barcode strings                 |
-    | `docPhotoBase64`  | `String`       | Base64-encoded document holder photo     |
-    | `selfieBase64`    | `String`       | Base64-encoded selfie                    |
-    | `ePassport`       | `Boolean`      | Whether the document is an e-Passport    |
-    | `eBagTagId`       | `String?`      | Optional electronic bag tag ID           |
-    | `tag`             | `String?`      | Optional custom tag                      |
-
 === "iOS"
 
 
 	```swift
-    let passenger = Passenger(language: "en",
-                              mrz: "<mrz-line-1>\n<mrz-line-2>",
-                              boardingPasses: ["<bcbp-barcode-string>"],
-                              docPhotoBase64: "<base64-encoded-document-photo>",
-                              selfieBase64: "<base64-encoded-selfie>",
-                              ePassport: true,
-                              tag: nil,
-                              ebagtagId: nil)
-    guard let shareResult = await enrolment?.share(passengers: [passenger]) else {
-        print("Precondition failed: nil shareResult")
-        return
-    }
-    if shareResult.result ?? false {
-        // Passengers set and Beamsync started successfully
-    } else {
-        // Check featureError.description for details
-        print(shareResult.error ?? "")
+    func sampleShare(enrolment: EnrolmentProtocol?) async {
+        let passenger = Passenger(language: "en",
+                                  mrz: "<mrz-line-1>\n<mrz-line-2>",
+                                  boardingPasses: ["<bcbp-barcode-string>"],
+                                  docPhotoBase64: "<base64-encoded-document-photo>",
+                                  selfieBase64: "<base64-encoded-selfie>",
+                                  ePassport: true,
+                                  tag: nil,
+                                  ebagtagId: nil)
+        guard let shareResult = await enrolment?.share(passengers: [passenger]) else {
+            print("Precondition failed: nil shareResult")
+            return
+        }
+        if shareResult.result ?? false {
+            // Passengers set and Beamsync started successfully
+        } else {
+            // Check featureError.description for details
+            print(shareResult.error ?? "")
+        }
     }
 	```
 
@@ -279,8 +287,7 @@ Stop Beamsync when the flow ends (for example, when leaving the screen or destro
 	
 	```swift
 	deinit {
-	   presenter.unbind()
-	   presenter.shouldStopSharing { _ in } // MVP Arquitecture
+	    presenter?.shouldStopSharing() // MVP Design Pattern
 	}
 	```
 	
@@ -381,6 +388,14 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
     }
     ```
 
+	### Notes
+	
+	- The `UltralightProvider` must be initialized **before** passing it to `Enrolment.initialize()`
+	- Ultralight is **not available** in offline mode (`initializeOffline`)
+	- `share()` is a **blocking** call — always invoke it from a background thread	- `share()` both sets the passenger data **and** starts Beamsync (there is no separate `startSharing()` step)
+	- The SDK performs pre-flight checks for Bluetooth and Location before starting Beamsync
+	- Always call `stopSharing()` when cleaning up (e.g., in `onDestroyView()`)
+
 === "iOS"
 
 	```swift
@@ -395,12 +410,13 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	        return ultralightProvider
 	    }
 	
-	    func initializeEnrolment() async -> EnrolmentProtocol {
+	    func initializeEnrolment(provider: UltralightProtocol?) async -> EnrolmentProtocol {
+	        let ultralightProvider = provider ?? ultralightProvider()
 	        return await withCheckedContinuation { continuation in
 	            Enrolment.shared.initWith(enrolmentConfig: nil,
 	                                      documentScanProvider: nil,
 	                                      documentRFIDProvider: nil,
-	                                      ultralightProvider: ultralightProvider(),
+	                                      ultralightProvider: ultralightProvider,
 	                                      viewRegister: nil,
 	                                      completionHandler: { result in
 	                                          switch result {
@@ -471,15 +487,14 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	            }
 	        }
 	    }
-	}
-	
+	}	
 	```
 
-## Notes
+	### Notes
+	
+	- The `UltralightProvider` must be initialized **before** passing it to `Enrolment.initialize()`
+	- Ultralight is **not available** in offline mode (`initializeOffline`)
+	- `share()` both sets the passenger data **and** starts Beamsync (there is no separate `startSharing()` step)
+	- The SDK performs pre-flight checks for Bluetooth and Location before starting Beamsync
+	- Always call `stopSharing()` when cleaning up (e.g., in `deinit()`)
 
-- The `UltralightProvider` must be initialized **before** passing it to `Enrolment.initialize()`
-- Ultralight is **not available** in offline mode (`initializeOffline`)
-- `share()` is a **blocking** call — always invoke it from a background thread
-- `share()` both sets the passenger data **and** starts Beamsync (there is no separate `startSharing()` step)
-- The SDK performs pre-flight checks for Bluetooth and Location before starting Beamsync
-- Always call `stopSharing()` when cleaning up (e.g., in `onDestroyView()`)

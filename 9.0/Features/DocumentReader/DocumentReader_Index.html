@@ -702,6 +702,72 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#iddocument" class="md-nav__link">
+        IdDocument
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#infosection" class="md-nav__link">
+        InfoSection
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#datasection" class="md-nav__link">
+        DataSection
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#vizsection" class="md-nav__link">
+        VIZSection
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#mrzsection" class="md-nav__link">
+        MRZSection
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#rridsection" class="md-nav__link">
+        RRIDSection
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#documentreadercustomviews" class="md-nav__link">
         DocumentReaderCustomViews
     </a>
@@ -2590,6 +2656,72 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#iddocument" class="md-nav__link">
+        IdDocument
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#infosection" class="md-nav__link">
+        InfoSection
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#datasection" class="md-nav__link">
+        DataSection
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#vizsection" class="md-nav__link">
+        VIZSection
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#mrzsection" class="md-nav__link">
+        MRZSection
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
+    <a href="#rridsection" class="md-nav__link">
+        RRIDSection
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#documentreadercustomviews" class="md-nav__link">
         DocumentReaderCustomViews
     </a>
@@ -2709,9 +2841,18 @@ travel documents from different countries, by calling the readDocument method.</
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">readDocument</span><span class="p">(</span><span class="n">parameters</span><span class="p">:</span><span class="w"> </span><span class="n">ReadDocumentParameters</span><span class="p">,</span><span class="w"> </span>
-<span class="w">                      </span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">,</span><span class="w"> </span>
-<span class="w">                      </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">@</span><span class="n">escaping</span><span class="w"> </span><span class="p">(</span><span class="n">Result</span><span class="p">&lt;</span><span class="n">DocumentReaderReport</span><span class="p">,</span><span class="w"> </span><span class="n">DocumentReaderError</span><span class="p">&gt;)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Void</span><span class="p">)</span><span class="w"> </span><span class="kr">throws</span>
+<div class="highlight"><pre><span></span><code><span class="c1">/// Starts document scan process.</span>
+<span class="c1">/// - Parameters:</span>
+<span class="c1">///   - parameters: Parameteres for the Read Document flow.</span>
+<span class="c1">///   - viewController: View controller that will present the document scan views.</span>
+<span class="c1">///   - completionHandler: The completion handler to call when the document reader feature is finished.</span>
+<span class="c1">///     This completion handler takes the following parameter:</span>
+<span class="c1">///</span>
+<span class="c1">///     Result&lt;DocumentReaderReport, FeatureError&gt;</span>
+<span class="c1">///     Where `DocumentReaderReport` contains  the results of the document reader</span>
+<span class="c1">///     operation and `FeatureError` the possible errors that may occur during the process.</span>
+<span class="c1">///     throws a</span>
+<span class="kr">final</span><span class="w"> </span><span class="kd">public</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">readDocument</span><span class="p">(</span><span class="n">parameters</span><span class="p">:</span><span class="w"> </span><span class="n">MobileIdSDKiOS</span><span class="p">.</span><span class="n">ReadDocumentParameters</span><span class="p">,</span><span class="w"> </span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">,</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">@</span><span class="n">escaping</span><span class="w"> </span><span class="p">(</span><span class="n">Result</span><span class="p">&lt;</span><span class="n">MobileIdSDKiOS</span><span class="p">.</span><span class="n">DocumentReaderReport</span><span class="p">,</span><span class="w"> </span><span class="n">MobileIdSDKiOS</span><span class="p">.</span><span class="n">DocumentReaderError</span><span class="p">&gt;)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Void</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </div>
@@ -2742,19 +2883,25 @@ travel documents from different countries, by calling the readDocument method.</
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">ReadDocumentParameters</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="c1">/// Parameters for the Read Document flow.</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">ReadDocumentParameters</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">/// Whether or not to read Document&#39;s RFID (using NFC).</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">readRFID</span><span class="p">:</span><span class="w"> </span><span class="nb">Bool</span>
+
+<span class="w">    </span><span class="c1">/// Property indicating if icon indicating RFID reading status should be visible or not. Default value is `false`.</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">showRFIDStatus</span><span class="p">:</span><span class="w"> </span><span class="nb">Bool</span>
+
+<span class="w">    </span><span class="c1">/// Document scan timeout, in seconds. Default value is `30` seconds. Minimum value is `10` seconds. Maximum value is `60` seconds.</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">scannerTimeout</span><span class="p">:</span><span class="w"> </span><span class="n">TimeInterval</span>
+
+<span class="w">    </span><span class="c1">/// Document rfid timeout, in seconds.  Default value is `30` seconds. Minimum value is `10` seconds. Maximum value is `60` seconds.</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">rfidTimeout</span><span class="p">:</span><span class="w"> </span><span class="n">TimeInterval</span>
+
+<span class="w">    </span><span class="c1">/// If true, it will display a RFID Instructions Screen, else will automatically starts in the RFID Scan</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">showRFIDInstructions</span><span class="p">:</span><span class="w"> </span><span class="nb">Bool</span>
 
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">init</span><span class="p">(</span><span class="n">readRFID</span><span class="p">:</span><span class="w"> </span><span class="nb">Bool</span><span class="p">,</span>
-<span class="w">                </span><span class="n">showRFIDStatus</span><span class="p">:</span><span class="w"> </span><span class="nb">Bool</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">                </span><span class="n">scannerTimeout</span><span class="p">:</span><span class="w"> </span><span class="n">TimeInterval</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
-<span class="w">                </span><span class="n">rfidTimeout</span><span class="p">:</span><span class="w"> </span><span class="n">TimeInterval</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
-<span class="w">                </span><span class="n">showRFIDInstructions</span><span class="p">:</span><span class="w"> </span><span class="nb">Bool</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">init</span><span class="p">(</span><span class="n">readRFID</span><span class="p">:</span><span class="w"> </span><span class="nb">Bool</span><span class="p">,</span><span class="w"> </span><span class="n">showRFIDStatus</span><span class="p">:</span><span class="w"> </span><span class="nb">Bool</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">scannerTimeout</span><span class="p">:</span><span class="w"> </span><span class="n">TimeInterval</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="n">rfidTimeout</span><span class="p">:</span><span class="w"> </span><span class="n">TimeInterval</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="n">showRFIDInstructions</span><span class="p">:</span><span class="w"> </span><span class="nb">Bool</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -2821,18 +2968,27 @@ For this, you will need to pass the DocumentReaderRFIDParameters and call the re
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p><div class="highlight"><pre><span></span><code><span class="kc">self</span><span class="p">.</span><span class="n">enrolment</span><span class="p">.</span><span class="n">readDocument</span><span class="p">(</span><span class="w"> </span><span class="n">parameters</span><span class="p">:</span><span class="w"> </span><span class="n">parameters</span><span class="p">,</span><span class="w"> </span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="n">view</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="kr">weak</span><span class="w"> </span><span class="kc">self</span><span class="p">]</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
-<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nv">documentReaderReport</span><span class="p">):</span>
-<span class="w">           </span><span class="c1">// handle DocumentReaderReport</span>
+<p><div class="highlight"><pre><span></span><code><span class="c1">// The view controller responsible for presenting the document scanner camera interface</span>
+<span class="kd">var</span><span class="w"> </span><span class="nv">viewController</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">!</span>
 
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nv">error</span><span class="p">):</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">userCanceled</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;onUserCancel&quot;</span><span class="p">)</span>
-<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="n">featureError</span><span class="p">.</span><span class="n">publicMessage</span><span class="p">)</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="kd">let</span><span class="w"> </span><span class="nv">parameters</span><span class="p">:</span><span class="w"> </span><span class="n">MobileIdSDKiOS</span><span class="p">.</span><span class="n">ReadDocumentParameters</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">readRFID</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">                                                              </span><span class="n">showRFIDStatus</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="c1">// Optional</span>
+<span class="w">                                                              </span><span class="n">scannerTimeout</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="c1">// Optional</span>
+<span class="w">                                                              </span><span class="n">showRFIDInstructions</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="c1">// Optional</span>
+<span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">readDocument</span><span class="p">(</span>
+<span class="w">   </span><span class="n">parameters</span><span class="p">:</span><span class="w"> </span><span class="n">parameters</span><span class="p">,</span>
+<span class="w">    </span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="n">viewController</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="n">documentReaderReport</span><span class="p">):</span>
+<span class="w">        </span><span class="c1">// handle DocumentReaderReport</span>
+<span class="w">        </span><span class="bp">print</span><span class="p">(</span><span class="n">documentReaderReport</span><span class="p">)</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">userCanceled</span><span class="w"> </span><span class="p">{</span>
+<span class="w">               </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;onUserCancel&quot;</span><span class="p">)</span>
+<span class="w">           </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">               </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="n">featureError</span><span class="p">.</span><span class="n">publicMessage</span><span class="p">)</span>
+<span class="w">           </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -2864,14 +3020,19 @@ The DocumentReaderError has the following structure:</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">DocumentReaderReport</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">documentData</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentData</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">documentType</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentType</span>
+<div class="highlight"><pre><span></span><code><span class="c1">/// Holds the report of the document reader process.</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">DocumentReaderReport</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span><span class="w">   </span>
+<span class="w">    </span><span class="c1">/// New identification document data.</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">idDocument</span><span class="p">:</span><span class="w"> </span><span class="n">IdDocument</span>
+<span class="w">    </span><span class="c1">/// Type of document, ex: Passport, Visa, etc.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">documentType</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentType</span>
+<span class="w">    </span><span class="c1">/// Identification document RFID Status</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">documentRFIDStatus</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentRFIDStatus</span>
+<span class="w">    </span><span class="c1">/// Possible document data status.</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">documentStatuses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">DocumentDataStatus</span><span class="p">]</span>
+<span class="w">    </span><span class="c1">/// Portrait Image Hash</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">documentPhotoHash</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">documentDataHash</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span>
+<span class="w">    </span><span class="c1">/// idDocument object Hash</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">idDocumentHash</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -3045,8 +3206,11 @@ The DocumentReaderError has the following structure:</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p><div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">IdDocument</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">ValidationChipPage</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
+<h2 id="iddocument">IdDocument<a class="headerlink" href="#iddocument" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kr">final</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">IdDocument</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="p">,</span><span class="w"> </span><span class="nb">Equatable</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// MARK: - Nested Types</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">ValidationChipPage</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="c1">/// No chip present</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">noChip</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span>
 <span class="w">        </span><span class="c1">/// Chip is located in the document data page</span>
@@ -3057,7 +3221,7 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">unknown</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">3</span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">ValidationElectronicChip</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">ValidationElectronicChip</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="c1">/// Document is not electronic</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">notElectronic</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span>
 <span class="w">        </span><span class="c1">/// Document is electronic</span>
@@ -3068,12 +3232,12 @@ The DocumentReaderError has the following structure:</p>
 
 <span class="w">    </span><span class="c1">// MARK: - Properties</span>
 
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">info</span><span class="p">:</span><span class="w"> </span><span class="n">InfoSection</span><span class="p">?</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">data</span><span class="p">:</span><span class="w"> </span><span class="n">DataSection</span><span class="p">?</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">viz</span><span class="p">:</span><span class="w"> </span><span class="n">VIZSection</span><span class="p">?</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">mrz</span><span class="p">:</span><span class="w"> </span><span class="n">MRZSection</span><span class="p">?</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">rfid</span><span class="p">:</span><span class="w"> </span><span class="n">RFIDSection</span><span class="p">?</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">validations</span><span class="p">:</span><span class="w"> </span><span class="n">Validations</span><span class="p">?</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">info</span><span class="p">:</span><span class="w"> </span><span class="n">InfoSection</span><span class="p">?</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">data</span><span class="p">:</span><span class="w"> </span><span class="n">DataSection</span><span class="p">?</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">viz</span><span class="p">:</span><span class="w"> </span><span class="n">VIZSection</span><span class="p">?</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">mrz</span><span class="p">:</span><span class="w"> </span><span class="n">MRZSection</span><span class="p">?</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">rfid</span><span class="p">:</span><span class="w"> </span><span class="n">RFIDSection</span><span class="p">?</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">validations</span><span class="p">:</span><span class="w"> </span><span class="n">Validations</span><span class="p">?</span>
 
 <span class="w">    </span><span class="c1">// MARK: - Initialization</span>
 
@@ -3084,21 +3248,38 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">        </span><span class="n">mrz</span><span class="p">:</span><span class="w"> </span><span class="n">MRZSection</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">rfid</span><span class="p">:</span><span class="w"> </span><span class="n">RFIDSection</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">validations</span><span class="p">:</span><span class="w"> </span><span class="n">Validations</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span>
-<span class="w">    </span><span class="p">)</span><span class="w"> </span>
-<span class="p">}</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">InfoSection</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">InfoTypeEnum</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">/// Passport</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">passport</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;P&quot;</span>
-<span class="w">        </span><span class="c1">/// ID card</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">idCard</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;I&quot;</span>
-<span class="w">        </span><span class="c1">/// Driver&#39;s license</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">driverLicense</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;D&quot;</span>
-<span class="w">        </span><span class="c1">/// Document C</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">documentC</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;C&quot;</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">info</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">info</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">data</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">viz</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">viz</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">mrz</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mrz</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">rfid</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">rfid</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">validations</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">validations</span>
 <span class="w">    </span><span class="p">}</span>
 
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="p">(</span><span class="n">lhs</span><span class="p">:</span><span class="w"> </span><span class="n">IdDocument</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span><span class="p">:</span><span class="w"> </span><span class="n">IdDocument</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Bool</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">lhs</span><span class="p">.</span><span class="n">info</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">info</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">viz</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">viz</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">mrz</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">mrz</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">rfid</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">rfid</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">validations</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">validations</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="infosection">InfoSection<a class="headerlink" href="#infosection" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">InfoTypeEnum</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">/// Passport</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">passport</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;P&quot;</span>
+<span class="w">    </span><span class="c1">/// ID card</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">idCard</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;I&quot;</span>
+<span class="w">    </span><span class="c1">/// Driver&#39;s license</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">driverLicense</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;D&quot;</span>
+<span class="w">    </span><span class="c1">/// Document C (Visa&#39;s)</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">documentC</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;C&quot;</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kr">final</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">InfoSection</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="p">,</span><span class="w"> </span><span class="nb">Equatable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// MARK: - Properties</span>
 
 <span class="w">    </span><span class="c1">/// A unique identifier for the document.</span>
@@ -3128,25 +3309,42 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">        </span><span class="n">type</span><span class="p">:</span><span class="w"> </span><span class="n">InfoTypeEnum</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">isElectronic</span><span class="p">:</span><span class="w"> </span><span class="n">IdDocument</span><span class="p">.</span><span class="n">ValidationElectronicChip</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">chipPage</span><span class="p">:</span><span class="w"> </span><span class="n">IdDocument</span><span class="p">.</span><span class="n">ValidationChipPage</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">unknown</span>
-<span class="w">    </span><span class="p">)</span><span class="w"> </span>
-<span class="p">}</span>
-</code></pre></div></p>
-<p><div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">DataSection</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">DocTypeEnum</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">/// Passport</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">passport</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;P&quot;</span>
-<span class="w">        </span><span class="c1">/// Document PC</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">documentPC</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;PC&quot;</span>
-<span class="w">        </span><span class="c1">/// ID card</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">idCard</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;I&quot;</span>
-<span class="w">        </span><span class="c1">/// Driver&#39;s license</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">driverLicense</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;D&quot;</span>
-<span class="w">        </span><span class="c1">/// Document C</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">documentC</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;C&quot;</span>
-<span class="w">        </span><span class="c1">/// Other document type</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;OTHER&quot;</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">id</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">documentName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">documentName</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">ICAOCode</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">ICAOCode</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">type</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">isElectronic</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">isElectronic</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">chipPage</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">chipPage</span>
 <span class="w">    </span><span class="p">}</span>
 
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="p">(</span><span class="n">lhs</span><span class="p">:</span><span class="w"> </span><span class="n">InfoSection</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span><span class="p">:</span><span class="w"> </span><span class="n">InfoSection</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Bool</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">lhs</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">documentName</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">documentName</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">ICAOCode</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">ICAOCode</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">isElectronic</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">isElectronic</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">chipPage</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">chipPage</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="datasection">DataSection<a class="headerlink" href="#datasection" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">DocTypeEnum</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">/// Passport</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">passport</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;P&quot;</span>
+<span class="w">    </span><span class="c1">/// Document PC</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">documentPC</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;PC&quot;</span>
+<span class="w">    </span><span class="c1">/// ID card</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">idCard</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;I&quot;</span>
+<span class="w">    </span><span class="c1">/// Driver&#39;s license</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">driverLicense</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;D&quot;</span>
+<span class="w">    </span><span class="c1">/// Document C</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">documentC</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;C&quot;</span>
+<span class="w">    </span><span class="c1">/// Other document type</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;OTHER&quot;</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kr">final</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">DataSection</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="p">,</span><span class="w"> </span><span class="nb">Equatable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// MARK: - Properties</span>
 
 <span class="w">    </span><span class="c1">/// Combined raw MRZ data string. Data priority: chip &gt; MRZ</span>
@@ -3179,6 +3377,9 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">    </span><span class="c1">/// Combined gender of the passport holder. Data priority: chip &gt; MRZ &gt; VIZ</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">sex</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationSex</span><span class="p">?</span>
 
+<span class="w">    </span><span class="c1">/// Combined validFrom or issuedDate date in YY-MM-DD format. Data priority: chip &gt; VIZ. Nullable: true</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">validFrom</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span>
+
 <span class="w">    </span><span class="c1">/// Combined passport expiry date in YY-MM-DD format. Data priority: chip &gt; MRZ &gt; VIZ</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">expiryDate</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span>
 
@@ -3195,10 +3396,10 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">mrzType</span><span class="p">:</span><span class="w"> </span><span class="n">ValidatiomMrzType</span><span class="p">?</span>
 
 <span class="w">    </span><span class="c1">/// Base64-encoded string of the passport/ID card holder&#39;s photo. Data priority: chip &gt; MRZ &gt; VIZ</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">holderImage</span><span class="p">:</span><span class="w"> </span><span class="n">Data</span><span class="p">?</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">holderImage</span><span class="p">:</span><span class="w"> </span><span class="n">Data</span><span class="p">?</span>
 
 <span class="w">    </span><span class="c1">/// Base64-encoded string of the passport/id card photo</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">docImage</span><span class="p">:</span><span class="w"> </span><span class="n">Data</span><span class="p">?</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">docImage</span><span class="p">:</span><span class="w"> </span><span class="n">Data</span><span class="p">?</span>
 
 <span class="w">    </span><span class="c1">// MARK: - Computed Properties</span>
 
@@ -3223,18 +3424,64 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">        </span><span class="n">birthDate</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?,</span>
 <span class="w">        </span><span class="n">birthDateDigit</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">sex</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationSex</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
-<span class="w">        </span><span class="n">expiryDate</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?,</span>
+<span class="w">        </span><span class="n">validFrom</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">expiryDate</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">expiryDateDigit</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">optionalData</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">optionalDataDigit</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">mrzType</span><span class="p">:</span><span class="w"> </span><span class="n">ValidatiomMrzType</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">unknown</span><span class="p">,</span>
 <span class="w">        </span><span class="n">holderImage</span><span class="p">:</span><span class="w"> </span><span class="bp">UIImage</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
-<span class="w">        </span><span class="n">docImage</span><span class="p">:</span><span class="w"> </span><span class="bp">UIImage</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span>
-<span class="w">    </span><span class="p">)</span>
+<span class="w">        </span><span class="n">docImage</span><span class="p">:</span><span class="w"> </span><span class="bp">UIImage</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">holderImageData</span><span class="p">:</span><span class="w"> </span><span class="n">Data</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">docImageData</span><span class="p">:</span><span class="w"> </span><span class="n">Data</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">mrzString</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mrzString</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">docType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">docType</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">surname</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">surname</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">name</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">docNumber</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">docNumber</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">checkDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">checkDigit</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">nationality</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">nationality</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">birthDate</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">birthDate</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">birthDateDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">birthDateDigit</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">sex</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">sex</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">validFrom</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">validFrom</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">expiryDate</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">expiryDate</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">expiryDateDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">expiryDateDigit</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">optionalData</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">optionalData</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">optionalDataDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">optionalDataDigit</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">mrzType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mrzType</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">holderImage</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">holderImageData</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="n">holderImage</span><span class="p">?.</span><span class="n">pngData</span><span class="p">()</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">docImage</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">docImageData</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="n">docImage</span><span class="p">?.</span><span class="n">pngData</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="p">(</span><span class="n">lhs</span><span class="p">:</span><span class="w"> </span><span class="n">DataSection</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span><span class="p">:</span><span class="w"> </span><span class="n">DataSection</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Bool</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">lhs</span><span class="p">.</span><span class="n">mrzString</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">mrzString</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">docType</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">docType</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">surname</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">surname</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">docNumber</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">docNumber</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">checkDigit</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">checkDigit</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">nationality</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">nationality</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">birthDate</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">birthDate</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">birthDateDigit</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">birthDateDigit</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">sex</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">sex</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">validFrom</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">validFrom</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">expiryDate</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">expiryDate</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">expiryDateDigit</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">expiryDateDigit</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">optionalData</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">optionalData</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">optionalDataDigit</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">optionalDataDigit</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">mrzType</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">mrzType</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">holderImage</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">holderImage</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">docImage</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">docImage</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">VIZSection</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">VizDocTypeEnum</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
+<h2 id="vizsection">VIZSection<a class="headerlink" href="#vizsection" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kr">final</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">VIZSection</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="p">,</span><span class="w"> </span><span class="nb">Equatable</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// MARK: - Nested Types</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">VizDocTypeEnum</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="c1">/// Document PC</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">documentPC</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;PC&quot;</span>
 <span class="w">        </span><span class="c1">/// ID card</span>
@@ -3271,6 +3518,9 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">    </span><span class="c1">/// Date when the passport/ID card was issued</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">issueDate</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span>
 
+<span class="w">    </span><span class="c1">/// Combined validFrom or issuedDate date in YY-MM-DD format. Data priority: chip &gt; VIZ. Nullable: true</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">validFrom</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span>
+
 <span class="w">    </span><span class="c1">/// Personal identification number</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">personalNumber</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span>
 
@@ -3284,10 +3534,10 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">validations</span><span class="p">:</span><span class="w"> </span><span class="n">VIZValidation</span><span class="p">?</span>
 
 <span class="w">    </span><span class="c1">/// Base64-encoded string of the passport/ID card holder&#39;s photo in the VIZ</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">holderImage</span><span class="p">:</span><span class="w"> </span><span class="n">Data</span><span class="p">?</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">holderImage</span><span class="p">:</span><span class="w"> </span><span class="n">Data</span><span class="p">?</span>
 
 <span class="w">    </span><span class="c1">/// VIZ base64-encoded string of the passport/id card photo</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">docImage</span><span class="p">:</span><span class="w"> </span><span class="n">Data</span><span class="p">?</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">docImage</span><span class="p">:</span><span class="w"> </span><span class="n">Data</span><span class="p">?</span>
 
 <span class="w">    </span><span class="c1">// MARK: - Computed Properties</span>
 
@@ -3310,26 +3560,57 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">        </span><span class="n">docNumber</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?,</span>
 <span class="w">        </span><span class="n">nationality</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">issueDate</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">validFrom</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">personalNumber</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">height</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">expiryDate</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?,</span>
 <span class="w">        </span><span class="n">holderImage</span><span class="p">:</span><span class="w"> </span><span class="bp">UIImage</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">docImage</span><span class="p">:</span><span class="w"> </span><span class="bp">UIImage</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">holderImageData</span><span class="p">:</span><span class="w"> </span><span class="n">Data</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">docImageData</span><span class="p">:</span><span class="w"> </span><span class="n">Data</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">validations</span><span class="p">:</span><span class="w"> </span><span class="n">VIZValidation</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">VIZValidation</span><span class="p">()</span>
-<span class="w">    </span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">docType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">docType</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">issueState</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">issueState</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">surname</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">surname</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">name</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">sex</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">sex</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">docNumber</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">docNumber</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">nationality</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">nationality</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">issueDate</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">issueDate</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">validFrom</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">validFrom</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">personalNumber</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">personalNumber</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">height</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">height</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">expiryDate</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">expiryDate</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">validations</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">validations</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">holderImage</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">holderImageData</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="n">holderImage</span><span class="p">?.</span><span class="n">pngData</span><span class="p">()</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">docImage</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">docImageData</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="n">docImage</span><span class="p">?.</span><span class="n">pngData</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="c1">// MARK: - VIZValidation</span>
-
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">VIZValidation</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">/// Validation check for expiration</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">expired</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationCheck</span><span class="p">?</span>
-
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">init</span><span class="p">(</span><span class="n">expired</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationCheck</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">unknown</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="p">(</span><span class="n">lhs</span><span class="p">:</span><span class="w"> </span><span class="n">VIZSection</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span><span class="p">:</span><span class="w"> </span><span class="n">VIZSection</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Bool</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">lhs</span><span class="p">.</span><span class="n">docType</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">docType</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">issueState</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">issueState</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">surname</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">surname</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">sex</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">sex</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">docNumber</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">docNumber</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">nationality</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">nationality</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">issueDate</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">issueDate</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">validFrom</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">validFrom</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">personalNumber</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">personalNumber</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">height</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">height</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">expiryDate</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">expiryDate</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">validations</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">validations</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">holderImage</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">holderImage</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">docImage</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">docImage</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">MRZSection</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">MrzDocTypeEnum</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
+<h2 id="mrzsection">MRZSection<a class="headerlink" href="#mrzsection" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kr">final</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">MRZSection</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="p">,</span><span class="w"> </span><span class="nb">Equatable</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// MARK: - Nested Types</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">MrzDocTypeEnum</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="c1">/// Passport</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">passport</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;P&quot;</span>
 <span class="w">        </span><span class="c1">/// ID card</span>
@@ -3413,12 +3694,48 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">        </span><span class="n">optionalDataDigit</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">mrzType</span><span class="p">:</span><span class="w"> </span><span class="n">ValidatiomMrzType</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">unknown</span><span class="p">,</span>
 <span class="w">        </span><span class="n">validations</span><span class="p">:</span><span class="w"> </span><span class="n">MRZValidation</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">MRZValidation</span><span class="p">()</span>
-<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">mrzString</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mrzString</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">docType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">docType</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">surname</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">surname</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">name</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">docNumber</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">docNumber</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">checkDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">checkDigit</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">nationality</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">nationality</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">birthDate</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">birthDate</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">birthDateDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">birthDateDigit</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">sex</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">sex</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">expiryDate</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">expiryDate</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">expiryDateDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">expiryDateDigit</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">optionalData</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">optionalData</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">optionalDataDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">optionalDataDigit</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">mrzType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mrzType</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">validations</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">validations</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="p">(</span><span class="n">lhs</span><span class="p">:</span><span class="w"> </span><span class="n">MRZSection</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span><span class="p">:</span><span class="w"> </span><span class="n">MRZSection</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Bool</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">lhs</span><span class="p">.</span><span class="n">mrzString</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">mrzString</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">docType</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">docType</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">surname</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">surname</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">docNumber</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">docNumber</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">checkDigit</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">checkDigit</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">nationality</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">nationality</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">birthDate</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">birthDate</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">birthDateDigit</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">birthDateDigit</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">sex</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">sex</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">expiryDate</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">expiryDate</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">expiryDateDigit</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">expiryDateDigit</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">optionalData</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">optionalData</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">optionalDataDigit</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">optionalDataDigit</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">mrzType</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">mrzType</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">validations</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">validations</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
 <span class="c1">// MARK: - MRZValidation</span>
 
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">MRZValidation</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
+<span class="kd">public</span><span class="w"> </span><span class="kr">final</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">MRZValidation</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="p">,</span><span class="w"> </span><span class="nb">Equatable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">/// Check digit validation status</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">checkDigit</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationCheck</span><span class="p">?</span>
 
@@ -3432,11 +3749,24 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">        </span><span class="n">checkDigit</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationCheck</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">unknown</span><span class="p">,</span>
 <span class="w">        </span><span class="n">format</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationCheck</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">unknown</span><span class="p">,</span>
 <span class="w">        </span><span class="n">expired</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationCheck</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">unknown</span>
-<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">checkDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">checkDigit</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">format</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">format</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">expired</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">expired</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="p">(</span><span class="n">lhs</span><span class="p">:</span><span class="w"> </span><span class="n">MRZValidation</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span><span class="p">:</span><span class="w"> </span><span class="n">MRZValidation</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Bool</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">lhs</span><span class="p">.</span><span class="n">checkDigit</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">checkDigit</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">format</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">format</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">expired</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">expired</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">RFIDSection</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">RfidDocTypeEnum</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
+<h2 id="rridsection">RRIDSection<a class="headerlink" href="#rridsection" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kr">final</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">RFIDSection</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="p">,</span><span class="w"> </span><span class="nb">Equatable</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// MARK: - Nested Types</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">RfidDocTypeEnum</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="c1">/// Passport</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">passport</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;P&quot;</span>
 <span class="w">        </span><span class="c1">/// ID card</span>
@@ -3481,6 +3811,9 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">    </span><span class="c1">/// Gender from RFID chip</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">sex</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationSex</span><span class="p">?</span>
 
+<span class="w">    </span><span class="c1">/// Combined validFrom or issuedDate date in YY-MM-DD format. Data priority: chip &gt; VIZ. Nullable: true</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">validFrom</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span>
+
 <span class="w">    </span><span class="c1">/// Expiry date from RFID chip in YY-MM-DD format</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">expiryDate</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span>
 
@@ -3497,10 +3830,10 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">mrzType</span><span class="p">:</span><span class="w"> </span><span class="n">ValidatiomMrzType</span><span class="p">?</span>
 
 <span class="w">    </span><span class="c1">/// Base64-encoded string of the passport/ID card holder&#39;s photo from RFID chip</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">holderImage</span><span class="p">:</span><span class="w"> </span><span class="n">Data</span><span class="p">?</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">holderImage</span><span class="p">:</span><span class="w"> </span><span class="n">Data</span><span class="p">?</span>
 
 <span class="w">    </span><span class="c1">/// RFID validations</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">validations</span><span class="p">:</span><span class="w"> </span><span class="n">RFIDValidation</span><span class="p">?</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">validations</span><span class="p">:</span><span class="w"> </span><span class="n">RFIDValidation</span><span class="p">?</span>
 
 <span class="w">    </span><span class="c1">// MARK: - Computed Properties</span>
 
@@ -3521,19 +3854,61 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">        </span><span class="n">birthDate</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?,</span>
 <span class="w">        </span><span class="n">birthDateDigit</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">sex</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationSex</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
-<span class="w">        </span><span class="n">expiryDate</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?,</span>
+<span class="w">        </span><span class="n">validFrom</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">expiryDate</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">expiryDateDigit</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">optionalData</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">optionalDataDigit</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">mrzType</span><span class="p">:</span><span class="w"> </span><span class="n">ValidatiomMrzType</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">unknown</span><span class="p">,</span>
 <span class="w">        </span><span class="n">holderImage</span><span class="p">:</span><span class="w"> </span><span class="bp">UIImage</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">holderImageData</span><span class="p">:</span><span class="w"> </span><span class="n">Data</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">validations</span><span class="p">:</span><span class="w"> </span><span class="n">RFIDValidation</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">RFIDValidation</span><span class="p">()</span>
-<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">mrzString</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mrzString</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">docType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">docType</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">surname</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">surname</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">name</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">docNumber</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">docNumber</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">checkDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">checkDigit</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">nationality</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">nationality</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">birthDate</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">birthDate</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">birthDateDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">birthDateDigit</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">sex</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">sex</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">validFrom</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">validFrom</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">expiryDate</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">expiryDate</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">expiryDateDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">expiryDateDigit</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">optionalData</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">optionalData</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">optionalDataDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">optionalDataDigit</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">mrzType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mrzType</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">validations</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">validations</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">holderImage</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">holderImageData</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="n">holderImage</span><span class="p">?.</span><span class="n">pngData</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="p">(</span><span class="n">lhs</span><span class="p">:</span><span class="w"> </span><span class="n">RFIDSection</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span><span class="p">:</span><span class="w"> </span><span class="n">RFIDSection</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Bool</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">lhs</span><span class="p">.</span><span class="n">mrzString</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">mrzString</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">docType</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">docType</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">surname</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">surname</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">docNumber</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">docNumber</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">checkDigit</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">checkDigit</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">nationality</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">nationality</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">birthDate</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">birthDate</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">birthDateDigit</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">birthDateDigit</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">sex</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">sex</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">validFrom</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">validFrom</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">expiryDate</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">expiryDate</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">expiryDateDigit</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">expiryDateDigit</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">optionalData</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">optionalData</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">optionalDataDigit</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">optionalDataDigit</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">mrzType</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">mrzType</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">validations</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">validations</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">holderImage</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">holderImage</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
 <span class="c1">// MARK: - RFIDValidation</span>
 
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">RFIDValidation</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
+<span class="kd">public</span><span class="w"> </span><span class="kr">final</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">RFIDValidation</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="p">,</span><span class="w"> </span><span class="nb">Equatable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">/// Check digit validation status</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">checkDigit</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationCheck</span><span class="p">?</span>
 
@@ -3543,10 +3918,20 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">init</span><span class="p">(</span>
 <span class="w">        </span><span class="n">checkDigit</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationCheck</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">unknown</span><span class="p">,</span>
 <span class="w">        </span><span class="n">expired</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationCheck</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">unknown</span>
-<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">checkDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">checkDigit</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">expired</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">expired</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="p">(</span><span class="n">lhs</span><span class="p">:</span><span class="w"> </span><span class="n">RFIDValidation</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span><span class="p">:</span><span class="w"> </span><span class="n">RFIDValidation</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Bool</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">lhs</span><span class="p">.</span><span class="n">checkDigit</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">checkDigit</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">expired</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">expired</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Validations</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
+
+<span class="c1">// MARK: - Validations</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kr">final</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Validations</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="p">,</span><span class="w"> </span><span class="nb">Equatable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">/// Overall validation/comparison status of the document</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">status</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationCheck</span><span class="p">?</span>
 
@@ -3644,27 +4029,59 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">        </span><span class="n">PA</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationCheck</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">unknown</span><span class="p">,</span>
 <span class="w">        </span><span class="n">PACE</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationCheck</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">unknown</span><span class="p">,</span>
 <span class="w">        </span><span class="n">TA</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationCheck</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">unknown</span>
-<span class="w">    </span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div>
-The ValidationCheck, ValidationSex and ValidatiomMrzType are enums that have the following possibilities:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">ValidationCheck</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">failed</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">success</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">unknown</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">status</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">chip</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">chip</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">docType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">docType</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">surname</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">surname</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">name</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">docNumber</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">docNumber</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">checkDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">checkDigit</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">nationality</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">nationality</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">birthDate</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">birthDate</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">birthDateDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">birthDateDigit</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">sex</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">sex</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">expiryDate</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">expiryDate</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">expiryDateDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">expiryDateDigit</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">optionalData</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">optionalData</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">optionalDataDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">optionalDataDigit</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">mrzType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mrzType</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">checkDigitCalculation</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">checkDigitCalculation</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">expired</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">expired</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">AA</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">AA</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">BAC</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">BAC</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">CA</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">CA</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">PA</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">PA</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">PACE</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">PACE</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">TA</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">TA</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">ValidationSex</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">male</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;M&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">female</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;F&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;X&quot;</span>
-<span class="p">}</span>
-
-<span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">ValidatiomMrzType</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">id1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;ID-1&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">id2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;ID-2&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">id3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;ID-3&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">unknown</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Unknown&quot;</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="p">(</span><span class="n">lhs</span><span class="p">:</span><span class="w"> </span><span class="n">Validations</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span><span class="p">:</span><span class="w"> </span><span class="n">Validations</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Bool</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">lhs</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">chip</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">chip</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">docType</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">docType</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">surname</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">surname</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">docNumber</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">docNumber</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">checkDigit</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">checkDigit</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">nationality</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">nationality</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">birthDate</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">birthDate</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">birthDateDigit</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">birthDateDigit</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">sex</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">sex</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">expiryDate</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">expiryDate</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">expiryDateDigit</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">expiryDateDigit</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">optionalData</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">optionalData</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">optionalDataDigit</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">optionalDataDigit</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">mrzType</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">mrzType</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">checkDigitCalculation</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">checkDigitCalculation</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">expired</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">expired</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">AA</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">AA</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">BAC</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">BAC</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">CA</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">CA</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">PA</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">PA</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">PACE</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">PACE</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">lhs</span><span class="p">.</span><span class="n">TA</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">TA</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>

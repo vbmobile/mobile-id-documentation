@@ -99,9 +99,18 @@ travel documents from different countries, by calling the readDocument method.
 === "iOS"
 
     ``` swift
-        func readDocument(parameters: ReadDocumentParameters, 
-                          viewController: UIViewController, 
-                          completionHandler: @escaping (Result<DocumentReaderReport, DocumentReaderError>) -> Void) throws
+    /// Starts document scan process.
+    /// - Parameters:
+    ///   - parameters: Parameteres for the Read Document flow.
+    ///   - viewController: View controller that will present the document scan views.
+    ///   - completionHandler: The completion handler to call when the document reader feature is finished.
+    ///     This completion handler takes the following parameter:
+    ///
+    ///     Result<DocumentReaderReport, FeatureError>
+    ///     Where `DocumentReaderReport` contains  the results of the document reader
+    ///     operation and `FeatureError` the possible errors that may occur during the process.
+    ///     throws a
+    final public func readDocument(parameters: MobileIdSDKiOS.ReadDocumentParameters, viewController: UIViewController, completionHandler: @escaping (Result<MobileIdSDKiOS.DocumentReaderReport, MobileIdSDKiOS.DocumentReaderError>) -> Void)
     ```
 
 This method can perform a full travel document read in two steps:
@@ -132,20 +141,26 @@ This method can perform a full travel document read in two steps:
 === "iOS"
 
     ``` swift
-    public struct ReadDocumentParameters {
-        public let readRFID: Bool
-        public let showRFIDStatus: Bool
-        public let scannerTimeout: TimeInterval
-        public let rfidTimeout: TimeInterval
-        public let showRFIDInstructions: Bool
-    
-        public init(readRFID: Bool,
-                    showRFIDStatus: Bool = false,
-                    scannerTimeout: TimeInterval = 30,
-                    rfidTimeout: TimeInterval = 30,
-                    showRFIDInstructions: Bool = true
-        )
-    }
+	/// Parameters for the Read Document flow.
+	public struct ReadDocumentParameters {
+	
+	    /// Whether or not to read Document's RFID (using NFC).
+	    public let readRFID: Bool
+	
+	    /// Property indicating if icon indicating RFID reading status should be visible or not. Default value is `false`.
+	    public let showRFIDStatus: Bool
+	
+	    /// Document scan timeout, in seconds. Default value is `30` seconds. Minimum value is `10` seconds. Maximum value is `60` seconds.
+	    public let scannerTimeout: TimeInterval
+	
+	    /// Document rfid timeout, in seconds.  Default value is `30` seconds. Minimum value is `10` seconds. Maximum value is `60` seconds.
+	    public let rfidTimeout: TimeInterval
+	
+	    /// If true, it will display a RFID Instructions Screen, else will automatically starts in the RFID Scan
+	    public let showRFIDInstructions: Bool
+	
+	    public init(readRFID: Bool, showRFIDStatus: Bool = false, scannerTimeout: TimeInterval = 30, rfidTimeout: TimeInterval = 30, showRFIDInstructions: Bool = true)
+	}
     ```
 
 Both mrzReadTimeout and rfidReadTimeout values must be between 10 and 60 seconds, otherwise an InvalidParameters error will occur.
@@ -220,18 +235,27 @@ Here is how you can get the document reader report and handle the result for doc
 === "iOS"
 
     ``` swift
-    self.enrolment.readDocument( parameters: parameters, viewController: view) { [weak self] result in
+    // The view controller responsible for presenting the document scanner camera interface
+    var viewController: UIViewController!
+    
+    let parameters: MobileIdSDKiOS.ReadDocumentParameters = .init(readRFID: false,
+                                                                  showRFIDStatus: false, // Optional
+                                                                  scannerTimeout: 30, // Optional
+                                                                  showRFIDInstructions: false) // Optional
+    Enrolment.shared.readDocument(
+       parameters: parameters,
+        viewController: viewController
+    ) { result in
         switch result {
-            case .success(let documentReaderReport):
-               // handle DocumentReaderReport
-                
-            case .failure(let error):
-                if error.userCanceled {
-                    print("onUserCancel")
-                } else {
-                    print(error.featureError.publicMessage)
-                }
-            }
+        case let .success(documentReaderReport):
+            // handle DocumentReaderReport
+            print(documentReaderReport)
+        case let .failure(error):
+            if error.userCanceled {
+                   print("onUserCancel")
+               } else {
+                   print(error.featureError.publicMessage)
+               }
         }
     }
     ```
@@ -264,16 +288,22 @@ Here is how you can get the document reader report and handle the result for doc
     ```
     
 === "iOS"
+
     ```swift
-    public struct DocumentReaderReport: Codable {
-        public let documentData: DocumentData
-        public let documentType: DocumentType
-        public let idDocument: IdDocument
-        public let documentRFIDStatus: DocumentRFIDStatus
-        public let documentStatuses: [DocumentDataStatus]
-        public let documentPhotoHash: String?
-        public let documentDataHash: String?
-        public let idDocumentHash: String?
+	/// Holds the report of the document reader process.
+	public struct DocumentReaderReport: Codable {   
+	    /// New identification document data.
+	    public let idDocument: IdDocument
+	    /// Type of document, ex: Passport, Visa, etc.
+	    public let documentType: DocumentType
+	    /// Identification document RFID Status
+	    public let documentRFIDStatus: DocumentRFIDStatus
+	    /// Possible document data status.
+	    public let documentStatuses: [DocumentDataStatus]
+	    /// Portrait Image Hash
+	    public let documentPhotoHash: String?
+	    /// idDocument object Hash
+	    public let idDocumentHash: String?
     }
     ```
 
@@ -457,637 +487,902 @@ You can check the structure here:
     
 === "iOS"
 
-    ``` swift
-    public class IdDocument: Codable {
-        public enum ValidationChipPage: Int, Codable {
-            /// No chip present
-            case noChip = 0
-            /// Chip is located in the document data page
-            case chipOnDataPage = 1
-            /// Chip is located in the back page or inlay of the document
-            case chipOnBackPage = 2
-            /// Unknown chip location
-            case unknown = 3
-        }
-    
-        public enum ValidationElectronicChip: Int, Codable {
-            /// Document is not electronic
-            case notElectronic = 0
-            /// Document is electronic
-            case electronic = 1
-            /// Unknown if document is electronic
-            case unknown = 2
-        }
-    
-        // MARK: - Properties
-    
-        public var info: InfoSection?
-        public var data: DataSection?
-        public var viz: VIZSection?
-        public var mrz: MRZSection?
-        public var rfid: RFIDSection?
-        public var validations: Validations?
-    
-        // MARK: - Initialization
-    
-        public init(
-            info: InfoSection? = nil,
-            data: DataSection? = nil,
-            viz: VIZSection? = nil,
-            mrz: MRZSection? = nil,
-            rfid: RFIDSection? = nil,
-            validations: Validations? = nil
-        ) 
-    }
+    ## IdDocument
+
+    ```swift
+	public final class IdDocument: Codable, Sendable, Equatable {
+	    // MARK: - Nested Types
+	
+	    public enum ValidationChipPage: Int, Codable, Sendable {
+	        /// No chip present
+	        case noChip = 0
+	        /// Chip is located in the document data page
+	        case chipOnDataPage = 1
+	        /// Chip is located in the back page or inlay of the document
+	        case chipOnBackPage = 2
+	        /// Unknown chip location
+	        case unknown = 3
+	    }
+	
+	    public enum ValidationElectronicChip: Int, Codable, Sendable {
+	        /// Document is not electronic
+	        case notElectronic = 0
+	        /// Document is electronic
+	        case electronic = 1
+	        /// Unknown if document is electronic
+	        case unknown = 2
+	    }
+	
+	    // MARK: - Properties
+	
+	    public let info: InfoSection?
+	    public let data: DataSection?
+	    public let viz: VIZSection?
+	    public let mrz: MRZSection?
+	    public let rfid: RFIDSection?
+	    public let validations: Validations?
+	
+	    // MARK: - Initialization
+	
+	    public init(
+	        info: InfoSection? = nil,
+	        data: DataSection? = nil,
+	        viz: VIZSection? = nil,
+	        mrz: MRZSection? = nil,
+	        rfid: RFIDSection? = nil,
+	        validations: Validations? = nil
+	    ) {
+	        self.info = info
+	        self.data = data
+	        self.viz = viz
+	        self.mrz = mrz
+	        self.rfid = rfid
+	        self.validations = validations
+	    }
+	
+	    public static func == (lhs: IdDocument, rhs: IdDocument) -> Bool {
+	        lhs.info == rhs.info &&
+	            lhs.data == rhs.data &&
+	            lhs.viz == rhs.viz &&
+	            lhs.mrz == rhs.mrz &&
+	            lhs.rfid == rhs.rfid &&
+	            lhs.validations == rhs.validations
+	    }
+	}
     ```
-    ``` swift
-    public class InfoSection: Codable {
-        public enum InfoTypeEnum: String, Codable {
-            /// Passport
-            case passport = "P"
-            /// ID card
-            case idCard = "I"
-            /// Driver's license
-            case driverLicense = "D"
-            /// Document C
-            case documentC = "C"
-        }
     
-        // MARK: - Properties
-    
-        /// A unique identifier for the document.
-        public let id: Int?
-    
-        /// Indicates the type and issuing country of the document
-        public let documentName: String?
-    
-        /// The International Civil Aviation Organization code for the issuing country.
-        public let ICAOCode: String?
-    
-        /// Document type (e.g., "P" for passport)
-        public let type: InfoTypeEnum?
-    
-        /// Specifies if the document is electronic
-        public let isElectronic: IdDocument.ValidationElectronicChip?
-    
-        /// Status of the chip read operation
-        public let chipPage: IdDocument.ValidationChipPage?
-    
-        // MARK: - Initialization
-    
-        public init(
-            id: Int? = nil,
-            documentName: String? = nil,
-            ICAOCode: String? = nil,
-            type: InfoTypeEnum? = nil,
-            isElectronic: IdDocument.ValidationElectronicChip? = nil,
-            chipPage: IdDocument.ValidationChipPage? = .unknown
-        ) 
-    }
+    ## InfoSection
+
+    ```swift
+    public enum InfoTypeEnum: String, Codable, Sendable {
+	    /// Passport
+	    case passport = "P"
+	    /// ID card
+	    case idCard = "I"
+	    /// Driver's license
+	    case driverLicense = "D"
+	    /// Document C (Visa's)
+	    case documentC = "C"
+	}
+
+	public final class InfoSection: Codable, Sendable, Equatable {
+	    // MARK: - Properties
+	
+	    /// A unique identifier for the document.
+	    public let id: Int?
+	
+	    /// Indicates the type and issuing country of the document
+	    public let documentName: String?
+	
+	    /// The International Civil Aviation Organization code for the issuing country.
+	    public let ICAOCode: String?
+	
+	    /// Document type (e.g., "P" for passport)
+	    public let type: InfoTypeEnum?
+	
+	    /// Specifies if the document is electronic
+	    public let isElectronic: IdDocument.ValidationElectronicChip?
+	
+	    /// Status of the chip read operation
+	    public let chipPage: IdDocument.ValidationChipPage?
+	
+	    // MARK: - Initialization
+	
+	    public init(
+	        id: Int? = nil,
+	        documentName: String? = nil,
+	        ICAOCode: String? = nil,
+	        type: InfoTypeEnum? = nil,
+	        isElectronic: IdDocument.ValidationElectronicChip? = nil,
+	        chipPage: IdDocument.ValidationChipPage? = .unknown
+	    ) {
+	        self.id = id
+	        self.documentName = documentName
+	        self.ICAOCode = ICAOCode
+	        self.type = type
+	        self.isElectronic = isElectronic
+	        self.chipPage = chipPage
+	    }
+	
+	    public static func == (lhs: InfoSection, rhs: InfoSection) -> Bool {
+	        lhs.id == rhs.id &&
+	            lhs.documentName == rhs.documentName &&
+	            lhs.ICAOCode == rhs.ICAOCode &&
+	            lhs.type == rhs.type &&
+	            lhs.isElectronic == rhs.isElectronic &&
+	            lhs.chipPage == rhs.chipPage
+	    }
+	}
     ```
 
-    ``` swift
-    public class DataSection: Codable {
-        public enum DocTypeEnum: String, Codable {
-            /// Passport
-            case passport = "P"
-            /// Document PC
-            case documentPC = "PC"
-            /// ID card
-            case idCard = "I"
-            /// Driver's license
-            case driverLicense = "D"
-            /// Document C
-            case documentC = "C"
-            /// Other document type
-            case other = "OTHER"
-        }
-    
-        // MARK: - Properties
-    
-        /// Combined raw MRZ data string. Data priority: chip > MRZ
-        public let mrzString: String?
-    
-        /// Combined document type (e.g., "P" for passport). Data priority: chip > MRZ > VIZ
-        public let docType: DocTypeEnum?
-    
-        /// Combined passport holder's surname. Data priority: chip > MRZ > VIZ
-        public let surname: String?
-    
-        /// Combined passport holder's given names. Data priority: chip > MRZ > VIZ
-        public let name: String?
-    
-        /// Combined passport document number. Data priority: chip > MRZ > VIZ
-        public let docNumber: String?
-    
-        /// Combined check digit for the document number. Data priority: chip > MRZ > VIZ
-        public let checkDigit: String?
-    
-        /// Combined nationality ISO code. Data priority: chip > MRZ > VIZ
-        public let nationality: String?
-    
-        /// Combined date of birth in YY-MM-DD format. Data priority: chip > MRZ > VIZ
-        public let birthDate: String?
-    
-        /// Combined check digit for the birth date. Data priority: chip > MRZ > VIZ
-        public let birthDateDigit: String?
-    
-        /// Combined gender of the passport holder. Data priority: chip > MRZ > VIZ
-        public let sex: ValidationSex?
-    
-        /// Combined passport expiry date in YY-MM-DD format. Data priority: chip > MRZ > VIZ
-        public let expiryDate: String?
-    
-        /// Combined check digit for the expiry date. Data priority: chip > MRZ > VIZ
-        public let expiryDateDigit: String?
-    
-        /// Combined additional optional data (e.g., personal identification number). Data priority: chip > MRZ > VIZ
-        public let optionalData: String?
-    
-        /// Combined check digit for the optional data. Data priority: chip > MRZ > VIZ
-        public let optionalDataDigit: String?
-    
-        /// Combined format of the MRZ (e.g., "ID-3"). Data priority: chip > MRZ > VIZ
-        public let mrzType: ValidatiomMrzType?
-    
-        /// Base64-encoded string of the passport/ID card holder's photo. Data priority: chip > MRZ > VIZ
-        public var holderImage: Data?
-    
-        /// Base64-encoded string of the passport/id card photo
-        public var docImage: Data?
-    
-        // MARK: - Computed Properties
-
-        public var holderImageUIImage: UIImage? {
-            holderImage.flatMap { UIImage(data: $0) }
-        }
-
-        public var docImageUIImage: UIImage? {
-            docImage.flatMap { UIImage(data: $0) }
-        }
-    
-        // MARK: - Initialization
-    
-        public init(
-            mrzString: String? = nil,
-            docType: DocTypeEnum? = nil,
-            surname: String? = nil,
-            name: String? = nil,
-            docNumber: String?,
-            checkDigit: String? = nil,
-            nationality: String? = nil,
-            birthDate: String?,
-            birthDateDigit: String? = nil,
-            sex: ValidationSex? = nil,
-            expiryDate: String?,
-            expiryDateDigit: String? = nil,
-            optionalData: String? = nil,
-            optionalDataDigit: String? = nil,
-            mrzType: ValidatiomMrzType? = .unknown,
-            holderImage: UIImage? = nil,
-            docImage: UIImage? = nil
-        )
-    }
+	## DataSection
+	
+    ```swift
+	public enum DocTypeEnum: String, Codable, Sendable {
+	    /// Passport
+	    case passport = "P"
+	    /// Document PC
+	    case documentPC = "PC"
+	    /// ID card
+	    case idCard = "I"
+	    /// Driver's license
+	    case driverLicense = "D"
+	    /// Document C
+	    case documentC = "C"
+	    /// Other document type
+	    case other = "OTHER"
+	}
+	
+	public final class DataSection: Codable, Sendable, Equatable {
+	    // MARK: - Properties
+	
+	    /// Combined raw MRZ data string. Data priority: chip > MRZ
+	    public let mrzString: String?
+	
+	    /// Combined document type (e.g., "P" for passport). Data priority: chip > MRZ > VIZ
+	    public let docType: DocTypeEnum?
+	
+	    /// Combined passport holder's surname. Data priority: chip > MRZ > VIZ
+	    public let surname: String?
+	
+	    /// Combined passport holder's given names. Data priority: chip > MRZ > VIZ
+	    public let name: String?
+	
+	    /// Combined passport document number. Data priority: chip > MRZ > VIZ
+	    public let docNumber: String?
+	
+	    /// Combined check digit for the document number. Data priority: chip > MRZ > VIZ
+	    public let checkDigit: String?
+	
+	    /// Combined nationality ISO code. Data priority: chip > MRZ > VIZ
+	    public let nationality: String?
+	
+	    /// Combined date of birth in YY-MM-DD format. Data priority: chip > MRZ > VIZ
+	    public let birthDate: String?
+	
+	    /// Combined check digit for the birth date. Data priority: chip > MRZ > VIZ
+	    public let birthDateDigit: String?
+	
+	    /// Combined gender of the passport holder. Data priority: chip > MRZ > VIZ
+	    public let sex: ValidationSex?
+	    
+	    /// Combined validFrom or issuedDate date in YY-MM-DD format. Data priority: chip > VIZ. Nullable: true
+	    public let validFrom: String?
+	
+	    /// Combined passport expiry date in YY-MM-DD format. Data priority: chip > MRZ > VIZ
+	    public let expiryDate: String?
+	
+	    /// Combined check digit for the expiry date. Data priority: chip > MRZ > VIZ
+	    public let expiryDateDigit: String?
+	
+	    /// Combined additional optional data (e.g., personal identification number). Data priority: chip > MRZ > VIZ
+	    public let optionalData: String?
+	
+	    /// Combined check digit for the optional data. Data priority: chip > MRZ > VIZ
+	    public let optionalDataDigit: String?
+	
+	    /// Combined format of the MRZ (e.g., "ID-3"). Data priority: chip > MRZ > VIZ
+	    public let mrzType: ValidatiomMrzType?
+	
+	    /// Base64-encoded string of the passport/ID card holder's photo. Data priority: chip > MRZ > VIZ
+	    public let holderImage: Data?
+	
+	    /// Base64-encoded string of the passport/id card photo
+	    public let docImage: Data?
+	
+	    // MARK: - Computed Properties
+	
+	    public var holderImageUIImage: UIImage? {
+	        holderImage.flatMap { UIImage(data: $0) }
+	    }
+	
+	    public var docImageUIImage: UIImage? {
+	        docImage.flatMap { UIImage(data: $0) }
+	    }
+	
+	    // MARK: - Initialization
+	
+	    public init(
+	        mrzString: String? = nil,
+	        docType: DocTypeEnum? = nil,
+	        surname: String? = nil,
+	        name: String? = nil,
+	        docNumber: String?,
+	        checkDigit: String? = nil,
+	        nationality: String? = nil,
+	        birthDate: String?,
+	        birthDateDigit: String? = nil,
+	        sex: ValidationSex? = nil,
+	        validFrom: String? = nil,
+	        expiryDate: String? = nil,
+	        expiryDateDigit: String? = nil,
+	        optionalData: String? = nil,
+	        optionalDataDigit: String? = nil,
+	        mrzType: ValidatiomMrzType? = .unknown,
+	        holderImage: UIImage? = nil,
+	        docImage: UIImage? = nil,
+	        holderImageData: Data? = nil,
+	        docImageData: Data? = nil
+	    ) {
+	        self.mrzString = mrzString
+	        self.docType = docType
+	        self.surname = surname
+	        self.name = name
+	        self.docNumber = docNumber
+	        self.checkDigit = checkDigit
+	        self.nationality = nationality
+	        self.birthDate = birthDate
+	        self.birthDateDigit = birthDateDigit
+	        self.sex = sex
+	        self.validFrom = validFrom
+	        self.expiryDate = expiryDate
+	        self.expiryDateDigit = expiryDateDigit
+	        self.optionalData = optionalData
+	        self.optionalDataDigit = optionalDataDigit
+	        self.mrzType = mrzType
+	        self.holderImage = holderImageData ?? holderImage?.pngData()
+	        self.docImage = docImageData ?? docImage?.pngData()
+	    }
+	
+	    public static func == (lhs: DataSection, rhs: DataSection) -> Bool {
+	        lhs.mrzString == rhs.mrzString &&
+	            lhs.docType == rhs.docType &&
+	            lhs.surname == rhs.surname &&
+	            lhs.name == rhs.name &&
+	            lhs.docNumber == rhs.docNumber &&
+	            lhs.checkDigit == rhs.checkDigit &&
+	            lhs.nationality == rhs.nationality &&
+	            lhs.birthDate == rhs.birthDate &&
+	            lhs.birthDateDigit == rhs.birthDateDigit &&
+	            lhs.sex == rhs.sex &&
+	            lhs.validFrom == rhs.validFrom &&
+	            lhs.expiryDate == rhs.expiryDate &&
+	            lhs.expiryDateDigit == rhs.expiryDateDigit &&
+	            lhs.optionalData == rhs.optionalData &&
+	            lhs.optionalDataDigit == rhs.optionalDataDigit &&
+	            lhs.mrzType == rhs.mrzType &&
+	            lhs.holderImage == rhs.holderImage &&
+	            lhs.docImage == rhs.docImage
+	    }
+	}
     ```
-    ``` swift
-    public class VIZSection: Codable {
-        public enum VizDocTypeEnum: String, Codable {
-            /// Document PC
-            case documentPC = "PC"
-            /// ID card
-            case idCard = "ID"
-            /// Document C
-            case documentC = "C"
-            /// Other document type
-            case other = "OTHER"
-        }
     
-        // MARK: - Properties
+    ## VIZSection
     
-        /// Document type in the VIZ
-        public let docType: VizDocTypeEnum?
-    
-        /// Issuing country code
-        public let issueState: String?
-    
-        /// Passport/ID card holder's surname as shown in the VIZ
-        public let surname: String?
-    
-        /// Passport/ID card holder's given names as shown in the VIZ
-        public let name: String?
-    
-        /// Gender of the passport holder
-        public let sex: ValidationSex?
-    
-        /// Passport/ID card document number
-        public let docNumber: String?
-    
-        /// Nationality in native language
-        public let nationality: String?
-    
-        /// Date when the passport/ID card was issued
-        public let issueDate: String?
-    
-        /// Personal identification number
-        public let personalNumber: String?
-    
-        /// Height of the passport/ID card holder
-        public let height: String?
-    
-        /// Expiry date of the passport/ID card
-        public let expiryDate: String?
-    
-        /// VIZ validations
-        public let validations: VIZValidation?
-    
-        /// Base64-encoded string of the passport/ID card holder's photo in the VIZ
-        public var holderImage: Data?
-    
-        /// VIZ base64-encoded string of the passport/id card photo
-        public var docImage: Data?
-    
-        // MARK: - Computed Properties
+    ```swift
+	public final class VIZSection: Codable, Sendable, Equatable {
+	    // MARK: - Nested Types
+	
+	    public enum VizDocTypeEnum: String, Codable, Sendable {
+	        /// Document PC
+	        case documentPC = "PC"
+	        /// ID card
+	        case idCard = "ID"
+	        /// Document C
+	        case documentC = "C"
+	        /// Other document type
+	        case other = "OTHER"
+	    }
+	
+	    // MARK: - Properties
+	
+	    /// Document type in the VIZ
+	    public let docType: VizDocTypeEnum?
+	
+	    /// Issuing country code
+	    public let issueState: String?
+	
+	    /// Passport/ID card holder's surname as shown in the VIZ
+	    public let surname: String?
+	
+	    /// Passport/ID card holder's given names as shown in the VIZ
+	    public let name: String?
+	
+	    /// Gender of the passport holder
+	    public let sex: ValidationSex?
+	
+	    /// Passport/ID card document number
+	    public let docNumber: String?
+	
+	    /// Nationality in native language
+	    public let nationality: String?
+	
+	    /// Date when the passport/ID card was issued
+	    public let issueDate: String?
+	
+	    /// Combined validFrom or issuedDate date in YY-MM-DD format. Data priority: chip > VIZ. Nullable: true
+	    public let validFrom: String?
+	    
+	    /// Personal identification number
+	    public let personalNumber: String?
+	
+	    /// Height of the passport/ID card holder
+	    public let height: String?
+	
+	    /// Expiry date of the passport/ID card
+	    public let expiryDate: String?
+	
+	    /// VIZ validations
+	    public let validations: VIZValidation?
+	
+	    /// Base64-encoded string of the passport/ID card holder's photo in the VIZ
+	    public let holderImage: Data?
+	
+	    /// VIZ base64-encoded string of the passport/id card photo
+	    public let docImage: Data?
+	
+	    // MARK: - Computed Properties
+	
+	    public var holderImageUIImage: UIImage? {
+	        holderImage.flatMap { UIImage(data: $0) }
+	    }
+	
+	    public var docImageUIImage: UIImage? {
+	        docImage.flatMap { UIImage(data: $0) }
+	    }
+	
+	    // MARK: - Initialization
+	
+	    public init(
+	        docType: VizDocTypeEnum? = nil,
+	        issueState: String? = nil,
+	        surname: String? = nil,
+	        name: String? = nil,
+	        sex: ValidationSex? = nil,
+	        docNumber: String?,
+	        nationality: String? = nil,
+	        issueDate: String? = nil,
+	        validFrom: String? = nil,
+	        personalNumber: String? = nil,
+	        height: String? = nil,
+	        expiryDate: String?,
+	        holderImage: UIImage? = nil,
+	        docImage: UIImage? = nil,
+	        holderImageData: Data? = nil,
+	        docImageData: Data? = nil,
+	        validations: VIZValidation? = VIZValidation()
+	    ) {
+	        self.docType = docType
+	        self.issueState = issueState
+	        self.surname = surname
+	        self.name = name
+	        self.sex = sex
+	        self.docNumber = docNumber
+	        self.nationality = nationality
+	        self.issueDate = issueDate
+	        self.validFrom = validFrom
+	        self.personalNumber = personalNumber
+	        self.height = height
+	        self.expiryDate = expiryDate
+	        self.validations = validations
+	        self.holderImage = holderImageData ?? holderImage?.pngData()
+	        self.docImage = docImageData ?? docImage?.pngData()
+	    }
+	
+	    public static func == (lhs: VIZSection, rhs: VIZSection) -> Bool {
+	        lhs.docType == rhs.docType &&
+	            lhs.issueState == rhs.issueState &&
+	            lhs.surname == rhs.surname &&
+	            lhs.name == rhs.name &&
+	            lhs.sex == rhs.sex &&
+	            lhs.docNumber == rhs.docNumber &&
+	            lhs.nationality == rhs.nationality &&
+	            lhs.issueDate == rhs.issueDate &&
+	            lhs.validFrom == rhs.validFrom &&
+	            lhs.personalNumber == rhs.personalNumber &&
+	            lhs.height == rhs.height &&
+	            lhs.expiryDate == rhs.expiryDate &&
+	            lhs.validations == rhs.validations &&
+	            lhs.holderImage == rhs.holderImage &&
+	            lhs.docImage == rhs.docImage
+	    }
+	}
+	
 
-        public var holderImageUIImage: UIImage? {
-            holderImage.flatMap { UIImage(data: $0) }
-        }
-
-        public var docImageUIImage: UIImage? {
-            docImage.flatMap { UIImage(data: $0) }
-        }
-    
-        // MARK: - Initialization
-    
-        public init(
-            docType: VizDocTypeEnum? = nil,
-            issueState: String? = nil,
-            surname: String? = nil,
-            name: String? = nil,
-            sex: ValidationSex? = nil,
-            docNumber: String?,
-            nationality: String? = nil,
-            issueDate: String? = nil,
-            personalNumber: String? = nil,
-            height: String? = nil,
-            expiryDate: String?,
-            holderImage: UIImage? = nil,
-            docImage: UIImage? = nil,
-            validations: VIZValidation? = VIZValidation()
-        )
-    }
-
-    // MARK: - VIZValidation
-
-    public class VIZValidation: Codable {
-        /// Validation check for expiration
-        public let expired: ValidationCheck?
-        
-        public init(expired: ValidationCheck? = .unknown) 
-    }
     ```
-    ``` swift
-        public class MRZSection: Codable {
-        public enum MrzDocTypeEnum: String, Codable {
-            /// Passport
-            case passport = "P"
-            /// ID card
-            case idCard = "I"
-            /// Document A
-            case documentA = "A"
-            /// Visa
-            case visa = "V"
-            /// Document C
-            case documentC = "C"
-            /// Other document type
-            case other = "OTHER"
-        }
-        
-        // MARK: - Properties
-        
-        /// Raw MRZ data string
-        public let mrzString: String?
-        
-        /// Document type from MRZ
-        public let docType: MrzDocTypeEnum?
-        
-        /// Passport/ID card holder's surname from MRZ
-        public let surname: String?
-        
-        /// Passport/ID card holder's given names from MRZ
-        public let name: String?
-        
-        /// Passport/ID card document number from MRZ
-        public let docNumber: String?
-        
-        /// Check digit for the document number from MRZ
-        public let checkDigit: String?
-        
-        /// Nationality code from MRZ
-        public let nationality: String?
-        
-        /// Date of birth from MRZ in YY-MM-DD format
-        public let birthDate: String?
-        
-        /// Check digit for the birth date from MRZ
-        public let birthDateDigit: String?
-        
-        /// Gender from MRZ
-        public let sex: ValidationSex?
-        
-        /// Expiry date from MRZ in YY-MM-DD format
-        public let expiryDate: String?
-        
-        /// Check digit for the expiry date from MRZ
-        public let expiryDateDigit: String?
-        
-        /// Optional data from MRZ
-        public let optionalData: String?
-        
-        /// Check digit for the optional data from MRZ
-        public let optionalDataDigit: String?
-        
-        /// Format of the MRZ
-        public let mrzType: ValidatiomMrzType?
-        
-        /// MRZ validations
-        public let validations: MRZValidation?
-        
-        // MARK: - Initialization
-        
-        public init(
-            mrzString: String? = nil,
-            docType: MrzDocTypeEnum? = nil,
-            surname: String? = nil,
-            name: String? = nil,
-            docNumber: String?,
-            checkDigit: String? = nil,
-            nationality: String? = nil,
-            birthDate: String?,
-            birthDateDigit: String? = nil,
-            sex: ValidationSex? = nil,
-            expiryDate: String?,
-            expiryDateDigit: String? = nil,
-            optionalData: String? = nil,
-            optionalDataDigit: String? = nil,
-            mrzType: ValidatiomMrzType? = .unknown,
-            validations: MRZValidation? = MRZValidation()
-        )
-    }
-
-    // MARK: - MRZValidation
-
-    public class MRZValidation: Codable {
-        /// Check digit validation status
-        public let checkDigit: ValidationCheck?
-        
-        /// Format validation status
-        public let format: ValidationCheck?
-        
-        /// Expiry validation status
-        public let expired: ValidationCheck?
-        
-        public init(
-            checkDigit: ValidationCheck? = .unknown,
-            format: ValidationCheck? = .unknown,
-            expired: ValidationCheck? = .unknown
-        )
-    }
+    
+    ## MRZSection
+    
+    ```swift
+	public final class MRZSection: Codable, Sendable, Equatable {
+	    // MARK: - Nested Types
+	
+	    public enum MrzDocTypeEnum: String, Codable, Sendable {
+	        /// Passport
+	        case passport = "P"
+	        /// ID card
+	        case idCard = "I"
+	        /// Document A
+	        case documentA = "A"
+	        /// Visa
+	        case visa = "V"
+	        /// Document C
+	        case documentC = "C"
+	        /// Other document type
+	        case other = "OTHER"
+	    }
+	
+	    // MARK: - Properties
+	
+	    /// Raw MRZ data string
+	    public let mrzString: String?
+	
+	    /// Document type from MRZ
+	    public let docType: MrzDocTypeEnum?
+	
+	    /// Passport/ID card holder's surname from MRZ
+	    public let surname: String?
+	
+	    /// Passport/ID card holder's given names from MRZ
+	    public let name: String?
+	
+	    /// Passport/ID card document number from MRZ
+	    public let docNumber: String?
+	
+	    /// Check digit for the document number from MRZ
+	    public let checkDigit: String?
+	
+	    /// Nationality code from MRZ
+	    public let nationality: String?
+	
+	    /// Date of birth from MRZ in YY-MM-DD format
+	    public let birthDate: String?
+	
+	    /// Check digit for the birth date from MRZ
+	    public let birthDateDigit: String?
+	
+	    /// Gender from MRZ
+	    public let sex: ValidationSex?
+	
+	    /// Expiry date from MRZ in YY-MM-DD format
+	    public let expiryDate: String?
+	
+	    /// Check digit for the expiry date from MRZ
+	    public let expiryDateDigit: String?
+	
+	    /// Optional data from MRZ
+	    public let optionalData: String?
+	
+	    /// Check digit for the optional data from MRZ
+	    public let optionalDataDigit: String?
+	
+	    /// Format of the MRZ
+	    public let mrzType: ValidatiomMrzType?
+	
+	    /// MRZ validations
+	    public let validations: MRZValidation?
+	
+	    // MARK: - Initialization
+	
+	    public init(
+	        mrzString: String? = nil,
+	        docType: MrzDocTypeEnum? = nil,
+	        surname: String? = nil,
+	        name: String? = nil,
+	        docNumber: String?,
+	        checkDigit: String? = nil,
+	        nationality: String? = nil,
+	        birthDate: String?,
+	        birthDateDigit: String? = nil,
+	        sex: ValidationSex? = nil,
+	        expiryDate: String?,
+	        expiryDateDigit: String? = nil,
+	        optionalData: String? = nil,
+	        optionalDataDigit: String? = nil,
+	        mrzType: ValidatiomMrzType? = .unknown,
+	        validations: MRZValidation? = MRZValidation()
+	    ) {
+	        self.mrzString = mrzString
+	        self.docType = docType
+	        self.surname = surname
+	        self.name = name
+	        self.docNumber = docNumber
+	        self.checkDigit = checkDigit
+	        self.nationality = nationality
+	        self.birthDate = birthDate
+	        self.birthDateDigit = birthDateDigit
+	        self.sex = sex
+	        self.expiryDate = expiryDate
+	        self.expiryDateDigit = expiryDateDigit
+	        self.optionalData = optionalData
+	        self.optionalDataDigit = optionalDataDigit
+	        self.mrzType = mrzType
+	        self.validations = validations
+	    }
+	
+	    public static func == (lhs: MRZSection, rhs: MRZSection) -> Bool {
+	        lhs.mrzString == rhs.mrzString &&
+	            lhs.docType == rhs.docType &&
+	            lhs.surname == rhs.surname &&
+	            lhs.name == rhs.name &&
+	            lhs.docNumber == rhs.docNumber &&
+	            lhs.checkDigit == rhs.checkDigit &&
+	            lhs.nationality == rhs.nationality &&
+	            lhs.birthDate == rhs.birthDate &&
+	            lhs.birthDateDigit == rhs.birthDateDigit &&
+	            lhs.sex == rhs.sex &&
+	            lhs.expiryDate == rhs.expiryDate &&
+	            lhs.expiryDateDigit == rhs.expiryDateDigit &&
+	            lhs.optionalData == rhs.optionalData &&
+	            lhs.optionalDataDigit == rhs.optionalDataDigit &&
+	            lhs.mrzType == rhs.mrzType &&
+	            lhs.validations == rhs.validations
+	    }
+	}
+	
+	// MARK: - MRZValidation
+	
+	public final class MRZValidation: Codable, Sendable, Equatable {
+	    /// Check digit validation status
+	    public let checkDigit: ValidationCheck?
+	
+	    /// Format validation status
+	    public let format: ValidationCheck?
+	
+	    /// Expiry validation status
+	    public let expired: ValidationCheck?
+	
+	    public init(
+	        checkDigit: ValidationCheck? = .unknown,
+	        format: ValidationCheck? = .unknown,
+	        expired: ValidationCheck? = .unknown
+	    ) {
+	        self.checkDigit = checkDigit
+	        self.format = format
+	        self.expired = expired
+	    }
+	
+	    public static func == (lhs: MRZValidation, rhs: MRZValidation) -> Bool {
+	        lhs.checkDigit == rhs.checkDigit &&
+	            lhs.format == rhs.format &&
+	            lhs.expired == rhs.expired
+	    }
+	}
     ```
-    ``` swift
-    public class RFIDSection: Codable {
-        public enum RfidDocTypeEnum: String, Codable {
-            /// Passport
-            case passport = "P"
-            /// ID card
-            case idCard = "I"
-            /// Visa
-            case visa = "V"
-            /// Document C
-            case documentC = "C"
-            /// Other document type
-            case other = "OTHER"
-        }
-        
-        // MARK: - Properties
-        
-        /// Raw MRZ data string from RFID chip
-        public let mrzString: String?
-        
-        /// Document type from RFID chip
-        public let docType: RfidDocTypeEnum?
-        
-        /// Passport/ID card holder's surname from RFID chip
-        public let surname: String?
-        
-        /// Passport/ID card holder's given names from RFID chip
-        public let name: String?
-        
-        /// Passport/ID card document number from RFID chip
-        public let docNumber: String?
-        
-        /// Check digit for the document number from RFID chip
-        public let checkDigit: String?
-        
-        /// Nationality code from RFID chip
-        public let nationality: String?
-        
-        /// Date of birth from RFID chip in YY-MM-DD format
-        public let birthDate: String?
-        
-        /// Check digit for the birth date from RFID chip
-        public let birthDateDigit: String?
-        
-        /// Gender from RFID chip
-        public let sex: ValidationSex?
-        
-        /// Expiry date from RFID chip in YY-MM-DD format
-        public let expiryDate: String?
-        
-        /// Check digit for the expiry date from RFID chip
-        public let expiryDateDigit: String?
-        
-        /// Optional data from RFID chip
-        public let optionalData: String?
-        
-        /// Check digit for the optional data from RFID chip
-        public let optionalDataDigit: String?
-        
-        /// Format of the MRZ from RFID chip
-        public let mrzType: ValidatiomMrzType?
-        
-        /// Base64-encoded string of the passport/ID card holder's photo from RFID chip
-        public var holderImage: Data?
-        
-        /// RFID validations
-        public var validations: RFIDValidation?
-        
-        // MARK: - Computed Properties
-
-        public var holderImageUIImage: UIImage? {
-            holderImage.flatMap { UIImage(data: $0) }
-        }
-        
-        // MARK: - Initialization
-        
-        public init(
-            mrzString: String? = nil,
-            docType: RfidDocTypeEnum? = nil,
-            surname: String? = nil,
-            name: String? = nil,
-            docNumber: String?,
-            checkDigit: String? = nil,
-            nationality: String? = nil,
-            birthDate: String?,
-            birthDateDigit: String? = nil,
-            sex: ValidationSex? = nil,
-            expiryDate: String?,
-            expiryDateDigit: String? = nil,
-            optionalData: String? = nil,
-            optionalDataDigit: String? = nil,
-            mrzType: ValidatiomMrzType? = .unknown,
-            holderImage: UIImage? = nil,
-            validations: RFIDValidation? = RFIDValidation()
-        )
-    }
-
-    // MARK: - RFIDValidation
-
-    public class RFIDValidation: Codable {
-        /// Check digit validation status
-        public let checkDigit: ValidationCheck?
-        
-        /// Expiry validation status
-        public let expired: ValidationCheck?
-        
-        public init(
-            checkDigit: ValidationCheck? = .unknown,
-            expired: ValidationCheck? = .unknown
-        )
-    }
-    ```
-    ``` swift
-    public class Validations: Codable {
-        /// Overall validation/comparison status of the document
-        public let status: ValidationCheck?
-        
-        /// Overall validation of the chip read operation
-        public let chip: ValidationCheck?
-        
-        /// Overall validation/comparison status of document type
-        public let docType: ValidationCheck?
-        
-        /// Overall validation/comparison status of surname
-        public let surname: ValidationCheck?
-        
-        /// Overall validation/comparison status of name
-        public let name: ValidationCheck?
-        
-        /// Overall validation/comparison status of document number
-        public let docNumber: ValidationCheck?
-        
-        /// Overall validation/comparison status of check digit
-        public let checkDigit: ValidationCheck?
-        
-        /// Overall validation/comparison status of nationality
-        public let nationality: ValidationCheck?
-        
-        /// Overall validation/comparison status of birth date
-        public let birthDate: ValidationCheck?
-        
-        /// Overall validation/comparison status of birth date check digit
-        public let birthDateDigit: ValidationCheck?
-        
-        /// Overall validation/comparison status of sex
-        public let sex: ValidationCheck?
-        
-        /// Overall validation/comparison status of expiry date
-        public let expiryDate: ValidationCheck?
-        
-        /// Overall validation/comparison status of expiry date check digit
-        public let expiryDateDigit: ValidationCheck?
-        
-        /// Overall validation/comparison status of optional data
-        public let optionalData: ValidationCheck?
-        
-        /// Overall validation/comparison status of optional data check digit
-        public let optionalDataDigit: ValidationCheck?
-        
-        /// Overall validation/comparison status of MRZ type
-        public let mrzType: ValidationCheck?
-        
-        /// Overall check digit calculation validation/comparison
-        public let checkDigitCalculation: ValidationCheck?
-        
-        /// Overall expiry validation/comparison indicating if the document is expired
-        public let expired: ValidationCheck?
-        
-        /// Active Authentication status
-        public let AA: ValidationCheck?
-        
-        /// Basic Access Control status
-        public let BAC: ValidationCheck?
-        
-        /// Chip Authentication status
-        public let CA: ValidationCheck?
-        
-        /// Passive Authentication status
-        public let PA: ValidationCheck?
-        
-        /// Password Authenticated Connection Establishment status
-        public let PACE: ValidationCheck?
-        
-        /// Terminal Authentication status
-        public let TA: ValidationCheck?
-        
-        public init(
-            status: ValidationCheck? = .unknown,
-            chip: ValidationCheck? = .unknown,
-            docType: ValidationCheck? = .unknown,
-            surname: ValidationCheck? = .unknown,
-            name: ValidationCheck? = .unknown,
-            docNumber: ValidationCheck? = .unknown,
-            checkDigit: ValidationCheck? = .unknown,
-            nationality: ValidationCheck? = .unknown,
-            birthDate: ValidationCheck? = .unknown,
-            birthDateDigit: ValidationCheck? = .unknown,
-            sex: ValidationCheck? = .unknown,
-            expiryDate: ValidationCheck? = .unknown,
-            expiryDateDigit: ValidationCheck? = .unknown,
-            optionalData: ValidationCheck? = .unknown,
-            optionalDataDigit: ValidationCheck? = .unknown,
-            mrzType: ValidationCheck? = .unknown,
-            checkDigitCalculation: ValidationCheck? = .unknown,
-            expired: ValidationCheck? = .unknown,
-            AA: ValidationCheck? = .unknown,
-            BAC: ValidationCheck? = .unknown,
-            CA: ValidationCheck? = .unknown,
-            PA: ValidationCheck? = .unknown,
-            PACE: ValidationCheck? = .unknown,
-            TA: ValidationCheck? = .unknown
-        )
-    }
-    ```   
-    The ValidationCheck, ValidationSex and ValidatiomMrzType are enums that have the following possibilities:
-
-    ``` swift
-    public enum ValidationCheck: Int, Codable {
-        case failed = 0
-        case success = 1
-        case unknown = 2
-    }
-
-    public enum ValidationSex: String, Codable {
-        case male = "M"
-        case female = "F"
-        case other = "X"
-    }
-
-    public enum ValidatiomMrzType: String, Codable {
-        case id1 = "ID-1"
-        case id2 = "ID-2"
-        case id3 = "ID-3"
-        case unknown = "Unknown"
-    }
+    
+    ## RRIDSection
+    
+    ```swift
+	public final class RFIDSection: Codable, Sendable, Equatable {
+	    // MARK: - Nested Types
+	
+	    public enum RfidDocTypeEnum: String, Codable, Sendable {
+	        /// Passport
+	        case passport = "P"
+	        /// ID card
+	        case idCard = "I"
+	        /// Visa
+	        case visa = "V"
+	        /// Document C
+	        case documentC = "C"
+	        /// Other document type
+	        case other = "OTHER"
+	    }
+	
+	    // MARK: - Properties
+	
+	    /// Raw MRZ data string from RFID chip
+	    public let mrzString: String?
+	
+	    /// Document type from RFID chip
+	    public let docType: RfidDocTypeEnum?
+	
+	    /// Passport/ID card holder's surname from RFID chip
+	    public let surname: String?
+	
+	    /// Passport/ID card holder's given names from RFID chip
+	    public let name: String?
+	
+	    /// Passport/ID card document number from RFID chip
+	    public let docNumber: String?
+	
+	    /// Check digit for the document number from RFID chip
+	    public let checkDigit: String?
+	
+	    /// Nationality code from RFID chip
+	    public let nationality: String?
+	
+	    /// Date of birth from RFID chip in YY-MM-DD format
+	    public let birthDate: String?
+	
+	    /// Check digit for the birth date from RFID chip
+	    public let birthDateDigit: String?
+	
+	    /// Gender from RFID chip
+	    public let sex: ValidationSex?
+	    
+	    /// Combined validFrom or issuedDate date in YY-MM-DD format. Data priority: chip > VIZ. Nullable: true
+	    public let validFrom: String?
+	
+	    /// Expiry date from RFID chip in YY-MM-DD format
+	    public let expiryDate: String?
+	
+	    /// Check digit for the expiry date from RFID chip
+	    public let expiryDateDigit: String?
+	
+	    /// Optional data from RFID chip
+	    public let optionalData: String?
+	
+	    /// Check digit for the optional data from RFID chip
+	    public let optionalDataDigit: String?
+	
+	    /// Format of the MRZ from RFID chip
+	    public let mrzType: ValidatiomMrzType?
+	
+	    /// Base64-encoded string of the passport/ID card holder's photo from RFID chip
+	    public let holderImage: Data?
+	
+	    /// RFID validations
+	    public let validations: RFIDValidation?
+	
+	    // MARK: - Computed Properties
+	
+	    public var holderImageUIImage: UIImage? {
+	        holderImage.flatMap { UIImage(data: $0) }
+	    }
+	
+	    // MARK: - Initialization
+	
+	    public init(
+	        mrzString: String? = nil,
+	        docType: RfidDocTypeEnum? = nil,
+	        surname: String? = nil,
+	        name: String? = nil,
+	        docNumber: String?,
+	        checkDigit: String? = nil,
+	        nationality: String? = nil,
+	        birthDate: String?,
+	        birthDateDigit: String? = nil,
+	        sex: ValidationSex? = nil,
+	        validFrom: String? = nil,
+	        expiryDate: String? = nil,
+	        expiryDateDigit: String? = nil,
+	        optionalData: String? = nil,
+	        optionalDataDigit: String? = nil,
+	        mrzType: ValidatiomMrzType? = .unknown,
+	        holderImage: UIImage? = nil,
+	        holderImageData: Data? = nil,
+	        validations: RFIDValidation? = RFIDValidation()
+	    ) {
+	        self.mrzString = mrzString
+	        self.docType = docType
+	        self.surname = surname
+	        self.name = name
+	        self.docNumber = docNumber
+	        self.checkDigit = checkDigit
+	        self.nationality = nationality
+	        self.birthDate = birthDate
+	        self.birthDateDigit = birthDateDigit
+	        self.sex = sex
+	        self.validFrom = validFrom
+	        self.expiryDate = expiryDate
+	        self.expiryDateDigit = expiryDateDigit
+	        self.optionalData = optionalData
+	        self.optionalDataDigit = optionalDataDigit
+	        self.mrzType = mrzType
+	        self.validations = validations
+	        self.holderImage = holderImageData ?? holderImage?.pngData()
+	    }
+	
+	    public static func == (lhs: RFIDSection, rhs: RFIDSection) -> Bool {
+	        lhs.mrzString == rhs.mrzString &&
+	            lhs.docType == rhs.docType &&
+	            lhs.surname == rhs.surname &&
+	            lhs.name == rhs.name &&
+	            lhs.docNumber == rhs.docNumber &&
+	            lhs.checkDigit == rhs.checkDigit &&
+	            lhs.nationality == rhs.nationality &&
+	            lhs.birthDate == rhs.birthDate &&
+	            lhs.birthDateDigit == rhs.birthDateDigit &&
+	            lhs.sex == rhs.sex &&
+	            lhs.validFrom == rhs.validFrom &&
+	            lhs.expiryDate == rhs.expiryDate &&
+	            lhs.expiryDateDigit == rhs.expiryDateDigit &&
+	            lhs.optionalData == rhs.optionalData &&
+	            lhs.optionalDataDigit == rhs.optionalDataDigit &&
+	            lhs.mrzType == rhs.mrzType &&
+	            lhs.validations == rhs.validations &&
+	            lhs.holderImage == rhs.holderImage
+	    }
+	}
+	
+	// MARK: - RFIDValidation
+	
+	public final class RFIDValidation: Codable, Sendable, Equatable {
+	    /// Check digit validation status
+	    public let checkDigit: ValidationCheck?
+	
+	    /// Expiry validation status
+	    public let expired: ValidationCheck?
+	
+	    public init(
+	        checkDigit: ValidationCheck? = .unknown,
+	        expired: ValidationCheck? = .unknown
+	    ) {
+	        self.checkDigit = checkDigit
+	        self.expired = expired
+	    }
+	
+	    public static func == (lhs: RFIDValidation, rhs: RFIDValidation) -> Bool {
+	        lhs.checkDigit == rhs.checkDigit &&
+	            lhs.expired == rhs.expired
+	    }
+	}
+	
+	// MARK: - Validations
+	
+	public final class Validations: Codable, Sendable, Equatable {
+	    /// Overall validation/comparison status of the document
+	    public let status: ValidationCheck?
+	
+	    /// Overall validation of the chip read operation
+	    public let chip: ValidationCheck?
+	
+	    /// Overall validation/comparison status of document type
+	    public let docType: ValidationCheck?
+	
+	    /// Overall validation/comparison status of surname
+	    public let surname: ValidationCheck?
+	
+	    /// Overall validation/comparison status of name
+	    public let name: ValidationCheck?
+	
+	    /// Overall validation/comparison status of document number
+	    public let docNumber: ValidationCheck?
+	
+	    /// Overall validation/comparison status of check digit
+	    public let checkDigit: ValidationCheck?
+	
+	    /// Overall validation/comparison status of nationality
+	    public let nationality: ValidationCheck?
+	
+	    /// Overall validation/comparison status of birth date
+	    public let birthDate: ValidationCheck?
+	
+	    /// Overall validation/comparison status of birth date check digit
+	    public let birthDateDigit: ValidationCheck?
+	
+	    /// Overall validation/comparison status of sex
+	    public let sex: ValidationCheck?
+	
+	    /// Overall validation/comparison status of expiry date
+	    public let expiryDate: ValidationCheck?
+	
+	    /// Overall validation/comparison status of expiry date check digit
+	    public let expiryDateDigit: ValidationCheck?
+	
+	    /// Overall validation/comparison status of optional data
+	    public let optionalData: ValidationCheck?
+	
+	    /// Overall validation/comparison status of optional data check digit
+	    public let optionalDataDigit: ValidationCheck?
+	
+	    /// Overall validation/comparison status of MRZ type
+	    public let mrzType: ValidationCheck?
+	
+	    /// Overall check digit calculation validation/comparison
+	    public let checkDigitCalculation: ValidationCheck?
+	
+	    /// Overall expiry validation/comparison indicating if the document is expired
+	    public let expired: ValidationCheck?
+	
+	    /// Active Authentication status
+	    public let AA: ValidationCheck?
+	
+	    /// Basic Access Control status
+	    public let BAC: ValidationCheck?
+	
+	    /// Chip Authentication status
+	    public let CA: ValidationCheck?
+	
+	    /// Passive Authentication status
+	    public let PA: ValidationCheck?
+	
+	    /// Password Authenticated Connection Establishment status
+	    public let PACE: ValidationCheck?
+	
+	    /// Terminal Authentication status
+	    public let TA: ValidationCheck?
+	
+	    public init(
+	        status: ValidationCheck? = .unknown,
+	        chip: ValidationCheck? = .unknown,
+	        docType: ValidationCheck? = .unknown,
+	        surname: ValidationCheck? = .unknown,
+	        name: ValidationCheck? = .unknown,
+	        docNumber: ValidationCheck? = .unknown,
+	        checkDigit: ValidationCheck? = .unknown,
+	        nationality: ValidationCheck? = .unknown,
+	        birthDate: ValidationCheck? = .unknown,
+	        birthDateDigit: ValidationCheck? = .unknown,
+	        sex: ValidationCheck? = .unknown,
+	        expiryDate: ValidationCheck? = .unknown,
+	        expiryDateDigit: ValidationCheck? = .unknown,
+	        optionalData: ValidationCheck? = .unknown,
+	        optionalDataDigit: ValidationCheck? = .unknown,
+	        mrzType: ValidationCheck? = .unknown,
+	        checkDigitCalculation: ValidationCheck? = .unknown,
+	        expired: ValidationCheck? = .unknown,
+	        AA: ValidationCheck? = .unknown,
+	        BAC: ValidationCheck? = .unknown,
+	        CA: ValidationCheck? = .unknown,
+	        PA: ValidationCheck? = .unknown,
+	        PACE: ValidationCheck? = .unknown,
+	        TA: ValidationCheck? = .unknown
+	    ) {
+	        self.status = status
+	        self.chip = chip
+	        self.docType = docType
+	        self.surname = surname
+	        self.name = name
+	        self.docNumber = docNumber
+	        self.checkDigit = checkDigit
+	        self.nationality = nationality
+	        self.birthDate = birthDate
+	        self.birthDateDigit = birthDateDigit
+	        self.sex = sex
+	        self.expiryDate = expiryDate
+	        self.expiryDateDigit = expiryDateDigit
+	        self.optionalData = optionalData
+	        self.optionalDataDigit = optionalDataDigit
+	        self.mrzType = mrzType
+	        self.checkDigitCalculation = checkDigitCalculation
+	        self.expired = expired
+	        self.AA = AA
+	        self.BAC = BAC
+	        self.CA = CA
+	        self.PA = PA
+	        self.PACE = PACE
+	        self.TA = TA
+	    }
+	
+	    public static func == (lhs: Validations, rhs: Validations) -> Bool {
+	        lhs.status == rhs.status &&
+	            lhs.chip == rhs.chip &&
+	            lhs.docType == rhs.docType &&
+	            lhs.surname == rhs.surname &&
+	            lhs.name == rhs.name &&
+	            lhs.docNumber == rhs.docNumber &&
+	            lhs.checkDigit == rhs.checkDigit &&
+	            lhs.nationality == rhs.nationality &&
+	            lhs.birthDate == rhs.birthDate &&
+	            lhs.birthDateDigit == rhs.birthDateDigit &&
+	            lhs.sex == rhs.sex &&
+	            lhs.expiryDate == rhs.expiryDate &&
+	            lhs.expiryDateDigit == rhs.expiryDateDigit &&
+	            lhs.optionalData == rhs.optionalData &&
+	            lhs.optionalDataDigit == rhs.optionalDataDigit &&
+	            lhs.mrzType == rhs.mrzType &&
+	            lhs.checkDigitCalculation == rhs.checkDigitCalculation &&
+	            lhs.expired == rhs.expired &&
+	            lhs.AA == rhs.AA &&
+	            lhs.BAC == rhs.BAC &&
+	            lhs.CA == rhs.CA &&
+	            lhs.PA == rhs.PA &&
+	            lhs.PACE == rhs.PACE &&
+	            lhs.TA == rhs.TA
+	    }
+	}
     ```
     
 ## DocumentReaderCustomViews

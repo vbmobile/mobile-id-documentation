@@ -72,15 +72,15 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	
 	        https://github.com/vbmobile/MobileIdSDKiOS
 	
-	    **AmaShareUltralight**
+	    **AmaShareUltralight** (Optional Provider)
 	
 	        https://github.com/vbmobile/AmaShareUltralight
 	
-	    **AMADocScanMrziOS**
+	    **AMADocScanMrziOS** (Optional Provider)
 	
 	        https://github.com/vbmobile/AMADocScanMrziOS
 	
-	    **AMADocScanRegulaiOS**
+	    **AMADocScanRegulaiOS** (Optional Provider)
 	
 	        https://github.com/vbmobile/AMADocScanRegulaiOS
 	

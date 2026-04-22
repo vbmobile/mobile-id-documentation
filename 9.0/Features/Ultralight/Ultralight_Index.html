@@ -2727,12 +2727,12 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 <li><strong>Minimum iOS Version: 15</strong> (same as Enrolment SDK)</li>
 <li><strong>Required permissions on Info.plist</strong> (brought transitively by the Ultralight provider dependency):</li>
 </ul>
-</div>
-</div>
-</div>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;key&gt;</span>NSBluetoothAlwaysUsageDescription<span class="nt">&lt;/key&gt;</span>
 <span class="nt">&lt;string&gt;</span>We<span class="w"> </span>need<span class="w"> </span>access<span class="w"> </span>BT<span class="w"> </span>(UltraLight)<span class="nt">&lt;/string&gt;</span>
 </code></pre></div>
+</div>
+</div>
+</div>
 <h2 id="how-to-import">How to Import<a class="headerlink" href="#how-to-import" title="Permanent link">&para;</a></h2>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Android</label><label for="__tabbed_2_2">iOS</label></div>
 <div class="tabbed-content">
@@ -2745,9 +2745,7 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 }
 </code></pre></div>
 </div>
-<div class="tabbed-block"></div>
-</div>
-</div>
+<div class="tabbed-block">
 <p>Ultralight is distributed for iOS via <strong>Swift Package Manager (SPM)</strong>.</p>
 <p><strong>Install using Xcode</strong></p>
 <ol>
@@ -2764,10 +2762,10 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 <p><strong>Install using <code>Package.swift</code></strong></p>
 <p>If you are managing dependencies manually, add Ultralight to your <code>Package.swift</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">.</span><span class="n">package</span><span class="p">(</span>
-<span class="w">        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/vbmobile/AmaShareUltralight&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0.0-rc24&quot;</span>
-<span class="w">    </span><span class="p">)</span>
+<span class="w">   </span><span class="p">.</span><span class="n">package</span><span class="p">(</span>
+<span class="w">       </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/vbmobile/AmaShareUltralight&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0.0-rc24&quot;</span>
+<span class="w">   </span><span class="p">)</span>
 <span class="p">],</span>
 </code></pre></div>
 <p>where <code>1.0.0-rc23</code> is the pretended version. </p>
@@ -2780,6 +2778,9 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 <span class="p">)</span>
 </code></pre></div>
 <p>Once added, Ultralight APIs are available to your application through the Enrolment SDK integration flow.</p>
+</div>
+</div>
+</div>
 <h2 id="configure-ultralight-in-enrolment-initialization">Configure Ultralight in Enrolment Initialization<a class="headerlink" href="#configure-ultralight-in-enrolment-initialization" title="Permanent link">&para;</a></h2>
 <h3 id="step-1-create-and-initialize-ultralightprovider">Step 1: Create and Initialize UltralightProvider<a class="headerlink" href="#step-1-create-and-initialize-ultralightprovider" title="Permanent link">&para;</a></h3>
 <p>Before initializing Enrolment, create and configure your <code>UltralightProvider</code> instance:</p>

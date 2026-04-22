@@ -8,49 +8,35 @@ mobile device over the travel e-Document in order to perform a RFID scan to extr
 
 ## Configure
 
-To use this feature, you must provide the DocumentReaderConfig to your preferred Provider like the
-following example:
-
 === "Android"
 
+    To use this feature, you must instantiate the provider that you desire to use and pass it to the Enrolment initialization. Below is an example of how to initialize the Enrolment with the Amadeus DocScanMrz provider.
+
     ```kotlin
-    val provider: RegulaProvider = RegulaProvider.getInstance(documentReaderConfig)
+    DocScanMrz.initialize(
+        context = <Context>,
+        docScanMrzConfig = <DocScanMrzConfig>
+    )
+
+    val documentReaderProvider = DocScanMrz.getInstance()
+
+    Enrolment.initialize(
+        ...
+        documentReaderProvider = documentReaderProvider,
+        ...
+    )
     ```
 
 === "iOS"
+
+    To use this feature, you must provide the DocumentReaderConfig to your preferred Provider like the
+    following example:
 
     ``` swift
     var provider = RegulaDocumentReaderScan(config: documentReaderConfig)
     ```
 
-The DocumentReaderConfig has the following structure:
-
-=== "Android"
-
-    ```kotlin
-    data class DocumentReaderConfig(
-      val multipageProcessing: Boolean,
-      val databaseId: String,
-      val checkHologram: Boolean = false,
-      val scenario: DocumentReaderScenario = DocumentReaderScenario.OCR
-    ) : Parcelable
-    ```
-    
-    - multipageProcessing: controls the workflow for documents that might need to have different pages
-    scanned;
-    - databaseId: specify database Id to be used with the document reader functionality (provided by
-    Regula);
-    - checkHologram: checks the presence of holographic effect on the document
-    - scenario: the process in which the document is captured
-
-    ```kotlin
-    enum class DocumentReaderScenario(val scenario: String) {
-        OCR(Scenario.SCENARIO_OCR),
-        MRZ(Scenario.SCENARIO_MRZ),
-    }
-    ```
-    
-=== "iOS"
+    The DocumentReaderConfig has the following structure:
 
     ``` swift
     public struct DocumentReaderConfig {
@@ -303,22 +289,22 @@ You can check the structure here:
 
     ```kotlin
     data class IdDocument(
-      val info: InfoSection? = null,
-      val data: DataSection? = null,
-      val viz: VIZSection? = null,
-      val mrz: MRZSection? = null,
-      val rfid: RFIDSection? = null,
-      val validations: Validations? = null
+        val info: InfoSection? = null,
+        val data: DataSection? = null,
+        val viz: VIZSection? = null,
+        val mrz: MRZSection? = null,
+        val rfid: RFIDSection? = null,
+        val validations: Validations? = null
     ): Parcelable
     ```
     ```kotlin
     data class InfoSection(
-      val id: Int? = null, // A unique identifier for the document.
-      val documentName: String? = null, // Indicates the type and issuing country of the document
-      val icaoCode: String? = null, // The International Civil Aviation Organization code for the issuing country.
-      val type: String? = null, // Enum: ['P', 'I', 'D', 'C'], Passport, ID card, Drivers license, C?
-      val isElectronic: Int? = null, // Based on the chip page, will indicate if the document is electronic. Enum: [0, 1, 2] Description:  • 0: not electronic  • 1: Electronic  • 2: Unknown
-      val chipPage: Int? = null, // Determines the presence and location of an RFID chip in a document. Enum: [0, 1, 2, 3] Description:  0: no chip; 1: chip is located in the document data page; 2: chip is located in the back page or inlay of the document; 3: Unknown
+        val id: Int? = null, // A unique identifier for the document.
+        val documentName: String? = null, // Indicates the type and issuing country of the document
+        val icaoCode: String? = null, // The International Civil Aviation Organization code for the issuing country.
+        val type: InfoTypeEnum? = null, // Document type (e.g., "P" for passport)
+        val isElectronic: ValidationElectronicChip? = null, // Specifies if the document is electronic
+        val chipPage: ValidationChipPage? = ValidationChipPage.UNKNOWN, // Status of the chip read operation
     ): Parcelable
     ```
     ```kotlin
@@ -326,101 +312,112 @@ You can check the structure here:
       * Data priority: chip > MRZ > VIZ
     */
     data class DataSection(
-      val mrzString: String? = null, // Combined raw MRZ data string.
-      val docType: String? = null, // Combined document type (e.g., “P” for passport). Data priority: chip > MRZ > VIZ Enum: ['P', 'PC', 'I', 'D', 'C', 'OTHER']
-      val surname: String? = null, // Combined passport holder’s surname.
-      val name: String? = null, // Combined passport holder’s given names.
-      val docNumber: String? = null, // Combined passport document number.
-      val checkDigit: String? = null, // Combined check digit for the document number.
-      val nationality: String? = null, // Combined nationality ISO code.
-      val birthDate: String? = null, // Combined date of birth in YY-MM-DD format.
-      val birthDateDigit: String? = null, // Combined check digit for the birth date.
-      val sex: String? = null, // Combined gender of the passport holder. Enum: ['M', 'F', 'X']
-      val expiryDate: String? = null, // Combined passport expiry date in YY-MM-DD format.
-      val expiryDateDigit: String? = null, // Combined check digit for the expiry date.
-      val optionalData: String? = null, // Combined additional optional data (e.g., personal identification number).
-      val optionalDataDigit: String? = null, // Combined check digit for the optional data.
-      val mrzType: String? = "unknown", // Combined format of the MRZ (e.g., “ID-3”). Enum: ['ID-1', 'ID-2', 'ID-3']
-      val docImagePath: String = PhotoPath.DOCUMENT_IMAGE_PATH,
-      val holderImagePath: String = PhotoPath.PORTRAIT_PHOTO_PATH,
-    ): Parcelable
+        val mrzString: String? = null, // Combined raw MRZ data string.
+        val docType: DocTypeEnum? = null, // Combined document type (e.g., “P” for passport). Data priority: chip > MRZ > VIZ
+        val surname: String? = null, // Combined passport holder’s surname.
+        val name: String? = null, // Combined passport holder’s given names.
+        val docNumber: String? = null, // Combined passport document number.
+        val checkDigit: String? = null, // Combined check digit for the document number.
+        val nationality: String? = null, // Combined nationality ISO code.
+        val birthDate: String? = null, // Combined date of birth in YY-MM-DD format.
+        val birthDateDigit: String? = null, // Combined check digit for the birthdate.
+        val sex: ValidationSex? = null, // Combined gender of the passport holder.
+        val validFrom: String? = null, // Combined validFrom or issuedDate date in YY-MM-DD format. Data priority: chip > VIZ. Nullable: true
+        val expiryDate: String? = null, // Combined passport expiry date in YY-MM-DD format.
+        val expiryDateDigit: String? = null, // Combined check digit for the expiry date.
+        val optionalData: String? = null, // Combined additional optional data (e.g., personal identification number).
+        val optionalDataDigit: String? = null, // Combined check digit for the optional data.
+        val mrzType: ValidationMrzType? = ValidationMrzType.UNKNOWN, // Combined format of the MRZ (e.g., “ID-3”).
+        private val docImageByteArray: ByteArray? = null,
+        private val holderImageByteArray: ByteArray? = null,
+    ): Parcelable {
+        val docImage get() = docImageByteArray?.toBitmap()
+        val holderImage get() = holderImageByteArray?.toBitmap()
+    } 
     ```
     ```kotlin
     data class VIZSection(
-      val docType: String? = null, // Document type in the VIZ. Enum: ['PC', 'ID', 'C', 'OTHER']
-      val issueState: String? = null, // Issuing country code.
-      val surname: String? = null, // Passport/ID card holder’s surname as shown in the VIZ.
-      val name: String? = null, // Passport/ID card holder’s given names as shown in the VIZ.
-      val sex: String? = null, // Gender of the passport holder. Enum: ['M', 'F', 'X'] Nullable: true
-      val docNumber: String? = null, // Passport/ID card document number.
-      val nationality: String? = null, // Nationality in native language.
-      val issueDate: String? = null, //Date when the passport/ID card was issued.
-      val personalNumber: String? = null, // Personal identification number.
-      val height: String? = null, // Height of the passport/ID card holder.
-      val expiryDate: String? = null, // Expiry date of the passport/ID card.
-      val docImagePath: String = PhotoPath.DOCUMENT_IMAGE_PATH,
-      val holderImagePath: String = PhotoPath.PORTRAIT_PHOTO_PATH,
-      val validations: VIZValidation = VIZValidation(), // Validation status indicating if the document is expired
-    ): Parcelable
+        val docType: VizDocTypeEnum? = null, // Document type in the VIZ.
+        val issueState: String? = null, // Issuing country code.
+        val surname: String? = null, // Passport/ID cardholder’s surname as shown in the VIZ.
+        val name: String? = null, // Passport/ID cardholder’s given names as shown in the VIZ.
+        val sex: ValidationSex? = null, // Gender of the passport holder.
+        val docNumber: String? = null, // Passport/ID card document number.
+        val nationality: String? = null, // Nationality in native language.
+        val validFrom: String? = null, // Combined validFrom or issuedDate date in YY-MM-DD format. Data priority: chip > VIZ. Nullable: true
+        val issueDate: String? = null, //Date when the passport/ID card was issued.
+        val personalNumber: String? = null, // Personal identification number.
+        val height: String? = null, // Height of the passport/ID cardholder.
+        val expiryDate: String? = null, // Expiry date of the passport/ID card.
+        private val docImageByteArray: ByteArray? = null,
+        private val holderImageByteArray: ByteArray? = null,
+        val validations: VIZValidation = VIZValidation(), // Validation status indicating if the document is expired
+    ): Parcelable {
+        val docImage get() = docImageByteArray?.toBitmap()
+        val holderImage get() = holderImageByteArray?.toBitmap()
+    }
     ```
     ```kotlin
     data class MRZSection(
-      val mrzString: String? = null, // Raw MRZ data string.
-      val docType: String? = null, // Document type from MRZ. Enum: ['P', 'I', 'A', 'V', 'C', 'OTHER']
-      val surname: String? = null, // Passport/ID card holder’s surname from MRZ.
-      val name: String? = null, // Passport/ID card holder’s given names from MRZ.
-      val docNumber: String? = null, // Passport/ID card document number from MRZ.
-      val checkDigit: String? = null, // Check digit for the document number from MRZ.
-      val nationality: String? = null, // Nationality code from MRZ.
-      val birthDate: String? = null, // Date of birth from MRZ in YY-MM-DD format.
-      val birthDateDigit: String? = null, // Check digit for the birth date from MRZ.
-      val sex: String? = null, // Gender from MRZ. Enum: ['M', 'F', 'X']
-      val expiryDate: String? = null, // Expiry date from MRZ in YY-MM-DD format.
-      val expiryDateDigit: String? = null, // Check digit for the expiry date from MRZ.
-      val optionalData: String? = null, // Optional data from MRZ.
-      val optionalDataDigit: String? = null, // Check digit for the optional data from MRZ.
-      val mrzType: String? = null, // Format of the MRZ. Enum: ['ID-1', 'ID-2', 'ID-3']
-      val validations: MRZValidation = MRZValidation(),
+        val mrzString: String? = null, // Raw MRZ data string.
+        val docType: MrzDocTypeEnum? = null, // Document type from MRZ.
+        val surname: String? = null, // Passport/ID cardholder’s surname from MRZ.
+        val name: String? = null, // Passport/ID cardholder’s given names from MRZ.
+        val docNumber: String? = null, // Passport/ID card document number from MRZ.
+        val checkDigit: String? = null, // Check digit for the document number from MRZ.
+        val nationality: String? = null, // Nationality code from MRZ.
+        val birthDate: String? = null, // Date of birth from MRZ in YY-MM-DD format.
+        val birthDateDigit: String? = null, // Check digit for the birthdate from MRZ.
+        val sex: ValidationSex? = null, // Gender from MRZ.
+        val expiryDate: String? = null, // Expiry date from MRZ in YY-MM-DD format.
+        val expiryDateDigit: String? = null, // Check digit for the expiry date from MRZ.
+        val optionalData: String? = null, // Optional data from MRZ.
+        val optionalDataDigit: String? = null, // Check digit for the optional data from MRZ.
+        val mrzType: ValidationMrzType? = ValidationMrzType.UNKNOWN, // Format of the MRZ.
+        val validations: MRZValidation = MRZValidation(),
     ): Parcelable
     ```
     ```kotlin
     data class RFIDSection(
-      val mrzString: String? = null, // Raw MRZ data string from RFID chip.
-      val docType: String? = null, // Document type from RFID chip. Enum: ['P', 'I', 'V', 'C']
-      val surname: String? = null, // Passport/ID card holder’s surname from RFID chip.
-      val name: String? = null, // Passport/ID card holder’s given names from RFID chip.
-      val docNumber: String? = null, // Passport/ID card document number from RFID chip.
-      val checkDigit: String? = null, // Check digit for the document number from RFID chip.
-      val nationality: String? = null, // Nationality code from RFID chip.
-      val birthDate: String? = null, // Date of birth from RFID chip in YY-MM-DD format.
-      val birthDateDigit: String? = null, // Check digit for the birth date from RFID chip.
-      val sex: String? = null, // Gender from RFID chip. Enum: ['M', 'F', 'X']
-      val expiryDate: String? = null, // Expiry date from RFID chip in YY-MM-DD format.
-      val expiryDateDigit: String? = null, // Check digit for the expiry date from RFID chip.
-      val optionalData: String? = null, // Optional data from RFID chip.
-      val optionalDataDigit: String? = null, // Check digit for the optional data from RFID chip.
-      val mrzType: String? = null, // Format of the MRZ from RFID chip. Enum: ['ID-1', 'ID-2', 'ID-3']
-      val holderImagePath: String = PhotoPath.PORTRAIT_PHOTO_PATH,
-      val validations: RFIDValidation = RFIDValidation(),
-    ): Parcelable
+        val mrzString: String? = null, // Raw MRZ data string from RFID chip.
+        val docType: DocTypeEnum? = null, // Document type from RFID chip.
+        val surname: String? = null, // Passport/ID cardholder’s surname from RFID chip.
+        val name: String? = null, // Passport/ID cardholder’s given names from RFID chip.
+        val docNumber: String? = null, // Passport/ID card document number from RFID chip.
+        val checkDigit: String? = null, // Check digit for the document number from RFID chip.
+        val nationality: String? = null, // Nationality code from RFID chip.
+        val birthDate: String? = null, // Date of birth from RFID chip in YY-MM-DD format.
+        val birthDateDigit: String? = null, // Check digit for the birthdate from RFID chip.
+        val validFrom: String? = null, // Combined validFrom or issuedDate date in YY-MM-DD format. Data priority: chip > VIZ. Nullable: true
+        val sex: ValidationSex? = null, // Gender from RFID chip.
+        val expiryDate: String? = null, // Expiry date from RFID chip in YY-MM-DD format.
+        val expiryDateDigit: String? = null, // Check digit for the expiry date from RFID chip.
+        val optionalData: String? = null, // Optional data from RFID chip.
+        val optionalDataDigit: String? = null, // Check digit for the optional data from RFID chip.
+        val mrzType: ValidationMrzType? = ValidationMrzType.UNKNOWN, // Format of the MRZ from RFID chip.
+        private val holderImageByteArray: ByteArray? = null,
+        val validations: RFIDValidation = RFIDValidation(),
+    ): Parcelable {
+        val holderImage get() = holderImageByteArray?.toBitmap()
+    }
     ```
 
     The validations on each class contains information about the field status:
 
     ```kotlin
     data class VIZValidation(
-      val expired: Int = 2, // Enum: [0, 1, 2] Description: • 0: Failed • 1: Success • 2: Unknown
+        val expired: ValidationCheck? = ValidationCheck.UNKNOWN, // Validation check for expiration
     ): Parcelable
     
     data class MRZValidation(
-      val checkDigit: Int = 2, // Enum: [0, 1, 2] Description: • 0: Failed • 1: Success • 2: Unknown
-      val format: Int = 2, // Enum: [0, 1, 2] Description: • 0: Failed • 1: Success • 2: Unknown
-      val expired: Int = 2, // Enum: [0, 1, 2] Description: • 0: Failed • 1: Success • 2: Unknown
+        val checkDigit: ValidationCheck? = ValidationCheck.UNKNOWN, // Check digit validation status
+        val format: ValidationCheck? = ValidationCheck.UNKNOWN, // Format validation status
+        val expired: ValidationCheck? = ValidationCheck.UNKNOWN, // Expiry validation status
     ): Parcelable
     
     data class RFIDValidation(
-      val checkDigit: Int = 2, // Enum: [0, 1, 2] Description: • 0: Failed • 1: Success • 2: Unknown
-      val expired: Int = 2, // Enum: [0, 1, 2] Description: • 0: Failed • 1: Success • 2: Unknown
+        val checkDigit: ValidationCheck? = ValidationCheck.UNKNOWN, // Check digit validation status
+        val expired: ValidationCheck? = ValidationCheck.UNKNOWN, // Expiry validation status
     ): Parcelable
     
     /**
@@ -431,30 +428,30 @@ You can check the structure here:
       * - When only MRZ: MRZ
     */
     data class Validations(
-      val status: Int = 2, // Overall validation/comparison status of the document.
-      val chip: Int = 2, // Overall validation of the chip read operation.
-      val docType: Int = 2, // Overall validation/comparison status of document type.
-      val surname: Int = 2, // Overall validation/comparison status of surname.
-      val name: Int = 2, // Overall validation/comparison status of name.
-      val docNumber: Int = 2, // Overall validation/comparison status of document number.
-      val checkDigit: Int = 2, // Overall validation/comparison status of check digit.
-      val nationality: Int = 2, // Overall validation/comparison status of nationality.
-      val birthDate: Int = 2, // Overall validation/comparison status of birth date.
-      val birthDateDigit: Int = 2, // Overall validation/comparison status of birth date check digit.
-      val sex: Int = 2, // Overall validation/comparison status of sex.
-      val expiryDate: Int = 2, // Overall validation/comparison status of expiry date.
-      val expiryDateDigit: Int = 2, // Overall validation/comparison status of expiry date check digit.
-      val optionalData: Int = 2, // Overall validation/comparison status of optional data.
-      val optionalDataDigit: Int = 2, // Overall validation/comparison status of optional data check digit.
-      val mrzType: Int = 2, // Overall validation/comparison status of MRZ type. When chip read: chip + MRZ  • When only MRZ: MRZ
-      val checkDigitCalculation: Int = 2, // Overall check digit calculation validation/comparison.
-      val expired: Int = 2, // Overall expiry validation/comparison indicating if the document is expired.
-      val aa: Int = 2, // Active Authentication status.
-      val bac: Int = 2, // Basic Access Control status.
-      val ca: Int = 2, // Chip Authentication status.
-      val pa: Int = 2, // Passive Authentication status.
-      val pace: Int = 2, // Password Authenticated Connection Establishment status.
-      val ta: Int = 2, // Terminal Authentication status.
+        val status: ValidationCheck = ValidationCheck.UNKNOWN, // Overall validation/comparison status of the document.
+        val chip: ValidationCheck = ValidationCheck.UNKNOWN, // Overall validation of the chip read operation.
+        val docType: ValidationCheck = ValidationCheck.UNKNOWN, // Overall validation/comparison status of document type.
+        val surname: ValidationCheck = ValidationCheck.UNKNOWN, // Overall validation/comparison status of surname.
+        val name: ValidationCheck = ValidationCheck.UNKNOWN, // Overall validation/comparison status of name.
+        val docNumber: ValidationCheck = ValidationCheck.UNKNOWN, // Overall validation/comparison status of document number.
+        val checkDigit: ValidationCheck = ValidationCheck.UNKNOWN, // Overall validation/comparison status of check digit.
+        val nationality: ValidationCheck = ValidationCheck.UNKNOWN, // Overall validation/comparison status of nationality.
+        val birthDate: ValidationCheck = ValidationCheck.UNKNOWN, // Overall validation/comparison status of birth date.
+        val birthDateDigit: ValidationCheck = ValidationCheck.UNKNOWN, // Overall validation/comparison status of birth date check digit.
+        val sex: ValidationCheck = ValidationCheck.UNKNOWN, // Overall validation/comparison status of sex.
+        val expiryDate: ValidationCheck = ValidationCheck.UNKNOWN, // Overall validation/comparison status of expiry date.
+        val expiryDateDigit: ValidationCheck = ValidationCheck.UNKNOWN, // Overall validation/comparison status of expiry date check digit.
+        val optionalData: ValidationCheck = ValidationCheck.UNKNOWN, // Overall validation/comparison status of optional data.
+        val optionalDataDigit: ValidationCheck = ValidationCheck.UNKNOWN, // Overall validation/comparison status of optional data check digit.
+        val mrzType: ValidationCheck = ValidationCheck.UNKNOWN, // Overall validation/comparison status of MRZ type.
+        val checkDigitCalculation: ValidationCheck = ValidationCheck.UNKNOWN, // Overall check digit calculation validation/comparison.
+        val expired: ValidationCheck = ValidationCheck.UNKNOWN, // Overall expiry validation/comparison indicating if the document is expired.
+        val AA: ValidationCheck = ValidationCheck.UNKNOWN, // Active Authentication status.
+        val BAC: ValidationCheck = ValidationCheck.UNKNOWN, // Basic Access Control status.
+        val CA: ValidationCheck = ValidationCheck.UNKNOWN, // Chip Authentication status.
+        val PA: ValidationCheck = ValidationCheck.UNKNOWN, // Passive Authentication status.
+        val PACE: ValidationCheck = ValidationCheck.UNKNOWN, // Password Authenticated Connection Establishment status.
+        val TA: ValidationCheck = ValidationCheck.UNKNOWN, // Terminal Authentication status.
     ): Parcelable
     ```
     

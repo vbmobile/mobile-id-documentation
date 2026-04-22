@@ -11,7 +11,7 @@ control the sharing lifecycle: `share()` (sets passengers and starts broadcastin
 
 Before integrating Ultralight, ensure you have:
 
-- **Ultralight API key** — Contact your Amadeus Lisbon to obtain one
+- **Ultralight API key** — Contact your Amadeus liaison to obtain one
 - **Ultralight provider dependency** — Added to your project (see import instructions below)
 
 === "Android"

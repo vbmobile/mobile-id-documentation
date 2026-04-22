@@ -86,7 +86,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ultralight-integration" class="md-skip">
+        <a href="#ultraligh" class="md-skip">
           Skip to content
         </a>
       
@@ -2295,17 +2295,6 @@ You're not viewing the latest version.
     
 </li>
       
-        <!-- Table of contents item -->
-<li class="md-nav__item">
-    <a href="#notes" class="md-nav__link">
-        Notes
-    </a>
-
-    <!-- Table of contents list -->
-    
-    
-</li>
-      
     </ul>
   
 </nav>
@@ -2656,17 +2645,6 @@ You're not viewing the latest version.
     
 </li>
       
-        <!-- Table of contents item -->
-<li class="md-nav__item">
-    <a href="#notes" class="md-nav__link">
-        Notes
-    </a>
-
-    <!-- Table of contents list -->
-    
-    
-</li>
-      
     </ul>
   
 </nav>
@@ -2687,9 +2665,8 @@ You're not viewing the latest version.
   
 
 
-<h1 id="ultralight-integration">Ultralight Integration<a class="headerlink" href="#ultralight-integration" title="Permanent link">&para;</a></h1>
-<p>Ultralight enables <strong>Beamsync</strong>, a proximity-based data transmission mechanism that broadcasts
-passenger data to nearby airport touchpoints (for example, e-gates or self-service kiosks).
+<h1 id="ultraligh">Ultraligh<a class="headerlink" href="#ultraligh" title="Permanent link">&para;</a></h1>
+<p>Ultralight enables <strong>Beamsync</strong>, a proximity-based data transmission mechanism that broadcasts passenger data to nearby airport touchpoints (for example, e-gates or self-service kiosks).
 This allows passengers to pass through airport processes without re-scanning their documents at each step.</p>
 <p>In the current SDK architecture, Ultralight is integrated through the Enrolment SDK facade.
 You provide your own <code>UltralightProvider</code> during initialization, and Enrolment exposes two methods to
@@ -2697,7 +2674,7 @@ control the sharing lifecycle: <code>share()</code> (sets passengers and starts 
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>Before integrating Ultralight, ensure you have:</p>
 <ul>
-<li><strong>Ultralight API key</strong> — Contact your Amadeus liaison to obtain one</li>
+<li><strong>Ultralight API key</strong> — Contact your Amadeus Lisbon to obtain one</li>
 <li><strong>Ultralight provider dependency</strong> — Added to your project (see import instructions below)</li>
 </ul>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Android</label><label for="__tabbed_1_2">iOS</label></div>
@@ -2728,7 +2705,10 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 <li><strong>Required permissions on Info.plist</strong> (brought transitively by the Ultralight provider dependency):</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;key&gt;</span>NSBluetoothAlwaysUsageDescription<span class="nt">&lt;/key&gt;</span>
-<span class="nt">&lt;string&gt;</span>We<span class="w"> </span>need<span class="w"> </span>access<span class="w"> </span>BT<span class="w"> </span>(UltraLight)<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;string&gt;</span>Bluetooth<span class="w"> </span>is<span class="w"> </span>used<span class="w"> </span>to<span class="w"> </span>communicate<span class="w"> </span>with<span class="w"> </span>nearby<span class="w"> </span>UltraLight<span class="w"> </span>devices<span class="nt">&lt;/string&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;key&gt;</span>NSLocationWhenInUseUsageDescription<span class="nt">&lt;/key&gt;</span>
+<span class="nt">&lt;string&gt;</span>Location<span class="w"> </span>is<span class="w"> </span>required<span class="w"> </span>to<span class="w"> </span>detect<span class="w"> </span>nearby<span class="w"> </span>Bluetooth<span class="w"> </span>devices.<span class="nt">&lt;/string&gt;</span>
 </code></pre></div>
 </div>
 </div>
@@ -2768,7 +2748,9 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 <span class="w">   </span><span class="p">)</span>
 <span class="p">],</span>
 </code></pre></div>
-<p>where <code>1.0.0-rc23</code> is the pretended version. </p>
+<blockquote>
+<p>Replace <code>`1.0.0-rc24</code> is the pretended version. </p>
+</blockquote>
 <p>Then include it in your target dependencies:</p>
 <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="n">target</span><span class="p">(</span>
 <span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YourAppTarget&quot;</span><span class="p">,</span>
@@ -2777,6 +2759,9 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">)</span>
 </code></pre></div>
+<blockquote>
+<p>Replace <code>YourAppTarget</code> with the intended app target you wish to use.</p>
+</blockquote>
 <p>Once added, Ultralight APIs are available to your application through the Enrolment SDK integration flow.</p>
 </div>
 </div>
@@ -2835,12 +2820,13 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">initializeEnrolment</span><span class="p">()</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">EnrolmentProtocol</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">initializeEnrolment</span><span class="p">(</span><span class="n">provider</span><span class="p">:</span><span class="w"> </span><span class="n">UltralightProtocol</span><span class="p">?)</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">EnrolmentProtocol</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">ultralightProvider</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">provider</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="n">ultralightProvider</span><span class="p">()</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">withCheckedContinuation</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">continuation</span><span class="w"> </span><span class="k">in</span>
 <span class="w">        </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">                                  </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">                                  </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
-<span class="w">                                  </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">ultralightProvider</span><span class="p">(),</span>
+<span class="w">                                  </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">ultralightProvider</span><span class="p">,</span>
 <span class="w">                                  </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">                                  </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
 <span class="w">                                      </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
@@ -2852,7 +2838,6 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 <span class="w">                                      </span><span class="p">}</span>
 <span class="w">                                  </span><span class="p">})</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -2860,31 +2845,6 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 <h2 id="share-passenger-data">Share Passenger Data<a class="headerlink" href="#share-passenger-data" title="Permanent link">&para;</a></h2>
 <p>The <code>share()</code> method sets the passenger list <strong>and</strong> starts sharing in a single call.
 It returns a <code>Pair&lt;Boolean, FeatureError&gt;</code></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Android</label><label for="__tabbed_5_2">iOS</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">passengers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span>
-<span class="w">    </span><span class="n">Passenger</span><span class="p">(</span>
-<span class="w">        </span><span class="n">language</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">mrz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&lt;mrz-line-1&gt;\n&lt;mrz-line-2&gt;&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">boardingPasses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;&lt;bcbp-barcode-string&gt;&quot;</span><span class="p">),</span>
-<span class="w">        </span><span class="n">docPhotoBase64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-document-photo&gt;&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">selfieBase64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-selfie&gt;&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">ePassport</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="n">eBagTagId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">        </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
-<span class="w">    </span><span class="p">)</span>
-<span class="p">)</span>
-
-<span class="kd">val</span><span class="w"> </span><span class="p">(</span><span class="nv">success</span><span class="p">,</span><span class="w"> </span><span class="nv">featureError</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Enrolment</span><span class="p">.</span><span class="na">getInstance</span><span class="p">().</span><span class="na">share</span><span class="p">(</span><span class="n">passengers</span><span class="p">)</span>
-
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// Passengers set and Beamsync started successfully</span>
-<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// Check featureError.description for details</span>
-<span class="w">    </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="s">&quot;Ultralight&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Error: </span><span class="si">${</span><span class="n">featureError</span><span class="p">.</span><span class="na">description</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div>
 <p><strong>Passenger model:</strong></p>
 <table>
 <thead>
@@ -2937,25 +2897,52 @@ It returns a <code>Pair&lt;Boolean, FeatureError&gt;</code></p>
 </tr>
 </tbody>
 </table>
-</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Android</label><label for="__tabbed_5_2">iOS</label></div>
+<div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nv">passenger</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Passenger</span><span class="p">(</span><span class="n">language</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p">,</span>
-<span class="w">                          </span><span class="n">mrz</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;mrz-line-1&gt;</span><span class="se">\n</span><span class="s">&lt;mrz-line-2&gt;&quot;</span><span class="p">,</span>
-<span class="w">                          </span><span class="n">boardingPasses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;&lt;bcbp-barcode-string&gt;&quot;</span><span class="p">],</span>
-<span class="w">                          </span><span class="n">docPhotoBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-document-photo&gt;&quot;</span><span class="p">,</span>
-<span class="w">                          </span><span class="n">selfieBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-selfie&gt;&quot;</span><span class="p">,</span>
-<span class="w">                          </span><span class="n">ePassport</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">                          </span><span class="n">tag</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
-<span class="w">                          </span><span class="n">ebagtagId</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
-<span class="k">guard</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">shareResult</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">enrolment</span><span class="p">?.</span><span class="n">share</span><span class="p">(</span><span class="n">passengers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">passenger</span><span class="p">])</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Precondition failed: nil shareResult&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="k">return</span>
-<span class="p">}</span>
-<span class="k">if</span><span class="w"> </span><span class="n">shareResult</span><span class="p">.</span><span class="n">result</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">passengers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Passenger</span><span class="p">(</span>
+<span class="w">        </span><span class="n">language</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">mrz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&lt;mrz-line-1&gt;\n&lt;mrz-line-2&gt;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">boardingPasses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;&lt;bcbp-barcode-string&gt;&quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="n">docPhotoBase64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-document-photo&gt;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">selfieBase64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-selfie&gt;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">ePassport</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="n">eBagTagId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">        </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="p">(</span><span class="nv">success</span><span class="p">,</span><span class="w"> </span><span class="nv">featureError</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Enrolment</span><span class="p">.</span><span class="na">getInstance</span><span class="p">().</span><span class="na">share</span><span class="p">(</span><span class="n">passengers</span><span class="p">)</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// Passengers set and Beamsync started successfully</span>
 <span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// Check featureError.description for details</span>
-<span class="w">    </span><span class="bp">print</span><span class="p">(</span><span class="n">shareResult</span><span class="p">.</span><span class="n">error</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="s">&quot;Ultralight&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Error: </span><span class="si">${</span><span class="n">featureError</span><span class="p">.</span><span class="na">description</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">sampleShare</span><span class="p">(</span><span class="n">enrolment</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentProtocol</span><span class="p">?)</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">passenger</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Passenger</span><span class="p">(</span><span class="n">language</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">mrz</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;mrz-line-1&gt;</span><span class="se">\n</span><span class="s">&lt;mrz-line-2&gt;&quot;</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">boardingPasses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;&lt;bcbp-barcode-string&gt;&quot;</span><span class="p">],</span>
+<span class="w">                              </span><span class="n">docPhotoBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-document-photo&gt;&quot;</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">selfieBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-selfie&gt;&quot;</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">ePassport</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">tag</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">ebagtagId</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="w">    </span><span class="k">guard</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">shareResult</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">enrolment</span><span class="p">?.</span><span class="n">share</span><span class="p">(</span><span class="n">passengers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">passenger</span><span class="p">])</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Precondition failed: nil shareResult&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">shareResult</span><span class="p">.</span><span class="n">result</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Passengers set and Beamsync started successfully</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Check featureError.description for details</span>
+<span class="w">        </span><span class="bp">print</span><span class="p">(</span><span class="n">shareResult</span><span class="p">.</span><span class="n">error</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -2978,8 +2965,7 @@ It returns a <code>Pair&lt;Boolean, FeatureError&gt;</code></p>
 <div class="tabbed-block">
 <p>It's recommended to call <code>stopSharing()</code> in your view lifecycle:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">deinit</span><span class="w"> </span><span class="p">{</span>
-<span class="w">   </span><span class="n">presenter</span><span class="p">.</span><span class="n">unbind</span><span class="p">()</span>
-<span class="w">   </span><span class="n">presenter</span><span class="p">.</span><span class="n">shouldStopSharing</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kc">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// MVP Arquitecture</span>
+<span class="w">    </span><span class="n">presenter</span><span class="p">?.</span><span class="n">shouldStopSharing</span><span class="p">()</span><span class="w"> </span><span class="c1">// MVP Design Pattern</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>or call it ha hoc </p>
@@ -3076,6 +3062,14 @@ It returns a <code>Pair&lt;Boolean, FeatureError&gt;</code></p>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<h3 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The <code>UltralightProvider</code> must be initialized <strong>before</strong> passing it to <code>Enrolment.initialize()</code></li>
+<li>Ultralight is <strong>not available</strong> in offline mode (<code>initializeOffline</code>)</li>
+<li><code>share()</code> is a <strong>blocking</strong> call — always invoke it from a background thread  - <code>share()</code> both sets the passenger data <strong>and</strong> starts Beamsync (there is no separate <code>startSharing()</code> step)</li>
+<li>The SDK performs pre-flight checks for Bluetooth and Location before starting Beamsync</li>
+<li>Always call <code>stopSharing()</code> when cleaning up (e.g., in <code>onDestroyView()</code>)</li>
+</ul>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">import</span><span class="w"> </span><span class="nc">AMADocModeliOS</span>
@@ -3089,12 +3083,13 @@ It returns a <code>Pair&lt;Boolean, FeatureError&gt;</code></p>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ultralightProvider</span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">initializeEnrolment</span><span class="p">()</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">EnrolmentProtocol</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">initializeEnrolment</span><span class="p">(</span><span class="n">provider</span><span class="p">:</span><span class="w"> </span><span class="n">UltralightProtocol</span><span class="p">?)</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">EnrolmentProtocol</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">ultralightProvider</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">provider</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="n">ultralightProvider</span><span class="p">()</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">withCheckedContinuation</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">continuation</span><span class="w"> </span><span class="k">in</span>
 <span class="w">            </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">                                      </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">                                      </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
-<span class="w">                                      </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">ultralightProvider</span><span class="p">(),</span>
+<span class="w">                                      </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">ultralightProvider</span><span class="p">,</span>
 <span class="w">                                      </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">                                      </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
 <span class="w">                                          </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
@@ -3165,20 +3160,19 @@ It returns a <code>Pair&lt;Boolean, FeatureError&gt;</code></p>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
+<span class="p">}</span><span class="w">   </span>
 </code></pre></div>
-</div>
-</div>
-</div>
-<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<h3 id="notes_1">Notes<a class="headerlink" href="#notes_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>The <code>UltralightProvider</code> must be initialized <strong>before</strong> passing it to <code>Enrolment.initialize()</code></li>
 <li>Ultralight is <strong>not available</strong> in offline mode (<code>initializeOffline</code>)</li>
-<li><code>share()</code> is a <strong>blocking</strong> call — always invoke it from a background thread</li>
 <li><code>share()</code> both sets the passenger data <strong>and</strong> starts Beamsync (there is no separate <code>startSharing()</code> step)</li>
 <li>The SDK performs pre-flight checks for Bluetooth and Location before starting Beamsync</li>
-<li>Always call <code>stopSharing()</code> when cleaning up (e.g., in <code>onDestroyView()</code>)</li>
+<li>Always call <code>stopSharing()</code> when cleaning up (e.g., in <code>deinit()</code>)</li>
 </ul>
+</div>
+</div>
+</div>
 
 
 

@@ -86,7 +86,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#document-reader" class="md-skip">
+        <a href="#overview" class="md-skip">
           Skip to content
         </a>
       
@@ -693,72 +693,6 @@ You're not viewing the latest version.
 <li class="md-nav__item">
     <a href="#handle-result" class="md-nav__link">
         Handle Result
-    </a>
-
-    <!-- Table of contents list -->
-    
-    
-</li>
-      
-        <!-- Table of contents item -->
-<li class="md-nav__item">
-    <a href="#iddocument" class="md-nav__link">
-        IdDocument
-    </a>
-
-    <!-- Table of contents list -->
-    
-    
-</li>
-      
-        <!-- Table of contents item -->
-<li class="md-nav__item">
-    <a href="#infosection" class="md-nav__link">
-        InfoSection
-    </a>
-
-    <!-- Table of contents list -->
-    
-    
-</li>
-      
-        <!-- Table of contents item -->
-<li class="md-nav__item">
-    <a href="#datasection" class="md-nav__link">
-        DataSection
-    </a>
-
-    <!-- Table of contents list -->
-    
-    
-</li>
-      
-        <!-- Table of contents item -->
-<li class="md-nav__item">
-    <a href="#vizsection" class="md-nav__link">
-        VIZSection
-    </a>
-
-    <!-- Table of contents list -->
-    
-    
-</li>
-      
-        <!-- Table of contents item -->
-<li class="md-nav__item">
-    <a href="#mrzsection" class="md-nav__link">
-        MRZSection
-    </a>
-
-    <!-- Table of contents list -->
-    
-    
-</li>
-      
-        <!-- Table of contents item -->
-<li class="md-nav__item">
-    <a href="#rridsection" class="md-nav__link">
-        RRIDSection
     </a>
 
     <!-- Table of contents list -->
@@ -2656,72 +2590,6 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
-    <a href="#iddocument" class="md-nav__link">
-        IdDocument
-    </a>
-
-    <!-- Table of contents list -->
-    
-    
-</li>
-      
-        <!-- Table of contents item -->
-<li class="md-nav__item">
-    <a href="#infosection" class="md-nav__link">
-        InfoSection
-    </a>
-
-    <!-- Table of contents list -->
-    
-    
-</li>
-      
-        <!-- Table of contents item -->
-<li class="md-nav__item">
-    <a href="#datasection" class="md-nav__link">
-        DataSection
-    </a>
-
-    <!-- Table of contents list -->
-    
-    
-</li>
-      
-        <!-- Table of contents item -->
-<li class="md-nav__item">
-    <a href="#vizsection" class="md-nav__link">
-        VIZSection
-    </a>
-
-    <!-- Table of contents list -->
-    
-    
-</li>
-      
-        <!-- Table of contents item -->
-<li class="md-nav__item">
-    <a href="#mrzsection" class="md-nav__link">
-        MRZSection
-    </a>
-
-    <!-- Table of contents list -->
-    
-    
-</li>
-      
-        <!-- Table of contents item -->
-<li class="md-nav__item">
-    <a href="#rridsection" class="md-nav__link">
-        RRIDSection
-    </a>
-
-    <!-- Table of contents list -->
-    
-    
-</li>
-      
-        <!-- Table of contents item -->
-<li class="md-nav__item">
     <a href="#documentreadercustomviews" class="md-nav__link">
         DocumentReaderCustomViews
     </a>
@@ -2751,7 +2619,7 @@ You're not viewing the latest version.
   
 
 
-<h1 id="document-reader">Document Reader<a class="headerlink" href="#document-reader" title="Permanent link">&para;</a></h1>
+<h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h1>
 <p>The document reader is used to extract the user’s document information and perform all necessary
 security validations. This functionality works in two steps: the MRZ of the travel document is
 scanned (using the device's camera) and then, if it is an electronic document (i.e. with a chip),
@@ -3206,7 +3074,7 @@ The DocumentReaderError has the following structure:</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<h2 id="iddocument">IdDocument<a class="headerlink" href="#iddocument" title="Permanent link">&para;</a></h2>
+<h4 id="iddocument">IdDocument<a class="headerlink" href="#iddocument" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kr">final</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">IdDocument</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="p">,</span><span class="w"> </span><span class="nb">Equatable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// MARK: - Nested Types</span>
 
@@ -3267,7 +3135,7 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="infosection">InfoSection<a class="headerlink" href="#infosection" title="Permanent link">&para;</a></h2>
+<h4 id="infosection">InfoSection<a class="headerlink" href="#infosection" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">InfoTypeEnum</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">/// Passport</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">passport</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;P&quot;</span>
@@ -3328,7 +3196,7 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="datasection">DataSection<a class="headerlink" href="#datasection" title="Permanent link">&para;</a></h2>
+<h4 id="datasection">DataSection<a class="headerlink" href="#datasection" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">DocTypeEnum</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">/// Passport</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">passport</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;P&quot;</span>
@@ -3477,7 +3345,7 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="vizsection">VIZSection<a class="headerlink" href="#vizsection" title="Permanent link">&para;</a></h2>
+<h4 id="vizsection">VIZSection<a class="headerlink" href="#vizsection" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kr">final</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">VIZSection</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="p">,</span><span class="w"> </span><span class="nb">Equatable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// MARK: - Nested Types</span>
 
@@ -3606,7 +3474,7 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="mrzsection">MRZSection<a class="headerlink" href="#mrzsection" title="Permanent link">&para;</a></h2>
+<h4 id="mrzsection">MRZSection<a class="headerlink" href="#mrzsection" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kr">final</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">MRZSection</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="p">,</span><span class="w"> </span><span class="nb">Equatable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// MARK: - Nested Types</span>
 
@@ -3762,7 +3630,7 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="rridsection">RRIDSection<a class="headerlink" href="#rridsection" title="Permanent link">&para;</a></h2>
+<h4 id="rridsection">RRIDSection<a class="headerlink" href="#rridsection" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kr">final</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">RFIDSection</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="p">,</span><span class="w"> </span><span class="nb">Equatable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// MARK: - Nested Types</span>
 

@@ -3005,29 +3005,13 @@ The following parameters must always be provided:</p>
 <ul>
 <li>EnrolmentCustomViews - Will overwrite any default view from the Enrolment SDK</li>
 </ul>
-<p>There where some errors created to validate the enrolment configuration:</p>
-<ul>
-<li>
-<p>If the apiKey is not in a valid format, for example it has an extra character, you will receive via callback an InvalidApiKey error(010 - APIKey is invalid)</p>
-</li>
-<li>
-<p>If the baseUrl is not correctly defined, for example it's using HTTP instead of HTTPS, you will receive via callback an InvalidEndpoint error(011 - Endpoint is invalid)</p>
-</li>
-<li>
-<p>If an error occurs during the initialize method, for example internet connection during the fetch configurations, you will receive via callback an InitFailed error(012 - Error while fetching configurations. Please check your internet connection and API URL/API Key.)</p>
-</li>
-</ul>
-<p>If you try to call a feature while the Enrolment is not ready you will receive a NotReady error (013 - Enrolment is not ready yet. Wait for the callback.)</p>
 <p>As for the provider for document read operations, the user can choose any, as long as it complies with <code>DocumentReaderScanProtocol</code>. See example bellow: </p>
-<div class="highlight"><pre><span></span><code><span class="kd">import</span><span class="w"> </span><span class="nc">Foundation</span>
-<span class="kd">import</span><span class="w"> </span><span class="nc">UIKit</span>
-
+<div class="highlight"><pre><span></span><code><span class="kd">import</span><span class="w"> </span><span class="nc">UIKit</span>
 <span class="kd">import</span><span class="w"> </span><span class="nc">AMADocModeliOS</span>
 <span class="kd">import</span><span class="w"> </span><span class="nc">mdi_mob_sdk_doc_mrz_regula_ios</span>
 <span class="kd">import</span><span class="w"> </span><span class="nc">mdi_mob_sdk_doc_scanner_ios</span>
 
 <span class="kd">enum</span><span class="w"> </span><span class="nc">DocumentScanProviderSampleBuilder</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// MARK: - Regula Provider (Provider A)</span>
 
 <span class="w">    </span><span class="c1">/// Creates a document scanner backed by the Regula SDK.</span>
 <span class="w">    </span><span class="c1">/// Uses MRZ-based scanning scenarios.</span>
@@ -3046,15 +3030,13 @@ The following parameters must always be provided:</p>
 <span class="w">        </span><span class="c1">/// Regula document reader configuration</span>
 <span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span>
 <span class="w">            </span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="c1">// Single-page scanning</span>
-<span class="w">            </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;YOUR_DATA_BASE_ID&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Default internal database</span>
+<span class="w">            </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;YOUR_DATA_BASE_ID&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Database id</span>
 <span class="w">            </span><span class="n">scenario</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">mrz</span><span class="w"> </span><span class="c1">// MRZ scanning scenario</span>
 <span class="w">        </span><span class="p">)</span>
 
 <span class="w">        </span><span class="c1">/// Returns a Regula-based document scanner</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">RegulaDocumentReaderScan</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">documentReaderConfig</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="c1">// MARK: - PSS Provider (Provider B)</span>
 
 <span class="w">    </span><span class="c1">/// Creates a document scanner backed by the PSS provider.</span>
 <span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">amaDocScanMrziOS</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="w"> </span><span class="p">{</span>
@@ -3074,51 +3056,64 @@ The following parameters must always be provided:</p>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>We are not ready to finish the implementation of the Enrolment initial setup </p>
-<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nv">viewRegister</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">EnrolmentViewRegister</span><span class="p">()</span>
+<p>We are now ready to finish the implementation of the Enrolment initial setup </p>
+<div class="highlight"><pre><span></span><code><span class="c1">/// Configuration used by all backend-related SDK modules</span>
+<span class="kd">let</span><span class="w"> </span><span class="nv">apiConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">APIConfig</span><span class="p">(</span>
+<span class="w">    </span><span class="n">baseURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR BASE URL&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Server base URL.</span>
+<span class="w">    </span><span class="n">timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="c1">// Network timeout (seconds)</span>
+<span class="w">    </span><span class="n">logLevel</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">basic</span><span class="p">,</span><span class="w"> </span><span class="c1">// SDK logging verbosity</span>
+<span class="w">    </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// API authentication key</span>
+<span class="w">    </span><span class="n">publicKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR PUBLIC KEY&quot;</span><span class="w"> </span><span class="c1">// Public key</span>
+<span class="p">)</span>
 
-<span class="kd">let</span><span class="w"> </span><span class="nv">biometricFaceCaptureCustomViewsEnabled</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">Bool</span><span class="p">.</span><span class="n">random</span><span class="p">()</span>
-<span class="k">if</span><span class="w"> </span><span class="n">biometricFaceCaptureCustomViewsEnabled</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerBiometricFaceCaptureLoadingView</span><span class="p">(</span><span class="n">BiometricFaceCaptureSampleLoadingView</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="c1">/// High-level enrolment configuration</span>
+<span class="kd">let</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">(</span><span class="n">apiConfig</span><span class="p">:</span><span class="w"> </span><span class="n">apiConfig</span><span class="p">)</span>
 
-<span class="kd">let</span><span class="w"> </span><span class="nv">boardingPassScanCustomViewsEnabled</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">Bool</span><span class="p">.</span><span class="n">random</span><span class="p">()</span>
-<span class="k">if</span><span class="w"> </span><span class="n">boardingPassScanCustomViewsEnabled</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerBoardingPassScannerLoadingView</span><span class="p">(</span><span class="n">BoardingPassScanLoadingView</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="c1">/// Ultralight provider used for Bluetooth-based interactions</span>
+<span class="kd">let</span><span class="w"> </span><span class="nv">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">Ultralight</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">()</span>
+<span class="n">ultralightProvider</span><span class="p">.</span><span class="n">initialiseBeamSync</span><span class="p">(</span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">)</span>
 
-<span class="kd">let</span><span class="w"> </span><span class="nv">documentReaderCustomViewsEnabled</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">Bool</span><span class="p">.</span><span class="n">random</span><span class="p">()</span>
-<span class="k">if</span><span class="w"> </span><span class="n">documentReaderCustomViewsEnabled</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerDocumentReaderLoadingView</span><span class="p">(</span><span class="n">DocumentReaderSampleLoadingOverlayView</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
-<span class="w">    </span><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerDocumentReaderRFIDInstructionsView</span><span class="p">(</span><span class="n">DocumentReaderSampleRFIDInstructionsView</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="c1">/// Document scanner based on Regula SDK (MRZ / OCR scanning)</span>
+<span class="kd">let</span><span class="w"> </span><span class="nv">documentScanProviderA</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="w"> </span><span class="p">=</span>
+<span class="w">    </span><span class="n">DocumentScanProviderSampleBuilder</span><span class="p">.</span><span class="n">amaDocScanRegulaiOS</span><span class="p">()</span>
 
-<span class="kd">let</span><span class="w"> </span><span class="nv">faceMatchCustomViewsEnabled</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">Bool</span><span class="p">.</span><span class="n">random</span><span class="p">()</span>
-<span class="k">if</span><span class="w"> </span><span class="n">faceMatchCustomViewsEnabled</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerBiometricMatchLoadingView</span><span class="p">(</span><span class="n">BiometricMatchSampleLoadingOverlayView</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="c1">/// Document scanner based on Amadeus PSS provider</span>
+<span class="kd">let</span><span class="w"> </span><span class="nv">documentScanProviderB</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="w"> </span><span class="p">=</span>
+<span class="w">    </span><span class="n">DocumentScanProviderSampleBuilder</span><span class="p">.</span><span class="n">amaDocScanMrziOS</span><span class="p">()</span>
 
-<span class="kd">let</span><span class="w"> </span><span class="nv">subjectCustomViewsEnabled</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">Bool</span><span class="p">.</span><span class="n">random</span><span class="p">()</span>
-<span class="k">if</span><span class="w"> </span><span class="n">subjectCustomViewsEnabled</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerSubjectLoadingView</span><span class="p">(</span><span class="n">SubjectSampleLoadingOverlayView</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">let</span><span class="w"> </span><span class="nv">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">Bool</span><span class="p">.</span><span class="n">random</span><span class="p">()</span>
+<span class="w">    </span><span class="p">?</span><span class="w"> </span><span class="n">documentScanProviderA</span><span class="w"> </span><span class="c1">// Can be any provider, as long as it complies with DocumentReaderScanProtocol</span>
+<span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="n">documentScanProviderB</span><span class="w"> </span><span class="c1">// Can be any provider, as long as it complies with DocumentReaderScanProtocol</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">!</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
-
-<span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
-<span class="w">                          </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
-<span class="w">                          </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
-<span class="w">                          </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
-<span class="w">                          </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="n">viewRegister</span><span class="p">,</span>
-<span class="w">                          </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
-<span class="w">                              </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                              </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
-<span class="w">                                  </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;SDK is ready to use&quot;</span><span class="p">)</span>
-<span class="w">                              </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
-<span class="w">                                  </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">                              </span><span class="p">}</span>
-<span class="w">                          </span><span class="p">})</span>
+<span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span>
+<span class="w">    </span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
+<span class="w">    </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">documentScanProvider</span><span class="p">,</span><span class="w"> </span><span class="c1">// Any, as long as it complies with DocumentReaderScanProtocol</span>
+<span class="w">    </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="n">RegulaDocumentReaderRFID</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">ultralightProvider</span><span class="p">,</span><span class="w"> </span><span class="c1">// Any, as long as it complies with UltralightProtocol</span>
+<span class="w">    </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentViewRegister</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
+<span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
+<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;SDK is ready to use&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
+<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">)</span>
 </code></pre></div>
+<p>There where some errors created to validate the enrolment configuration:</p>
+<ul>
+<li>
+<p>If the apiKey is not in a valid format, for example it has an extra character, you will receive via callback an InvalidApiKey error(010 - APIKey is invalid)</p>
+</li>
+<li>
+<p>If the baseUrl is not correctly defined, for example it's using HTTP instead of HTTPS, you will receive via callback an InvalidEndpoint error(011 - Endpoint is invalid)</p>
+</li>
+<li>
+<p>If an error occurs during the initialize method, for example internet connection during the fetch configurations, you will receive via callback an InitFailed error(012 - Error while fetching configurations. Please check your internet connection and API URL/API Key.)</p>
+</li>
+</ul>
+<p>If you try to call a feature while the Enrolment is not ready you will receive a NotReady error (013 - Enrolment is not ready yet. Wait for the callback.)</p>
 </div>
 </div>
 </div>
@@ -3225,13 +3220,19 @@ key. You can also configure the timeout value for server responses and the log l
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nv">apiConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">APIConfig</span><span class="p">(</span>
-<span class="w">    </span><span class="n">baseURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR BASE URL&quot;</span><span class="p">,</span><span class="w">      </span>
-<span class="w">    </span><span class="n">timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">                   </span>
-<span class="w">    </span><span class="n">logLevel</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">basic</span><span class="p">,</span><span class="w">              </span>
-<span class="w">    </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">,</span><span class="w">            </span>
-<span class="w">    </span><span class="n">publicKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR PUBLIC KEY&quot;</span><span class="w">   </span>
-<span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="c1">/// Configuration to communicate with the Mobile API</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">APIConfig</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">/// Server base URL.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">baseURL</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span>
+<span class="w">    </span><span class="c1">/// Request timeout.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">timeout</span><span class="p">:</span><span class="w"> </span><span class="n">TimeInterval</span>
+<span class="w">    </span><span class="c1">/// Logging level.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">logLevel</span><span class="p">:</span><span class="w"> </span><span class="n">MobileIdSDKiOS</span><span class="p">.</span><span class="n">APILogLevel</span>
+<span class="w">    </span><span class="c1">/// API Key</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">apiKey</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span>
+<span class="w">    </span><span class="c1">/// Public Key</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">publicKey</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span>
+<span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -3366,6 +3367,18 @@ pinning for every network request made by the SDK.</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1">/// Configuration for SDK in general</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">EnrolmentConfig</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">/// Configuration to communicate with the Mobile API</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">apiConfig</span><span class="p">:</span><span class="w"> </span><span class="n">MobileIdSDKiOS</span><span class="p">.</span><span class="n">APIConfig</span>
+
+<span class="w">    </span><span class="c1">/// Configuration to verify security against Certificate Pinning</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">apiSecurityConfig</span><span class="p">:</span><span class="w"> </span><span class="n">MobileIdSDKiOS</span><span class="p">.</span><span class="n">APISecurityConfig</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">init</span><span class="p">(</span><span class="n">apiConfig</span><span class="p">:</span><span class="w"> </span><span class="n">MobileIdSDKiOS</span><span class="p">.</span><span class="n">APIConfig</span><span class="p">,</span><span class="w"> </span><span class="n">apiSecurityConfig</span><span class="p">:</span><span class="w"> </span><span class="n">MobileIdSDKiOS</span><span class="p">.</span><span class="n">APISecurityConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">APISecurityConfig</span><span class="p">(</span><span class="n">sslCertificates</span><span class="p">:</span><span class="w"> </span><span class="p">[]),</span><span class="w"> </span><span class="n">logStrategies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">VBUtils</span><span class="p">.</span><span class="n">LogStrategy</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[.</span><span class="n">console</span><span class="p">(</span><span class="n">level</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">info</span><span class="p">)],</span><span class="w"> </span><span class="n">language</span><span class="p">:</span><span class="w"> </span><span class="n">Locale</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span><span class="w">   </span>
+</code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">apiConfig</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">APIConfig</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="bp">fatalError</span><span class="p">(</span><span class="s">&quot;Provide your APIConfig&quot;</span><span class="p">)</span>
 <span class="p">}</span>
@@ -3444,76 +3457,106 @@ Check <a href="https://developer.android.com/studio/build/shrink-code#keep-code"
 </div>
 <div class="tabbed-block">
 <p>You can now apply and implement your own UI solutions for the SDK  with the new feature of custom views for the Mobile ID SDK, giving you even more control with the UI solutions. To enable this feature in your application, you need to create your view and make it conform to the view protocol that you intend to replace in the SDK. Then, you register that view in the new EnrolmentViewRegister class of the SDK  and you build the enrolment instance with that viewRegister  instance. </p>
-<p>The following code shows an example:
-<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nv">viewRegister</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">EnrolmentViewRegister</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="c1">/// Demonstrates how an SDK integrator can optionally register</span>
+<span class="c1">/// custom UI views for different enrolment steps.</span>
+<span class="c1">///</span>
+<span class="c1">/// In a real integration, each `Bool.random()` represents</span>
+<span class="c1">/// a conscious decision made by the app developer using the SDK.</span>
+<span class="c1">/// These are random ONLY for demonstration purposes.</span>
+<span class="kd">func</span><span class="w"> </span><span class="nf">viewRegister</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 
-<span class="kd">let</span><span class="w"> </span><span class="nv">biometricFaceCaptureCustomViewsEnabled</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">Bool</span><span class="p">.</span><span class="n">random</span><span class="p">()</span>
-<span class="k">if</span><span class="w"> </span><span class="n">biometricFaceCaptureCustomViewsEnabled</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerBiometricFaceCaptureLoadingView</span><span class="p">(</span><span class="n">BiometricFaceCaptureSampleLoadingView</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">viewRegister</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">EnrolmentViewRegister</span><span class="p">()</span>
 
-<span class="kd">let</span><span class="w"> </span><span class="nv">boardingPassScanCustomViewsEnabled</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">Bool</span><span class="p">.</span><span class="n">random</span><span class="p">()</span>
-<span class="k">if</span><span class="w"> </span><span class="n">boardingPassScanCustomViewsEnabled</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerBoardingPassScannerLoadingView</span><span class="p">(</span><span class="n">BoardingPassScanLoadingView</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="c1">// MARK: - Biometric Face Capture (Optional)</span>
 
-<span class="kd">let</span><span class="w"> </span><span class="nv">documentReaderCustomViewsEnabled</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">Bool</span><span class="p">.</span><span class="n">random</span><span class="p">()</span>
-<span class="k">if</span><span class="w"> </span><span class="n">documentReaderCustomViewsEnabled</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerDocumentReaderLoadingView</span><span class="p">(</span><span class="n">DocumentReaderSampleLoadingOverlayView</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
-<span class="w">    </span><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerDocumentReaderRFIDInstructionsView</span><span class="p">(</span><span class="n">DocumentReaderSampleRFIDInstructionsView</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kd">let</span><span class="w"> </span><span class="nv">faceMatchCustomViewsEnabled</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">Bool</span><span class="p">.</span><span class="n">random</span><span class="p">()</span>
-<span class="k">if</span><span class="w"> </span><span class="n">faceMatchCustomViewsEnabled</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerBiometricMatchLoadingView</span><span class="p">(</span><span class="n">BiometricMatchSampleLoadingOverlayView</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kd">let</span><span class="w"> </span><span class="nv">subjectCustomViewsEnabled</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">Bool</span><span class="p">.</span><span class="n">random</span><span class="p">()</span>
-<span class="k">if</span><span class="w"> </span><span class="n">subjectCustomViewsEnabled</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerSubjectLoadingView</span><span class="p">(</span><span class="n">SubjectSampleLoadingOverlayView</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kd">var</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">!</span>
-
-<span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
-<span class="w">                          </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
-<span class="w">                          </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
-<span class="w">                          </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
-<span class="w">                          </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="n">viewRegister</span><span class="p">,</span>
-<span class="w">                          </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
-<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
-<span class="w">        </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;SDK is ready to use&quot;</span><span class="p">)</span>
-
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
-<span class="w">        </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">enableBiometricFaceCaptureCustomViews</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">Bool</span><span class="p">.</span><span class="n">random</span><span class="p">()</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">enableBiometricFaceCaptureCustomViews</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerBiometricFaceCaptureLoadingView</span><span class="p">(</span>
+<span class="w">            </span><span class="n">BiometricFaceCaptureSampleLoadingView</span><span class="p">.</span><span class="kc">self</span>
+<span class="w">        </span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="p">})</span>
-</code></pre></div></p>
+
+<span class="w">    </span><span class="c1">// MARK: - Boarding Pass Scanner (Optional)</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">enableBoardingPassCustomViews</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">Bool</span><span class="p">.</span><span class="n">random</span><span class="p">()</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">enableBoardingPassCustomViews</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerBoardingPassScannerLoadingView</span><span class="p">(</span>
+<span class="w">            </span><span class="n">BoardingPassScanLoadingView</span><span class="p">.</span><span class="kc">self</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// MARK: - Document Reader (Optional)</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">enableDocumentReaderCustomViews</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">Bool</span><span class="p">.</span><span class="n">random</span><span class="p">()</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">enableDocumentReaderCustomViews</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerDocumentReaderLoadingView</span><span class="p">(</span>
+<span class="w">            </span><span class="n">DocumentReaderSampleLoadingOverlayView</span><span class="p">.</span><span class="kc">self</span>
+<span class="w">        </span><span class="p">)</span>
+
+<span class="w">        </span><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerDocumentReaderRFIDInstructionsView</span><span class="p">(</span>
+<span class="w">            </span><span class="n">DocumentReaderSampleRFIDInstructionsView</span><span class="p">.</span><span class="kc">self</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// MARK: - Face Match (Optional)</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">enableFaceMatchCustomViews</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">Bool</span><span class="p">.</span><span class="n">random</span><span class="p">()</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">enableFaceMatchCustomViews</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerBiometricMatchLoadingView</span><span class="p">(</span>
+<span class="w">            </span><span class="n">BiometricMatchSampleLoadingOverlayView</span><span class="p">.</span><span class="kc">self</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// MARK: - Subject Processing (Optional)</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">enableSubjectCustomViews</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">Bool</span><span class="p">.</span><span class="n">random</span><span class="p">()</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">enableSubjectCustomViews</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerSubjectLoadingView</span><span class="p">(</span>
+<span class="w">            </span><span class="n">SubjectSampleLoadingOverlayView</span><span class="p">.</span><span class="kc">self</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Not relevant for this example</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">!</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span>
+
+<span class="w">    </span><span class="c1">// SDK initialization</span>
+<span class="w">    </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span>
+<span class="w">        </span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
+<span class="w">        </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="n">viewRegister</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
+<span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
+<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;SDK is ready to use&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nv">error</span><span class="p">):</span>
+<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The calls guarded by <code>Bool.random()</code> are <strong>for demonstration purposes only</strong>, simulating the decisions an SDK consumer may take when integrating the SDK into their application.</p>
+<p>In a real-world integration:</p>
+<ul>
+<li>The app developer explicitly decides <strong>which custom views to provide</strong></li>
+<li>Any view <strong>not registered</strong> will fall back to the SDK’s <strong>default UI</strong></li>
+<li>Multiple, one, or no custom views can be registered</li>
+</ul>
+<p>Example of a real integration (non-random):</p>
+<div class="highlight"><pre><span></span><code><span class="n">viewRegister</span><span class="p">.</span><span class="n">registerDocumentReaderLoadingView</span><span class="p">(</span><span class="n">MyCustomLoadingView</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
+<span class="n">viewRegister</span><span class="p">.</span><span class="n">registerDocumentReaderRFIDInstructionsView</span><span class="p">(</span><span class="n">MyRFIDHelpView</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
+</code></pre></div>
 </div>
 </div>
 </div>
-<!--
-## Custom Providers
-
-Starting with SeamlessMobile SDK version 8, a new concept of Providers has been introduced.
-
-The purpose of this feature is to allow SeamlessMobile SDK integrators to select from a list of different providers to perform a given task, and allows to reduce the size of the SeamlessMobile SDK if some features are not used..
-
-Currently, this functionality is only available in the **Document Reader**.
-
-It is achieved by importing the **DocScanMrz**, which is currently the only provider available in production.
-
-This design allows you to pass both a **DocumentScanProvider** and a **DocumentRFIDProvider** when initializing Enrolment.
-
-Providing these providers is **mandatory** if you intend to use the **Document Reader** feature.
-
-Each provider has unique characteristics, such as specific initializers and configuration flags, which define how the document reading and RFID scanning operations are performed.
-
-For more information about the full list of providers, please refer to the page dedicated to each SDK feature.
--->
-
 <h2 id="custom-providers">Custom Providers<a class="headerlink" href="#custom-providers" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Android</label><label for="__tabbed_10_2">iOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>to do</p>
+</div>
+<div class="tabbed-block">
 <p>Starting with <strong>SeamlessMobile SDK version 8</strong>, a new <strong>Provider-based architecture</strong> has been introduced.</p>
 <p>The purpose of this feature is to allow SeamlessMobile SDK integrators to <strong>select from multiple providers</strong> to perform a given task.<br />
 This approach improves flexibility and allows reducing the overall SDK size by including only the features that are actually used.</p>
@@ -3547,21 +3590,11 @@ At the moment, <strong>two custom providers are available</strong>:</p>
 </tbody>
 </table>
 <hr />
-<h3 id="enrolment-initialization-with-providers">Enrolment Initialization with Providers<a class="headerlink" href="#enrolment-initialization-with-providers" title="Permanent link">&para;</a></h3>
-<p>This design allows you to inject both a:</p>
-<ul>
-<li><strong><code>DocumentScanProvider</code></strong></li>
-<li><strong><code>DocumentRFIDProvider</code></strong></li>
-</ul>
-<p>when initializing the Enrolment SDK.</p>
-<blockquote>
-<p>⚠️ <strong>Providing these providers is mandatory</strong> if you intend to use the <strong>Document Reader</strong> feature.</p>
-</blockquote>
-<ul>
-<li><a href="Features/DocumentReader/DocumentReader_Providers.html">Document Reader</a></li>
-</ul>
+</div>
+</div>
+</div>
 <h2 id="localization-support">Localization Support<a class="headerlink" href="#localization-support" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Android</label><label for="__tabbed_10_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Android</label><label for="__tabbed_11_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>If you wish to add localization support to your application or change some of the default values, you will need to add the strings used by Enrolment SDK to each locale strings.xml file.</p>
@@ -3579,7 +3612,7 @@ At the moment, <strong>two custom providers are available</strong>:</p>
 </div>
 </div>
 <h2 id="rfid-chip-processing">RFID Chip Processing<a class="headerlink" href="#rfid-chip-processing" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Android</label><label for="__tabbed_11_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">Android</label><label for="__tabbed_12_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>In order to use the RFID feature, the user must give the NFC permission in runtime, otherwise it won't work. 
@@ -3615,7 +3648,7 @@ must be able to read according to ISO7816:
 </div>
 <h2 id="camera-permissions">Camera Permissions<a class="headerlink" href="#camera-permissions" title="Permanent link">&para;</a></h2>
 <p>In order for the SDK to use the camera, the user must grant permission to do so.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">Android</label><label for="__tabbed_12_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">Android</label><label for="__tabbed_13_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>In order to use the camera related features, the user must give the camera permission in runtime, otherwise it won't work. 
@@ -3633,7 +3666,7 @@ After including <strong>NSCameraUsageDescription</strong> in your <strong>Info.p
 </div>
 </div>
 <h2 id="custom-styles">Custom Styles<a class="headerlink" href="#custom-styles" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">Android</label><label for="__tabbed_13_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">Android</label><label for="__tabbed_14_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>You can apply your app’s own colors and fonts to all the provided SDK layout solutions, which means that the SDK views can adapt to your app’s design. 
@@ -3821,7 +3854,7 @@ It brings control and allows the maintenance of consistency in terms of brand co
 </div>
 </div>
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">Android</label><label for="__tabbed_14_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="15:2"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><input id="__tabbed_15_2" name="__tabbed_15" type="radio" /><div class="tabbed-labels"><label for="__tabbed_15_1">Android</label><label for="__tabbed_15_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <ul>

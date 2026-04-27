@@ -17,7 +17,9 @@ This provider uses Regula services and supports both OCR Document Reading and RF
     Work in progress...
 
 === "iOS"
-
+    
+    Work in progress...
+<!--
 	### Install using Xcode
 	
 	1.  Open your project in **Xcode**.
@@ -71,7 +73,7 @@ This provider uses Regula services and supports both OCR Document Reading and RF
 	```
 	
 	> Replace `YourAppTarget` with the intended target you wish to use.
-
+-->
 
 ### How to Instantiate: 
 
@@ -81,6 +83,9 @@ This provider uses Regula services and supports both OCR Document Reading and RF
     
 === "iOS"
     
+    Work in progress...
+<!--
+
     Creates a `DocumentReaderScanProtocol` using `AMADocScanRegulaiOS ` provider
     
     ```swift
@@ -122,7 +127,6 @@ This provider uses Regula services and supports both OCR Document Reading and RF
     }
 	```
     
-<!--
     This provider allows you to create both a **RegulaDocumentReaderScan** and a **RegulaDocumentReaderRFID** instance.
 
     The **RegulaDocumentReaderScan** requires a **DocumentReaderConfig** to initialize. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.md#configure).
@@ -152,6 +156,8 @@ This provider uses Regula services and supports both OCR Document Reading and RF
     
 === "iOS"
 
+    Work in progress...
+<!--
 	```swift
      func readDocumentSampleUsage() {
          // The view controller responsible for presenting the document scanner camera interface
@@ -173,9 +179,6 @@ This provider uses Regula services and supports both OCR Document Reading and RF
          }
      }
 	```
-
-<!--
-
 
     Once both providers are initialized, simply pass them as parameters to the Enrolment initialization as shown below. For more information on initializing, see [Enrolment](../../index.md#how-to-initialize-the-sdk).
 

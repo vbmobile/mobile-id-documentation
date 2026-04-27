@@ -1,4 +1,4 @@
-# Ultraligh
+# Ultralight
 
 Ultralight enables **Beamsync**, a proximity-based data transmission mechanism that broadcasts passenger data to nearby airport touchpoints (for example, e-gates or self-service kiosks).
 This allows passengers to pass through airport processes without re-scanning their documents at each step.

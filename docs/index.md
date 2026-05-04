@@ -18,7 +18,7 @@ hide:
     To integrate the **Mobile ID SDK** for iOS, the following prerequisites must be met: 
     
     - Install or update Xcode to latest version;
-    - Target iOS 13 or later. 
+    - Target iOS 15 or later. 
 
 You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can associate the API key with the application, this way your API key is protected with only authorized applications.
 

@@ -2613,60 +2613,64 @@ You're not viewing the latest version.
 <p>Work in progress...</p>
 </div>
 <div class="tabbed-block">
-<h3 id="install-using-xcode">Install using Xcode<a class="headerlink" href="#install-using-xcode" title="Permanent link">&para;</a></h3>
-<ol>
-<li>
-<p>Open your project in <strong>Xcode</strong>.</p>
-</li>
-<li>
-<p>Navigate to <strong>File ▸ Add Packages…</strong></p>
-</li>
-<li>
-<p>In the dialog that appears, enter the package repository URL for the SDK you want to add:</p>
-<p><strong>AMADocScanRegulaiOS</strong></p>
-<pre><code>https://github.com/vbmobile/AMADocScanRegulaiOS
-</code></pre>
-</li>
-<li>
-<p>Select the version to integrate. For new projects, we recommend using the latest available release (for example: <strong><code>1.0.0-rc24</code></strong>).</p>
-</li>
-<li>
-<p>Choose the project and target to which the package should be added.</p>
-</li>
-<li>
-<p>Click <strong>Add Package</strong>.</p>
-</li>
-</ol>
-<p>Once completed, Xcode will download the package and resolve all required dependencies automatically.</p>
-<hr />
-<h3 id="install-using-packageswift">Install Using <code>Package.swift</code><a class="headerlink" href="#install-using-packageswift" title="Permanent link">&para;</a></h3>
-<p>If you manage dependencies manually, add the SDKs to your <code>Package.swift</code> file.</p>
-<h4 id="1-add-the-dependency">1. Add the dependency<a class="headerlink" href="#1-add-the-dependency" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<p>Work in progress...</p>
+</div>
+</div>
+</div>
+<!--
+    ### Install using Xcode
+
+    1.  Open your project in **Xcode**.
+
+    2.  Navigate to **File ▸ Add Packages…**
+
+    3.  In the dialog that appears, enter the package repository URL for the SDK you want to add:
+
+        **AMADocScanRegulaiOS**
+
+            https://github.com/vbmobile/AMADocScanRegulaiOS
+
+    4.  Select the version to integrate. For new projects, we recommend using the latest available release (for example: **`1.0.0-rc24`**).
+
+    5.  Choose the project and target to which the package should be added.
+
+    6.  Click **Add Package**.
+
+    Once completed, Xcode will download the package and resolve all required dependencies automatically.
+
+    ***
+
+    ### Install Using `Package.swift`
+
+    If you manage dependencies manually, add the SDKs to your `Package.swift` file.
+
+    #### 1. Add the dependency
+
+    <div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">.</span><span class="n">package</span><span class="p">(</span>
 <span class="w">        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/vbmobile/AMADocScanRegulaiOS&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0.0-rc24&quot;</span>
 <span class="w">    </span><span class="p">)</span>
 <span class="p">]</span>
 </code></pre></div>
-<blockquote>
-<p>Replace <code>1.0.0-rc24</code> with the intended version you wish to use.</p>
-</blockquote>
-<hr />
-<h4 id="2-link-the-product-to-your-target">2. Link the product to your target<a class="headerlink" href="#2-link-the-product-to-your-target" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="n">target</span><span class="p">(</span>
+
+    > Replace `1.0.0-rc24` with the intended version you wish to use.
+
+    ***
+
+    #### 2. Link the product to your target
+
+    <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="n">target</span><span class="p">(</span>
 <span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YourAppTarget&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AMADocScanRegulaiOS&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">package</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AMADocScanRegulaiOS&quot;</span><span class="p">)</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">)</span>
 </code></pre></div>
-<blockquote>
-<p>Replace <code>YourAppTarget</code> with the intended target you wish to use.</p>
-</blockquote>
-</div>
-</div>
-</div>
+
+    > Replace `YourAppTarget` with the intended target you wish to use.
+-->
+
 <h3 id="how-to-instantiate">How to Instantiate:<a class="headerlink" href="#how-to-instantiate" title="Permanent link">&para;</a></h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Android</label><label for="__tabbed_2_2">iOS</label></div>
 <div class="tabbed-content">
@@ -2674,8 +2678,15 @@ You're not viewing the latest version.
 <p>Work in progress...</p>
 </div>
 <div class="tabbed-block">
-<p>Creates a <code>DocumentReaderScanProtocol</code> using <code>AMADocScanRegulaiOS</code> provider</p>
-<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">amaDocScanRegulaiOSProviderSetup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<p>Work in progress...</p>
+</div>
+</div>
+</div>
+<!--
+
+    Creates a `DocumentReaderScanProtocol` using `AMADocScanRegulaiOS ` provider
+
+    <div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">amaDocScanRegulaiOSProviderSetup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">!</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
 
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">amaDocScanRegulaiOS</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="w"> </span><span class="p">{</span>
@@ -2712,10 +2723,7 @@ You're not viewing the latest version.
 <span class="w">                              </span><span class="p">})</span>
 <span class="p">}</span>
 </code></pre></div>
-</div>
-</div>
-</div>
-<!--
+
     This provider allows you to create both a **RegulaDocumentReaderScan** and a **RegulaDocumentReaderRFID** instance.
 
     The **RegulaDocumentReaderScan** requires a **DocumentReaderConfig** to initialize. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.md#configure).
@@ -2741,7 +2749,12 @@ You're not viewing the latest version.
 <p>Work in progress...</p>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">readDocumentSampleUsage</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<p>Work in progress...</p>
+</div>
+</div>
+</div>
+<!--
+    <div class="highlight"><pre><span></span><code><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">readDocumentSampleUsage</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">     </span><span class="c1">// The view controller responsible for presenting the document scanner camera interface</span>
 <span class="w">     </span><span class="kd">var</span><span class="w"> </span><span class="nv">viewController</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">!</span>
 
@@ -2761,11 +2774,6 @@ You're not viewing the latest version.
 <span class="w">     </span><span class="p">}</span>
 <span class="w"> </span><span class="p">}</span>
 </code></pre></div>
-</div>
-</div>
-</div>
-<!--
-
 
     Once both providers are initialized, simply pass them as parameters to the Enrolment initialization as shown below. For more information on initializing, see [Enrolment](../../index.md#how-to-initialize-the-sdk).
 
@@ -2792,7 +2800,7 @@ You're not viewing the latest version.
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<h3 id="install-using-xcode_1">Install using Xcode<a class="headerlink" href="#install-using-xcode_1" title="Permanent link">&para;</a></h3>
+<h3 id="install-using-xcode">Install using Xcode<a class="headerlink" href="#install-using-xcode" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Open your project in <strong>Xcode</strong>.</p>
@@ -2819,9 +2827,9 @@ You're not viewing the latest version.
 </ol>
 <p>Once completed, Xcode will download the package and resolve all required dependencies automatically.</p>
 <hr />
-<h3 id="install-using-packageswift_1">Install Using <code>Package.swift</code><a class="headerlink" href="#install-using-packageswift_1" title="Permanent link">&para;</a></h3>
+<h3 id="install-using-packageswift">Install Using <code>Package.swift</code><a class="headerlink" href="#install-using-packageswift" title="Permanent link">&para;</a></h3>
 <p>If you manage dependencies manually, add the SDKs to your <code>Package.swift</code> file.</p>
-<h4 id="1-add-the-dependency_1">1. Add the dependency<a class="headerlink" href="#1-add-the-dependency_1" title="Permanent link">&para;</a></h4>
+<h4 id="1-add-the-dependency">1. Add the dependency<a class="headerlink" href="#1-add-the-dependency" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">.</span><span class="n">package</span><span class="p">(</span>
 <span class="w">        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/vbmobile/AMADocScanMrziOS&quot;</span><span class="p">,</span>
@@ -2833,7 +2841,7 @@ You're not viewing the latest version.
 <p>Replace <code>1.0.0-rc24</code> with the intended version you wish to use.</p>
 </blockquote>
 <hr />
-<h4 id="2-link-the-product-to-your-target_1">2. Link the product to your target<a class="headerlink" href="#2-link-the-product-to-your-target_1" title="Permanent link">&para;</a></h4>
+<h4 id="2-link-the-product-to-your-target">2. Link the product to your target<a class="headerlink" href="#2-link-the-product-to-your-target" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="n">target</span><span class="p">(</span>
 <span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YourAppTarget&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>

@@ -1,5 +1,19 @@
 # MobileID SDK - Release Notes
 
+## 9.1.1
+
+### Improvements
+
+- Fix internal issue with missing id document in subject creation.
+
+## 9.1.0
+
+### What's new
+
+- Added support for the new RFID reader provider.
+- Removed DocumentData from the Document Scan feature.
+- Add feature for name matching.
+
 ## 9.0.0
 
 ### What's new

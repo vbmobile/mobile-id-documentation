@@ -206,7 +206,7 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
 === "Android"
 
     ```kotlin
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<1.0.0>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<1.0.1>")
     ```
 
 === "iOS"
@@ -376,7 +376,7 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
 === "Android"
 
     ```kotlin
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:<1.0.0>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:<1.0.1>")
     ```
 
 === "iOS"
@@ -394,7 +394,8 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
     val docRfidReadConfig = DocRfidReadConfig(
             apiConfig = DocRfidReadApiConfig(
                 baseUrl = <YOUR DOC RFID READ BASE URL>,
-                apiKey = <YOUR DOC RFID READ API KEY>
+                apiKey = <YOUR DOC RFID READ API KEY>,
+                publicKey = <YOUR DOC RFID READ PUBLIC KEY>,
             ),
             enableLogs = <ENABLE LOGS>,
         )

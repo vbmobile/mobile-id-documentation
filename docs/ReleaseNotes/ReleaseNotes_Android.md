@@ -8,6 +8,12 @@
 - Enrolment initialization parameters changed for Document Reader integration.
 - Migration required. See [Migration Guide section From 8.0.0 to 9.0.0](../MigrationGuide/MigrationGuide_Android.md#from-800-to-900) for exact steps.
 
+## 8.1.6
+
+### Improvements
+
+- Fix internal issue with missing id document in subject creation.
+
 ## 8.1.5
 
 ### Improvements

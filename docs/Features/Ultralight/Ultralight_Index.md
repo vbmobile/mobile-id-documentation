@@ -6,7 +6,8 @@ This allows passengers to pass through airport processes without re-scanning the
 
 In the current SDK architecture, Ultralight is integrated through the Enrolment SDK facade.
 You provide your own `UltralightProvider` during initialization, and Enrolment exposes two methods to
-control the sharing lifecycle: `share()` (sets passengers and starts broadcasting) and `stopSharing()`.
+control the sharing lifecycle: `share()` (sets passengers and starts broadcasting, asynchronous via
+`OnShareCompletion` callback) and `stopSharing()`.
 
 ## Prerequisites
 
@@ -104,19 +105,33 @@ Once added, Ultralight APIs are available to your application through the Enrolm
 
 ### Step 1: Create and Initialize UltralightProvider
 
-Before initializing Enrolment, create and configure your `UltralightProvider` instance:
+Before initializing Enrolment, create and configure your `UltralightProvider` instance.
+After `initialiseBeamsync()`, you must call `softStart()`;
+report success and errors through `OnSoftStartCompletion`.
 
 === "Android"
 
     ```kotlin
     private fun initializeUltralight(): UltralightProvider? {
         val ultralightApiKey = "<your-ultralight-api-key>"
-        
-        // Initialize UltralightSdk
+
         UltralightSdk.initialize(context = requireContext())
-        UltralightSdk.getInstance().initialiseBeamSync(ultralightApiKey)
-        
-        return UltralightSdk.getInstance()
+        val provider = UltralightSdk.getInstance()
+        provider.initialiseBeamsync(ultralightApiKey)
+        provider.softStart(requireContext(), object : OnSoftStartCompletion {
+            override fun onProgressChanged(progress: Progress) {
+                // Not currently emitted by the provider; override required by the interface.
+            }
+
+            override fun onSoftStartSuccess() {
+                Log.i("Ultralight", "softStart onSuccess")
+            }
+
+            override fun onSoftStartError(error: ProviderError) {
+                Log.e("Ultralight", "softStart onError [${error.errorCode}] ${error.description}")
+            }
+        })
+        return provider
     }
     ```
 
@@ -194,7 +209,7 @@ func initializeEnrolment() async -> EnrolmentProtocol {
 ## Share Passenger Data
 
 The `share()` method sets the passenger list **and** starts sharing in a single call.
-It returns a `Pair<Boolean, FeatureError>`
+It is asynchronous — pass an `OnShareCompletion` callback to receive the result.
 
 === "Android"
 
@@ -213,14 +228,16 @@ It returns a `Pair<Boolean, FeatureError>`
         )
     )
 
-    val (success, featureError) = Enrolment.getInstance().share(passengers)
-    
-    if (success) {
-        // Passengers set and Beamsync started successfully
-    } else {
-        // Check featureError.description for details
-        Log.e("Ultralight", "Error: ${featureError.description}")
-    }
+    Enrolment.getInstance().share(passengers, object : OnShareCompletion {
+        override fun onShareSuccess() {
+            // Passengers set and Beamsync started successfully
+        }
+
+        override fun onShareError(error: FeatureError) {
+            // Check error.description for details
+            Log.e("Ultralight", "Error: ${error.description}")
+        }
+    })
     ```
 
     **Passenger model:**
@@ -307,20 +324,34 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 
     ```kotlin
     class UltralightFragment : Fragment() {
-        
+
         // Initialize Ultralight provider
         private fun initializeUltralight(): UltralightProvider? {
             val ultralightApiKey = "<your-api-key>"
-            
+
             UltralightSdk.initialize(context = requireContext())
-            UltralightSdk.getInstance().initialiseBeamSync(ultralightApiKey)
-            return UltralightSdk.getInstance()
+            val provider = UltralightSdk.getInstance()
+            provider.initialiseBeamsync(ultralightApiKey)
+            provider.softStart(requireContext(), object : OnSoftStartCompletion {
+                override fun onProgressChanged(progress: Progress) {
+                    // Not currently emitted by the provider; override required by the interface.
+                }
+
+                override fun onSoftStartSuccess() {
+                    Log.i(TAG, "softStart onSuccess")
+                }
+
+                override fun onSoftStartError(error: ProviderError) {
+                    Log.e(TAG, "softStart onError [${error.errorCode}] ${error.description}")
+                }
+            })
+            return provider
         }
-        
+
         // Initialize Enrolment with Ultralight
         private fun initializeEnrolment() {
             val ultralightProvider = initializeUltralight()
-            
+
             Enrolment.initialize(
                 context = requireContext().applicationContext,
                 enrolmentConfig = enrolmentConfig,
@@ -332,26 +363,24 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
                     override fun onEnrolmentInitialized() {
                         Log.d(TAG, "Enrolment initialized successfully")
                     }
-                    
+
                     override fun onEnrolmentInitializationError(error: FeatureError) {
                         Log.e(TAG, "Initialization error: ${error.description}")
                     }
                 }
             )
         }
-        
+
         // Prepare and share passenger data
-        private fun prepareAndSharePassenger(): Pair<Boolean, String?> {
+        private fun prepareAndSharePassenger() {
             try {
-                val idDocument = EnrolmentData.documentReaderReport?.idDocument
-                    ?: return false to "No ID document"
+                val idDocument = EnrolmentData.documentReaderReport?.idDocument ?: return
                 val boardingPass = EnrolmentData.boardingPass
                 val selfieBitmap = readPhotoFromInternalStorage(
                     requireContext(),
                     EnrolmentData.faceCapturePhotoFilename ?: ""
                 )
 
-                // Build passenger from collected enrolment data
                 val passenger = Passenger(
                     language = "en",
                     mrz = idDocument.mrz,
@@ -361,28 +390,29 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
                     ePassport = idDocument.isElectronic
                 )
 
-                val (success, featureError) = Enrolment.getInstance()
-                    .share(listOf(passenger))
-
-                return if (success) {
-                    true to null
-                } else {
-                    false to featureError.description.ifBlank {
-                        featureError.publicMessage.ifBlank { "Unknown error" }
+                Enrolment.getInstance().share(listOf(passenger), object : OnShareCompletion {
+                    override fun onShareSuccess() {
+                        Log.d(TAG, "Beamsync started")
                     }
-                }
+
+                    override fun onShareError(error: FeatureError) {
+                        val message = error.description.ifBlank {
+                            error.publicMessage.ifBlank { "Unknown error" }
+                        }
+                        Log.e(TAG, "Share failed: $message")
+                    }
+                })
             } catch (e: Exception) {
                 Log.e(TAG, "Error preparing passenger", e)
-                return false to e.message
             }
         }
-        
+
         // Stop Beamsync
         private fun stopBeamsync() {
             Enrolment.getInstance().stopSharing()
             Log.d(TAG, "Beamsync stopped")
         }
-        
+
         override fun onDestroyView() {
             super.onDestroyView()
             Enrolment.getInstance().stopSharing()
@@ -497,7 +527,7 @@ class UltralightSample {
 
 - The `UltralightProvider` must be initialized **before** passing it to `Enrolment.initialize()`
 - Ultralight is **not available** in offline mode (`initializeOffline`)
-- `share()` is a **blocking** call — always invoke it from a background thread
+-`share()` is **asynchronous** — results are delivered through the `OnShareCompletion` callback
 - `share()` both sets the passenger data **and** starts Beamsync (there is no separate `startSharing()` step)
 - The SDK performs pre-flight checks for Bluetooth and Location before starting Beamsync
 - Always call `stopSharing()` when cleaning up (e.g., in `onDestroyView()`)

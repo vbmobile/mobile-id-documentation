@@ -2871,7 +2871,7 @@ You're not viewing the latest version.
 <div class="highlight"><pre><span></span><code>maven { url &quot;https://vbmobileidstorage.blob.core.windows.net/android/&quot; }
 </code></pre></div></li>
 <li>Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
-<div class="highlight"><pre><span></span><code>implementation(&quot;com.visionbox.mobileid.sdk:mid-sdk-enrolment:&lt;9.1.1&gt;@aar&quot;) { transitive = true }
+<div class="highlight"><pre><span></span><code>implementation(&quot;com.visionbox.mobileid.sdk:mid-sdk-enrolment:&lt;9.1.x&gt;@aar&quot;) { transitive = true }
 
 // Optional dependency if you want to use the Document Reader feature
 implementation(&quot;com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:&lt;1.0.1&gt;&quot;)

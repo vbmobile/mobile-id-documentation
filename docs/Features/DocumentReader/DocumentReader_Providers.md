@@ -395,7 +395,7 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
             apiConfig = DocRfidReadApiConfig(
                 baseUrl = <YOUR DOC RFID READ BASE URL>,
                 apiKey = <YOUR DOC RFID READ API KEY>,
-                publicKey = <YOUR DOC RFID READ PUBLIC KEY>,
+                publicKey = Base64.encodeToString("YOUR PUBLIC KEY", Base64.DEFAULT),
             ),
             enableLogs = <ENABLE LOGS>,
         )

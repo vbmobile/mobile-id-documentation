@@ -34,7 +34,7 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
     ```
     2. Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
     ```
-    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<9.0.0>@aar") { transitive = true }
+    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<9.1.x>@aar") { transitive = true }
 
     // Optional dependency if you want to use the Document Reader feature
     implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<1.0.1>")

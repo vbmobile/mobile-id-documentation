@@ -1,5 +1,11 @@
 # Migration Guide
 
+## From 8.0.0 to 9.0.0
+#### Required Changes
+- Replace old provider dependency with v9 provider dependency. Check the updated [Document Reader Providers](../Features/DocumentReader/DocumentReader_Providers.md) page for more details on the new providers.
+- Update provider initialization to the new model.
+- Update Enrolment.initialize call to the new parameter set. Check the updated [Getting Started](../index.md) page for more details.
+- 
 ## From 7.2.0 to 8.0.0
 #### Required Changes
 - Developers are now required to specify the provider for the orz/mrz and rfid features. Check the updated [Getting Started](../index.md) page

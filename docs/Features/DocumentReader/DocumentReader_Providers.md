@@ -206,7 +206,7 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
 === "Android"
 
     ```kotlin
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<1.0.1>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<2.0.0>")
     ```
 
 === "iOS"
@@ -289,6 +289,19 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
     val enrolmentConfig = ...
     val callback = ...
     val documentReaderProvider = DocScanMrz.getInstance()
+
+    // Soft-start the provider before passing it to Enrolment.
+    documentReaderProvider.softStart(context, object : OnSoftStartCompletion {
+        override fun onProgressChanged(progress: Progress) { /* not emitted by DocScanMrz */ }
+
+        override fun onSoftStartSuccess() {
+            Log.i("DocScanMrz", "softStart onSuccess")
+        }
+
+        override fun onSoftStartError(error: ProviderError) {
+            Log.e("DocScanMrz", "softStart onError [${error.errorCode}] ${error.description}")
+        }
+    })
 
     Enrolment.initialize(
         context = context, 
@@ -376,7 +389,7 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
 === "Android"
 
     ```kotlin
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:<1.0.1>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:<2.0.0>")
     ```
 
 === "iOS"
@@ -409,6 +422,19 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
     val enrolmentConfig = ...
     val callback = ...
     val documentRfidReaderProvider = DocRfidRead.getInstance()
+
+    // Soft-start the provider before passing it to Enrolment.
+    documentRfidReaderProvider.softStart(context, object : OnSoftStartCompletion {
+        override fun onProgressChanged(progress: Progress) { /* not emitted by DocRfidRead */ }
+
+        override fun onSoftStartSuccess() {
+            Log.i("DocRfidRead", "softStart onSuccess")
+        }
+
+        override fun onSoftStartError(error: ProviderError) {
+            Log.w("DocRfidRead", "softStart onError [${error.errorCode}] ${error.description}")
+        }
+    })
 
     Enrolment.initialize(
         context = context, 

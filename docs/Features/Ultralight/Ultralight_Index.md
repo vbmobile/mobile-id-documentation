@@ -54,7 +54,7 @@ Before integrating Ultralight, ensure you have:
 
     ```gradle
     dependencies {
-        implementation "com.amadeus.mdi.mob.sdk:ama-ultralight:<1.0.1>"
+        implementation "com.amadeus.mdi.mob.sdk:ama-ultralight:<2.0.0>"
         // ... other dependencies
     }
     ```

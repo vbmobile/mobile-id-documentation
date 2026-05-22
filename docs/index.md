@@ -36,8 +36,9 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
     ```
     implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<9.1.x>@aar") { transitive = true }
 
-    // Optional dependency if you want to use the Document Reader feature
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<1.0.1>")
+    // Optional dependencies if you want to use the Document Reader feature
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<2.0.0>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:<2.0.0>")
 
     ```
     3. Add these rules to proguard if you have problems running the application with minify enabled:
@@ -185,6 +186,8 @@ The SDK also allows client apps to use their own custom views for its functional
         context = requireContext().applicationContext,
         enrolmentConfig = enrolmentConfig,
         documentReaderProvider = <YOUR INITIATED DOCUMENT READER PROVIDER INSTANCE>,
+        rfidReaderProvider = <YOUR INITIATED RFID READER PROVIDER INSTANCE>,
+        ultralightProvider = <YOUR INITIATED ULTRALIGHT PROVIDER INSTANCE>,
         enrolmentInitializerCallback = callback
     )
     ```
@@ -194,6 +197,7 @@ The SDK also allows client apps to use their own custom views for its functional
     - EnrolmentConfig - Enrolment configuration.
     - EnrolmentCustomViews - Will overwrite any default view from the Enrolment SDK
     - Document and RFID reader provider - The preferred provider for document and rfid read operations. More info in [custom providers](#custom-providers)
+    - UltralightProvider - Optional. Provider for the Ultralight share flow. Must already be soft-started when supplied.
     - EnrolmentInitializerCallback - To receive a callback when the enrolment is initialized or when an error occurs during the process.
 
 === "iOS"

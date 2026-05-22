@@ -1,12 +1,17 @@
 #!/bin/bash
 
-#python -m pip install mkdocs
-#python -m pip install mkdocs-material
+set -e
 
-python3 -m venv venv
+lsof -ti :8000 | xargs kill -9
 
-source venv/bin/activate
+if [ ! -d "venv" ]; then
+  python3 -m venv venv
+  source venv/bin/activate
+  pip install -r requirements.txt
+else
+  source venv/bin/activate
+fi
 
-mkdocs serve --dirtyreload
+mkdocs serve
 
 # http://127.0.0.1:8000/mobile-id-wallet-documentation/

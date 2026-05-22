@@ -73,6 +73,7 @@ nav:
             - Loading view: Features/SubjectManagement/SubjectManagement_LoadingView.md
         - Handle errors: Features/SubjectManagement/SubjectManagement_HandleErrors.md
     - Form: Features/Form/Form_Index.md
+    - Name Match: Features/NameMatch/NameMatch_Index.md
     - Share:
         - Ultralight:
             - Overview: Features/Ultralight/Ultralight_Index.md

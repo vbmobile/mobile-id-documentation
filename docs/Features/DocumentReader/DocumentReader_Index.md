@@ -87,13 +87,25 @@ travel documents from different countries, by calling the readDocument method.
      *
      * @param activity [Activity] that will launch the face capture feature
      * @param params [DocumentReaderParameters] with some configurations for the document reader feature.
+     * @param mode [DocumentReaderMode] selects which scan flow to run (SCAN, RFID, or DTC).
      * @param onReadDocumentCompletion [OnReadDocumentCompletion] callback to handle Success and Error scenarios
      */
     fun readDocument(
         activity: Activity,
         params: DocumentReaderParameters,
+        mode: DocumentReaderMode,
         onReadDocumentCompletion: OnReadDocumentCompletion,
     )
+    ```
+
+    The `DocumentReaderMode` enum selects which scan flow is executed:
+
+    ```kotlin
+    enum class DocumentReaderMode {
+        SCAN, // OCR/MRZ scan via camera, optionally followed by RFID if enabled in DocumentReaderParameters
+        RFID, // RFID-only scan; requires MRZ data to be supplied via DocumentReaderRFIDParameters
+        DTC,  // Digital Travel Credential read flow
+    }
     ```
 
 === "iOS"
@@ -276,13 +288,11 @@ Here is how you can get the document reader report and handle the result for doc
     ```kotlin
     @Serializable
     data class DocumentReaderReport(
-      val documentData: DocumentData,
       val idDocument: IdDocument,
       val status: List<DocumentDataStatus>,
       val rfidStatus: RFIDStatus,
       val documentType: DocumentType,
       val documentPhotoHash: String, // Portrait Image
-      val documentDataHash: String, // DocumentData object
       val idDocumentHash: String, // IdDocument object
     ) : Parcelable
     ```
@@ -307,11 +317,9 @@ Here is how you can get the document reader report and handle the result for doc
     }
     ```
 
-The `DocumentReaderReport` includes three hash fields that that are used to verify data integrity when building a [Subject](../SubjectManagement/SubjectManagement_Index.md).
+The `DocumentReaderReport` includes hash fields that are used to verify data integrity when building a [Subject](../SubjectManagement/SubjectManagement_Index.md).
 
-The DocumentData is now deprecated and will be removed in the next major version.
-
-Instead, we recommend to start using the IdDocument class that contains more information with different sources depending on the document type. 
+The `IdDocument` class contains all document information with different sources depending on the document type.
 
 You can check the structure here:
 

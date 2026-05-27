@@ -29,6 +29,9 @@ Before integrating Ultralight, ensure you have:
         The SDK validates that Bluetooth and Location are enabled before starting Beamsync
         and returns a descriptive `FeatureError` if either is disabled.
 
+    !!! warning
+        Ultralight is not available when initializing the SDK via `initializeOffline`.
+
 === "iOS"
 
     - **Minimum iOS Version: 15** (same as Enrolment SDK)
@@ -422,7 +425,8 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	
 	- The `UltralightProvider` must be initialized **before** passing it to `Enrolment.initialize()`
 	- Ultralight is **not available** in offline mode (`initializeOffline`)
-	- `share()` is a **blocking** call — always invoke it from a background thread	- `share()` both sets the passenger data **and** starts Beamsync (there is no separate `startSharing()` step)
+	- `share()` is **asynchronous** — results are delivered via `OnShareCompletion`; safe to call from the main thread
+	- `share()` both sets the passenger data **and** starts Beamsync (there is no separate `startSharing()` step)
 	- The SDK performs pre-flight checks for Bluetooth and Location before starting Beamsync
 	- Always call `stopSharing()` when cleaning up (e.g., in `onDestroyView()`)
 

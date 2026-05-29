@@ -87,12 +87,12 @@ Before integrating Ultralight, ensure you have:
     dependencies: [
        .package(
            url: "https://github.com/vbmobile/AmaShareUltralight",
-           exact: "1.0.0-rc24"
+           exact: "2.0.4"
        )
     ],
     ```
 
-	 > Replace ``1.0.0-rc24` is the pretended version. 
+	 > Replace `2.0.4` is the pretended version. 
    
     Then include it in your target dependencies:
 
@@ -258,7 +258,7 @@ It is asynchronous — pass an `OnShareCompletion` callback to receive the resul
 
 
 	```swift
-    func sampleShare(enrolment: EnrolmentProtocol?) async {
+    func sampleShare(enrolment: EnrolmentProtocol?) {
         let passenger = Passenger(language: "en",
                                   mrz: "<mrz-line-1>\n<mrz-line-2>",
                                   boardingPasses: ["<bcbp-barcode-string>"],
@@ -267,16 +267,14 @@ It is asynchronous — pass an `OnShareCompletion` callback to receive the resul
                                   ePassport: true,
                                   tag: nil,
                                   ebagtagId: nil)
-        guard let shareResult = await enrolment?.share(passengers: [passenger]) else {
-            print("Precondition failed: nil shareResult")
-            return
-        }
-        if shareResult.result ?? false {
-            // Passengers set and Beamsync started successfully
-        } else {
-            // Check featureError.description for details
-            print(shareResult.error ?? "")
-        }
+        enrolment?.share(passengers: [passenger], completionHandler: { result, error in
+            if result {
+                // Passengers set and Beamsync started successfully
+            } else {
+                // Check error.for details
+                print(error ?? "")
+            }
+        })
     }
 	```
 
@@ -464,7 +462,7 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	        }
 	    }
 	
-	    func sampleShare(enrolment: EnrolmentProtocol?) async {
+	    func sampleShare(enrolment: EnrolmentProtocol?) {
 	        let passenger = Passenger(language: "en",
 	                                  mrz: "<mrz-line-1>\n<mrz-line-2>",
 	                                  boardingPasses: ["<bcbp-barcode-string>"],
@@ -473,16 +471,14 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	                                  ePassport: true,
 	                                  tag: nil,
 	                                  ebagtagId: nil)
-	        guard let shareResult = await enrolment?.share(passengers: [passenger]) else {
-	            print("Precondition failed: nil shareResult")
-	            return
-	        }
-	        if shareResult.result ?? false {
-	            // Passengers set and Beamsync started successfully
-	        } else {
-	            // Check featureError.description for details
-	            print(shareResult.error ?? "")
-	        }
+	        enrolment?.share(passengers: [passenger], completionHandler: { result, error in
+	            if result {
+	                // Passengers set and Beamsync started successfully
+	            } else {
+	                // Check error.for details
+	                print(error ?? "")
+	            }
+	        })
 	    }
 	
 	    func stopSharing(enrolment: EnrolmentProtocol?) {
@@ -508,18 +504,14 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	        }
 	        let boardPass = EnrolmentData.boardingPass?.raw ?? ""
 	        let passenger = idDocument.mapToPassenger(faceCapture: faceCapture, boardingPasses: [boardPass])
-	        Task {
-	            guard let shareResult = await enrolment?.share(passengers: [passenger]) else {
-	                print("Precondition failed: nil shareResult")
-	                return
-	            }
-	            if shareResult.result ?? false {
+	        enrolment?.share(passengers: [passenger], completionHandler: { result, error in
+	            if result {
 	                // Passengers set and Beamsync started successfully
 	            } else {
-	                // Check featureError.description for details
-	                print(shareResult.error ?? "")
+	                // Check error.for details
+	                print(error ?? "")
 	            }
-	        }
+	        })
 	    }
 	}	
 	```

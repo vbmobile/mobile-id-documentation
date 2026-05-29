@@ -18,8 +18,6 @@ This provider uses Regula services and supports both OCR Document Reading and RF
 
 === "iOS"
     
-    Work in progress...
-<!--
 	### Install using Xcode
 	
 	1.  Open your project in **Xcode**.
@@ -32,7 +30,7 @@ This provider uses Regula services and supports both OCR Document Reading and RF
 	
 	        https://github.com/vbmobile/AMADocScanRegulaiOS
 	
-	4.  Select the version to integrate. For new projects, we recommend using the latest available release (for example: **`1.0.0-rc24`**).
+	4.  Select the version to integrate. For new projects, we recommend using the latest available release (for example: **`2.0.2`**).
 	
 	5.  Choose the project and target to which the package should be added.
 	
@@ -52,12 +50,12 @@ This provider uses Regula services and supports both OCR Document Reading and RF
 	dependencies: [
 	    .package(
 	        url: "https://github.com/vbmobile/AMADocScanRegulaiOS",
-	        exact: "1.0.0-rc24"
+	        exact: "2.0.2"
 	    )
 	]
 	```
 	
-	> Replace `1.0.0-rc24` with the intended version you wish to use.
+	> Replace `2.0.2` with the intended version you wish to use.
 	
 	***
 	
@@ -73,7 +71,6 @@ This provider uses Regula services and supports both OCR Document Reading and RF
 	```
 	
 	> Replace `YourAppTarget` with the intended target you wish to use.
--->
 
 ### How to Instantiate: 
 
@@ -83,9 +80,6 @@ This provider uses Regula services and supports both OCR Document Reading and RF
     
 === "iOS"
     
-    Work in progress...
-<!--
-
     Creates a `DocumentReaderScanProtocol` using `AMADocScanRegulaiOS ` provider
     
     ```swift
@@ -96,7 +90,7 @@ This provider uses Regula services and supports both OCR Document Reading and RF
             guard
                 let licensePath = Bundle.main.path(
                     forResource: "<YOUR_REGULA_LICENCE_FILE>",
-                    ofType: nil
+                    ofType: "license"
                 ),
                 (try? Data(contentsOf: URL(fileURLWithPath: licensePath))) != nil
             else {
@@ -127,26 +121,6 @@ This provider uses Regula services and supports both OCR Document Reading and RF
     }
 	```
     
-    This provider allows you to create both a **RegulaDocumentReaderScan** and a **RegulaDocumentReaderRFID** instance.
-
-    The **RegulaDocumentReaderScan** requires a **DocumentReaderConfig** to initialize. It can be done as follows. For more information, see [DocumentReaderConfig](./DocumentReader_Index.md#configure).
-
-    ``` swift
-        let bounds = UIScreen.main.bounds
-        let documentScanProvider = DocumentReaderScan(
-            documentType: .td3,
-            apiKey: "YOUR KEY",
-            pixelWidth: Int(bounds.width),
-            pixelHeight: Int(bounds.height)
-    ```
-
-    The **RegulaDocumentReaderRFID** has no initialization requirements and can be instantiated as follows:
-
-    ``` swift
-    RegulaDocumentReaderRFID()
-    
-    ```
--->
     
 ### How to Use:
 
@@ -156,8 +130,6 @@ This provider uses Regula services and supports both OCR Document Reading and RF
     
 === "iOS"
 
-    Work in progress...
-<!--
 	```swift
      func readDocumentSampleUsage() {
          // The view controller responsible for presenting the document scanner camera interface
@@ -195,7 +167,6 @@ This provider uses Regula services and supports both OCR Document Reading and RF
                               completionHandler: completionHandler)
     
     ```
--->
     
 ## Amadeus DocScanMrz Provider
 
@@ -224,7 +195,7 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
 	        https://github.com/vbmobile/AMADocScanMrziOS
 	
 	4.  Select the version to integrate.  
-	    For new projects, we recommend using the latest available release (for example: **`1.0.0-rc24`**).
+	    For new projects, we recommend using the latest available release (for example: **`2.0.2`**).
 	
 	5.  Choose the project and target to which the package should be added.
 	
@@ -244,12 +215,12 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
 	dependencies: [
 	    .package(
 	        url: "https://github.com/vbmobile/AMADocScanMrziOS",
-	        exact: "1.0.0-rc24"
+	        exact: "2.0.2"
 	    )
 	]
 	```
 	
-	> Replace `1.0.0-rc24` with the intended version you wish to use.
+	> Replace `2.0.2` with the intended version you wish to use.
 	
 	***
 	
@@ -394,7 +365,59 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
 
 === "iOS"
 
-    Work in progress...
+	### Install using Xcode
+	
+	1.  Open your project in **Xcode**.
+	
+	2.  Navigate to **File ▸ Add Packages…**
+	
+	3.  In the dialog that appears, enter the package repository URL for the SDK you want to add:
+	
+	    **AMADocScanRegulaiOS**
+	
+	        https://github.com/vbmobile/AMADocRfid
+	
+	4.  Select the version to integrate. For new projects, we recommend using the latest available release (for example: **`2.0.1`**).
+	
+	5.  Choose the project and target to which the package should be added.
+	
+	6.  Click **Add Package**.
+	
+	Once completed, Xcode will download the package and resolve all required dependencies automatically.
+	
+	***
+	
+	### Install Using `Package.swift`
+	
+	If you manage dependencies manually, add the SDKs to your `Package.swift` file.
+	
+	#### 1. Add the dependency
+	
+	```swift
+	dependencies: [
+	    .package(
+	        url: "https://github.com/vbmobile/AMADocRfid",
+	        exact: "2.0.1"
+	    )
+	]
+	```
+	
+	> Replace `2.0.1` with the intended version you wish to use.
+	
+	***
+	
+	#### 2. Link the product to your target
+	
+	```swift
+	.target(
+	    name: "YourAppTarget",
+	    dependencies: [
+	        .product(name: "AMADocRfid", package: "AMADocRfid")
+	    ]
+	)
+	```
+	
+	> Replace `YourAppTarget` with the intended target you wish to use.
 
 ### How to Instantiate:
 
@@ -448,3 +471,12 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
 
     Work in progress...
 
+### How to Use:
+
+=== "Android"
+
+    Work in progress...
+    
+=== "iOS"
+
+    Work in progress...

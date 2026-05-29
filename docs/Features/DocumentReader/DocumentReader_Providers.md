@@ -469,14 +469,75 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
 
 === "iOS"
 
-    Work in progress...
+    
+    ```swift
+	 import AMADocModeliOS
+	 import AMADocRFIDReadiOS
+	 import MobileIdSDKiOS
+
+    func docScanRfidProviderSetup() {
+        var enrolmentConfig: EnrolmentConfig! // Not relevant for this example
+        func documentRFIDProvider() -> DocumentReaderRFIDProtocol {
+            let apiConfig = APIConfig(
+                baseURL: "<YOUR_BASE_URL>",
+                apiKey: "<YOUR_API_KEY>",
+                publicKey: "")
+            return  AMADocRFIDRead( config: DocRfidReadConfig( apiConfig: apiConfig, enableLogs: true))
+        }
+
+        Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
+                                  documentScanProvider: nil, // Not relevant for this example
+                                  documentRFIDProvider: documentRFIDProvider(),
+                                  ultralightProvider: nil, // Not relevant for this example
+                                  viewRegister: nil,
+                                  completionHandler: { result in
+                                      switch result {
+                                      case .success:
+                                          print("SDK is ready to use")
+
+                                      case let .failure(error):
+                                          print("Failure: \(error)")
+                                      }
+                                  })
+    }
+    ```
 
 ### How to Use:
 
 === "Android"
 
-    Work in progress...
+    N/A
     
 === "iOS"
 
-    Work in progress...
+	```swift
+    func readRFIDDocumentSampleUsage() {
+        // The view controller responsible for presenting the document scanner camera interface
+        var viewController: UIViewController!
+        
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        formatter.dateFormat = "YY-MM-dd"
+        let parameters = ReadRFIDDocumentParameters(
+            documentNumber: "<DOCUMENT_NUMBER>",
+            documentMRZ: "<DOCUMENT_MRZ>", //
+            dateOfExpiry: formatter.date(from: "<DATE_OF_EXPIRY>") ?? Date(),
+            dateOfBirth: formatter.date(from: "<DATE_OF_BIRTH>") ?? Date(),
+            showRFIDStatus: false,
+            rfidTimeout: 30)
+        
+        Enrolment.shared.readRFIDDocument(
+            parameters: parameters,
+            viewController: viewController
+        ) { result in
+            switch result {
+            case let .success(report):
+                print("Document Read: Success!")
+                print(report.idDocument)
+            case let .failure(error):
+                print(error.featureError.description)
+            }
+        }
+    }
+    
+    ```

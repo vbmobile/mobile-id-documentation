@@ -1,5 +1,13 @@
 # MobileID SDK - Release Notes
 
+## 9.2.0
+
+### What's new
+
+- General bug fixes.
+- Funtion `func share(passengers: [AMADocModeliOS.Passenger]) async -> (result: Bool?, error: FeatureError?)` is now `func share(passengers: [AMADocModeliOS.Passenger], completionHandler: @escaping (Bool, FeatureError?) -> Void)`
+
+
 ## 9.0.0
 
 ### What's new

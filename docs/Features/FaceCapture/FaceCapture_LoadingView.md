@@ -108,8 +108,6 @@ You can apply your own branding to our screens by overriding the resources we us
     ``` kotlin
     interface LoadingView {
         fun onPreFeatureLoading()
-        fun onFaceProcessLoading()
-        fun onLivenessLoading()
         fun onPostFeatureLoading()
         fun hideLoading()
     }
@@ -130,12 +128,6 @@ You can apply your own branding to our screens by overriding the resources we us
         }
     
         override fun onPreFeatureLoading() {
-        }
-    
-        override fun onFaceProcessLoading() {
-        }
-    
-        override fun onLivenessLoading() {
         }
     
         override fun onPostFeatureLoading() {

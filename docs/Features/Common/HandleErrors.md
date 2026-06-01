@@ -28,7 +28,7 @@ The FeatureError has the following structure:
         val errorType: ErrorType,
         val errorCode: Int,
         val description : String,
-        val publicMessage : String = ""
+        val publicMessage : String
     ) : Parcelable
     ```
 
@@ -37,6 +37,7 @@ The FeatureError has the following structure:
         InternalError,
         CommunicationError,
         PermissionNotGrantedError,
+        UserRepeated,
         UserCanceled,
         ScanError,
         Timeout,
@@ -45,7 +46,6 @@ The FeatureError has the following structure:
         FaceCaptureError,
         FaceMatchError,
         SubjectError,
-        FormError,
         UnknownError,
         ConfigurationError,
         BadConfigurationError

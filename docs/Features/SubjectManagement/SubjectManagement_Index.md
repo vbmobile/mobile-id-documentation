@@ -39,7 +39,6 @@ that the user must present on the physical gate for a full authentication.
         public var validationStatus: ValidationStatus
         public var subjectToken: SubjectToken?
         public var language: Locale
-        public var formData: [FormAnswer]?
     }
     ```
 
@@ -105,14 +104,14 @@ You can create a new subject using the `addSubject` method.
     /**
      * Adds a [Subject].
      *
-     * @param context Context
+     * @param activity Activity
      * @param params contains instance from [Subject] that will be added in the server.
-     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results .
+     * @param onAddSubjectCompletion [OnAddSubjectCompletion] Callback to handle subject success or error .
      */
     fun addSubject(
-        context: Context,
+        activity: Activity,
         params: AddSubjectParameters,
-        resultLauncher: ActivityResultLauncher<Intent>
+        onAddSubjectCompletion: OnAddSubjectCompletion
     )
     ```
     
@@ -131,7 +130,7 @@ You can create a new subject using the `addSubject` method.
     func addSubject(parameters: AddSubjectParameters, viewController: UIViewController, completionHandler: @escaping (Result<Void, SubjectError>) -> Void)
     ```
     
-If you just need to build a subject, you must have the documentData object. The `documentData` must be
+If you just need to build a subject, you must have the IdDocument object. The `idDocument` must be
 filled by the client app, or it can be acquired from the [DocumentReaderReport](../DocumentReader/DocumentReader_Index.md#document-reader-report) when scanning with the
 SDK scan document feature. The `documentPhoto` and `enrolmentPhoto` can be acquired from the [Document Reader](../DocumentReader/DocumentReader_Index.md) and the [Face Capture](../FaceCapture/FaceCapture_Index.md) features respectively.
 The `boardingPass` object can be acquired from the [Boarding Pass Reader](../BoardingPass/BoardingPass_Index.md). The `matchReport` is a result of using the facade's face match feature. The `language` field
@@ -141,16 +140,16 @@ data you can create the `BuildSubjectParameters` object. This object has the fol
 === "Android"
 
     ```kotlin
-    data class BuildSubjectParameters(
-        val documentData: DocumentData,
-        val documentPhoto: Bitmap?,
-        val enrolmentPhoto: Bitmap,
-        val boardingPass: BoardingPass? = null,
-        val processReport: FaceCaptureReport? = null,
-        val matchReport: MatchReport? = null,
-        val documentReaderReport: DocumentReaderReport? = null,
-        val language: Locale? = null,
-    )
+      data class BuildSubjectParameters(
+          val idDocument: IdDocument,
+          val documentPhoto: Bitmap?,
+          val enrolmentPhoto: Bitmap,
+          val boardingPass: BoardingPass? = null,
+          val processReport: FaceCaptureReport? = null,
+          val matchReport: MatchReport? = null,
+          val documentReaderReport: DocumentReaderReport? = null,
+          val language: Locale? = null,
+      )
     ```
     
 === "iOS"
@@ -164,7 +163,6 @@ data you can create the `BuildSubjectParameters` object. This object has the fol
         public let enrolmentImage: UIImage
         public let boardingPass: BoardingPassSummary?
         public let language: Locale
-        public let formReport: FormReport?
         public let processReport: BiometricFaceCaptureReport?
         public let documentReaderReport: DocumentReaderReport?
 
@@ -178,7 +176,6 @@ data you can create the `BuildSubjectParameters` object. This object has the fol
             biometricFaceCaptureReport: BiometricFaceCaptureReport? = nil,
             matchReport: MatchReport? = nil,
             language: Locale? = nil,
-            formReport: FormReport? = nil
         )
     }
     ```
@@ -244,11 +241,11 @@ These are all the subject methods:
 
     ```kotlin
     /**
-    * Builds a [Subject] instance with the given [params].
-    *
-    * @param params [BuildSubjectParameters] that contains the necessary data to build the subject.
-    * @return a [Result] with a [Subject] or [SubjectBuilderError].
-    */
+     * Builds a [Subject] instance with the given [params].
+     *
+     * @param params [BuildSubjectParameters] that contains the necessary data to build the subject.
+     * @return a [Result] with a [Subject] or [SubjectBuilderError].
+     */
     fun buildSubject(
         activity: Activity,
         params: BuildSubjectParameters
@@ -257,14 +254,14 @@ These are all the subject methods:
     /**
      * Adds a [Subject].
      *
-     * @param context Context
+     * @param activity Activity
      * @param params contains instance from [Subject] that will be added in the server.
-     * @param resultLauncher [ActivityResultLauncher<Intent>] fragment or activity that will handle the results .
+     * @param onAddSubjectCompletion [OnAddSubjectCompletion] Callback to handle subject success or error .
      */
     fun addSubject(
-        context: Context,
+        activity: Activity,
         params: AddSubjectParameters,
-        resultLauncher: ActivityResultLauncher<Intent>
+        onAddSubjectCompletion: OnAddSubjectCompletion,
     )
     ```
 
@@ -303,7 +300,6 @@ Adding a `Subject` required the AddSubjectParameters which have the following st
     ```kotlin
     data class AddSubjectParameters(
         val subject: Subject,
-        val formAnswer: FormAnswer? = null,
     )
     ```
   

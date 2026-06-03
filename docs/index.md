@@ -29,20 +29,22 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
     To add the Enrolment SDK to your app, perform the following steps:
 
     1. Add these new repositories in your app top level gradle file:
-    ```
+    ```kotlin
     maven { url "https://vbmobileidstorage.blob.core.windows.net/android/" }
     ```
     2. Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
-    ```
+    ```kotlin
     implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<9.2.x>@aar") { transitive = true }
 
     // Optional dependencies if you want to use the Document Reader feature
     implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<2.0.x>")
     implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:<2.0.x>")
 
+    // Optional dependencies if you want to use the ultralight share feature
+    implementation("com.amadeus.mdi.mob.sdk:ama-ultralight:<2.0.x>")
     ```
     3. Add these rules to proguard if you have problems running the application with minify enabled:
-    ```
+    ```kotlin
     -keepclassmembers enum * { *; }
     -dontwarn org.joda.convert.FromString
     -dontwarn org.joda.convert.ToString
@@ -196,7 +198,7 @@ The SDK also allows client apps to use their own custom views for its functional
     - Context - Application context;
     - EnrolmentConfig - Enrolment configuration.
     - EnrolmentCustomViews - Will overwrite any default view from the Enrolment SDK
-    - Document and RFID reader provider - The preferred provider for document and rfid read operations. More info in [custom providers](#custom-providers)
+    - Document and RFID reader provider - Optional - The preferred provider for document and rfid read operations. More info in [custom providers](#custom-providers)
     - UltralightProvider - Optional. Provider for the Ultralight share flow. Must already be soft-started when supplied.
     - EnrolmentInitializerCallback - To receive a callback when the enrolment is initialized or when an error occurs during the process.
 
@@ -798,44 +800,8 @@ The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig.
 
 ## Custom Providers
 
-=== "Android"
+   You can check with more details what are the custom providers available and how to import them in the custom providers section of the documentation available [here](./Features/DocumentReader/DocumentReader_Providers.md).
 
-	to do
-	
-=== "iOS"
-
-	Starting with **SeamlessMobile SDK version 8**, a new **Provider-based architecture** has been introduced.
-	
-	The purpose of this feature is to allow SeamlessMobile SDK integrators to **select from multiple providers** to perform a given task.  
-	This approach improves flexibility and allows reducing the overall SDK size by including only the features that are actually used.
-	
-	Currently, this functionality is available for the **Document Reader** feature.
-	
-	***
-	
-	### Available Document Reader Providers
-	
-	The Document Reader functionality is enabled by importing one or more provider modules.  
-	At the moment, **two custom providers are available**:
-	
-	```swift
-	import mdi_mob_sdk_doc_mrz_regula_ios
-	import mdi_mob_sdk_doc_scanner_ios
-	```
-	
-	Each provider implements the `DocumentReaderScanProtocol` and exposes its own **initializers and configuration options**, defining how document scanning and recognition are performed.
-	
-	***
-	
-	### Supported Providers
-	
-	| Provider                | Description                                                                    |
-	| ----------------------- | ------------------------------------------------------------------------------ |
-	| **Regula MRZ Provider** | MRZ-based document reader backed by the Regula SDK.                            |
-	| **Scanner Provider**    | MRZ-based document reader backed by Amadeus Internal SDKs. |
-	
-	***
-	   
 
 ## Localization Support
 
@@ -868,7 +834,7 @@ The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig.
     In order to use the RFID feature, the user must give the NFC permission in runtime, otherwise it won't work. 
     We already handle the permission check and added to the manifest the following:
 
-    ``` xml
+    ```xml
     <uses-permission android:name="android.permission.NFC" />
     ```
 
@@ -882,13 +848,13 @@ The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig.
     Add Near Field Communication Tag Reading under the Capabilities tab for the project’s target:
     ![Permissions](images/DR_RFID_Permissions.PNG "Permissions"){: style="display: block; margin: 5px auto"}
     Add the NFCReaderUsageDescription permission to your Info.plist file as its needed to access the NFC hardware:
-    ``` html
+    ```html
     <key>NFCReaderUsageDescription</key>
     <string>NFC tag to read NDEF messages</string>
     ```
     Declare com.apple.developer.nfc.readersession.iso7816.select-identifiers a list of application identifiers that the app
     must be able to read according to ISO7816:
-    ``` html
+    ```html
     <key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
     <array>
         <string>A0000002471001</string>
@@ -910,7 +876,7 @@ In order for the SDK to use the camera, the user must grant permission to do so.
     In order to use the camera related features, the user must give the camera permission in runtime, otherwise it won't work. 
     We already handle the permission check and added to the manifest the following:
 
-    ``` xml
+    ```xml
     <uses-permission android:name="android.permission.CAMERA" />
     ```
 

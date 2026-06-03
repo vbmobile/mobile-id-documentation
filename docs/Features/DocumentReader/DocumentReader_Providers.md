@@ -177,7 +177,7 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
 === "Android"
 
     ```kotlin
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<2.0.0>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<2.0.x>")
     ```
 
 === "iOS"
@@ -327,7 +327,27 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
 
 === "Android"
 
-    Work in progress...
+    ```kotlin
+    Enrolment.getInstance().readDocument(
+        activity = activity,
+        params = DocumentReaderParameters(
+            rfidRead = true,
+            mrzReadTimeout = TimeUnit.SECONDS.toMillis(30),
+            rfidReadTimeout = TimeUnit.SECONDS.toMillis(30),
+            showRFIDInstructions = true,
+        ),
+        mode = DocumentReaderMode.SCAN,
+        onReadDocumentCompletion = object : OnReadDocumentCompletion {
+            override fun onReadDocumentSuccess(documentReaderReport: DocumentReaderReport) {
+
+            }
+
+            override fun onReadDocumentError(documentReaderError: DocumentReaderError) {
+
+            }
+        }
+    )
+    ```
     
 === "iOS"
 
@@ -360,7 +380,7 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
 === "Android"
 
     ```kotlin
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:<2.0.0>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:<2.0.x>")
     ```
 
 === "iOS"
@@ -506,7 +526,23 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
 
 === "Android"
 
-    N/A
+    Enrolment.getInstance().readDocumentRFID(
+        activity = requireActivity(),
+        params = DocumentReaderRFIDParameters(
+            rfidReadTimeout = docReaderRFIDParams.rfidReadTimeout,
+            showRFIDInstructions = docReaderRFIDParams.showRFIDInstructions,
+            mrzString = docReaderRFIDParams.mrzString
+        ),
+        onReadDocumentCompletion = object : OnReadDocumentCompletion {
+            override fun onReadDocumentSuccess(documentReaderReport: DocumentReaderReport) {
+                
+            }
+
+            override fun onReadDocumentError(documentReaderError: DocumentReaderError) {
+                
+            }
+        }
+    )
     
 === "iOS"
 

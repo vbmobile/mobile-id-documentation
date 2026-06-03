@@ -30,7 +30,7 @@ This provider uses Regula services and supports both OCR Document Reading and RF
 	
 	        https://github.com/vbmobile/AMADocScanRegulaiOS
 	
-	4.  Select the version to integrate. For new projects, we recommend using the latest available release (for example: **`2.0.2`**).
+	4.  Select the version to integrate. For new projects, we recommend using the latest available release (for example: **`{{ versions.ios_doc_scan_regula_provider }}`**).
 	
 	5.  Choose the project and target to which the package should be added.
 	
@@ -50,12 +50,12 @@ This provider uses Regula services and supports both OCR Document Reading and RF
 	dependencies: [
 	    .package(
 	        url: "https://github.com/vbmobile/AMADocScanRegulaiOS",
-	        exact: "2.0.2"
+	        exact: "{{ versions.ios_doc_scan_regula_provider }}"
 	    )
 	]
 	```
 	
-	> Replace `2.0.2` with the intended version you wish to use.
+	> Replace `{{ versions.ios_doc_scan_regula_provider }}` with the intended version you wish to use.
 	
 	***
 	
@@ -177,7 +177,7 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
 === "Android"
 
     ```kotlin
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<2.0.x>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<{{ versions.android_doc_scan_mrz_provider }}>")
     ```
 
 === "iOS"
@@ -195,7 +195,7 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
 	        https://github.com/vbmobile/AMADocScanMrziOS
 	
 	4.  Select the version to integrate.  
-	    For new projects, we recommend using the latest available release (for example: **`2.0.2`**).
+	    For new projects, we recommend using the latest available release (for example: **`{{ versions.ios_doc_scan_mrz_provider }}`**).
 	
 	5.  Choose the project and target to which the package should be added.
 	
@@ -215,12 +215,12 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
 	dependencies: [
 	    .package(
 	        url: "https://github.com/vbmobile/AMADocScanMrziOS",
-	        exact: "2.0.2"
+	        exact: "{{ versions.ios_doc_scan_mrz_provider }}"
 	    )
 	]
 	```
 	
-	> Replace `2.0.2` with the intended version you wish to use.
+	> Replace `{{ versions.ios_doc_scan_mrz_provider }}` with the intended version you wish to use.
 	
 	***
 	
@@ -380,7 +380,7 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
 === "Android"
 
     ```kotlin
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:<2.0.x>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:<{{ versions.android_doc_rfid_read_provider }}>")
     ```
 
 === "iOS"
@@ -397,7 +397,7 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
 	
 	        https://github.com/vbmobile/AMADocRfid
 	
-	4.  Select the version to integrate. For new projects, we recommend using the latest available release (for example: **`2.0.1`**).
+	4.  Select the version to integrate. For new projects, we recommend using the latest available release (for example: **`{{ versions.ios_doc_rfid_read_provider }}`**).
 	
 	5.  Choose the project and target to which the package should be added.
 	
@@ -417,12 +417,12 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
 	dependencies: [
 	    .package(
 	        url: "https://github.com/vbmobile/AMADocRfid",
-	        exact: "2.0.1"
+	        exact: "{{ versions.ios_doc_rfid_read_provider }}"
 	    )
 	]
 	```
 	
-	> Replace `2.0.1` with the intended version you wish to use.
+	> Replace `{{ versions.ios_doc_rfid_read_provider }}` with the intended version you wish to use.
 	
 	***
 	

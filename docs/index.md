@@ -34,14 +34,14 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
     ```
     2. Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
     ```kotlin
-    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<9.2.x>@aar") { transitive = true }
+    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<{{ versions.android_enrolment_sdk }}>@aar") { transitive = true }
 
     // Optional dependencies if you want to use the Document Reader feature
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<2.0.x>")
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:<2.0.x>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<{{ versions.android_doc_scan_mrz_provider }}>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:<{{ versions.android_doc_rfid_read_provider }}>")
 
     // Optional dependencies if you want to use the ultralight share feature
-    implementation("com.amadeus.mdi.mob.sdk:ama-ultralight:<2.0.x>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-ultralight:<{{ versions.android_ultralight_provider }}>")
     ```
     3. Add these rules to proguard if you have problems running the application with minify enabled:
     ```kotlin
@@ -108,12 +108,12 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	dependencies: [
 	    .package(
 	        url: "https://github.com/vbmobile/MobileIdSDKiOS",
-	        upToNextMinor(from: "2.0.2"
+	        upToNextMinor(from: "{{ versions.ios_enrolment_sdk }}"
 	    )
 	]
 	```
 	
-	> Replace `2.0.2` with the intended version you wish to use.
+	> Replace `{{ versions.ios_enrolment_sdk }}` with the intended version you wish to use.
 	
 	
 	***

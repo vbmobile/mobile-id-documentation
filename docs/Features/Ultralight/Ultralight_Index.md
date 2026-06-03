@@ -57,7 +57,7 @@ Before integrating Ultralight, ensure you have:
 
     ```gradle
     dependencies {
-        implementation "com.amadeus.mdi.mob.sdk:ama-ultralight:<2.0.x>"
+        implementation "com.amadeus.mdi.mob.sdk:ama-ultralight:<{{ versions.android_ultralight_provider }}>"
         // ... other dependencies
     }
     ```
@@ -87,12 +87,12 @@ Before integrating Ultralight, ensure you have:
     dependencies: [
        .package(
            url: "https://github.com/vbmobile/AmaShareUltralight",
-           exact: "2.0.4"
+           exact: "{{ versions.ios_ultralight_provider }}"
        )
     ],
     ```
 
-	 > Replace `2.0.4` is the pretended version. 
+	 > Replace `{{ versions.ios_ultralight_provider }}` with the intended version.
    
     Then include it in your target dependencies:
 
@@ -524,4 +524,3 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	- `share()` both sets the passenger data **and** starts Beamsync (there is no separate `startSharing()` step)
 	- The SDK performs pre-flight checks for Bluetooth and Location before starting Beamsync
 	- Always call `stopSharing()` when cleaning up (e.g., in `deinit()`)
-

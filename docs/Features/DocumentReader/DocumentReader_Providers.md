@@ -526,6 +526,7 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
 
 === "Android"
 
+   	```kotlin
     Enrolment.getInstance().readDocumentRFID(
         activity = requireActivity(),
         params = DocumentReaderRFIDParameters(
@@ -543,7 +544,8 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
             }
         }
     )
-    
+    ```
+
 === "iOS"
 
 	```swift

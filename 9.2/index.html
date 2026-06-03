@@ -2840,22 +2840,25 @@ You're not viewing the latest version.
 <p>To add the Enrolment SDK to your app, perform the following steps:</p>
 <ol>
 <li>Add these new repositories in your app top level gradle file:
-<div class="highlight"><pre><span></span><code>maven { url &quot;https://vbmobileidstorage.blob.core.windows.net/android/&quot; }
+<div class="highlight"><pre><span></span><code><span class="n">maven</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="s">&quot;https://vbmobileidstorage.blob.core.windows.net/android/&quot;</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div></li>
 <li>Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
-<div class="highlight"><pre><span></span><code>implementation(&quot;com.visionbox.mobileid.sdk:mid-sdk-enrolment:&lt;9.2.x&gt;@aar&quot;) { transitive = true }
+<div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.visionbox.mobileid.sdk:mid-sdk-enrolment:&lt;9.2.x&gt;@aar&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">transitive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
 
-// Optional dependencies if you want to use the Document Reader feature
-implementation(&quot;com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:&lt;2.0.x&gt;&quot;)
-implementation(&quot;com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:&lt;2.0.x&gt;&quot;)
+<span class="c1">// Optional dependencies if you want to use the Document Reader feature</span>
+<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:&lt;2.0.x&gt;&quot;</span><span class="p">)</span>
+<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:&lt;2.0.x&gt;&quot;</span><span class="p">)</span>
+
+<span class="c1">// Optional dependencies if you want to use the ultralight share feature</span>
+<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.amadeus.mdi.mob.sdk:ama-ultralight:&lt;2.0.x&gt;&quot;</span><span class="p">)</span>
 </code></pre></div></li>
 <li>Add these rules to proguard if you have problems running the application with minify enabled:
-<div class="highlight"><pre><span></span><code>-keepclassmembers enum * { *; }
--dontwarn org.joda.convert.FromString
--dontwarn org.joda.convert.ToString
+<div class="highlight"><pre><span></span><code><span class="o">-</span><span class="n">keepclassmembers</span><span class="w"> </span><span class="n">enum</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">*</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="o">-</span><span class="n">dontwarn</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">joda</span><span class="p">.</span><span class="na">convert</span><span class="p">.</span><span class="na">FromString</span>
+<span class="o">-</span><span class="n">dontwarn</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">joda</span><span class="p">.</span><span class="na">convert</span><span class="p">.</span><span class="na">ToString</span>
 
-# Keep Data classes so we can use Moshi to parse the internal BuildSubjectParameters from firebase to spoof document, bcbp and face capture data
--keep class com.visionbox.mobileid.sdk.enrolment.data.** { *; }
+<span class="err">#</span><span class="w"> </span><span class="n">Keep</span><span class="w"> </span><span class="n">Data</span><span class="w"> </span><span class="n">classes</span><span class="w"> </span><span class="n">so</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">Moshi</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">parse</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">internal</span><span class="w"> </span><span class="n">BuildSubjectParameters</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">firebase</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">spoof</span><span class="w"> </span><span class="n">document</span><span class="p">,</span><span class="w"> </span><span class="n">bcbp</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">face</span><span class="w"> </span><span class="n">capture</span><span class="w"> </span><span class="n">data</span>
+<span class="o">-</span><span class="n">keep</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">com</span><span class="p">.</span><span class="na">visionbox</span><span class="p">.</span><span class="na">mobileid</span><span class="p">.</span><span class="na">sdk</span><span class="p">.</span><span class="na">enrolment</span><span class="p">.</span><span class="na">data</span><span class="p">.</span><span class="o">**</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">*</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div></li>
 <li>Sync gradle.</li>
 </ol>
@@ -2986,7 +2989,7 @@ The following parameters must always be provided:</p>
 <li>Context - Application context;</li>
 <li>EnrolmentConfig - Enrolment configuration.</li>
 <li>EnrolmentCustomViews - Will overwrite any default view from the Enrolment SDK</li>
-<li>Document and RFID reader provider - The preferred provider for document and rfid read operations. More info in <a href="#custom-providers">custom providers</a></li>
+<li>Document and RFID reader provider - Optional - The preferred provider for document and rfid read operations. More info in <a href="#custom-providers">custom providers</a></li>
 <li>UltralightProvider - Optional. Provider for the Ultralight share flow. Must already be soft-started when supplied.</li>
 <li>EnrolmentInitializerCallback - To receive a callback when the enrolment is initialized or when an error occurs during the process.</li>
 </ul>
@@ -3552,50 +3555,9 @@ Check <a href="https://developer.android.com/studio/build/shrink-code#keep-code"
 </div>
 </div>
 <h2 id="custom-providers">Custom Providers<a class="headerlink" href="#custom-providers" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Android</label><label for="__tabbed_10_2">iOS</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p>to do</p>
-</div>
-<div class="tabbed-block">
-<p>Starting with <strong>SeamlessMobile SDK version 8</strong>, a new <strong>Provider-based architecture</strong> has been introduced.</p>
-<p>The purpose of this feature is to allow SeamlessMobile SDK integrators to <strong>select from multiple providers</strong> to perform a given task.<br />
-This approach improves flexibility and allows reducing the overall SDK size by including only the features that are actually used.</p>
-<p>Currently, this functionality is available for the <strong>Document Reader</strong> feature.</p>
-<hr />
-<h3 id="available-document-reader-providers">Available Document Reader Providers<a class="headerlink" href="#available-document-reader-providers" title="Permanent link">&para;</a></h3>
-<p>The Document Reader functionality is enabled by importing one or more provider modules.<br />
-At the moment, <strong>two custom providers are available</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">import</span><span class="w"> </span><span class="nc">mdi_mob_sdk_doc_mrz_regula_ios</span>
-<span class="kd">import</span><span class="w"> </span><span class="nc">mdi_mob_sdk_doc_scanner_ios</span>
-</code></pre></div>
-<p>Each provider implements the <code>DocumentReaderScanProtocol</code> and exposes its own <strong>initializers and configuration options</strong>, defining how document scanning and recognition are performed.</p>
-<hr />
-<h3 id="supported-providers">Supported Providers<a class="headerlink" href="#supported-providers" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Provider</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Regula MRZ Provider</strong></td>
-<td>MRZ-based document reader backed by the Regula SDK.</td>
-</tr>
-<tr>
-<td><strong>Scanner Provider</strong></td>
-<td>MRZ-based document reader backed by Amadeus Internal SDKs.</td>
-</tr>
-</tbody>
-</table>
-<hr />
-</div>
-</div>
-</div>
+<p>You can check with more details what are the custom providers available and how to import them in the custom providers section of the documentation available <a href="Features/DocumentReader/DocumentReader_Providers.html">here</a>.</p>
 <h2 id="localization-support">Localization Support<a class="headerlink" href="#localization-support" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Android</label><label for="__tabbed_11_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Android</label><label for="__tabbed_10_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>If you wish to add localization support to your application or change some of the default values, you will need to add the strings used by Enrolment SDK to each locale strings.xml file.</p>
@@ -3613,7 +3575,7 @@ At the moment, <strong>two custom providers are available</strong>:</p>
 </div>
 </div>
 <h2 id="rfid-chip-processing">RFID Chip Processing<a class="headerlink" href="#rfid-chip-processing" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">Android</label><label for="__tabbed_12_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Android</label><label for="__tabbed_11_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>In order to use the RFID feature, the user must give the NFC permission in runtime, otherwise it won't work. 
@@ -3649,7 +3611,7 @@ must be able to read according to ISO7816:
 </div>
 <h2 id="camera-permissions">Camera Permissions<a class="headerlink" href="#camera-permissions" title="Permanent link">&para;</a></h2>
 <p>In order for the SDK to use the camera, the user must grant permission to do so.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">Android</label><label for="__tabbed_13_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">Android</label><label for="__tabbed_12_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>In order to use the camera related features, the user must give the camera permission in runtime, otherwise it won't work. 
@@ -3667,7 +3629,7 @@ After including <strong>NSCameraUsageDescription</strong> in your <strong>Info.p
 </div>
 </div>
 <h2 id="custom-styles">Custom Styles<a class="headerlink" href="#custom-styles" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">Android</label><label for="__tabbed_14_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">Android</label><label for="__tabbed_13_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>You can apply your app’s own colors and fonts to all the provided SDK layout solutions, which means that the SDK views can adapt to your app’s design. 
@@ -3855,7 +3817,7 @@ It brings control and allows the maintenance of consistency in terms of brand co
 </div>
 </div>
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="15:2"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><input id="__tabbed_15_2" name="__tabbed_15" type="radio" /><div class="tabbed-labels"><label for="__tabbed_15_1">Android</label><label for="__tabbed_15_2">iOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">Android</label><label for="__tabbed_14_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <ul>

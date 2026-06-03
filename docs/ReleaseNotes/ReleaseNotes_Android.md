@@ -1,5 +1,13 @@
 # MobileID SDK - Release Notes
 
+## 9.2.0
+
+### What's new
+
+- Fix name matcher feature
+- Updated providers to 2.0.x
+- Fix random crash no navigating to RFID screen
+
 ## 9.1.1
 
 ### Improvements

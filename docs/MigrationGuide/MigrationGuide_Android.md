@@ -1,5 +1,8 @@
 # Migration Guide
 
+## From 9.1.0 to 9.2.0
+- no changes needed
+
 ## From 9.0.0 to 9.1.0
 #### Required Changes
 - DocumentData was removed from the DocumentReaderReport. You need to replace your data using the IdDocument from the DocumentReaderReport, which contains the same data as the DocumentData.

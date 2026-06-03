@@ -28,7 +28,7 @@ The FeatureError has the following structure:
         val errorType: ErrorType,
         val errorCode: Int,
         val description : String,
-        val publicMessage : String = ""
+        val publicMessage : String
     ) : Parcelable
     ```
 
@@ -37,6 +37,7 @@ The FeatureError has the following structure:
         InternalError,
         CommunicationError,
         PermissionNotGrantedError,
+        UserRepeated,
         UserCanceled,
         ScanError,
         Timeout,
@@ -45,7 +46,6 @@ The FeatureError has the following structure:
         FaceCaptureError,
         FaceMatchError,
         SubjectError,
-        FormError,
         UnknownError,
         ConfigurationError,
         BadConfigurationError
@@ -177,11 +177,6 @@ Here you can find a list of all the error codes the SDK sends to the client appl
 | BluetoothNotEnabled             | 704   | Ultralight        |
 | LocationNotEnabled              | 780   | Ultralight        |
 | UnknownError                    | 705   | Ultralight        |
-| PermissionNotGranted            | 800   | Form              |
-| TransactionFailed               | 820   | Form              |
-| CommunicationError              | 821   | Form              |
-| FormServiceError                | 850   | Form              |
-| UnknownError                    | 880   | Form              |
 
 You can use the result code to provide accurate feedback to the user or use the new property inside **FeatureError**, called **errorType** that classifies the type of error.
 We suggest that errors should be handled by **errorType**.

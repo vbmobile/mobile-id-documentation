@@ -119,9 +119,11 @@ You can apply your own branding to our screens by overriding the resources we us
     In this case: **ICustomSubject.LoadingView**
     ``` kotlin
     interface LoadingView {
-        fun onServerCommunication()
+        fun onPreFeatureLoading()
+        fun onPostFeatureLoading()
         fun onAddingSubject()
         fun onGettingSubject()
+        fun onGettingSubjectStatus()
         fun onUpdatingSubject()
         fun onDeletingSubject()
         fun onAddingBoardingPass()

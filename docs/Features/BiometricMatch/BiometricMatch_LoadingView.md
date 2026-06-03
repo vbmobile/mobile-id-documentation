@@ -102,7 +102,7 @@ You can apply your own branding to our screens by overriding the resources we us
     ``` kotlin
     interface LoadingView {
         fun onPreFeatureLoading()
-        fun onServerCommunication()
+        fun onPostFeatureLoading()
         fun onPreparingFeature()
         fun hideLoading()
     }
@@ -127,7 +127,7 @@ You can apply your own branding to our screens by overriding the resources we us
             // Do nothing
         }
     
-        override fun onServerCommunication() {
+        override fun onPostFeatureLoading() {
             binding.tvFaceMatchLoadingTitle.text = "Initializing Biometric Match"
             binding.tvFaceMatchLoadingMessage.text = "Loading, please wait.."
         }

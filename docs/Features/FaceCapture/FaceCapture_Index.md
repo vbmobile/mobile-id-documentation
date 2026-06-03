@@ -59,12 +59,14 @@ below. Below is an example of the BiometricFaceCaptureParameters:
     data class BiometricFaceCaptureParameters(
         val frameFormat: FaceCaptureFrameFormat = FaceCaptureFrameFormat.OVAL,
         val cameraConfig: CameraConfig,
-        val faceCaptureTimeout: Long? = null,
+        @IntRange(30_000) val faceCaptureTimeout: Long? = null,
         val compressFormat: CompressFormat = CompressFormat.PNG,
-        val fillAnimationDuration: Long = 1_000L
+        val fillAnimationDuration: Long = 1_000L,
         val resultAnimationDuration: Long = 1_000L
     )
     ```
+
+    If `faceCaptureTimeout` is non-null, it must be ≥ 30 000 ms or the call returns `BadConfigurationError/InvalidParameters`.
     
     Now it's also possible to pass the compress format for the resulting biometric face photo format. 
 

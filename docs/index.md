@@ -34,11 +34,11 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
     ```
     2. Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
     ```
-    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<9.1.x>@aar") { transitive = true }
+    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<9.2.x>@aar") { transitive = true }
 
     // Optional dependencies if you want to use the Document Reader feature
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<2.0.0>")
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:<2.0.0>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<2.0.x>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:<2.0.x>")
 
     ```
     3. Add these rules to proguard if you have problems running the application with minify enabled:
@@ -86,7 +86,7 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	        https://github.com/vbmobile/AMADocScanRegulaiOS
 	
 	4.  Select the version to integrate.  
-	    For new projects, we recommend using the latest available release (for example: **`1.0.0-rc24`**).
+	    For new projects, we recommend using the latest available release.
 	
 	5.  Choose the project and target to which the package should be added.
 	
@@ -106,12 +106,12 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	dependencies: [
 	    .package(
 	        url: "https://github.com/vbmobile/MobileIdSDKiOS",
-	        exact: "1.0.0-rc24"
+	        upToNextMinor(from: "2.0.2"
 	    )
 	]
 	```
 	
-	> Replace `1.0.0-rc24` with the intended version you wish to use.
+	> Replace `2.0.2` with the intended version you wish to use.
 	
 	
 	***
@@ -224,8 +224,8 @@ The SDK also allows client apps to use their own custom views for its functional
 	```swift
 	import UIKit
 	import AMADocModeliOS
-	import mdi_mob_sdk_doc_mrz_regula_ios
-	import mdi_mob_sdk_doc_scanner_ios
+	import AMADocScanMrziOS
+	import AMADocScanRegulaiOS
 	
 	enum DocumentScanProviderSampleBuilder {
 	
@@ -253,7 +253,7 @@ The SDK also allows client apps to use their own custom views for its functional
 	        /// Returns a Regula-based document scanner
 	        return RegulaDocumentReaderScan(config: documentReaderConfig)
 	    }
-	
+		
 	    /// Creates a document scanner backed by the PSS provider.
 	    static func amaDocScanMrziOS() -> DocumentReaderScanProtocol {
 	        /// Specifies the expected document type (e.g. passport)
@@ -684,9 +684,6 @@ The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig.
         subjectCustomViews = SubjectCustomViews(
             loadingView = SubjectCustomViewLoading::class.java
         ),
-        formCustomViews = FormCustomViews(
-            loadingView =  FormCustomViewLoading::class.java,
-        )
     )
 
     Enrolment.initialize(

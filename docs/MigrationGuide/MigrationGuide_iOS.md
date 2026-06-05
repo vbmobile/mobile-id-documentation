@@ -1,11 +1,18 @@
 # Migration Guide
 
+## From 9.1.0 to 9.2.0
+- The `Ultralight` share signature changed from `func share(passengers:) async -> (result: Bool?, error: FeatureError?)` to `func share(passengers:completionHandler:)`. Update your call to use the completion handler instead of `await`.
+
+## From 9.0.0 to 9.1.0
+#### Required Changes
+- `DocumentData` was removed from the `DocumentReaderReport`. You need to replace your data using the `IdDocument` from the `DocumentReaderReport`, which contains the same data as `DocumentData`.
+
 ## From 8.0.0 to 9.0.0
 #### Required Changes
 - Replace old provider dependency with v9 provider dependency. Check the updated [Document Reader Providers](../Features/DocumentReader/DocumentReader_Providers.md) page for more details on the new providers.
-- Update provider initialization to the new model.
-- Update Enrolment.initialize call to the new parameter set. Check the updated [Getting Started](../index.md) page for more details.
-- 
+- Update provider initialization to the new model. The Document Reader is now provider-based: you pick a scan provider (`AMADocScanMrziOS` or `AMADocScanRegulaiOS`) and, optionally, an RFID provider (`AMADocRfid` or Regula's `RegulaDocumentReaderRFID`).
+- Update the `Enrolment.shared.initWith(...)` call to the new parameter set, passing your chosen `documentScanProvider` and `documentRFIDProvider`. Check the updated [Getting Started](../index.md) page for more details.
+
 ## From 7.2.0 to 8.0.0
 #### Required Changes
 - Developers are now required to specify the provider for the orz/mrz and rfid features. Check the updated [Getting Started](../index.md) page

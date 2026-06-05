@@ -29,50 +29,36 @@ mobile device over the travel e-Document in order to perform a RFID scan to extr
 
 === "iOS"
 
-    To use this feature, you must provide the DocumentReaderConfig to your preferred Provider like the
-    following example:
+    Since version 9, the Document Reader is built on a **provider model**. Instead of a single,
+    Regula-specific configuration, you pick the provider(s) you want to use and pass them to the
+    Enrolment initialization. Each provider has its own setup and is supplied through the
+    `documentScanProvider` (OCR/MRZ) and `documentRFIDProvider` (RFID/NFC) parameters of
+    `Enrolment.shared.initWith(...)`.
+
+    The available providers are:
+
+    - **Amadeus DocScanMrz** (`AMADocScanMrziOS`) — OCR/MRZ document scanning.
+    - **Regula** (`AMADocScanRegulaiOS`) — OCR/MRZ document scanning and RFID reading.
+    - **Amadeus Doc RFID Read** (`AMADocRfid`) — RFID/NFC chip reading.
+
+    Any scan provider can be used as long as it conforms to `DocumentReaderScanProtocol`, and any RFID
+    provider as long as it conforms to `DocumentReaderRFIDProtocol`. You can combine providers (for
+    example, scan with DocScanMrz and read RFID with Amadeus Doc RFID Read).
 
     ``` swift
-    var provider = RegulaDocumentReaderScan(config: documentReaderConfig)
+    Enrolment.shared.initWith(
+        enrolmentConfig: enrolmentConfig,
+        documentScanProvider: documentScanProvider,   // any DocumentReaderScanProtocol
+        documentRFIDProvider: documentRFIDProvider,    // any DocumentReaderRFIDProtocol, or nil
+        ultralightProvider: nil,
+        viewRegister: nil,
+        completionHandler: completionHandler
+    )
     ```
 
-    The DocumentReaderConfig has the following structure:
-
-    ``` swift
-    public struct DocumentReaderConfig {
-        public let multipageProcessing: Bool
-        public let databaseID: String
-        public let databasePath: String?
-        public let scannerTimeout: TimeInterval
-        public let checkHologram: Bool
-        public let scenario: DocumentReaderScenario
-        
-        public init(multipageProcessing: Bool, databaseID: String, databasePath: String? = nil, scannerTimeout: TimeInterval = 30, checkHologram: Bool = false, scenario: DocumentReaderScenario = .ocr)
-    }
-    
-    public enum DocumentReaderScenario: CaseIterable {
-        case ocr
-        case mrz
-    
-        public var value: String {
-            switch self {
-            case .ocr:
-                return "RGL_SCENARIO_OCR"
-            case .mrz:
-                return "RGL_SCENARIO_MRZ"
-            }
-        }
-    }
-    ```
-
-    - multipageProcessing: controls the workflow for documents that might need to have different pages
-    scanned;
-    - databaseId: specify database Id to be used with the document reader functionality (provided by
-    Regula);
-    - databasePath: Database path for .dat file to initialize Regula documents database. Default value is `nil`.
-    - scannerTimeout: Document scan timeout, in seconds. Default value is `30` seconds.
-    - checkHologram: Indicates whether or not the document reader supports Hologram Reading
-    - scenario: Changes the scanning scenario in which the document is captured
+    Each provider has its own import steps, configuration and instantiation. See the
+    [Custom Providers](DocumentReader_Providers.md) page for the per-provider details on how to import
+    and build each one.
     
 ## Initiate Scan
 

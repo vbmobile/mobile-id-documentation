@@ -83,9 +83,9 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	
 	        https://github.com/vbmobile/AMADocScanMrziOS
 	
-	    **AMADocScanRegulaiOS** (Optional Provider)
+	    **AMADocRfid** (Optional Provider)
 	
-	        https://github.com/vbmobile/AMADocScanRegulaiOS
+	        https://github.com/vbmobile/AMADocRfid
 	
 	4.  Select the version to integrate.  
 	    For new projects, we recommend using the latest available release.
@@ -133,7 +133,7 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 
 	***
 	
-	> Repeat the process for `AmaShareUltralight`, `AMADocScanMrziOS` and `AMADocScanRegulaiOS`
+	> Repeat the process for `AmaShareUltralight`, `AMADocScanMrziOS` and `AMADocRfid`
 	
 	Once added, the Enrolment SDK APIs (and any integrated optional modules such as Ultralight or Document Scanning providers) become available to your application through the standard Enrolment SDK integration flow.
 
@@ -227,35 +227,10 @@ The SDK also allows client apps to use their own custom views for its functional
 	import UIKit
 	import AMADocModeliOS
 	import AMADocScanMrziOS
-	import AMADocScanRegulaiOS
+	import AMADocRFIDReadiOS
 	
 	enum DocumentScanProviderSampleBuilder {
 	
-	    /// Creates a document scanner backed by the Regula SDK.
-	    /// Uses MRZ-based scanning scenarios.
-	    static func amaDocScanRegulaiOS() -> DocumentReaderScanProtocol {
-	        /// Ensures the Regula license file exists and is readable
-	        guard
-	            let licensePath = Bundle.main.path(
-	                forResource: "<YOUR_REGULA_LICENCE_FILE>",
-	                ofType: nil
-	            ),
-	            (try? Data(contentsOf: URL(fileURLWithPath: licensePath))) != nil
-	        else {
-	            fatalError("Unable to read Regula License")
-	        }
-	
-	        /// Regula document reader configuration
-	        let documentReaderConfig = DocumentReaderConfig(
-	            multipageProcessing: false, // Single-page scanning
-	            databaseID: "<YOUR_DATA_BASE_ID>", // Database id
-	            scenario: .mrz // MRZ scanning scenario
-	        )
-	
-	        /// Returns a Regula-based document scanner
-	        return RegulaDocumentReaderScan(config: documentReaderConfig)
-	    }
-		
 	    /// Creates a document scanner backed by the PSS provider.
 	    static func amaDocScanMrziOS() -> DocumentReaderScanProtocol {
 	        /// Specifies the expected document type (e.g. passport)
@@ -294,22 +269,18 @@ The SDK also allows client apps to use their own custom views for its functional
     let ultralightProvider: AMAShareUltralight.Ultralight = .init()
     ultralightProvider.initialiseBeamSync(apiKey: "YOUR KEY")
 
-    /// Document scanner based on Regula SDK (MRZ / OCR scanning)
-    let documentScanProviderA: DocumentReaderScanProtocol =
-        DocumentScanProviderSampleBuilder.amaDocScanRegulaiOS()
-
-    /// Document scanner based on Amadeus PSS provider
-    let documentScanProviderB: DocumentReaderScanProtocol =
+    /// Document scanner based on the Amadeus DocScanMrz provider
+    let documentScanProvider: DocumentReaderScanProtocol =
         DocumentScanProviderSampleBuilder.amaDocScanMrziOS()
 
-    let documentScanProvider: DocumentReaderScanProtocol = Bool.random()
-        ? documentScanProviderA // Can be any provider, as long as it complies with DocumentReaderScanProtocol
-        : documentScanProviderB // Can be any provider, as long as it complies with DocumentReaderScanProtocol
-    
+    /// RFID reader based on the Amadeus Doc RFID Read provider
+    let documentRFIDProvider: DocumentReaderRFIDProtocol =
+        AMADocRFIDRead(config: DocRfidReadConfig(apiConfig: apiConfig, enableLogs: true))
+
     Enrolment.shared.initWith(
         enrolmentConfig: enrolmentConfig,
-        documentScanProvider: documentScanProvider, // Any, as long as it complies with DocumentReaderScanProtocol
-        documentRFIDProvider: RegulaDocumentReaderRFID(),
+        documentScanProvider: documentScanProvider, // Any provider conforming to DocumentReaderScanProtocol
+        documentRFIDProvider: documentRFIDProvider, // Any provider conforming to DocumentReaderRFIDProtocol, or nil
         ultralightProvider: ultralightProvider, // Any, as long as it complies with UltralightProtocol
         viewRegister: EnrolmentViewRegister(),
         completionHandler: { result in

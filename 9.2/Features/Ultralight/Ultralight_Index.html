@@ -2670,8 +2670,8 @@ You're not viewing the latest version.
 This allows passengers to pass through airport processes without re-scanning their documents at each step.</p>
 <p>In the current SDK architecture, Ultralight is integrated through the Enrolment SDK facade.
 You provide your own <code>UltralightProvider</code> during initialization, and Enrolment exposes two methods to
-control the sharing lifecycle: <code>share()</code> (sets passengers and starts broadcasting, asynchronous via
-<code>OnShareCompletion</code> callback) and <code>stopSharing()</code>.</p>
+control the sharing lifecycle: <code>share()</code> (sets passengers and starts broadcasting, asynchronously
+reporting its result through a completion callback) and <code>stopSharing()</code>.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>Before integrating Ultralight, ensure you have:</p>
 <ul>
@@ -2773,9 +2773,11 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 </div>
 <h2 id="configure-ultralight-in-enrolment-initialization">Configure Ultralight in Enrolment Initialization<a class="headerlink" href="#configure-ultralight-in-enrolment-initialization" title="Permanent link">&para;</a></h2>
 <h3 id="step-1-create-and-initialize-ultralightprovider">Step 1: Create and Initialize UltralightProvider<a class="headerlink" href="#step-1-create-and-initialize-ultralightprovider" title="Permanent link">&para;</a></h3>
-<p>Before initializing Enrolment, create and configure your <code>UltralightProvider</code> instance.
-After <code>initialiseBeamsync()</code>, you must call <code>softStart()</code>;
-report success and errors through <code>OnSoftStartCompletion</code>.</p>
+<p>Before initializing Enrolment, create and configure your <code>UltralightProvider</code> instance by calling
+<code>initialiseBeamsync()</code> with your API key.</p>
+<p>On <strong>Android</strong>, you then call <code>softStart()</code> yourself and report success and errors through
+<code>OnSoftStartCompletion</code>. On <strong>iOS</strong>, the Enrolment SDK runs the soft start for you during
+initialization, so the provider only needs <code>initialiseBeamSync(apiKey:)</code>.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Android</label><label for="__tabbed_3_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2821,7 +2823,7 @@ report success and errors through <code>OnSoftStartCompletion</code>.</p>
 </div>
 </div>
 <h3 id="step-2-pass-provider-to-enrolment-initialization">Step 2: Pass Provider to Enrolment Initialization<a class="headerlink" href="#step-2-pass-provider-to-enrolment-initialization" title="Permanent link">&para;</a></h3>
-<p>Pass the <code>UltralightProvider</code> to <code>Enrolment.initialize()</code>:</p>
+<p>Pass the <code>UltralightProvider</code> when you initialize Enrolment:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Android</label><label for="__tabbed_4_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2863,7 +2865,8 @@ report success and errors through <code>OnSoftStartCompletion</code>.</p>
 </div>
 <h2 id="share-passenger-data">Share Passenger Data<a class="headerlink" href="#share-passenger-data" title="Permanent link">&para;</a></h2>
 <p>The <code>share()</code> method sets the passenger list <strong>and</strong> starts sharing in a single call.
-It is asynchronous — pass an <code>OnShareCompletion</code> callback to receive the result.</p>
+It is asynchronous — provide a completion callback to receive the result
+(<code>OnShareCompletion</code> on Android, a <code>(Bool, FeatureError?)</code> completion handler on iOS).</p>
 <p><strong>Passenger model:</strong></p>
 <table>
 <thead>
@@ -2958,7 +2961,7 @@ It is asynchronous — pass an <code>OnShareCompletion</code> callback to receiv
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="c1">// Passengers set and Beamsync started successfully</span>
 <span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="c1">// Check error.for details</span>
+<span class="w">            </span><span class="c1">// Check error for details</span>
 <span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">})</span>
@@ -2987,7 +2990,7 @@ It is asynchronous — pass an <code>OnShareCompletion</code> callback to receiv
 <span class="w">    </span><span class="n">presenter</span><span class="p">?.</span><span class="n">shouldStopSharing</span><span class="p">()</span><span class="w"> </span><span class="c1">// MVP Design Pattern</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>or call it ha hoc </p>
+<p>or call it ad hoc</p>
 <div class="highlight"><pre><span></span><code><span class="n">enrolment</span><span class="p">?.</span><span class="n">stopSharing</span><span class="p">()</span>
 </code></pre></div>
 </div>
@@ -3149,7 +3152,7 @@ It is asynchronous — pass an <code>OnShareCompletion</code> callback to receiv
 <span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                </span><span class="c1">// Passengers set and Beamsync started successfully</span>
 <span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="c1">// Check error.for details</span>
+<span class="w">                </span><span class="c1">// Check error for details</span>
 <span class="w">                </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">})</span>
@@ -3182,7 +3185,7 @@ It is asynchronous — pass an <code>OnShareCompletion</code> callback to receiv
 <span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                </span><span class="c1">// Passengers set and Beamsync started successfully</span>
 <span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="c1">// Check error.for details</span>
+<span class="w">                </span><span class="c1">// Check error for details</span>
 <span class="w">                </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">})</span>
@@ -3191,11 +3194,11 @@ It is asynchronous — pass an <code>OnShareCompletion</code> callback to receiv
 </code></pre></div>
 <h3 id="notes_1">Notes<a class="headerlink" href="#notes_1" title="Permanent link">&para;</a></h3>
 <ul>
-<li>The <code>UltralightProvider</code> must be initialized <strong>before</strong> passing it to <code>Enrolment.initialize()</code></li>
-<li>Ultralight is <strong>not available</strong> in offline mode (<code>initializeOffline</code>)</li>
-<li><code>share()</code> is <strong>asynchronous</strong> — results are delivered through the <code>OnShareCompletion</code> callback</li>
+<li>The <code>UltralightProvider</code> must be initialized <strong>before</strong> passing it to <code>Enrolment.shared.initWith(...)</code></li>
+<li>Ultralight is <strong>not available</strong> in offline mode (<code>initOffline</code>)</li>
+<li><code>share()</code> is <strong>asynchronous</strong> — the result is delivered through the <code>completionHandler</code> closure</li>
 <li><code>share()</code> both sets the passenger data <strong>and</strong> starts Beamsync (there is no separate <code>startSharing()</code> step)</li>
-<li>The SDK performs pre-flight checks for Bluetooth and Location before starting Beamsync</li>
+<li>Beamsync requires Bluetooth permission; <code>share()</code> fails with a <code>bluetoothNotGranted</code> error if it hasn't been granted</li>
 <li>Always call <code>stopSharing()</code> when cleaning up (e.g., in <code>deinit()</code>)</li>
 </ul>
 </div>

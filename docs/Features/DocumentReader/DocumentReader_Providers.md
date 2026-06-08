@@ -17,157 +17,29 @@ This provider uses Regula services and supports both OCR Document Reading and RF
     Work in progress...
 
 === "iOS"
-    
-	### Install using Xcode
-	
-	1.  Open your project in **Xcode**.
-	
-	2.  Navigate to **File ▸ Add Packages…**
-	
-	3.  In the dialog that appears, enter the package repository URL for the SDK you want to add:
-	
-	    **AMADocScanRegulaiOS**
-	
-	        https://github.com/vbmobile/AMADocScanRegulaiOS
-	
-	4.  Select the version to integrate. For new projects, we recommend using the latest available release (for example: **`{{ versions.ios_doc_scan_regula_provider }}`**).
-	
-	5.  Choose the project and target to which the package should be added.
-	
-	6.  Click **Add Package**.
-	
-	Once completed, Xcode will download the package and resolve all required dependencies automatically.
-	
-	***
-	
-	### Install Using `Package.swift`
-	
-	If you manage dependencies manually, add the SDKs to your `Package.swift` file.
-	
-	#### 1. Add the dependency
-	
-	```swift
-	dependencies: [
-	    .package(
-	        url: "https://github.com/vbmobile/AMADocScanRegulaiOS",
-	        exact: "{{ versions.ios_doc_scan_regula_provider }}"
-	    )
-	]
-	```
-	
-	> Replace `{{ versions.ios_doc_scan_regula_provider }}` with the intended version you wish to use.
-	
-	***
-	
-	#### 2. Link the product to your target
-	
-	```swift
-	.target(
-	    name: "YourAppTarget",
-	    dependencies: [
-	        .product(name: "AMADocScanRegulaiOS", package: "AMADocScanRegulaiOS")
-	    ]
-	)
-	```
-	
-	> Replace `YourAppTarget` with the intended target you wish to use.
+
+    Work in progress...
 
 ### How to Instantiate: 
 
 === "Android"
 
     Work in progress...
-    
+
 === "iOS"
-    
-    Creates a `DocumentReaderScanProtocol` using `AMADocScanRegulaiOS ` provider
-    
-    ```swift
-    func amaDocScanRegulaiOSProviderSetup() {
-        var enrolmentConfig: EnrolmentConfig! // Not relevant for this example
 
-        func amaDocScanRegulaiOS() -> DocumentReaderScanProtocol {
-            guard
-                let licensePath = Bundle.main.path(
-                    forResource: "<YOUR_REGULA_LICENCE_FILE>",
-                    ofType: "license"
-                ),
-                (try? Data(contentsOf: URL(fileURLWithPath: licensePath))) != nil
-            else {
-                fatalError("Unable to read Regula License")
-            }
-            let documentReaderConfig: mdi_mob_sdk_doc_mrz_regula_ios.DocumentReaderConfig = DocumentReaderConfig(
-                multipageProcessing: false, // Single-page scanning
-                databaseID: "<YOUR_DATA_BASE_ID>", // Database id
-                scenario: .mrz // MRZ scanning scenario
-            )
-            return RegulaDocumentReaderScan(config: documentReaderConfig)
-        }
+    Work in progress...
 
-        Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
-                                  documentScanProvider: amaDocScanRegulaiOS(),
-                                  documentRFIDProvider: nil, // Not relevant for this example
-                                  ultralightProvider: nil, // Not relevant for this example
-                                  viewRegister: nil,
-                                  completionHandler: { result in
-                                      switch result {
-                                      case .success:
-                                          print("SDK is ready to use")
-
-                                      case let .failure(error):
-                                          print("Failure: \(error)")
-                                      }
-                                  })
-    }
-	```
-    
-    
 ### How to Use:
 
 === "Android"
 
     Work in progress...
-    
+
 === "iOS"
 
-	```swift
-     func readDocumentSampleUsage() {
-         // The view controller responsible for presenting the document scanner camera interface
-         var viewController: UIViewController!
-         
-         Enrolment.shared.readDocument(
-            parameters: .init(readRFID: false),
-             viewController: viewController
-         ) { result in
-             switch result {
-             case let .success(report):
-                 print("Document Read: Success!")
-                 print(report)
-                 print(report.idDocument)
-                 print(report.documentStatuses)
-             case let .failure(error):
-                 print(error.featureError.description)
-             }
-         }
-     }
-	```
+    Work in progress...
 
-    Once both providers are initialized, simply pass them as parameters to the Enrolment initialization as shown below. For more information on initializing, see [Enrolment](../../index.md#how-to-initialize-the-sdk).
-
-    ``` swift
-    var documentReaderConfig = DocumentReaderConfig(multipageProcessing: false, databaseID: "Passports", checkHologram: false)
-    
-    var regulaDocumentReaderScan = RegulaDocumentReaderScan(config: documentReaderConfig)
-    var regulaDocumentReaderRFID = RegulaDocumentReaderRFID()
-    
-    Enrolment.shared.initWith(enrolmentConfig: enrolmentConfig,
-                              documentScanProvider: regulaDocumentReaderScan,
-                              documentRFIDProvider: regulaDocumentReaderRFID,
-                              viewRegister: viewRegister,
-                              completionHandler: completionHandler)
-    
-    ```
-    
 ## Amadeus DocScanMrz Provider
 
 This provider uses Amadeus services and supports MRZ Document Reading functionalities.
@@ -393,7 +265,7 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
 	
 	3.  In the dialog that appears, enter the package repository URL for the SDK you want to add:
 	
-	    **AMADocScanRegulaiOS**
+	    **AMADocRfid**
 	
 	        https://github.com/vbmobile/AMADocRfid
 	

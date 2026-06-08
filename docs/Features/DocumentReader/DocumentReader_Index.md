@@ -30,7 +30,7 @@ mobile device over the travel e-Document in order to perform a RFID scan to extr
 === "iOS"
 
     Since version 9, the Document Reader is built on a **provider model**. Instead of a single,
-    Regula-specific configuration, you pick the provider(s) you want to use and pass them to the
+    fixed configuration, you pick the provider(s) you want to use and pass them to the
     Enrolment initialization. Each provider has its own setup and is supplied through the
     `documentScanProvider` (OCR/MRZ) and `documentRFIDProvider` (RFID/NFC) parameters of
     `Enrolment.shared.initWith(...)`.
@@ -38,7 +38,6 @@ mobile device over the travel e-Document in order to perform a RFID scan to extr
     The available providers are:
 
     - **Amadeus DocScanMrz** (`AMADocScanMrziOS`) — OCR/MRZ document scanning.
-    - **Regula** (`AMADocScanRegulaiOS`) — OCR/MRZ document scanning and RFID reading.
     - **Amadeus Doc RFID Read** (`AMADocRfid`) — RFID/NFC chip reading.
 
     Any scan provider can be used as long as it conforms to `DocumentReaderScanProtocol`, and any RFID

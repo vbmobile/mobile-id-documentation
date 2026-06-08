@@ -177,7 +177,7 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
 === "Android"
 
     ```kotlin
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<{{ versions.android_doc_scan_mrz_provider }}>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:{{ versions.android_doc_scan_mrz_provider }}")
     ```
 
 === "iOS"
@@ -380,7 +380,7 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
 === "Android"
 
     ```kotlin
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:<{{ versions.android_doc_rfid_read_provider }}>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:{{ versions.android_doc_rfid_read_provider }}")
     ```
 
 === "iOS"

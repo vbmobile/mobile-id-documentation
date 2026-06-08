@@ -2886,8 +2886,8 @@ You're not viewing the latest version.
 <p><strong>AMADocScanMrziOS</strong> (Optional Provider)</p>
 <pre><code>https://github.com/vbmobile/AMADocScanMrziOS
 </code></pre>
-<p><strong>AMADocScanRegulaiOS</strong> (Optional Provider)</p>
-<pre><code>https://github.com/vbmobile/AMADocScanRegulaiOS
+<p><strong>AMADocRfid</strong> (Optional Provider)</p>
+<pre><code>https://github.com/vbmobile/AMADocRfid
 </code></pre>
 </li>
 <li>
@@ -2909,12 +2909,12 @@ You're not viewing the latest version.
 <div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">.</span><span class="n">package</span><span class="p">(</span>
 <span class="w">        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/vbmobile/MobileIdSDKiOS&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">upToNextMinor</span><span class="p">(</span><span class="n">from</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2.0.2&quot;</span>
+<span class="w">        </span><span class="n">upToNextMinor</span><span class="p">(</span><span class="n">from</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;9.2.0&quot;</span>
 <span class="w">    </span><span class="p">)</span>
 <span class="p">]</span>
 </code></pre></div>
 <blockquote>
-<p>Replace <code>2.0.2</code> with the intended version you wish to use.</p>
+<p>Replace <code>9.2.0</code> with the intended version you wish to use.</p>
 </blockquote>
 <hr />
 <h4 id="2-link-the-product-to-your-target">2. Link the product to your target<a class="headerlink" href="#2-link-the-product-to-your-target" title="Permanent link">&para;</a></h4>
@@ -2930,7 +2930,7 @@ You're not viewing the latest version.
 </blockquote>
 <hr />
 <blockquote>
-<p>Repeat the process for <code>AmaShareUltralight</code>, <code>AMADocScanMrziOS</code> and <code>AMADocScanRegulaiOS</code></p>
+<p>Repeat the process for <code>AmaShareUltralight</code>, <code>AMADocScanMrziOS</code> and <code>AMADocRfid</code></p>
 </blockquote>
 <p>Once added, the Enrolment SDK APIs (and any integrated optional modules such as Ultralight or Document Scanning providers) become available to your application through the standard Enrolment SDK integration flow.</p>
 </div>
@@ -3016,34 +3016,9 @@ The following parameters must always be provided:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">import</span><span class="w"> </span><span class="nc">UIKit</span>
 <span class="kd">import</span><span class="w"> </span><span class="nc">AMADocModeliOS</span>
 <span class="kd">import</span><span class="w"> </span><span class="nc">AMADocScanMrziOS</span>
-<span class="kd">import</span><span class="w"> </span><span class="nc">AMADocScanRegulaiOS</span>
+<span class="kd">import</span><span class="w"> </span><span class="nc">AMADocRFIDReadiOS</span>
 
 <span class="kd">enum</span><span class="w"> </span><span class="nc">DocumentScanProviderSampleBuilder</span><span class="w"> </span><span class="p">{</span>
-
-<span class="w">    </span><span class="c1">/// Creates a document scanner backed by the Regula SDK.</span>
-<span class="w">    </span><span class="c1">/// Uses MRZ-based scanning scenarios.</span>
-<span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">amaDocScanRegulaiOS</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">/// Ensures the Regula license file exists and is readable</span>
-<span class="w">        </span><span class="k">guard</span>
-<span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="nv">licensePath</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Bundle</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="n">path</span><span class="p">(</span>
-<span class="w">                </span><span class="n">forResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;YOUR_REGULA_LICENCE_FILE&gt;&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="n">ofType</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span>
-<span class="w">            </span><span class="p">),</span>
-<span class="w">            </span><span class="p">(</span><span class="k">try</span><span class="p">?</span><span class="w"> </span><span class="n">Data</span><span class="p">(</span><span class="n">contentsOf</span><span class="p">:</span><span class="w"> </span><span class="n">URL</span><span class="p">(</span><span class="n">fileURLWithPath</span><span class="p">:</span><span class="w"> </span><span class="n">licensePath</span><span class="p">)))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span>
-<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="bp">fatalError</span><span class="p">(</span><span class="s">&quot;Unable to read Regula License&quot;</span><span class="p">)</span>
-<span class="w">        </span><span class="p">}</span>
-
-<span class="w">        </span><span class="c1">/// Regula document reader configuration</span>
-<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span>
-<span class="w">            </span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="c1">// Single-page scanning</span>
-<span class="w">            </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;YOUR_DATA_BASE_ID&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Database id</span>
-<span class="w">            </span><span class="n">scenario</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">mrz</span><span class="w"> </span><span class="c1">// MRZ scanning scenario</span>
-<span class="w">        </span><span class="p">)</span>
-
-<span class="w">        </span><span class="c1">/// Returns a Regula-based document scanner</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">RegulaDocumentReaderScan</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">documentReaderConfig</span><span class="p">)</span>
-<span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">/// Creates a document scanner backed by the PSS provider.</span>
 <span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">amaDocScanMrziOS</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="w"> </span><span class="p">{</span>
@@ -3080,22 +3055,18 @@ The following parameters must always be provided:</p>
 <span class="kd">let</span><span class="w"> </span><span class="nv">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">Ultralight</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">()</span>
 <span class="n">ultralightProvider</span><span class="p">.</span><span class="n">initialiseBeamSync</span><span class="p">(</span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">)</span>
 
-<span class="c1">/// Document scanner based on Regula SDK (MRZ / OCR scanning)</span>
-<span class="kd">let</span><span class="w"> </span><span class="nv">documentScanProviderA</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="w"> </span><span class="p">=</span>
-<span class="w">    </span><span class="n">DocumentScanProviderSampleBuilder</span><span class="p">.</span><span class="n">amaDocScanRegulaiOS</span><span class="p">()</span>
-
-<span class="c1">/// Document scanner based on Amadeus PSS provider</span>
-<span class="kd">let</span><span class="w"> </span><span class="nv">documentScanProviderB</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="w"> </span><span class="p">=</span>
+<span class="c1">/// Document scanner based on the Amadeus DocScanMrz provider</span>
+<span class="kd">let</span><span class="w"> </span><span class="nv">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="w"> </span><span class="p">=</span>
 <span class="w">    </span><span class="n">DocumentScanProviderSampleBuilder</span><span class="p">.</span><span class="n">amaDocScanMrziOS</span><span class="p">()</span>
 
-<span class="kd">let</span><span class="w"> </span><span class="nv">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">Bool</span><span class="p">.</span><span class="n">random</span><span class="p">()</span>
-<span class="w">    </span><span class="p">?</span><span class="w"> </span><span class="n">documentScanProviderA</span><span class="w"> </span><span class="c1">// Can be any provider, as long as it complies with DocumentReaderScanProtocol</span>
-<span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="n">documentScanProviderB</span><span class="w"> </span><span class="c1">// Can be any provider, as long as it complies with DocumentReaderScanProtocol</span>
+<span class="c1">/// RFID reader based on the Amadeus Doc RFID Read provider</span>
+<span class="kd">let</span><span class="w"> </span><span class="nv">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderRFIDProtocol</span><span class="w"> </span><span class="p">=</span>
+<span class="w">    </span><span class="n">AMADocRFIDRead</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">DocRfidReadConfig</span><span class="p">(</span><span class="n">apiConfig</span><span class="p">:</span><span class="w"> </span><span class="n">apiConfig</span><span class="p">,</span><span class="w"> </span><span class="n">enableLogs</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">))</span>
 
 <span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span>
 <span class="w">    </span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
-<span class="w">    </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">documentScanProvider</span><span class="p">,</span><span class="w"> </span><span class="c1">// Any, as long as it complies with DocumentReaderScanProtocol</span>
-<span class="w">    </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="n">RegulaDocumentReaderRFID</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">documentScanProvider</span><span class="p">,</span><span class="w"> </span><span class="c1">// Any provider conforming to DocumentReaderScanProtocol</span>
+<span class="w">    </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="n">documentRFIDProvider</span><span class="p">,</span><span class="w"> </span><span class="c1">// Any provider conforming to DocumentReaderRFIDProtocol, or nil</span>
 <span class="w">    </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">ultralightProvider</span><span class="p">,</span><span class="w"> </span><span class="c1">// Any, as long as it complies with UltralightProtocol</span>
 <span class="w">    </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentViewRegister</span><span class="p">(),</span>
 <span class="w">    </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
@@ -3851,7 +3822,7 @@ It brings control and allows the maintenance of consistency in terms of brand co
 <tbody>
 <tr>
 <td>AMADocModeliOS</td>
-<td>1.0.0-rc24</td>
+<td>2.0.2</td>
 <td><a href="https://github.com/vbmobile/AMADocModeliOS">https://github.com/vbmobile/AMADocModeliOS</a></td>
 </tr>
 <tr>

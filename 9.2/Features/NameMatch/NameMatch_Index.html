@@ -2601,7 +2601,45 @@ You're not viewing the latest version.
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>Work in progress...</p>
+<div class="highlight"><pre><span></span><code><span class="c1">/// Compares a reference name against a provided name using ICAO Doc 9303</span>
+<span class="c1">/// MRZ character transliteration rules.</span>
+<span class="c1">///</span>
+<span class="c1">/// This method does not require SDK initialization.</span>
+<span class="c1">///</span>
+<span class="c1">/// - Parameters:</span>
+<span class="c1">///   - reference: The name from the reference document (e.g. passport MRZ).</span>
+<span class="c1">///   - compare:   The name to compare against the reference.</span>
+<span class="c1">///   - strategy:  ``NameMatchStrategy/exact`` or ``NameMatchStrategy/approximate``.</span>
+<span class="c1">/// - Returns: `true` if names match according to the chosen strategy.</span>
+<span class="kd">func</span><span class="w"> </span><span class="nf">matchNames</span><span class="p">(</span>
+<span class="w">    </span><span class="n">reference</span><span class="p">:</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span>
+<span class="w">    </span><span class="n">compare</span><span class="p">:</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span>
+<span class="w">    </span><span class="n">strategy</span><span class="p">:</span><span class="w"> </span><span class="n">NameMatchStrategy</span>
+<span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Bool</span>
+
+<span class="c1">/// Represents a person&#39;s name with first and last name components.</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">Name</span><span class="p">:</span><span class="w"> </span><span class="nb">Equatable</span><span class="p">,</span><span class="w"> </span><span class="nb">Hashable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">/// The given/first name(s).</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">firstName</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span>
+
+<span class="w">    </span><span class="c1">/// The family/last name(s).</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">lastName</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">init</span><span class="p">(</span><span class="n">firstName</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">lastName</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">/// Comparison strategy for name matching.</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">NameMatchStrategy</span><span class="p">:</span><span class="w"> </span><span class="n">Sendable</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">/// Both names must be exactly equal after ICAO Doc 9303 sanitization.</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">exact</span>
+
+<span class="w">    </span><span class="c1">/// The reference name must contain the comparison name after ICAO Doc 9303</span>
+<span class="w">    </span><span class="c1">/// sanitization, for both first and last names.</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">approximate</span>
+<span class="p">}</span>
+</code></pre></div>
 </div>
 </div>
 </div>
@@ -2630,7 +2668,25 @@ You're not viewing the latest version.
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>Work in progress...</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nv">referenceName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Name</span><span class="p">(</span>
+<span class="w">    </span><span class="n">firstName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;JOHN&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">lastName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DOE&quot;</span>
+<span class="p">)</span>
+<span class="kd">let</span><span class="w"> </span><span class="nv">compareName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Name</span><span class="p">(</span>
+<span class="w">    </span><span class="n">firstName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;JOHN&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">lastName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DOE&quot;</span>
+<span class="p">)</span>
+<span class="kd">let</span><span class="w"> </span><span class="nv">isExactMatch</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">matchNames</span><span class="p">(</span>
+<span class="w">    </span><span class="n">reference</span><span class="p">:</span><span class="w"> </span><span class="n">referenceName</span><span class="p">,</span>
+<span class="w">    </span><span class="n">compare</span><span class="p">:</span><span class="w"> </span><span class="n">compareName</span><span class="p">,</span>
+<span class="w">    </span><span class="n">strategy</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">exact</span>
+<span class="p">)</span>
+<span class="kd">let</span><span class="w"> </span><span class="nv">isApproximateMatch</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">matchNames</span><span class="p">(</span>
+<span class="w">    </span><span class="n">reference</span><span class="p">:</span><span class="w"> </span><span class="n">referenceName</span><span class="p">,</span>
+<span class="w">    </span><span class="n">compare</span><span class="p">:</span><span class="w"> </span><span class="n">compareName</span><span class="p">,</span>
+<span class="w">    </span><span class="n">strategy</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">approximate</span>
+<span class="p">)</span>
+</code></pre></div>
 </div>
 </div>
 </div>

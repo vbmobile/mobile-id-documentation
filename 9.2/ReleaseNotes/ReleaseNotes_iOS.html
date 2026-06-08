@@ -2365,6 +2365,17 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#910" class="md-nav__link">
+        9.1.0
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#900" class="md-nav__link">
         9.0.0
     </a>
@@ -2872,6 +2883,17 @@ You're not viewing the latest version.
       
         <!-- Table of contents item -->
 <li class="md-nav__item">
+    <a href="#910" class="md-nav__link">
+        9.1.0
+    </a>
+
+    <!-- Table of contents list -->
+    
+    
+</li>
+      
+        <!-- Table of contents item -->
+<li class="md-nav__item">
     <a href="#900" class="md-nav__link">
         9.0.0
     </a>
@@ -3238,8 +3260,15 @@ You're not viewing the latest version.
 <li>General bug fixes.</li>
 <li>Funtion <code>func share(passengers: [AMADocModeliOS.Passenger]) async -&gt; (result: Bool?, error: FeatureError?)</code> is now <code>func share(passengers: [AMADocModeliOS.Passenger], completionHandler: @escaping (Bool, FeatureError?) -&gt; Void)</code></li>
 </ul>
-<h2 id="900">9.0.0<a class="headerlink" href="#900" title="Permanent link">&para;</a></h2>
+<h2 id="910">9.1.0<a class="headerlink" href="#910" title="Permanent link">&para;</a></h2>
 <h3 id="whats-new_1">What's new<a class="headerlink" href="#whats-new_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Added support for the new RFID reader provider.</li>
+<li>Removed DocumentData from the Document Reader feature. Use the <code>IdDocument</code> from the <code>DocumentReaderReport</code>, which contains the same data as <code>DocumentData</code>.</li>
+<li>Added the Name Match feature, allowing a names comparison between a candidate and a reference using <code>Enrolment.shared.matchNames(reference:compare:strategy:)</code>. See <a href="../Features/NameMatch/NameMatch_Index.html">Name Match section</a>.</li>
+</ul>
+<h2 id="900">9.0.0<a class="headerlink" href="#900" title="Permanent link">&para;</a></h2>
+<h3 id="whats-new_2">What's new<a class="headerlink" href="#whats-new_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Document Reader provider setup changed.</li>
 <li>Enrolment initialization parameters changed for Document Reader integration.</li>
@@ -3279,7 +3308,7 @@ You're not viewing the latest version.
 <li>Fixed issue on square biometric face capture callback being triggered multiple times</li>
 </ul>
 <h2 id="810">8.1.0<a class="headerlink" href="#810" title="Permanent link">&para;</a></h2>
-<h3 id="whats-new_2">What's new<a class="headerlink" href="#whats-new_2" title="Permanent link">&para;</a></h3>
+<h3 id="whats-new_3">What's new<a class="headerlink" href="#whats-new_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added a new property to matchReport that indicates the score of the biometric match in success cases as well.</li>
 <li>New <strong>IdDocument</strong> class that will replace DocumentData in the document reader report.</li>
@@ -3296,7 +3325,7 @@ You're not viewing the latest version.
 <li>The object DocumentData from the Document Reader feature is <strong>deprecated and will be removed in the future</strong>, please update to the new object IdDocument.</li>
 </ul>
 <h2 id="800">8.0.0<a class="headerlink" href="#800" title="Permanent link">&para;</a></h2>
-<h3 id="whats-new_3">What's new<a class="headerlink" href="#whats-new_3" title="Permanent link">&para;</a></h3>
+<h3 id="whats-new_4">What's new<a class="headerlink" href="#whats-new_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li>New, streamlined Face Capture UI.</li>
 </ul>
@@ -3390,7 +3419,7 @@ You're not viewing the latest version.
 </ul>
 </li>
 </ul>
-<h3 id="whats-new_4">What's new<a class="headerlink" href="#whats-new_4" title="Permanent link">&para;</a></h3>
+<h3 id="whats-new_5">What's new<a class="headerlink" href="#whats-new_5" title="Permanent link">&para;</a></h3>
 <ul>
 <li><a href="../Features/Form/Form_Index.md">Form</a> feature</li>
 </ul>
@@ -3405,7 +3434,7 @@ You're not viewing the latest version.
 <li>Fix issues with oval drawing in Face Capture</li>
 </ul>
 <h2 id="700">7.0.0<a class="headerlink" href="#700" title="Permanent link">&para;</a></h2>
-<h3 id="whats-new_5">What's new<a class="headerlink" href="#whats-new_5" title="Permanent link">&para;</a></h3>
+<h3 id="whats-new_6">What's new<a class="headerlink" href="#whats-new_6" title="Permanent link">&para;</a></h3>
 <ul>
 <li>New subject service (now works asynchronously)</li>
 <li>Removed the <code>get</code>, <code>delete</code> and <code>update</code> subject signatures;</li>
@@ -3478,7 +3507,7 @@ You're not viewing the latest version.
 <li>Updated to Regula 6.6;</li>
 </ul>
 <h2 id="501">5.0.1<a class="headerlink" href="#501" title="Permanent link">&para;</a></h2>
-<h3 id="whats-new_6">What's new<a class="headerlink" href="#whats-new_6" title="Permanent link">&para;</a></h3>
+<h3 id="whats-new_7">What's new<a class="headerlink" href="#whats-new_7" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Biometric Face Capture now has real-time image processing with more feedback to increase odds of taking a quality picture for the match service;</li>
 <li>The EnrolmentConfig has a new configuration to set the SDK language;</li>

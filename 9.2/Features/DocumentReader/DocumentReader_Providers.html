@@ -2613,57 +2613,7 @@ You're not viewing the latest version.
 <p>Work in progress...</p>
 </div>
 <div class="tabbed-block">
-<h3 id="install-using-xcode">Install using Xcode<a class="headerlink" href="#install-using-xcode" title="Permanent link">&para;</a></h3>
-<ol>
-<li>
-<p>Open your project in <strong>Xcode</strong>.</p>
-</li>
-<li>
-<p>Navigate to <strong>File ▸ Add Packages…</strong></p>
-</li>
-<li>
-<p>In the dialog that appears, enter the package repository URL for the SDK you want to add:</p>
-<p><strong>AMADocScanRegulaiOS</strong></p>
-<pre><code>https://github.com/vbmobile/AMADocScanRegulaiOS
-</code></pre>
-</li>
-<li>
-<p>Select the version to integrate. For new projects, we recommend using the latest available release (for example: <strong><code>2.0.2</code></strong>).</p>
-</li>
-<li>
-<p>Choose the project and target to which the package should be added.</p>
-</li>
-<li>
-<p>Click <strong>Add Package</strong>.</p>
-</li>
-</ol>
-<p>Once completed, Xcode will download the package and resolve all required dependencies automatically.</p>
-<hr />
-<h3 id="install-using-packageswift">Install Using <code>Package.swift</code><a class="headerlink" href="#install-using-packageswift" title="Permanent link">&para;</a></h3>
-<p>If you manage dependencies manually, add the SDKs to your <code>Package.swift</code> file.</p>
-<h4 id="1-add-the-dependency">1. Add the dependency<a class="headerlink" href="#1-add-the-dependency" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">.</span><span class="n">package</span><span class="p">(</span>
-<span class="w">        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/vbmobile/AMADocScanRegulaiOS&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2.0.2&quot;</span>
-<span class="w">    </span><span class="p">)</span>
-<span class="p">]</span>
-</code></pre></div>
-<blockquote>
-<p>Replace <code>2.0.2</code> with the intended version you wish to use.</p>
-</blockquote>
-<hr />
-<h4 id="2-link-the-product-to-your-target">2. Link the product to your target<a class="headerlink" href="#2-link-the-product-to-your-target" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="n">target</span><span class="p">(</span>
-<span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YourAppTarget&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AMADocScanRegulaiOS&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">package</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AMADocScanRegulaiOS&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="p">]</span>
-<span class="p">)</span>
-</code></pre></div>
-<blockquote>
-<p>Replace <code>YourAppTarget</code> with the intended target you wish to use.</p>
-</blockquote>
+<p>Work in progress...</p>
 </div>
 </div>
 </div>
@@ -2674,44 +2624,7 @@ You're not viewing the latest version.
 <p>Work in progress...</p>
 </div>
 <div class="tabbed-block">
-<p>Creates a <code>DocumentReaderScanProtocol</code> using <code>AMADocScanRegulaiOS</code> provider</p>
-<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">amaDocScanRegulaiOSProviderSetup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">!</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
-
-<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">amaDocScanRegulaiOS</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">guard</span>
-<span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="nv">licensePath</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Bundle</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="n">path</span><span class="p">(</span>
-<span class="w">                </span><span class="n">forResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;YOUR_REGULA_LICENCE_FILE&gt;&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="n">ofType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;license&quot;</span>
-<span class="w">            </span><span class="p">),</span>
-<span class="w">            </span><span class="p">(</span><span class="k">try</span><span class="p">?</span><span class="w"> </span><span class="n">Data</span><span class="p">(</span><span class="n">contentsOf</span><span class="p">:</span><span class="w"> </span><span class="n">URL</span><span class="p">(</span><span class="n">fileURLWithPath</span><span class="p">:</span><span class="w"> </span><span class="n">licensePath</span><span class="p">)))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span>
-<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="bp">fatalError</span><span class="p">(</span><span class="s">&quot;Unable to read Regula License&quot;</span><span class="p">)</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="p">:</span><span class="w"> </span><span class="n">mdi_mob_sdk_doc_mrz_regula_ios</span><span class="p">.</span><span class="n">DocumentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span>
-<span class="w">            </span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="c1">// Single-page scanning</span>
-<span class="w">            </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;YOUR_DATA_BASE_ID&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Database id</span>
-<span class="w">            </span><span class="n">scenario</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">mrz</span><span class="w"> </span><span class="c1">// MRZ scanning scenario</span>
-<span class="w">        </span><span class="p">)</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">RegulaDocumentReaderScan</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">documentReaderConfig</span><span class="p">)</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">amaDocScanRegulaiOS</span><span class="p">(),</span>
-<span class="w">                              </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
-<span class="w">                              </span><span class="n">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
-<span class="w">                              </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
-<span class="w">                                  </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                                  </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
-<span class="w">                                      </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;SDK is ready to use&quot;</span><span class="p">)</span>
-
-<span class="w">                                  </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
-<span class="w">                                      </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">                                  </span><span class="p">}</span>
-<span class="w">                              </span><span class="p">})</span>
-<span class="p">}</span>
-</code></pre></div>
+<p>Work in progress...</p>
 </div>
 </div>
 </div>
@@ -2722,38 +2635,7 @@ You're not viewing the latest version.
 <p>Work in progress...</p>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">readDocumentSampleUsage</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">     </span><span class="c1">// The view controller responsible for presenting the document scanner camera interface</span>
-<span class="w">     </span><span class="kd">var</span><span class="w"> </span><span class="nv">viewController</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">!</span>
-
-<span class="w">     </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">readDocument</span><span class="p">(</span>
-<span class="w">        </span><span class="n">parameters</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">readRFID</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">),</span>
-<span class="w">         </span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="n">viewController</span>
-<span class="w">     </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
-<span class="w">         </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
-<span class="w">         </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="n">report</span><span class="p">):</span>
-<span class="w">             </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Document Read: Success!&quot;</span><span class="p">)</span>
-<span class="w">             </span><span class="bp">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
-<span class="w">             </span><span class="bp">print</span><span class="p">(</span><span class="n">report</span><span class="p">.</span><span class="n">idDocument</span><span class="p">)</span>
-<span class="w">             </span><span class="bp">print</span><span class="p">(</span><span class="n">report</span><span class="p">.</span><span class="n">documentStatuses</span><span class="p">)</span>
-<span class="w">         </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
-<span class="w">             </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="n">featureError</span><span class="p">.</span><span class="n">description</span><span class="p">)</span>
-<span class="w">         </span><span class="p">}</span>
-<span class="w">     </span><span class="p">}</span>
-<span class="w"> </span><span class="p">}</span>
-</code></pre></div>
-<p>Once both providers are initialized, simply pass them as parameters to the Enrolment initialization as shown below. For more information on initializing, see <a href="../../index.html#how-to-initialize-the-sdk">Enrolment</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nv">documentReaderConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DocumentReaderConfig</span><span class="p">(</span><span class="n">multipageProcessing</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">databaseID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Passports&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">checkHologram</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
-
-<span class="kd">var</span><span class="w"> </span><span class="nv">regulaDocumentReaderScan</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">RegulaDocumentReaderScan</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">documentReaderConfig</span><span class="p">)</span>
-<span class="kd">var</span><span class="w"> </span><span class="nv">regulaDocumentReaderRFID</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">RegulaDocumentReaderRFID</span><span class="p">()</span>
-
-<span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
-<span class="w">                          </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">regulaDocumentReaderScan</span><span class="p">,</span>
-<span class="w">                          </span><span class="n">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="n">regulaDocumentReaderRFID</span><span class="p">,</span>
-<span class="w">                          </span><span class="n">viewRegister</span><span class="p">:</span><span class="w"> </span><span class="n">viewRegister</span><span class="p">,</span>
-<span class="w">                          </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">)</span>
-</code></pre></div>
+<p>Work in progress...</p>
 </div>
 </div>
 </div>
@@ -2767,7 +2649,7 @@ You're not viewing the latest version.
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<h3 id="install-using-xcode_1">Install using Xcode<a class="headerlink" href="#install-using-xcode_1" title="Permanent link">&para;</a></h3>
+<h3 id="install-using-xcode">Install using Xcode<a class="headerlink" href="#install-using-xcode" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Open your project in <strong>Xcode</strong>.</p>
@@ -2783,7 +2665,7 @@ You're not viewing the latest version.
 </li>
 <li>
 <p>Select the version to integrate.<br />
-    For new projects, we recommend using the latest available release (for example: <strong><code>2.0.2</code></strong>).</p>
+    For new projects, we recommend using the latest available release (for example: <strong><code>2.0.3</code></strong>).</p>
 </li>
 <li>
 <p>Choose the project and target to which the package should be added.</p>
@@ -2794,21 +2676,21 @@ You're not viewing the latest version.
 </ol>
 <p>Once completed, Xcode will download the package and resolve all required dependencies automatically.</p>
 <hr />
-<h3 id="install-using-packageswift_1">Install Using <code>Package.swift</code><a class="headerlink" href="#install-using-packageswift_1" title="Permanent link">&para;</a></h3>
+<h3 id="install-using-packageswift">Install Using <code>Package.swift</code><a class="headerlink" href="#install-using-packageswift" title="Permanent link">&para;</a></h3>
 <p>If you manage dependencies manually, add the SDKs to your <code>Package.swift</code> file.</p>
-<h4 id="1-add-the-dependency_1">1. Add the dependency<a class="headerlink" href="#1-add-the-dependency_1" title="Permanent link">&para;</a></h4>
+<h4 id="1-add-the-dependency">1. Add the dependency<a class="headerlink" href="#1-add-the-dependency" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">.</span><span class="n">package</span><span class="p">(</span>
 <span class="w">        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/vbmobile/AMADocScanMrziOS&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2.0.2&quot;</span>
+<span class="w">        </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2.0.3&quot;</span>
 <span class="w">    </span><span class="p">)</span>
 <span class="p">]</span>
 </code></pre></div>
 <blockquote>
-<p>Replace <code>2.0.2</code> with the intended version you wish to use.</p>
+<p>Replace <code>2.0.3</code> with the intended version you wish to use.</p>
 </blockquote>
 <hr />
-<h4 id="2-link-the-product-to-your-target_1">2. Link the product to your target<a class="headerlink" href="#2-link-the-product-to-your-target_1" title="Permanent link">&para;</a></h4>
+<h4 id="2-link-the-product-to-your-target">2. Link the product to your target<a class="headerlink" href="#2-link-the-product-to-your-target" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="n">target</span><span class="p">(</span>
 <span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YourAppTarget&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
@@ -2960,7 +2842,7 @@ You're not viewing the latest version.
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<h3 id="install-using-xcode_2">Install using Xcode<a class="headerlink" href="#install-using-xcode_2" title="Permanent link">&para;</a></h3>
+<h3 id="install-using-xcode_1">Install using Xcode<a class="headerlink" href="#install-using-xcode_1" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Open your project in <strong>Xcode</strong>.</p>
@@ -2970,12 +2852,12 @@ You're not viewing the latest version.
 </li>
 <li>
 <p>In the dialog that appears, enter the package repository URL for the SDK you want to add:</p>
-<p><strong>AMADocScanRegulaiOS</strong></p>
+<p><strong>AMADocRfid</strong></p>
 <pre><code>https://github.com/vbmobile/AMADocRfid
 </code></pre>
 </li>
 <li>
-<p>Select the version to integrate. For new projects, we recommend using the latest available release (for example: <strong><code>2.0.1</code></strong>).</p>
+<p>Select the version to integrate. For new projects, we recommend using the latest available release (for example: <strong><code>2.0.2</code></strong>).</p>
 </li>
 <li>
 <p>Choose the project and target to which the package should be added.</p>
@@ -2986,21 +2868,21 @@ You're not viewing the latest version.
 </ol>
 <p>Once completed, Xcode will download the package and resolve all required dependencies automatically.</p>
 <hr />
-<h3 id="install-using-packageswift_2">Install Using <code>Package.swift</code><a class="headerlink" href="#install-using-packageswift_2" title="Permanent link">&para;</a></h3>
+<h3 id="install-using-packageswift_1">Install Using <code>Package.swift</code><a class="headerlink" href="#install-using-packageswift_1" title="Permanent link">&para;</a></h3>
 <p>If you manage dependencies manually, add the SDKs to your <code>Package.swift</code> file.</p>
-<h4 id="1-add-the-dependency_2">1. Add the dependency<a class="headerlink" href="#1-add-the-dependency_2" title="Permanent link">&para;</a></h4>
+<h4 id="1-add-the-dependency_1">1. Add the dependency<a class="headerlink" href="#1-add-the-dependency_1" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">.</span><span class="n">package</span><span class="p">(</span>
 <span class="w">        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/vbmobile/AMADocRfid&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2.0.1&quot;</span>
+<span class="w">        </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2.0.2&quot;</span>
 <span class="w">    </span><span class="p">)</span>
 <span class="p">]</span>
 </code></pre></div>
 <blockquote>
-<p>Replace <code>2.0.1</code> with the intended version you wish to use.</p>
+<p>Replace <code>2.0.2</code> with the intended version you wish to use.</p>
 </blockquote>
 <hr />
-<h4 id="2-link-the-product-to-your-target_2">2. Link the product to your target<a class="headerlink" href="#2-link-the-product-to-your-target_2" title="Permanent link">&para;</a></h4>
+<h4 id="2-link-the-product-to-your-target_1">2. Link the product to your target<a class="headerlink" href="#2-link-the-product-to-your-target_1" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="n">target</span><span class="p">(</span>
 <span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YourAppTarget&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>

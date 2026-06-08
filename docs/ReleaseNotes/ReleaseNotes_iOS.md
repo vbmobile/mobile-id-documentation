@@ -5,7 +5,11 @@
 ### What's new
 
 - General bug fixes.
-- Funtion `func share(passengers: [AMADocModeliOS.Passenger]) async -> (result: Bool?, error: FeatureError?)` is now `func share(passengers: [AMADocModeliOS.Passenger], completionHandler: @escaping (Bool, FeatureError?) -> Void)`
+- Function `func share(passengers: [AMADocModeliOS.Passenger]) async -> (result: Bool?, error: FeatureError?)` is now `func share(passengers: [AMADocModeliOS.Passenger], completionHandler: @escaping (Bool, FeatureError?) -> Void)`
+
+### Improvements
+
+- Updated the recommended provider versions: DocScanMrz `2.0.3`, Doc RFID Read `2.0.2`, and Ultralight `2.0.4`.
 
 
 ## 9.1.0

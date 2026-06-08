@@ -5,8 +5,8 @@ This allows passengers to pass through airport processes without re-scanning the
 
 In the current SDK architecture, Ultralight is integrated through the Enrolment SDK facade.
 You provide your own `UltralightProvider` during initialization, and Enrolment exposes two methods to
-control the sharing lifecycle: `share()` (sets passengers and starts broadcasting, asynchronous via
-`OnShareCompletion` callback) and `stopSharing()`.
+control the sharing lifecycle: `share()` (sets passengers and starts broadcasting, asynchronously
+reporting its result through a completion callback) and `stopSharing()`.
 
 ## Prerequisites
 
@@ -113,9 +113,12 @@ Before integrating Ultralight, ensure you have:
 
 ### Step 1: Create and Initialize UltralightProvider
 
-Before initializing Enrolment, create and configure your `UltralightProvider` instance.
-After `initialiseBeamsync()`, you must call `softStart()`;
-report success and errors through `OnSoftStartCompletion`.
+Before initializing Enrolment, create and configure your `UltralightProvider` instance by calling
+`initialiseBeamsync()` with your API key.
+
+On **Android**, you then call `softStart()` yourself and report success and errors through
+`OnSoftStartCompletion`. On **iOS**, the Enrolment SDK runs the soft start for you during
+initialization, so the provider only needs `initialiseBeamSync(apiKey:)`.
 
 === "Android"
 
@@ -166,7 +169,7 @@ report success and errors through `OnSoftStartCompletion`.
                                   
 ### Step 2: Pass Provider to Enrolment Initialization
 
-Pass the `UltralightProvider` to `Enrolment.initialize()`:
+Pass the `UltralightProvider` when you initialize Enrolment:
 
 === "Android"
 
@@ -210,7 +213,8 @@ Pass the `UltralightProvider` to `Enrolment.initialize()`:
 ## Share Passenger Data
 
 The `share()` method sets the passenger list **and** starts sharing in a single call.
-It is asynchronous — pass an `OnShareCompletion` callback to receive the result.
+It is asynchronous — provide a completion callback to receive the result
+(`OnShareCompletion` on Android, a `(Bool, FeatureError?)` completion handler on iOS).
 
 **Passenger model:**
 
@@ -271,7 +275,7 @@ It is asynchronous — pass an `OnShareCompletion` callback to receive the resul
             if result {
                 // Passengers set and Beamsync started successfully
             } else {
-                // Check error.for details
+                // Check error for details
                 print(error ?? "")
             }
         })
@@ -309,7 +313,7 @@ Stop Beamsync when the flow ends (for example, when leaving the screen or destro
 	}
 	```
 	
-	or call it ha hoc 
+	or call it ad hoc
 	
 	```swift
 	enrolment?.stopSharing()
@@ -475,7 +479,7 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	            if result {
 	                // Passengers set and Beamsync started successfully
 	            } else {
-	                // Check error.for details
+	                // Check error for details
 	                print(error ?? "")
 	            }
 	        })
@@ -508,7 +512,7 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	            if result {
 	                // Passengers set and Beamsync started successfully
 	            } else {
-	                // Check error.for details
+	                // Check error for details
 	                print(error ?? "")
 	            }
 	        })
@@ -518,9 +522,9 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 
 	### Notes
 	
-	- The `UltralightProvider` must be initialized **before** passing it to `Enrolment.initialize()`
-	- Ultralight is **not available** in offline mode (`initializeOffline`)
-	- `share()` is **asynchronous** — results are delivered through the `OnShareCompletion` callback
+	- The `UltralightProvider` must be initialized **before** passing it to `Enrolment.shared.initWith(...)`
+	- Ultralight is **not available** in offline mode (`initOffline`)
+	- `share()` is **asynchronous** — the result is delivered through the `completionHandler` closure
 	- `share()` both sets the passenger data **and** starts Beamsync (there is no separate `startSharing()` step)
-	- The SDK performs pre-flight checks for Bluetooth and Location before starting Beamsync
+	- Beamsync requires Bluetooth permission; `share()` fails with a `bluetoothNotGranted` error if it hasn't been granted
 	- Always call `stopSharing()` when cleaning up (e.g., in `deinit()`)

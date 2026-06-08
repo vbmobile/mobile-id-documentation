@@ -156,7 +156,6 @@ data you can create the `BuildSubjectParameters` object. This object has the fol
 
     ``` swift 
     public struct BuildSubjectParameters {
-        public let documentData: DocumentData?
         public let idDocument: IdDocument?
         public let documentDataValidated: Bool
         public let documentImage: UIImage
@@ -167,7 +166,6 @@ data you can create the `BuildSubjectParameters` object. This object has the fol
         public let documentReaderReport: DocumentReaderReport?
 
         public init(
-            documentData: DocumentData? = nil,
             idDocument: IdDocument? = nil,
             documentImage: UIImage,
             enrolmentImage: UIImage,

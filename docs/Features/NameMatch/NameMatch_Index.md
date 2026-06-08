@@ -52,7 +52,46 @@ This strategy might be one of these two options:
 
 === "iOS"
 
-    Work in progress...
+    ```swift
+    /// Compares a reference name against a provided name using ICAO Doc 9303
+    /// MRZ character transliteration rules.
+    ///
+    /// This method does not require SDK initialization.
+    ///
+    /// - Parameters:
+    ///   - reference: The name from the reference document (e.g. passport MRZ).
+    ///   - compare:   The name to compare against the reference.
+    ///   - strategy:  ``NameMatchStrategy/exact`` or ``NameMatchStrategy/approximate``.
+    /// - Returns: `true` if names match according to the chosen strategy.
+    func matchNames(
+        reference: Name,
+        compare: Name,
+        strategy: NameMatchStrategy
+    ) -> Bool
+
+    /// Represents a person's name with first and last name components.
+    public struct Name: Equatable, Hashable, Sendable {
+
+        /// The given/first name(s).
+        public let firstName: String
+
+        /// The family/last name(s).
+        public let lastName: String
+
+        public init(firstName: String, lastName: String)
+    }
+
+    /// Comparison strategy for name matching.
+    public enum NameMatchStrategy: Sendable {
+
+        /// Both names must be exactly equal after ICAO Doc 9303 sanitization.
+        case exact
+
+        /// The reference name must contain the comparison name after ICAO Doc 9303
+        /// sanitization, for both first and last names.
+        case approximate
+    }
+    ```
 
 
 ## Usage example
@@ -82,4 +121,23 @@ This strategy might be one of these two options:
 
 === "iOS"
 
-    Work in progress...
+    ```swift
+    let referenceName = Name(
+        firstName: "JOHN",
+        lastName: "DOE"
+    )
+    let compareName = Name(
+        firstName: "JOHN",
+        lastName: "DOE"
+    )
+    let isExactMatch = Enrolment.shared.matchNames(
+        reference: referenceName,
+        compare: compareName,
+        strategy: .exact
+    )
+    let isApproximateMatch = Enrolment.shared.matchNames(
+        reference: referenceName,
+        compare: compareName,
+        strategy: .approximate
+    )
+    ```

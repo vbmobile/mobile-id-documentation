@@ -2843,14 +2843,14 @@ You're not viewing the latest version.
 <div class="highlight"><pre><span></span><code><span class="n">maven</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="s">&quot;https://vbmobileidstorage.blob.core.windows.net/android/&quot;</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div></li>
 <li>Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
-<div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.visionbox.mobileid.sdk:mid-sdk-enrolment:&lt;9.2.x&gt;@aar&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">transitive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.visionbox.mobileid.sdk:mid-sdk-enrolment:9.2.0@aar&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">transitive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
 
 <span class="c1">// Optional dependencies if you want to use the Document Reader feature</span>
-<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:&lt;2.0.x&gt;&quot;</span><span class="p">)</span>
-<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:&lt;2.0.x&gt;&quot;</span><span class="p">)</span>
+<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:2.0.1&quot;</span><span class="p">)</span>
+<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:2.0.1&quot;</span><span class="p">)</span>
 
 <span class="c1">// Optional dependencies if you want to use the ultralight share feature</span>
-<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.amadeus.mdi.mob.sdk:ama-ultralight:&lt;2.0.x&gt;&quot;</span><span class="p">)</span>
+<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.amadeus.mdi.mob.sdk:ama-ultralight:2.0.1&quot;</span><span class="p">)</span>
 </code></pre></div></li>
 <li>Add these rules to proguard if you have problems running the application with minify enabled:
 <div class="highlight"><pre><span></span><code><span class="o">-</span><span class="n">keepclassmembers</span><span class="w"> </span><span class="n">enum</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">*</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>

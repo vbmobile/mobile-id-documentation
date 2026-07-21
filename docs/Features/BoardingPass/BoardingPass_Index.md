@@ -64,8 +64,36 @@ The BoardingPassScanParameters has the following structure:
     }
     ```  
 
-The **validate** flag should be set to true if you want the SDK to
-validate the boarding pass data. 
+The **validate** flag controls validation of parsed Bar-Coded Boarding Pass (BCBP)
+data.
+
+When set to `true`, the SDK validates parsed 2D BCBP data against IATA BCBP field
+constraints. Validation runs after a successful barcode parse. If any validation check
+fails, the operation returns a boarding pass invalid error instead of a `BoardingPass`.
+
+The validation checks the following values when they are present in the BCBP payload:
+
+- Header values: format code (`M`), encoded number of legs (`1` to `4`), and electronic
+  ticket indicator (`E` or `L`).
+- Version and passenger values: version prefix (`>`), version number (`6` or `7`),
+  passenger description (`0` to `7`), check-in source, and boarding pass issuance source.
+- Issuer and security values: issue date as a Julian day (`001` to `366`), document type
+  (`B` or `I`), airline designator length (`2` or `3` characters), numeric baggage-tag
+  fields, and security-data prefix (`^`).
+- Per-leg values: carrier designator lengths (`2` or `3` characters), flight date as a
+  Julian day (`001` to `366`), passenger status (`0` to `9`), selectee indicator (`0`,
+  `1`, or `3`), international document verification indicator (`0` to `2`), ID/AD
+  indicator (`0` to `9` or `A` to `F`), free baggage allowance (`K`, `L`, or `PC`), and
+  fast-track indicator (`Y` or `N`).
+
+This validation does not verify an airline, booking, passenger identity, barcode
+signature, or flight status.
+
+!!! warning
+    Keep this value set to `false` unless your integration requires rejecting BCBP data
+    that does not meet these checks. Not all airlines issue 2D boarding pass payloads
+    that comply with IATA BCBP field constraints, so setting it to `true` can reject
+    otherwise usable boarding passes.
 
 If you want to use your own boarding pass scanner, you can also provide the raw result of the scan and pass it to the facade’s parser method. It will return the
 BoardingPass object. The raw result must be passed to the BoardingPassData, which has to be included

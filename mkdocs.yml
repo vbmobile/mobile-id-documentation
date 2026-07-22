@@ -27,6 +27,10 @@ extra:
       mike
 extra_css:
   - stylesheets/extra.css
+plugins:
+  - search
+  - macros:
+      module_name: docs_macros
 nav:
   - Getting started: index.md
   - Features:

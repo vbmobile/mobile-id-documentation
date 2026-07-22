@@ -29,20 +29,22 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
     To add the Enrolment SDK to your app, perform the following steps:
 
     1. Add these new repositories in your app top level gradle file:
-    ```
+    ```kotlin
     maven { url "https://vbmobileidstorage.blob.core.windows.net/android/" }
     ```
     2. Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
-    ```
-    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:<9.2.x>@aar") { transitive = true }
+    ```kotlin
+    implementation("com.visionbox.mobileid.sdk:mid-sdk-enrolment:{{ versions.android_enrolment_sdk }}@aar") { transitive = true }
 
     // Optional dependencies if you want to use the Document Reader feature
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:<2.0.x>")
-    implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:<2.0.x>")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:{{ versions.android_doc_scan_mrz_provider }}")
+    implementation("com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:{{ versions.android_doc_rfid_read_provider }}")
 
+    // Optional dependencies if you want to use the ultralight share feature
+    implementation("com.amadeus.mdi.mob.sdk:ama-ultralight:{{ versions.android_ultralight_provider }}")
     ```
     3. Add these rules to proguard if you have problems running the application with minify enabled:
-    ```
+    ```kotlin
     -keepclassmembers enum * { *; }
     -dontwarn org.joda.convert.FromString
     -dontwarn org.joda.convert.ToString
@@ -81,9 +83,9 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	
 	        https://github.com/vbmobile/AMADocScanMrziOS
 	
-	    **AMADocScanRegulaiOS** (Optional Provider)
+	    **AMADocRfid** (Optional Provider)
 	
-	        https://github.com/vbmobile/AMADocScanRegulaiOS
+	        https://github.com/vbmobile/AMADocRfid
 	
 	4.  Select the version to integrate.  
 	    For new projects, we recommend using the latest available release.
@@ -106,12 +108,12 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	dependencies: [
 	    .package(
 	        url: "https://github.com/vbmobile/MobileIdSDKiOS",
-	        upToNextMinor(from: "2.0.2"
+	        upToNextMinor(from: "{{ versions.ios_enrolment_sdk }}"
 	    )
 	]
 	```
 	
-	> Replace `2.0.2` with the intended version you wish to use.
+	> Replace `{{ versions.ios_enrolment_sdk }}` with the intended version you wish to use.
 	
 	
 	***
@@ -131,7 +133,7 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 
 	***
 	
-	> Repeat the process for `AmaShareUltralight`, `AMADocScanMrziOS` and `AMADocScanRegulaiOS`
+	> Repeat the process for `AmaShareUltralight`, `AMADocScanMrziOS` and `AMADocRfid`
 	
 	Once added, the Enrolment SDK APIs (and any integrated optional modules such as Ultralight or Document Scanning providers) become available to your application through the standard Enrolment SDK integration flow.
 
@@ -196,7 +198,7 @@ The SDK also allows client apps to use their own custom views for its functional
     - Context - Application context;
     - EnrolmentConfig - Enrolment configuration.
     - EnrolmentCustomViews - Will overwrite any default view from the Enrolment SDK
-    - Document and RFID reader provider - The preferred provider for document and rfid read operations. More info in [custom providers](#custom-providers)
+    - Document and RFID reader provider - Optional - The preferred provider for document and rfid read operations. More info in [custom providers](#custom-providers)
     - UltralightProvider - Optional. Provider for the Ultralight share flow. Must already be soft-started when supplied.
     - EnrolmentInitializerCallback - To receive a callback when the enrolment is initialized or when an error occurs during the process.
 
@@ -225,35 +227,10 @@ The SDK also allows client apps to use their own custom views for its functional
 	import UIKit
 	import AMADocModeliOS
 	import AMADocScanMrziOS
-	import AMADocScanRegulaiOS
+	import AMADocRFIDReadiOS
 	
 	enum DocumentScanProviderSampleBuilder {
 	
-	    /// Creates a document scanner backed by the Regula SDK.
-	    /// Uses MRZ-based scanning scenarios.
-	    static func amaDocScanRegulaiOS() -> DocumentReaderScanProtocol {
-	        /// Ensures the Regula license file exists and is readable
-	        guard
-	            let licensePath = Bundle.main.path(
-	                forResource: "<YOUR_REGULA_LICENCE_FILE>",
-	                ofType: nil
-	            ),
-	            (try? Data(contentsOf: URL(fileURLWithPath: licensePath))) != nil
-	        else {
-	            fatalError("Unable to read Regula License")
-	        }
-	
-	        /// Regula document reader configuration
-	        let documentReaderConfig = DocumentReaderConfig(
-	            multipageProcessing: false, // Single-page scanning
-	            databaseID: "<YOUR_DATA_BASE_ID>", // Database id
-	            scenario: .mrz // MRZ scanning scenario
-	        )
-	
-	        /// Returns a Regula-based document scanner
-	        return RegulaDocumentReaderScan(config: documentReaderConfig)
-	    }
-		
 	    /// Creates a document scanner backed by the PSS provider.
 	    static func amaDocScanMrziOS() -> DocumentReaderScanProtocol {
 	        /// Specifies the expected document type (e.g. passport)
@@ -292,22 +269,18 @@ The SDK also allows client apps to use their own custom views for its functional
     let ultralightProvider: AMAShareUltralight.Ultralight = .init()
     ultralightProvider.initialiseBeamSync(apiKey: "YOUR KEY")
 
-    /// Document scanner based on Regula SDK (MRZ / OCR scanning)
-    let documentScanProviderA: DocumentReaderScanProtocol =
-        DocumentScanProviderSampleBuilder.amaDocScanRegulaiOS()
-
-    /// Document scanner based on Amadeus PSS provider
-    let documentScanProviderB: DocumentReaderScanProtocol =
+    /// Document scanner based on the Amadeus DocScanMrz provider
+    let documentScanProvider: DocumentReaderScanProtocol =
         DocumentScanProviderSampleBuilder.amaDocScanMrziOS()
 
-    let documentScanProvider: DocumentReaderScanProtocol = Bool.random()
-        ? documentScanProviderA // Can be any provider, as long as it complies with DocumentReaderScanProtocol
-        : documentScanProviderB // Can be any provider, as long as it complies with DocumentReaderScanProtocol
-    
+    /// RFID reader based on the Amadeus Doc RFID Read provider
+    let documentRFIDProvider: DocumentReaderRFIDProtocol =
+        AMADocRFIDRead(config: DocRfidReadConfig(apiConfig: apiConfig, enableLogs: true))
+
     Enrolment.shared.initWith(
         enrolmentConfig: enrolmentConfig,
-        documentScanProvider: documentScanProvider, // Any, as long as it complies with DocumentReaderScanProtocol
-        documentRFIDProvider: RegulaDocumentReaderRFID(),
+        documentScanProvider: documentScanProvider, // Any provider conforming to DocumentReaderScanProtocol
+        documentRFIDProvider: documentRFIDProvider, // Any provider conforming to DocumentReaderRFIDProtocol, or nil
         ultralightProvider: ultralightProvider, // Any, as long as it complies with UltralightProtocol
         viewRegister: EnrolmentViewRegister(),
         completionHandler: { result in
@@ -798,44 +771,8 @@ The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig.
 
 ## Custom Providers
 
-=== "Android"
+   You can check with more details what are the custom providers available and how to import them in the custom providers section of the documentation available [here](./Features/DocumentReader/DocumentReader_Providers.md).
 
-	to do
-	
-=== "iOS"
-
-	Starting with **SeamlessMobile SDK version 8**, a new **Provider-based architecture** has been introduced.
-	
-	The purpose of this feature is to allow SeamlessMobile SDK integrators to **select from multiple providers** to perform a given task.  
-	This approach improves flexibility and allows reducing the overall SDK size by including only the features that are actually used.
-	
-	Currently, this functionality is available for the **Document Reader** feature.
-	
-	***
-	
-	### Available Document Reader Providers
-	
-	The Document Reader functionality is enabled by importing one or more provider modules.  
-	At the moment, **two custom providers are available**:
-	
-	```swift
-	import mdi_mob_sdk_doc_mrz_regula_ios
-	import mdi_mob_sdk_doc_scanner_ios
-	```
-	
-	Each provider implements the `DocumentReaderScanProtocol` and exposes its own **initializers and configuration options**, defining how document scanning and recognition are performed.
-	
-	***
-	
-	### Supported Providers
-	
-	| Provider                | Description                                                                    |
-	| ----------------------- | ------------------------------------------------------------------------------ |
-	| **Regula MRZ Provider** | MRZ-based document reader backed by the Regula SDK.                            |
-	| **Scanner Provider**    | MRZ-based document reader backed by Amadeus Internal SDKs. |
-	
-	***
-	   
 
 ## Localization Support
 
@@ -868,7 +805,7 @@ The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig.
     In order to use the RFID feature, the user must give the NFC permission in runtime, otherwise it won't work. 
     We already handle the permission check and added to the manifest the following:
 
-    ``` xml
+    ```xml
     <uses-permission android:name="android.permission.NFC" />
     ```
 
@@ -882,13 +819,13 @@ The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig.
     Add Near Field Communication Tag Reading under the Capabilities tab for the project’s target:
     ![Permissions](images/DR_RFID_Permissions.PNG "Permissions"){: style="display: block; margin: 5px auto"}
     Add the NFCReaderUsageDescription permission to your Info.plist file as its needed to access the NFC hardware:
-    ``` html
+    ```html
     <key>NFCReaderUsageDescription</key>
     <string>NFC tag to read NDEF messages</string>
     ```
     Declare com.apple.developer.nfc.readersession.iso7816.select-identifiers a list of application identifiers that the app
     must be able to read according to ISO7816:
-    ``` html
+    ```html
     <key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
     <array>
         <string>A0000002471001</string>
@@ -910,7 +847,7 @@ In order for the SDK to use the camera, the user must grant permission to do so.
     In order to use the camera related features, the user must give the camera permission in runtime, otherwise it won't work. 
     We already handle the permission check and added to the manifest the following:
 
-    ``` xml
+    ```xml
     <uses-permission android:name="android.permission.CAMERA" />
     ```
 
@@ -1002,7 +939,7 @@ In order for the SDK to use the camera, the user must grant permission to do so.
 
 	| Name                   | Version    | Repository                                                |
 	| ---------------------- | ---------- | --------------------------------------------------------- |
-	| AMADocModeliOS         | 1.0.0-rc24 | <https://github.com/vbmobile/AMADocModeliOS>              |
+	| AMADocModeliOS         | 2.0.2      | <https://github.com/vbmobile/AMADocModeliOS>              |
 	| CwlCatchException      | 2.2.1      | <https://github.com/mattgallagher/CwlCatchException>      |
 	| CwlPreconditionTesting | 2.2.2      | <https://github.com/mattgallagher/CwlPreconditionTesting> |
 	| Lottie (SPM)           | 4.4.1      | <https://github.com/airbnb/lottie-spm>                    |

@@ -5,8 +5,20 @@
 ### What's new
 
 - General bug fixes.
-- Funtion `func share(passengers: [AMADocModeliOS.Passenger]) async -> (result: Bool?, error: FeatureError?)` is now `func share(passengers: [AMADocModeliOS.Passenger], completionHandler: @escaping (Bool, FeatureError?) -> Void)`
+- Function `func share(passengers: [AMADocModeliOS.Passenger]) async -> (result: Bool?, error: FeatureError?)` is now `func share(passengers: [AMADocModeliOS.Passenger], completionHandler: @escaping (Bool, FeatureError?) -> Void)`
 
+### Improvements
+
+- Updated the recommended provider versions: DocScanMrz `2.0.3`, Doc RFID Read `2.0.2`, and Ultralight `2.0.4`.
+
+
+## 9.1.0
+
+### What's new
+
+- Added support for the new RFID reader provider.
+- Removed DocumentData from the Document Reader feature. Use the `IdDocument` from the `DocumentReaderReport`, which contains the same data as `DocumentData`.
+- Added the Name Match feature, allowing a names comparison between a candidate and a reference using `Enrolment.shared.matchNames(reference:compare:strategy:)`. See [Name Match section](../Features/NameMatch/NameMatch_Index.md).
 
 ## 9.0.0
 

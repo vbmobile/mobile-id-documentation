@@ -10,6 +10,22 @@ This repo will be used to store mkdocs project.
 - mkdocs build - Generate a folder "site" with the static content of the current markdown files and assets.
 - mkdocs serve - Creates a local server that automatic renders the changes in markdown files to help in development mode.
 
+## Setup
+
+Install the Python dependencies before running any MkDocs command:
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+If you see `The "macros" plugin is not installed`, it means the dependencies from `requirements.txt` have not been installed in your current Python environment yet.
+
+## Shared documentation constants
+
+Version strings and other reusable values can be defined in `docs_macros.py` and consumed from any Markdown page with Jinja syntax such as `{{ versions.android_enrolment_sdk }}`.
+
+After updating `requirements.txt`, reinstall dependencies before building or serving the site.
+
 Mike plugin offers the following commands to test, publish and manage versioning:
 
 - mike list - Lists all the versions that are available in this project

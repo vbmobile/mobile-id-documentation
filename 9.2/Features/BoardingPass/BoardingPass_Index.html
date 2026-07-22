@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../assets/1a-favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2659,8 +2659,35 @@ start the barcode scanner, you must call the following method:</p>
 </div>
 </div>
 </div>
-<p>The <strong>validate</strong> flag should be set to true if you want the SDK to
-validate the boarding pass data. </p>
+<p>The <strong>validate</strong> flag controls validation of parsed Bar-Coded Boarding Pass (BCBP)
+data.</p>
+<p>When set to <code>true</code>, the SDK validates parsed 2D BCBP data against IATA BCBP field
+constraints. Validation runs after a successful barcode parse. If any validation check
+fails, the operation returns a boarding pass invalid error instead of a <code>BoardingPass</code>.</p>
+<p>The validation checks the following values when they are present in the BCBP payload:</p>
+<ul>
+<li>Header values: format code (<code>M</code>), encoded number of legs (<code>1</code> to <code>4</code>), and electronic
+  ticket indicator (<code>E</code> or <code>L</code>).</li>
+<li>Version and passenger values: version prefix (<code>&gt;</code>), version number (<code>6</code> or <code>7</code>),
+  passenger description (<code>0</code> to <code>7</code>), check-in source, and boarding pass issuance source.</li>
+<li>Issuer and security values: issue date as a Julian day (<code>001</code> to <code>366</code>), document type
+  (<code>B</code> or <code>I</code>), airline designator length (<code>2</code> or <code>3</code> characters), numeric baggage-tag
+  fields, and security-data prefix (<code>^</code>).</li>
+<li>Per-leg values: carrier designator lengths (<code>2</code> or <code>3</code> characters), flight date as a
+  Julian day (<code>001</code> to <code>366</code>), passenger status (<code>0</code> to <code>9</code>), selectee indicator (<code>0</code>,
+  <code>1</code>, or <code>3</code>), international document verification indicator (<code>0</code> to <code>2</code>), ID/AD
+  indicator (<code>0</code> to <code>9</code> or <code>A</code> to <code>F</code>), free baggage allowance (<code>K</code>, <code>L</code>, or <code>PC</code>), and
+  fast-track indicator (<code>Y</code> or <code>N</code>).</li>
+</ul>
+<p>This validation does not verify an airline, booking, passenger identity, barcode
+signature, or flight status.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Keep this value set to <code>false</code> unless your integration requires rejecting BCBP data
+that does not meet these checks. Not all airlines issue 2D boarding pass payloads
+that comply with IATA BCBP field constraints, so setting it to <code>true</code> can reject
+otherwise usable boarding passes.</p>
+</div>
 <p>If you want to use your own boarding pass scanner, you can also provide the raw result of the scan and pass it to the facade’s parser method. It will return the
 BoardingPass object. The raw result must be passed to the BoardingPassData, which has to be included
 in the BoardingPassParserParameters.</p>
@@ -3057,7 +3084,7 @@ implement the BoardingPassLoadingViewType.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "content.tabs.link", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

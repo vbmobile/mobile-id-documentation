@@ -2820,7 +2820,8 @@ You're not viewing the latest version.
 <p>To integrate the Mobile ID SDK for Android, the following prerequisites must be met:</p>
 <ul>
 <li>Install or update Android Studio to latest version;</li>
-<li>Target API level 24 (Marshmallow) or later;</li>
+<li>Target API level 24 (Marshmallow) or later (no ultralight);</li>
+<li>For Ultralight, API level 26 (Orep) or later is needed;</li>
 </ul>
 </div>
 <div class="tabbed-block">
@@ -2852,6 +2853,9 @@ You're not viewing the latest version.
 <span class="c1">// Optional dependencies if you want to use the ultralight share feature</span>
 <span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.amadeus.mdi.mob.sdk:ama-ultralight:2.0.3&quot;</span><span class="p">)</span>
 </code></pre></div></li>
+</ol>
+<p>Each separated provider dependency requires <strong>Target API level 24 (Marshmallow) or later</strong>.</p>
+<ol>
 <li>Add these rules to proguard if you have problems running the application with minify enabled:
 <div class="highlight"><pre><span></span><code><span class="o">-</span><span class="n">keepclassmembers</span><span class="w"> </span><span class="n">enum</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">*</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 <span class="o">-</span><span class="n">dontwarn</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">joda</span><span class="p">.</span><span class="na">convert</span><span class="p">.</span><span class="na">FromString</span>

@@ -11,7 +11,8 @@ hide:
     To integrate the Mobile ID SDK for Android, the following prerequisites must be met:
 
     - Install or update Android Studio to latest version;
-    - Target API level 24 (Marshmallow) or later;
+    - Target API level 24 (Marshmallow) or later (no ultralight);
+    - For Ultralight, API level 26 (Orep) or later is needed;
 
 === "iOS"
 
@@ -43,6 +44,9 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
     // Optional dependencies if you want to use the ultralight share feature
     implementation("com.amadeus.mdi.mob.sdk:ama-ultralight:{{ versions.android_ultralight_provider }}")
     ```
+
+    Each separated provider dependency requires **Target API level 24 (Marshmallow) or later**.
+
     3. Add these rules to proguard if you have problems running the application with minify enabled:
     ```kotlin
     -keepclassmembers enum * { *; }

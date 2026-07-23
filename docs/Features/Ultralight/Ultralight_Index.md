@@ -62,6 +62,8 @@ Before integrating Ultralight, ensure you have:
     }
     ```
 
+    - Target API level 26 (Oreo) or later;
+
 === "iOS"
    
       Ultralight is distributed for iOS via **Swift Package Manager (SPM)**.

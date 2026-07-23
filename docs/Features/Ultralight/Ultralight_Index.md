@@ -230,7 +230,7 @@ It is asynchronous — provide a completion callback to receive the result
 | `tag`             | `String?`      | Optional custom tag                      |
 
 !!! warning "Selfie image size"
-    Ensure `selfieBase64` is **smaller than 256 KB**. Larger images are rejected.
+    Ensure `selfieBase64` and `docPhotoBase64` are **smaller than 256 KB**. Larger images are rejected.
 
 === "Android"
 

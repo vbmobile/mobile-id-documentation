@@ -2661,6 +2661,7 @@ You're not viewing the latest version.
 <th>Name</th>
 <th>Value</th>
 <th>Feature</th>
+<th>When thrown</th>
 </tr>
 </thead>
 <tbody>
@@ -2668,431 +2669,517 @@ You're not viewing the latest version.
 <td>InvalidApiKey</td>
 <td>010</td>
 <td>Configuration</td>
+<td>API key provided to <code>configure()</code> is invalid</td>
 </tr>
 <tr>
 <td>InvalidEndpoint</td>
 <td>011</td>
 <td>Configuration</td>
+<td>Endpoint URL does not use HTTPS</td>
 </tr>
 <tr>
 <td>InitFailed</td>
 <td>012</td>
 <td>Configuration</td>
+<td>SDK fails to fetch configurations from the server</td>
 </tr>
 <tr>
 <td>NotReady</td>
 <td>013</td>
 <td>Configuration</td>
+<td>SDK feature called before <code>initialize()</code> completes</td>
 </tr>
 <tr>
-<td>NotReady</td>
+<td>InvalidLicense</td>
 <td>014</td>
 <td>Configuration</td>
+<td>License signature is invalid</td>
 </tr>
 <tr>
 <td>ConfigError</td>
 <td>100</td>
 <td>DocumentReader</td>
+<td>Feature configurations are missing</td>
 </tr>
 <tr>
 <td>NotReady</td>
 <td>101</td>
 <td>DocumentReader</td>
+<td>Document Reader not initialized; call initialize first</td>
 </tr>
 <tr>
 <td>InitFailed</td>
 <td>102</td>
 <td>DocumentReader</td>
+<td>Error initializing Document Reader</td>
 </tr>
 <tr>
 <td>ReportIsNull</td>
 <td>103</td>
 <td>DocumentReader</td>
+<td>Report from preview or RFID scan is null</td>
 </tr>
 <tr>
 <td>ErrorCertificate</td>
 <td>104</td>
 <td>DocumentReader</td>
+<td>CSCA certificates not found or not configured on back office</td>
 </tr>
 <tr>
 <td>InvalidCertificate</td>
 <td>105</td>
 <td>DocumentReader</td>
+<td>CSCA certificate file is invalid</td>
 </tr>
 <tr>
 <td>LicenseNotFound</td>
 <td>106</td>
 <td>DocumentReader</td>
+<td>License file not found at configured path</td>
 </tr>
 <tr>
 <td>PermissionNotGranted</td>
 <td>107</td>
 <td>DocumentReader</td>
+<td>App lacks required permission for document reading</td>
 </tr>
 <tr>
 <td>FetchingResourcesFailed</td>
 <td>120</td>
 <td>DocumentReader</td>
+<td>Resources endpoint request failed</td>
 </tr>
 <tr>
 <td>TransactionFailed</td>
 <td>121</td>
 <td>DocumentReader</td>
+<td>Transaction registration failed on server</td>
 </tr>
 <tr>
 <td>InvalidDatabaseState</td>
 <td>122</td>
 <td>DocumentReader</td>
+<td>Database download failed and no local backup available</td>
 </tr>
 <tr>
 <td>ProviderNotFound</td>
 <td>140</td>
 <td>DocumentReader</td>
+<td>No document reader provider was configured</td>
 </tr>
 <tr>
 <td>InvalidParameters</td>
 <td>141</td>
 <td>DocumentReader</td>
+<td>Invalid parameter passed by client</td>
 </tr>
 <tr>
 <td>MrzError</td>
 <td>150</td>
 <td>DocumentReader</td>
+<td>Error reading MRZ via OCR</td>
 </tr>
 <tr>
 <td>RegulaError</td>
 <td>151</td>
 <td>DocumentReader</td>
+<td>Internal Document Reader scan error</td>
 </tr>
 <tr>
 <td>MrzTimeout</td>
 <td>152</td>
 <td>DocumentReader</td>
+<td>MRZ scan timed out</td>
 </tr>
 <tr>
 <td>RFIDError</td>
 <td>153</td>
 <td>DocumentReader</td>
+<td>Error during RFID process</td>
 </tr>
 <tr>
 <td>GenericError</td>
 <td>170</td>
 <td>DocumentReader</td>
+<td>Scan or RFID succeeded but results were invalid</td>
 </tr>
 <tr>
 <td>PAError</td>
 <td>171</td>
 <td>DocumentReader</td>
+<td>Passive Authentication failed</td>
 </tr>
 <tr>
 <td>MRZRFIDMismatch</td>
 <td>172</td>
 <td>DocumentReader</td>
+<td>MRZ and RFID data do not match</td>
 </tr>
 <tr>
 <td>UnknownError</td>
 <td>180</td>
 <td>DocumentReader</td>
+<td>Unmapped internal error</td>
 </tr>
 <tr>
 <td>ConfigError</td>
 <td>200</td>
 <td>BoardingPassScan</td>
+<td>Feature configurations are missing</td>
 </tr>
 <tr>
 <td>BarcodeUnsupported</td>
 <td>201</td>
 <td>BoardingPassScan</td>
+<td>Barcode format is not supported</td>
 </tr>
 <tr>
 <td>PermissionNotGranted</td>
 <td>202</td>
 <td>BoardingPassScan</td>
+<td>App lacks required permission for boarding pass feature</td>
 </tr>
 <tr>
 <td>BoardingPassNull</td>
 <td>203</td>
 <td>BoardingPassScan</td>
+<td>Boarding pass returned from scan is null</td>
 </tr>
 <tr>
 <td>CameraInitFailed</td>
 <td>204</td>
 <td>BoardingPassScan</td>
+<td>Camera failed to initialize</td>
 </tr>
 <tr>
 <td>TransactionFailed</td>
 <td>220</td>
 <td>BoardingPassScan</td>
+<td>Transaction registration failed on server</td>
 </tr>
 <tr>
 <td>CameraPermissionNotGranted</td>
 <td>230</td>
 <td>BoardingPassScan</td>
+<td>User denied camera permission</td>
 </tr>
 <tr>
 <td>BoardingPassScanFailed</td>
 <td>250</td>
 <td>BoardingPassScan</td>
+<td>Barcode scanning failed</td>
 </tr>
 <tr>
 <td>BoardingPassItemParserError</td>
 <td>251</td>
 <td>BoardingPassScan</td>
+<td>Error parsing a field from the scanned boarding pass</td>
 </tr>
 <tr>
 <td>BoardingPassInvalid</td>
 <td>252</td>
 <td>BoardingPassScan</td>
+<td>Scanned barcode is not a valid boarding pass</td>
 </tr>
 <tr>
 <td>BarcodeEmpty</td>
 <td>253</td>
 <td>BoardingPassScan</td>
+<td>Scanned barcode is empty</td>
 </tr>
 <tr>
 <td>UnknownError</td>
 <td>280</td>
 <td>BoardingPassScan</td>
+<td>Unmapped internal error</td>
 </tr>
 <tr>
 <td>ConfigError</td>
 <td>300</td>
 <td>BoardingPassParse</td>
+<td>Feature configurations are missing</td>
 </tr>
 <tr>
 <td>BarcodeUnsupported</td>
 <td>301</td>
 <td>BoardingPassParse</td>
+<td>Barcode format is not supported</td>
 </tr>
 <tr>
 <td>PermissionNotGranted</td>
 <td>302</td>
 <td>BoardingPassParse</td>
+<td>App lacks required permission for boarding pass feature</td>
 </tr>
 <tr>
 <td>BoardingPassNull</td>
 <td>303</td>
 <td>BoardingPassParse</td>
+<td>Boarding pass is null</td>
 </tr>
 <tr>
 <td>TransactionFailed</td>
 <td>320</td>
 <td>BoardingPassParse</td>
+<td>Transaction registration failed on server</td>
 </tr>
 <tr>
 <td>BoardingPassItemParserError</td>
 <td>350</td>
 <td>BoardingPassParse</td>
+<td>Error parsing a field from the boarding pass</td>
 </tr>
 <tr>
 <td>BoardingPassInvalid</td>
 <td>351</td>
 <td>BoardingPassParse</td>
+<td>Boarding pass data is invalid</td>
 </tr>
 <tr>
 <td>BarcodeEmpty</td>
 <td>352</td>
 <td>BoardingPassParse</td>
+<td>Barcode content is empty</td>
 </tr>
 <tr>
 <td>BoardingPassImageNoBarcodeFound</td>
 <td>353</td>
 <td>BoardingPassParse</td>
+<td>No barcode found in provided image</td>
 </tr>
 <tr>
 <td>BoardingPassImageParseError</td>
 <td>354</td>
 <td>BoardingPassParse</td>
+<td>Error occurred while parsing provided image</td>
 </tr>
 <tr>
 <td>UnknownError</td>
 <td>380</td>
 <td>BoardingPassParse</td>
+<td>Unmapped internal error</td>
 </tr>
 <tr>
 <td>PermissionNotGranted</td>
 <td>400</td>
 <td>FaceCapture</td>
+<td>App lacks required permission for face capture feature</td>
 </tr>
 <tr>
 <td>ErrorLoadingImageFromStorage</td>
 <td>401</td>
 <td>FaceCapture</td>
+<td>Failed to load image from internal storage</td>
 </tr>
 <tr>
-<td>PermissionNotGranted</td>
+<td>ImagePathIsNull</td>
 <td>402</td>
 <td>FaceCapture</td>
+<td>Image path is null</td>
 </tr>
 <tr>
-<td>ErrorLoadingImageFromStorage</td>
+<td>LoadImageFailed</td>
 <td>403</td>
 <td>FaceCapture</td>
+<td>Failed to load image from given path</td>
 </tr>
 <tr>
-<td>PermissionNotGranted</td>
+<td>ProcessReportIsNull</td>
 <td>404</td>
 <td>FaceCapture</td>
+<td>Face capture process report is null</td>
 </tr>
 <tr>
-<td>ErrorLoadingImageFromStorage</td>
+<td>CameraInitFailed</td>
 <td>405</td>
 <td>FaceCapture</td>
+<td>Camera failed to initialize</td>
 </tr>
 <tr>
-<td>PermissionNotGranted</td>
+<td>CameraPictureError</td>
 <td>406</td>
 <td>FaceCapture</td>
+<td>Error occurred while taking picture</td>
 </tr>
 <tr>
-<td>ErrorLoadingImageFromStorage</td>
+<td>ParamsIsNull</td>
 <td>407</td>
 <td>FaceCapture</td>
+<td>Face capture configuration parameters are null</td>
 </tr>
 <tr>
-<td>PermissionNotGranted</td>
+<td>TransactionFailed</td>
 <td>420</td>
 <td>FaceCapture</td>
+<td>Transaction registration failed on server</td>
 </tr>
 <tr>
-<td>ErrorLoadingImageFromStorage</td>
+<td>BiometricLivenessServiceFailed</td>
 <td>422</td>
 <td>FaceCapture</td>
+<td>Liveness service call failed</td>
 </tr>
 <tr>
-<td>PermissionNotGranted</td>
+<td>CameraPermissionNotGranted</td>
 <td>430</td>
 <td>FaceCapture</td>
+<td>User denied camera permission</td>
 </tr>
 <tr>
 <td>InvalidParameters</td>
 <td>440</td>
 <td>FaceCapture</td>
+<td>Invalid parameter passed by client</td>
 </tr>
 <tr>
-<td>ErrorLoadingImageFromStorage</td>
+<td>TestFailed</td>
 <td>450</td>
 <td>FaceCapture</td>
+<td>Captured image failed quality tests</td>
 </tr>
 <tr>
-<td>PermissionNotGranted</td>
+<td>LivenessTestsFailed</td>
 <td>451</td>
 <td>FaceCapture</td>
+<td>Liveness quality tests failed</td>
 </tr>
 <tr>
-<td>ErrorLoadingImageFromStorage</td>
+<td>FaceCaptureTimeout</td>
 <td>452</td>
 <td>FaceCapture</td>
+<td>Face capture timed out before a valid image was captured</td>
 </tr>
 <tr>
 <td>UnknownError</td>
 <td>480</td>
 <td>FaceCapture</td>
+<td>Unmapped internal error</td>
 </tr>
 <tr>
 <td>PermissionNotGranted</td>
 <td>500</td>
 <td>FaceMatch</td>
+<td>App lacks required permission for face match feature</td>
 </tr>
 <tr>
 <td>ErrorLoadingImages</td>
 <td>501</td>
 <td>FaceMatch</td>
+<td>Failed to load images for face match</td>
 </tr>
 <tr>
 <td>TransactionFailed</td>
 <td>520</td>
 <td>FaceMatch</td>
+<td>Transaction registration failed on server</td>
 </tr>
 <tr>
 <td>CommunicationError</td>
 <td>521</td>
 <td>FaceMatch</td>
+<td>Server communication error during face match</td>
 </tr>
 <tr>
 <td>MatchFailed</td>
 <td>550</td>
 <td>FaceMatch</td>
+<td>Face match between document and selfie failed</td>
 </tr>
 <tr>
 <td>DataIntegrityFailed</td>
 <td>551</td>
 <td>FaceMatch</td>
+<td>Provided hashes and images do not match</td>
 </tr>
 <tr>
 <td>UnknownError</td>
 <td>580</td>
 <td>FaceMatch</td>
+<td>Unmapped internal error</td>
 </tr>
 <tr>
 <td>PermissionNotGranted</td>
 <td>600</td>
 <td>Subject</td>
+<td>App lacks required permission for subject feature</td>
 </tr>
 <tr>
 <td>DataError</td>
 <td>601</td>
 <td>Subject</td>
+<td>SDK internal error passing subject object</td>
 </tr>
 <tr>
 <td>TransactionFailed</td>
 <td>620</td>
 <td>Subject</td>
+<td>Transaction registration failed on server</td>
 </tr>
 <tr>
 <td>CommunicationError</td>
 <td>621</td>
 <td>Subject</td>
+<td>Server communication error during subject action</td>
 </tr>
 <tr>
 <td>SubjectServiceError</td>
 <td>650</td>
 <td>Subject</td>
+<td>Subject action failed on server; check parameters and endpoint</td>
 </tr>
 <tr>
 <td>MissingBCBP</td>
 <td>651</td>
 <td>Subject</td>
+<td>BCBP is missing and is a mandatory field</td>
 </tr>
 <tr>
 <td>UnknownError</td>
 <td>680</td>
 <td>Subject</td>
+<td>Unmapped internal error</td>
 </tr>
 <tr>
 <td>ConfigError</td>
 <td>700</td>
 <td>Ultralight</td>
+<td>Feature configurations are missing</td>
 </tr>
 <tr>
 <td>NotReady</td>
 <td>701</td>
 <td>Ultralight</td>
+<td>Ultralight not initialized; call initialize first</td>
 </tr>
 <tr>
 <td>InitFailed</td>
 <td>702</td>
 <td>Ultralight</td>
+<td>Initialization failed; check API key</td>
 </tr>
 <tr>
 <td>BluetoothNotGranted</td>
 <td>703</td>
 <td>Ultralight</td>
+<td>Bluetooth permission denied</td>
 </tr>
 <tr>
 <td>BluetoothNotEnabled</td>
 <td>704</td>
 <td>Ultralight</td>
+<td>Bluetooth is disabled (Android only)</td>
 </tr>
 <tr>
 <td>LocationNotEnabled</td>
-<td>780</td>
+<td>705</td>
 <td>Ultralight</td>
+<td>Location is disabled (Android only)</td>
 </tr>
 <tr>
 <td>UnknownError</td>
-<td>705</td>
+<td>780</td>
 <td>Ultralight</td>
+<td>Unmapped internal error</td>
 </tr>
 </tbody>
 </table>

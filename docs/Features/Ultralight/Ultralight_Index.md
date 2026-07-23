@@ -229,6 +229,9 @@ It is asynchronous — provide a completion callback to receive the result
 | `eBagTagId`       | `String?`      | Optional electronic bag tag ID           |
 | `tag`             | `String?`      | Optional custom tag                      |
 
+!!! warning "Selfie image size"
+    Ensure `selfieBase64` is **smaller than 256 KB**. Larger images are rejected.
+
 === "Android"
 
     ```kotlin

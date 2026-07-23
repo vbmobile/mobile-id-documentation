@@ -1,19 +1,26 @@
 # Face Capture
 
-The Mobile ID SDK provides a functionality that simplifies the process of obtaining a frame for
-biometry checks. To achieve it, we use face detection technology, and capture a frame with the
-user’s face. The live photo is then processed and checked against a liveness algorithm that will try
-to detect specific characteristics of spoofing attempts, returning a score that indicates if the
-person using the app is there or trying to impersonate someone else.
+Face Capture simplifies the process of acquiring a high-quality facial image for biometric
+verification. It uses face detection technology to automatically identify the user's face and
+capture an appropriate frame.
 
-## Initiate Face Capture
+The captured live image is processed and evaluated using a liveness detection algorithm that
+analyzes characteristics associated with presentation attacks (spoofing). The result is a liveness
+score indicating the likelihood that the image was captured from a physically present person rather
+than an impersonation attempt.
 
-The Mobile ID SDK provides a complete set of functionalities that allows capturing and processing
-the user’s facial characteristics, and match them against the travel document’s photo. This helps
-ensuring that the user who is enrolling is the document’s owner. The biometric face capture should
-be the final step before creating a Digital ID in a remote system. If you only need to capture a
-frame with the user’s face for biometric quality validation and check against liveness algorithms,
-you can use the method biometricFaceCapture.
+## Initiating Face Capture
+
+Face Capture provides the functionality required to capture and process the user's facial
+characteristics and compare them with the photograph stored in a travel document. This comparison
+helps verify that the person completing the enrollment process is the legitimate owner of the
+document.
+
+As part of a biometric enrollment workflow, Face Capture is typically performed as the final step
+before creating a digital identity in a remote system.
+
+If only facial image acquisition is required—for example, to perform biometric quality validation
+and liveness checks without document matching—the `biometricFaceCapture` method can be used.
 
 === "Android"
 

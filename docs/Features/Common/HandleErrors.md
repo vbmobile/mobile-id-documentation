@@ -89,94 +89,94 @@ The FeatureError has the following structure:
 
 Here you can find a list of all the error codes the SDK sends to the client application:
 
-| Name                            | Value | Feature           |
-|---------------------------------|-------|-------------------|
-| InvalidApiKey                   | 010   | Configuration     |
-| InvalidEndpoint                 | 011   | Configuration     |
-| InitFailed                      | 012   | Configuration     |
-| NotReady                        | 013   | Configuration     |
-| NotReady                        | 014   | Configuration     |
-| ConfigError                     | 100   | DocumentReader    |
-| NotReady                        | 101   | DocumentReader    |
-| InitFailed                      | 102   | DocumentReader    |
-| ReportIsNull                    | 103   | DocumentReader    |
-| ErrorCertificate                | 104   | DocumentReader    |
-| InvalidCertificate              | 105   | DocumentReader    |
-| LicenseNotFound                 | 106   | DocumentReader    |
-| PermissionNotGranted            | 107   | DocumentReader    |
-| FetchingResourcesFailed         | 120   | DocumentReader    |
-| TransactionFailed               | 121   | DocumentReader    |
-| InvalidDatabaseState            | 122   | DocumentReader    |
-| ProviderNotFound                | 140   | DocumentReader    |
-| InvalidParameters               | 141   | DocumentReader    |
-| MrzError                        | 150   | DocumentReader    |
-| RegulaError                     | 151   | DocumentReader    |
-| MrzTimeout                      | 152   | DocumentReader    |
-| RFIDError                       | 153   | DocumentReader    |
-| GenericError                    | 170   | DocumentReader    |
-| PAError                         | 171   | DocumentReader    |
-| MRZRFIDMismatch                 | 172   | DocumentReader    |
-| UnknownError                    | 180   | DocumentReader    |
-| ConfigError                     | 200   | BoardingPassScan  |
-| BarcodeUnsupported              | 201   | BoardingPassScan  |
-| PermissionNotGranted            | 202   | BoardingPassScan  |
-| BoardingPassNull                | 203   | BoardingPassScan  |
-| CameraInitFailed                | 204   | BoardingPassScan  |
-| TransactionFailed               | 220   | BoardingPassScan  |
-| CameraPermissionNotGranted      | 230   | BoardingPassScan  |
-| BoardingPassScanFailed          | 250   | BoardingPassScan  |
-| BoardingPassItemParserError     | 251   | BoardingPassScan  |
-| BoardingPassInvalid             | 252   | BoardingPassScan  |
-| BarcodeEmpty                    | 253   | BoardingPassScan  |
-| UnknownError                    | 280   | BoardingPassScan  |
-| ConfigError                     | 300   | BoardingPassParse |
-| BarcodeUnsupported              | 301   | BoardingPassParse |
-| PermissionNotGranted            | 302   | BoardingPassParse |
-| BoardingPassNull                | 303   | BoardingPassParse |
-| TransactionFailed               | 320   | BoardingPassParse |
-| BoardingPassItemParserError     | 350   | BoardingPassParse |
-| BoardingPassInvalid             | 351   | BoardingPassParse |
-| BarcodeEmpty                    | 352   | BoardingPassParse |
-| BoardingPassImageNoBarcodeFound | 353   | BoardingPassParse |
-| BoardingPassImageParseError     | 354   | BoardingPassParse |
-| UnknownError                    | 380   | BoardingPassParse |
-| PermissionNotGranted            | 400   | FaceCapture       |
-| ErrorLoadingImageFromStorage    | 401   | FaceCapture       |
-| PermissionNotGranted            | 402   | FaceCapture       |
-| ErrorLoadingImageFromStorage    | 403   | FaceCapture       |
-| PermissionNotGranted            | 404   | FaceCapture       |
-| ErrorLoadingImageFromStorage    | 405   | FaceCapture       |
-| PermissionNotGranted            | 406   | FaceCapture       |
-| ErrorLoadingImageFromStorage    | 407   | FaceCapture       |
-| PermissionNotGranted            | 420   | FaceCapture       |
-| ErrorLoadingImageFromStorage    | 422   | FaceCapture       |
-| PermissionNotGranted            | 430   | FaceCapture       |
-| InvalidParameters               | 440   | FaceCapture       |
-| ErrorLoadingImageFromStorage    | 450   | FaceCapture       |
-| PermissionNotGranted            | 451   | FaceCapture       |
-| ErrorLoadingImageFromStorage    | 452   | FaceCapture       |
-| UnknownError                    | 480   | FaceCapture       |
-| PermissionNotGranted            | 500   | FaceMatch         |
-| ErrorLoadingImages              | 501   | FaceMatch         |
-| TransactionFailed               | 520   | FaceMatch         |
-| CommunicationError              | 521   | FaceMatch         |
-| MatchFailed                     | 550   | FaceMatch         |
-| DataIntegrityFailed             | 551   | FaceMatch         |
-| UnknownError                    | 580   | FaceMatch         |
-| PermissionNotGranted            | 600   | Subject           |
-| DataError                       | 601   | Subject           |
-| TransactionFailed               | 620   | Subject           |
-| CommunicationError              | 621   | Subject           |
-| SubjectServiceError             | 650   | Subject           |
-| MissingBCBP                     | 651   | Subject           |
-| UnknownError                    | 680   | Subject           |
-| ConfigError                     | 700   | Ultralight        |
-| NotReady                        | 701   | Ultralight        |
-| InitFailed                      | 702   | Ultralight        |
-| BluetoothNotGranted             | 703   | Ultralight        |
-| BluetoothNotEnabled             | 704   | Ultralight        |
-| LocationNotEnabled              | 780   | Ultralight        |
-| UnknownError                    | 705   | Ultralight        |
+| Name                            | Value | Feature           | When thrown                                                                          |
+|---------------------------------|-------|-------------------|--------------------------------------------------------------------------------------|
+| InvalidApiKey                   | 010   | Configuration     | API key provided to `configure()` is invalid                                         |
+| InvalidEndpoint                 | 011   | Configuration     | Endpoint URL does not use HTTPS                                                      |
+| InitFailed                      | 012   | Configuration     | SDK fails to fetch configurations from the server                                    |
+| NotReady                        | 013   | Configuration     | SDK feature called before `initialize()` completes                                   |
+| InvalidLicense                  | 014   | Configuration     | License signature is invalid                                                         |
+| ConfigError                     | 100   | DocumentReader    | Feature configurations are missing                                                   |
+| NotReady                        | 101   | DocumentReader    | Document Reader not initialized; call initialize first                               |
+| InitFailed                      | 102   | DocumentReader    | Error initializing Document Reader                                                   |
+| ReportIsNull                    | 103   | DocumentReader    | Report from preview or RFID scan is null                                             |
+| ErrorCertificate                | 104   | DocumentReader    | CSCA certificates not found or not configured on back office                         |
+| InvalidCertificate              | 105   | DocumentReader    | CSCA certificate file is invalid                                                     |
+| LicenseNotFound                 | 106   | DocumentReader    | License file not found at configured path                                            |
+| PermissionNotGranted            | 107   | DocumentReader    | App lacks required permission for document reading                                   |
+| FetchingResourcesFailed         | 120   | DocumentReader    | Resources endpoint request failed                                                    |
+| TransactionFailed               | 121   | DocumentReader    | Transaction registration failed on server                                            |
+| InvalidDatabaseState            | 122   | DocumentReader    | Database download failed and no local backup available                               |
+| ProviderNotFound                | 140   | DocumentReader    | No document reader provider was configured                                           |
+| InvalidParameters               | 141   | DocumentReader    | Invalid parameter passed by client                                                   |
+| MrzError                        | 150   | DocumentReader    | Error reading MRZ via OCR                                                            |
+| RegulaError                     | 151   | DocumentReader    | Internal Document Reader scan error                                                  |
+| MrzTimeout                      | 152   | DocumentReader    | MRZ scan timed out                                                                   |
+| RFIDError                       | 153   | DocumentReader    | Error during RFID process                                                            |
+| GenericError                    | 170   | DocumentReader    | Scan or RFID succeeded but results were invalid                                      |
+| PAError                         | 171   | DocumentReader    | Passive Authentication failed                                                        |
+| MRZRFIDMismatch                 | 172   | DocumentReader    | MRZ and RFID data do not match                                                       |
+| UnknownError                    | 180   | DocumentReader    | Unmapped internal error                                                              |
+| ConfigError                     | 200   | BoardingPassScan  | Feature configurations are missing                                                   |
+| BarcodeUnsupported              | 201   | BoardingPassScan  | Barcode format is not supported                                                      |
+| PermissionNotGranted            | 202   | BoardingPassScan  | App lacks required permission for boarding pass feature                              |
+| BoardingPassNull                | 203   | BoardingPassScan  | Boarding pass returned from scan is null                                             |
+| CameraInitFailed                | 204   | BoardingPassScan  | Camera failed to initialize                                                          |
+| TransactionFailed               | 220   | BoardingPassScan  | Transaction registration failed on server                                            |
+| CameraPermissionNotGranted      | 230   | BoardingPassScan  | User denied camera permission                                                        |
+| BoardingPassScanFailed          | 250   | BoardingPassScan  | Barcode scanning failed                                                              |
+| BoardingPassItemParserError     | 251   | BoardingPassScan  | Error parsing a field from the scanned boarding pass                                 |
+| BoardingPassInvalid             | 252   | BoardingPassScan  | Scanned barcode is not a valid boarding pass                                         |
+| BarcodeEmpty                    | 253   | BoardingPassScan  | Scanned barcode is empty                                                             |
+| UnknownError                    | 280   | BoardingPassScan  | Unmapped internal error                                                              |
+| ConfigError                     | 300   | BoardingPassParse | Feature configurations are missing                                                   |
+| BarcodeUnsupported              | 301   | BoardingPassParse | Barcode format is not supported                                                      |
+| PermissionNotGranted            | 302   | BoardingPassParse | App lacks required permission for boarding pass feature                              |
+| BoardingPassNull                | 303   | BoardingPassParse | Boarding pass is null                                                                |
+| TransactionFailed               | 320   | BoardingPassParse | Transaction registration failed on server                                            |
+| BoardingPassItemParserError     | 350   | BoardingPassParse | Error parsing a field from the boarding pass                                         |
+| BoardingPassInvalid             | 351   | BoardingPassParse | Boarding pass data is invalid                                                        |
+| BarcodeEmpty                    | 352   | BoardingPassParse | Barcode content is empty                                                             |
+| BoardingPassImageNoBarcodeFound | 353   | BoardingPassParse | No barcode found in provided image                                                   |
+| BoardingPassImageParseError     | 354   | BoardingPassParse | Error occurred while parsing provided image                                          |
+| UnknownError                    | 380   | BoardingPassParse | Unmapped internal error                                                              |
+| PermissionNotGranted            | 400   | FaceCapture       | App lacks required permission for face capture feature                               |
+| ErrorLoadingImageFromStorage    | 401   | FaceCapture       | Failed to load image from internal storage                                           |
+| ImagePathIsNull                 | 402   | FaceCapture       | Image path is null                                                                   |
+| LoadImageFailed                 | 403   | FaceCapture       | Failed to load image from given path                                                 |
+| ProcessReportIsNull             | 404   | FaceCapture       | Face capture process report is null                                                  |
+| CameraInitFailed                | 405   | FaceCapture       | Camera failed to initialize                                                          |
+| CameraPictureError              | 406   | FaceCapture       | Error occurred while taking picture                                                  |
+| ParamsIsNull                    | 407   | FaceCapture       | Face capture configuration parameters are null                                       |
+| TransactionFailed               | 420   | FaceCapture       | Transaction registration failed on server                                            |
+| BiometricLivenessServiceFailed  | 422   | FaceCapture       | Liveness service call failed                                                         |
+| CameraPermissionNotGranted      | 430   | FaceCapture       | User denied camera permission                                                        |
+| InvalidParameters               | 440   | FaceCapture       | Invalid parameter passed by client                                                   |
+| TestFailed                      | 450   | FaceCapture       | Captured image failed quality tests                                                  |
+| LivenessTestsFailed             | 451   | FaceCapture       | Liveness quality tests failed                                                        |
+| FaceCaptureTimeout              | 452   | FaceCapture       | Face capture timed out before a valid image was captured                             |
+| UnknownError                    | 480   | FaceCapture       | Unmapped internal error                                                              |
+| PermissionNotGranted            | 500   | FaceMatch         | App lacks required permission for face match feature                                 |
+| ErrorLoadingImages              | 501   | FaceMatch         | Failed to load images for face match                                                 |
+| TransactionFailed               | 520   | FaceMatch         | Transaction registration failed on server                                            |
+| CommunicationError              | 521   | FaceMatch         | Server communication error during face match                                         |
+| MatchFailed                     | 550   | FaceMatch         | Face match between document and selfie failed                                        |
+| DataIntegrityFailed             | 551   | FaceMatch         | Provided hashes and images do not match                                              |
+| UnknownError                    | 580   | FaceMatch         | Unmapped internal error                                                              |
+| PermissionNotGranted            | 600   | Subject           | App lacks required permission for subject feature                                    |
+| DataError                       | 601   | Subject           | SDK internal error passing subject object                                            |
+| TransactionFailed               | 620   | Subject           | Transaction registration failed on server                                            |
+| CommunicationError              | 621   | Subject           | Server communication error during subject action                                     |
+| SubjectServiceError             | 650   | Subject           | Subject action failed on server; check parameters and endpoint                       |
+| MissingBCBP                     | 651   | Subject           | BCBP is missing and is a mandatory field                                             |
+| UnknownError                    | 680   | Subject           | Unmapped internal error                                                              |
+| ConfigError                     | 700   | Ultralight        | Feature configurations are missing                                                   |
+| NotReady                        | 701   | Ultralight        | Ultralight not initialized; call initialize first                                    |
+| InitFailed                      | 702   | Ultralight        | Initialization failed; check API key                                                 |
+| BluetoothNotGranted             | 703   | Ultralight        | Bluetooth permission denied                                                          |
+| BluetoothNotEnabled             | 704   | Ultralight        | Bluetooth is disabled (Android only)                                                 |
+| LocationNotEnabled              | 705   | Ultralight        | Location is disabled (Android only)                                                  |
+| UnknownError                    | 780   | Ultralight        | Unmapped internal error                                                              |
 
 You can use the result code to provide accurate feedback to the user or use the new property inside **FeatureError**, called **errorType** that classifies the type of error.
 We suggest that errors should be handled by **errorType**.

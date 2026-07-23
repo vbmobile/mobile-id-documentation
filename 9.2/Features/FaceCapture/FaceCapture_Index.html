@@ -2598,18 +2598,22 @@ You're not viewing the latest version.
 
 
 <h1 id="face-capture">Face Capture<a class="headerlink" href="#face-capture" title="Permanent link">&para;</a></h1>
-<p>The Mobile ID SDK provides a functionality that simplifies the process of obtaining a frame for
-biometry checks. To achieve it, we use face detection technology, and capture a frame with the
-user’s face. The live photo is then processed and checked against a liveness algorithm that will try
-to detect specific characteristics of spoofing attempts, returning a score that indicates if the
-person using the app is there or trying to impersonate someone else.</p>
+<p>Face Capture simplifies the process of acquiring a high-quality facial image for biometric
+verification. It uses face detection technology to automatically identify the user's face and
+capture an appropriate frame.</p>
+<p>The captured live image is processed and evaluated using a liveness detection algorithm that
+analyzes characteristics associated with presentation attacks (spoofing). The result is a liveness
+score indicating the likelihood that the image was captured from a physically present person rather
+than an impersonation attempt.</p>
 <h2 id="initiating-face-capture">Initiating Face Capture<a class="headerlink" href="#initiating-face-capture" title="Permanent link">&para;</a></h2>
-<p>The Mobile ID SDK provides a complete set of functionalities that allows capturing and processing
-the user’s facial characteristics, and match them against the travel document’s photo. This helps
-ensuring that the user who is enrolling is the document’s owner. The biometric face capture should
-be the final step before creating a Digital ID in a remote system. If you only need to capture a
-frame with the user’s face for biometric quality validation and check against liveness algorithms,
-you can use the method biometricFaceCapture.</p>
+<p>Face Capture provides the functionality required to capture and process the user's facial
+characteristics and compare them with the photograph stored in a travel document. This comparison
+helps verify that the person completing the enrollment process is the legitimate owner of the
+document.</p>
+<p>As part of a biometric enrollment workflow, Face Capture is typically performed as the final step
+before creating a digital identity in a remote system.</p>
+<p>If only facial image acquisition is required—for example, to perform biometric quality validation
+and liveness checks without document matching—the <code>biometricFaceCapture</code> method can be used.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Android</label><label for="__tabbed_1_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">

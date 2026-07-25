@@ -225,15 +225,15 @@ Here you can find a list of all the error codes the SDK sends to the client appl
 | Repeated | 260 | Boarding Pass Scan | The user chooses to repeat the boarding-pass scan. |
 | Unknown | 280 | Boarding Pass Scan | A scan error cannot be mapped to a known code. |
 | TCNotAccepted | 290 | Boarding Pass Scan | The user rejects the terms and conditions. |
-| ConfigError | 300 | Boarding Pass Parse | Boarding Pass Parser configuration is unavailable. |
-| BarcodeUnsupported | 301 | Boarding Pass Parse | The supplied barcode format is unsupported. |
-| PermissionNotGranted | 302 | Boarding Pass Parse | The application is not permitted to use Boarding Pass Parser. |
-| BoardingPassNull | 303 | Boarding Pass Parse | No boarding-pass data is supplied. |
+| ConfigError | 300 | Boarding Pass Parse | Reserved; raw-barcode configuration failures currently return Boarding Pass Scan code `200`. |
+| BarcodeUnsupported | 301 | Boarding Pass Parse | No supported barcode is found in the supplied image. |
+| PermissionNotGranted | 302 | Boarding Pass Parse | Reserved; this code is not currently returned by the iOS parser. |
+| BoardingPassNull | 303 | Boarding Pass Parse | Reserved; this code is not currently returned by the iOS parser. |
 | TransactionFailed | 320 | Boarding Pass Parse | Transaction registration fails before parsing. |
-| BoardingPassItemParserError | 350 | Boarding Pass Parse | A field in the supplied BCBP payload cannot be parsed. |
-| BoardingPassInvalid | 351 | Boarding Pass Parse | The supplied BCBP payload fails validation. |
-| BarcodeEmpty | 352 | Boarding Pass Parse | The supplied barcode contains no data. |
-| Repeated | 360 | Boarding Pass Parse | The user chooses to repeat the boarding-pass flow. |
+| BoardingPassItemParserError | 350 | Boarding Pass Parse | Reserved; BCBP field parsing failures currently return Boarding Pass Scan code `251`. |
+| BoardingPassInvalid | 351 | Boarding Pass Parse | The supplied image cannot be converted or does not contain usable boarding-pass data. |
+| BarcodeEmpty | 352 | Boarding Pass Parse | Reserved; empty raw barcodes currently return Boarding Pass Scan code `253`. |
+| Repeated | 360 | Boarding Pass Parse | Reserved; parser retries are logged internally and this code is not returned to the application. |
 | Unknown | 380 | Boarding Pass Parse | A parser error cannot be mapped to a known code. |
 | TCNotAccepted | 390 | Boarding Pass Parse | The user rejects the terms and conditions. |
 | PermissionNotGranted | 400 | Face Capture | The application is not permitted to use Face Capture. |

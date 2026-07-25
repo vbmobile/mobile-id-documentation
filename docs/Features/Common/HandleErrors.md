@@ -341,6 +341,26 @@ When you call one of our facade methods, then you will need to pass a completion
 
 **You can check more details how to obtain the FeatureError object on the "Handle result" section of the overview page of each feature.**
 
+### iOS error-handling example
+
+Feature-specific errors expose a `featureError` property. Handle its `errorType`
+to decide whether to retry, explain a missing permission, or end the flow:
+
+```swift
+private func handleError(_ error: FeatureError) {
+    switch error.errorType {
+    case .userRepeated:
+        retry()
+    case .permissionNotGrantedError:
+        showPermissionRationale()
+    case .communicationError, .scanError, .timeout:
+        showError(message: error.publicMessage, canRetry: true)
+    default:
+        showError(message: error.publicMessage, canRetry: false)
+    }
+}
+```
+
 This is a brief overview of what each ErrorType corresponds to:
 
 - When it's an internal error, you have to contact Amadeus and share some stacktrace or way to replicate the bug. It usually means that there is some invalid configuration or missing property from our backoffice.

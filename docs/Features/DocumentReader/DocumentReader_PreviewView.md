@@ -12,4 +12,5 @@ To add a preview feature to your app you can follow the example from our sample 
 
 === "iOS"
 
-    Example can be found here: [Sample Project](https://github.com/vbmobile/mobileid-ios-sample-)
+    See the public [Document Reader result example](DocumentReader_Index.md#handle-result)
+    and present the returned report in your own preview view.

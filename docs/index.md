@@ -91,8 +91,15 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	
 	        https://github.com/vbmobile/AMADocRfid
 	
-	4.  Select the version to integrate.  
-	    For new projects, we recommend using the latest available release.
+	4.  Select the component versions to integrate. The following versions are the
+	    supported set for Mobile ID SDK 9.2:
+
+	    | Component | Version |
+	    |-----------|---------|
+	    | `MobileIdSDKiOS` | `{{ versions.ios_enrolment_sdk }}` |
+	    | `AMAShareUltralight` | `{{ versions.ios_ultralight_provider }}` |
+	    | `AMADocScanMrziOS` | `{{ versions.ios_doc_scan_mrz_provider }}` |
+	    | `AMADocRFIDReadiOS` | `{{ versions.ios_doc_rfid_read_provider }}` |
 	
 	5.  Choose the project and target to which the package should be added.
 	

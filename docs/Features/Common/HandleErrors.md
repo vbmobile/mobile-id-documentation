@@ -89,6 +89,8 @@ The FeatureError has the following structure:
 
 Here you can find a list of all the error codes the SDK sends to the client application:
 
+### Android
+
 | Name                            | Value | Feature           | When thrown                                                                          |
 |---------------------------------|-------|-------------------|--------------------------------------------------------------------------------------|
 | InvalidApiKey                   | 010   | Configuration     | API key provided to `configure()` is invalid                                         |
@@ -177,6 +179,105 @@ Here you can find a list of all the error codes the SDK sends to the client appl
 | BluetoothNotEnabled             | 704   | Ultralight        | Bluetooth is disabled (Android only)                                                 |
 | LocationNotEnabled              | 705   | Ultralight        | Location is disabled (Android only)                                                  |
 | UnknownError                    | 780   | Ultralight        | Unmapped internal error                                                              |
+
+### iOS
+
+| Name | Value | Feature | When thrown |
+|------|-------|---------|-------------|
+| InvalidApiKey | 010 | Configuration | The API key is missing or invalid. |
+| InvalidEndpoint | 011 | Configuration | The endpoint is missing, malformed, or does not use HTTPS. |
+| InitFailed | 012 | Configuration | SDK configuration could not be retrieved or decoded during initialization. |
+| NotReady | 013 | Configuration | An SDK operation is requested before initialization completes successfully. |
+| InvalidLicense | 014 | Configuration | The SDK license token is invalid, expired, incorrectly signed, or issued for another application. |
+| InvalidGatewayConfig | 015 | Configuration | Mobile API Gateway configuration is missing or invalid. |
+| GatewayAuthenticationFailed | 016 | Configuration | Authentication with Mobile API Gateway fails. |
+| ConfigError | 100 | Document Reader | Document Reader configuration is unavailable. |
+| NotReady | 101 | Document Reader | Document Reader is used before its provider is initialized. |
+| InitFailed | 102 | Document Reader | The configured provider fails to initialize. |
+| ReportIsNull | 103 | Document Reader | A document scan or RFID operation completes without a report. |
+| ErrorCertificate | 104 | Document Reader | Required CSCA certificates cannot be loaded. |
+| InvalidCertificate | 105 | Document Reader | A supplied CSCA certificate is invalid. |
+| LicenseNotFound | 106 | Document Reader | The provider license cannot be found. |
+| PermissionNotGranted | 107 | Document Reader | The application is not permitted to use Document Reader. |
+| FetchingResourcesFailed | 120 | Document Reader | Provider resources cannot be downloaded. |
+| TransactionFailed | 121 | Document Reader | Transaction registration fails before document reading. |
+| InvalidDatabaseState | 122 | Document Reader | The provider database cannot be downloaded and no usable local database is available. |
+| ProviderNotFound | 140 | Document Reader | No document reader provider was supplied. |
+| InvalidParameter | 141 | Document Reader | A Document Reader parameter is invalid. |
+| MrzError | 150 | Document Reader | MRZ or OCR processing fails. |
+| RegulaError | 151 | Document Reader | The Regula provider reports a scan error. |
+| MrzTimeout | 152 | Document Reader | MRZ scanning exceeds the configured timeout. |
+| RFIDError | 153 | Document Reader | RFID chip reading or chip-data validation fails. |
+| Repeated | 160 | Document Reader | The user chooses to repeat the document-reading flow. |
+| Unknown | 180 | Document Reader | A Document Reader error cannot be mapped to a known code. |
+| TCNotAccepted | 190 | Document Reader | The user rejects the terms and conditions. |
+| ConfigError | 200 | Boarding Pass Scan | Boarding Pass Scanner configuration is unavailable. |
+| BarcodeUnsupported | 201 | Boarding Pass Scan | The scanned barcode format is unsupported. |
+| PermissionNotGranted | 202 | Boarding Pass Scan | The application is not permitted to use Boarding Pass Scanner. |
+| BoardingPassNull | 203 | Boarding Pass Scan | Scanning completes without boarding-pass data. |
+| CameraInitFailed | 204 | Boarding Pass Scan | The camera cannot be initialized. |
+| TransactionFailed | 220 | Boarding Pass Scan | Transaction registration fails before scanning. |
+| CameraPermissionNotGranted | 230 | Boarding Pass Scan | The user denies camera permission. |
+| BoardingPassScanFailed | 250 | Boarding Pass Scan | Barcode capture fails. |
+| BoardingPassItemParserError | 251 | Boarding Pass Scan | A field in the scanned BCBP payload cannot be parsed. |
+| BoardingPassInvalid | 252 | Boarding Pass Scan | The scanned BCBP payload fails validation. |
+| BarcodeEmpty | 253 | Boarding Pass Scan | The scanned barcode contains no data. |
+| Repeated | 260 | Boarding Pass Scan | The user chooses to repeat the boarding-pass scan. |
+| Unknown | 280 | Boarding Pass Scan | A scan error cannot be mapped to a known code. |
+| TCNotAccepted | 290 | Boarding Pass Scan | The user rejects the terms and conditions. |
+| ConfigError | 300 | Boarding Pass Parse | Boarding Pass Parser configuration is unavailable. |
+| BarcodeUnsupported | 301 | Boarding Pass Parse | The supplied barcode format is unsupported. |
+| PermissionNotGranted | 302 | Boarding Pass Parse | The application is not permitted to use Boarding Pass Parser. |
+| BoardingPassNull | 303 | Boarding Pass Parse | No boarding-pass data is supplied. |
+| TransactionFailed | 320 | Boarding Pass Parse | Transaction registration fails before parsing. |
+| BoardingPassItemParserError | 350 | Boarding Pass Parse | A field in the supplied BCBP payload cannot be parsed. |
+| BoardingPassInvalid | 351 | Boarding Pass Parse | The supplied BCBP payload fails validation. |
+| BarcodeEmpty | 352 | Boarding Pass Parse | The supplied barcode contains no data. |
+| Repeated | 360 | Boarding Pass Parse | The user chooses to repeat the boarding-pass flow. |
+| Unknown | 380 | Boarding Pass Parse | A parser error cannot be mapped to a known code. |
+| TCNotAccepted | 390 | Boarding Pass Parse | The user rejects the terms and conditions. |
+| PermissionNotGranted | 400 | Face Capture | The application is not permitted to use Face Capture. |
+| ErrorLoadingImageFromStorage | 401 | Face Capture | A captured image cannot be loaded from internal storage. |
+| ImagePathIsNull | 402 | Face Capture | Face Capture completes without an image path. |
+| LoadImageFailed | 403 | Face Capture | The image at the returned path cannot be loaded. |
+| ProcessReportIsNull | 404 | Face Capture | Face Capture processing completes without a report. |
+| CameraInitFailed | 405 | Face Capture | The camera cannot be initialized. |
+| CameraPictureError | 406 | Face Capture | The camera fails while taking the picture. |
+| ParamsIsNull | 407 | Face Capture | Required Face Capture parameters are missing. |
+| TransactionFailed | 420 | Face Capture | Transaction registration fails before capture. |
+| CommunicationError | 421 | Face Capture | Communication with a biometric service fails. |
+| BiometricLivenessServiceFailed | 422 | Face Capture | The biometric liveness service rejects or cannot process the capture. |
+| CameraPermissionNotGranted | 430 | Face Capture | The user denies camera permission. |
+| InvalidParameter | 440 | Face Capture | A Face Capture parameter is invalid. |
+| TestFailed | 450 | Face Capture | The captured image fails one or more configured quality tests. |
+| LivenessTestsFailed | 451 | Face Capture | The captured image fails liveness checks. |
+| FaceCaptureTimeout | 452 | Face Capture | No valid face is captured before the configured timeout. |
+| Repeated | 460 | Face Capture | The user chooses to retake the face image. |
+| Unknown | 480 | Face Capture | A Face Capture error cannot be mapped to a known code. |
+| TCNotAccepted | 490 | Face Capture | The user rejects the terms and conditions. |
+| PermissionNotGranted | 500 | Face Match | The application is not permitted to use Face Match. |
+| ErrorLoadingImages | 501 | Face Match | The candidate or reference image cannot be loaded. |
+| TransactionFailed | 520 | Face Match | Transaction registration fails before matching. |
+| CommunicationError | 521 | Face Match | Communication with the biometric matching service fails. |
+| MatchFailed | 550 | Face Match | The candidate face does not match the reference face. |
+| DataIntegrityFailed | 551 | Face Match | Image data does not match its supplied integrity hash. |
+| Repeated | 560 | Face Match | The user chooses to repeat Face Match. |
+| Unknown | 580 | Face Match | A Face Match error cannot be mapped to a known code. |
+| TCNotAccepted | 590 | Face Match | The user rejects the terms and conditions. |
+| PermissionNotGranted | 600 | Subject | The application is not permitted to use Subject Management. |
+| DataError | 601 | Subject | Subject data cannot be built or converted for the requested operation. |
+| TransactionFailed | 620 | Subject | Transaction registration fails before the subject operation. |
+| CommunicationError | 621 | Subject | Communication with the Subject service fails. |
+| SubjectServiceError | 650 | Subject | The Subject service rejects or fails the requested operation. |
+| MissingBCBP | 651 | Subject | A required BCBP is missing from the subject data. |
+| Repeated | 660 | Subject | The user chooses to repeat the subject flow. |
+| Unknown | 680 | Subject | A Subject error cannot be mapped to a known code. |
+| TCNotAccepted | 690 | Subject | The user rejects the terms and conditions. |
+| ConfigError | 700 | Ultralight | Ultralight configuration is missing or invalid. |
+| NotReady | 701 | Ultralight | Ultralight is used before initialization completes. |
+| InitFailed | 702 | Ultralight | Ultralight initialization fails. |
+| BluetoothNotGranted | 703 | Ultralight | Bluetooth permission is not granted. |
+| Unknown | 780 | Ultralight | An Ultralight error cannot be mapped to a known code. |
 
 You can use the result code to provide accurate feedback to the user or use the new property inside **FeatureError**, called **errorType** that classifies the type of error.
 We suggest that errors should be handled by **errorType**.

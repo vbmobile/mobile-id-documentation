@@ -21,4 +21,5 @@ To add a preview feature to your app you can follow the example from our sample 
 
 === "iOS"
 
-    Example can be found here: [Sample Project](https://github.com/vbmobile/mobileid-ios-sample-)
+    See the public [Face Capture result example](FaceCapture_Index.md#handle-result)
+    and present the returned image in your own preview view.

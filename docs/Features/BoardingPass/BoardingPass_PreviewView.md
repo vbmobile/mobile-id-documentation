@@ -12,4 +12,5 @@ To add a preview feature to your app you can follow the example from our sample 
 
 === "iOS"
 
-    Example can be found here: [Sample Project](https://github.com/vbmobile/mobileid-ios-sample-)
+    See the public [Boarding Pass result example](BoardingPass_Index.md#handle-result)
+    and present the returned boarding pass in your own preview view.

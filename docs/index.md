@@ -21,6 +21,17 @@ hide:
     - Install or update Xcode to latest version;
     - Target iOS 15 or later. __The iOS 15 target grows to iOS 18.2 if the provider `AMADocScanMrziOS` is used.__ 
 
+    | Component | Minimum iOS | Physical devices | Apple silicon simulator | Intel simulator |
+    |-----------|-------------|------------------|-------------------------|-----------------|
+    | `MobileIdSDKiOS` | 15 | `arm64` | `arm64` | `x86_64` |
+    | `AMAShareUltralight` | 15 | `arm64` | `arm64` | Not supported |
+    | `AMADocScanMrziOS` | 18.2 | `arm64` | `arm64` | Not supported |
+    | `AMADocRFIDReadiOS` | 15 | `arm64` | `arm64` | `x86_64` |
+
+    Simulator architecture refers to the Mac architecture on which the iOS
+    Simulator runs. Components without an `x86_64` simulator slice require an
+    Apple silicon Mac for simulator builds.
+
 You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can associate the API key with the application, this way your API key is protected with only authorized applications.
 
 ## Enrolment SDK setup

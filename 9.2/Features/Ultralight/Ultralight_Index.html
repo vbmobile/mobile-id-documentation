@@ -2741,32 +2741,36 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 <li>Go to <strong>File ▸ Add Packages…</strong></li>
 <li>Enter the package repository URL:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>https://github.com/vbmobile/AmaShareUltralight
+<div class="highlight"><pre><span></span><code>https://github.com/vbmobile/AMAShareUltralight
 </code></pre></div>
 <ol>
 <li>Select the desired version (recommended: exact or up to next major)</li>
-<li>Add the <strong>AmaShareUltralight</strong> product to your app target</li>
+<li>Add the <strong>AMAShareUltralight</strong> product to your app target</li>
 </ol>
 <p><strong>Install using <code>Package.swift</code></strong></p>
 <p>If you are managing dependencies manually, add Ultralight to your <code>Package.swift</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">   </span><span class="p">.</span><span class="n">package</span><span class="p">(</span>
-<span class="w">       </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/vbmobile/AmaShareUltralight&quot;</span><span class="p">,</span>
-<span class="w">       </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2.0.4&quot;</span>
+<span class="w">       </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/vbmobile/AMAShareUltralight&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2.0.13&quot;</span>
 <span class="w">   </span><span class="p">)</span>
 <span class="p">],</span>
 </code></pre></div>
 <blockquote>
-<p>Replace <code>2.0.4</code> with the intended version.</p>
+<p>Replace <code>2.0.13</code> with the intended version.</p>
 </blockquote>
 <p>Then include it in your target dependencies:</p>
 <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="n">target</span><span class="p">(</span>
 <span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YourAppTarget&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AmaShareUltralight&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">package</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AmaShareUltralight&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AMAShareUltralight&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">package</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AMAShareUltralight&quot;</span><span class="p">)</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">)</span>
 </code></pre></div>
+<div class="admonition important">
+<p class="admonition-title">Image size limit</p>
+<p>The images you provide to <code>AMAShareUltralight</code> as <code>docPhotoBase64</code> and <code>selfieBase64</code> must each be <strong>smaller than 256 KB</strong>. Larger images are rejected.</p>
+</div>
 <blockquote>
 <p>Replace <code>YourAppTarget</code> with the intended app target you wish to use.</p>
 </blockquote>

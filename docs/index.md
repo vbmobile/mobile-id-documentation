@@ -130,7 +130,7 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	dependencies: [
 	    .package(
 	        url: "https://github.com/vbmobile/MobileIdSDKiOS",
-	        upToNextMinor(from: "{{ versions.ios_enrolment_sdk }}"
+	        .upToNextMinor(from: "{{ versions.ios_enrolment_sdk }}")
 	    )
 	]
 	```

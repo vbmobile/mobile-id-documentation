@@ -68,7 +68,7 @@ The FeatureError has the following structure:
         public let description: String
         public let publicMessage: String
 
-        public init(errorType: ErrorType, errorCode: Int, description: String, publicMessage: String, name: String) 
+        public init(errorType: ErrorType, errorCode: Int, description: String, publicMessage: String, name: String)
     }
     
     public enum ErrorType {
@@ -249,11 +249,11 @@ Here you can find a list of all the error codes the SDK sends to the client appl
 | ParamsIsNull | 407 | Face Capture | Required Face Capture parameters are missing. |
 | TransactionFailed | 420 | Face Capture | Transaction registration fails before capture. |
 | CommunicationError | 421 | Face Capture | Communication with a biometric service fails. |
-| BiometricLivenessServiceFailed | 422 | Face Capture | The biometric liveness service rejects or cannot process the capture. |
+| BiometricLivenessServiceFailed | 422 | Face Capture | Reserved; this code is not currently returned by the iOS SDK. |
 | CameraPermissionNotGranted | 430 | Face Capture | The user denies camera permission. |
 | InvalidParameter | 440 | Face Capture | A Face Capture parameter is invalid. |
 | TestFailed | 450 | Face Capture | The captured image fails one or more configured quality tests. |
-| LivenessTestsFailed | 451 | Face Capture | The captured image fails liveness checks. |
+| LivenessTestsFailed | 451 | Face Capture | Biometric processing reports one or more failed liveness checks. |
 | FaceCaptureTimeout | 452 | Face Capture | No valid face is captured before the configured timeout. |
 | Repeated | 460 | Face Capture | The user chooses to retake the face image. |
 | Unknown | 480 | Face Capture | A Face Capture error cannot be mapped to a known code. |

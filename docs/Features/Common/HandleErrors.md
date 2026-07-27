@@ -68,18 +68,21 @@ The FeatureError has the following structure:
         public let description: String
         public let publicMessage: String
 
-        init(errorType: ErrorType, errorCode: Int, description: String, publicMessage: String, name: String) 
+        public init(errorType: ErrorType, errorCode: Int, description: String, publicMessage: String, name: String) 
     }
     
     public enum ErrorType {
+        case configError
+        case badConfigError
         case internalError
         case communicationError
         case termsAndConditionsRejected
         case userRepeated
         case permissionNotGrantedError
         case scanError
-        case scanTimeout
+        case timeout
         case boardingPassInvalid
+        case documentReaderError
         case faceCaptureError
         case faceMatchError
         case subjectError
@@ -282,9 +285,9 @@ Here you can find a list of all the error codes the SDK sends to the client appl
 You can use the result code to provide accurate feedback to the user or use the new property inside **FeatureError**, called **errorType** that classifies the type of error.
 We suggest that errors should be handled by **errorType**.
 
-Alongside with the error code and description that are useful for logging and tracing, we also provide a publicErrorMessage that is a suggestion of what you can show to the final user as an error message.
+Alongside with the error code and description that are useful for logging and tracing, we also provide a `publicMessage` that is a suggestion of what you can show to the final user as an error message.
 
-The value of publicErrorMessage is filled depending on the error type and you can change the default texts or provide additional translations by overriding these strings:
+The value of `publicMessage` is filled depending on the error type and you can change the default texts or provide additional translations by overriding these strings:
 
 === "Android"
 
@@ -307,8 +310,10 @@ The value of publicErrorMessage is filled depending on the error type and you ca
 === "iOS"
 
     ```swift
-    //configurationError
+    //configError
     Theme.shared.strings.errorsPublicMessages.configError
+    //badConfigError
+    Theme.shared.strings.errorsPublicMessages.badConfigError
     //internalError
     Theme.shared.strings.errorsPublicMessages.internalError
     //communicationError
@@ -321,10 +326,12 @@ The value of publicErrorMessage is filled depending on the error type and you ca
     Theme.shared.strings.errorsPublicMessages.permissionNotGrantedError
     //scanError
     Theme.shared.strings.errorsPublicMessages.scanError
-    //scanTimeout
-    Theme.shared.strings.errorsPublicMessages.scanTimeout
+    //timeout
+    Theme.shared.strings.errorsPublicMessages.timeout
     //boardingPassInvalid
     Theme.shared.strings.errorsPublicMessages.boardingPassInvalid
+    //documentReaderError
+    Theme.shared.strings.errorsPublicMessages.documentReaderError
     //faceCaptureError
     Theme.shared.strings.errorsPublicMessages.faceCaptureError
     //faceMatchError
@@ -366,7 +373,7 @@ This is a brief overview of what each ErrorType corresponds to:
 - When it's an internal error, you have to contact Amadeus and share some stacktrace or way to replicate the bug. It usually means that there is some invalid configuration or missing property from our backoffice.
 - Communication errors are mostly caused by internet connection issues, so trying again can solve the problem, it's recommended to allow the user to re-send the request. It can also mean an invalid url of some sort, so if the problem persists you can contact Amadeus.
 - PermissionNotGrantedError means that the user didn't grant permission to use some part of the hardware that is required, as recommended you should have a rationale to explain why that permission is required and block the user from proceeding until he grants the permission.
-- User repeated and user canceled are not exactly errors, they are just warnings to inform that the user wants to try again or canceled the operation.
+- User repeated is not exactly an error; it indicates that the user wants to try the operation again.
 - Scan error happens when there is an error on document scan or any error with the scan of the boarding pass, this usually requires debugging, so it's recommended to share the stacktrace and communicate to Amadeus.
 - Timeout it means that either the timer of document reader or face capture has reached the end and it wasn't possible to capture the image successfully, you can inform the user of that, suggesting how he should scan the document (on the table, with a high contrast from the table, with the proper angle etc..), or take the selfie in better conditions and let the user try again.
 - Boarding pass invalid means that the scan or parse of the boarding pass was correct but some issues were found. Can be the format that is not supported by us, or simply it's not actually a boarding pass barcode.

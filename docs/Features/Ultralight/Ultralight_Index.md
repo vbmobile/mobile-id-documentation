@@ -75,11 +75,11 @@ Before integrating Ultralight, ensure you have:
     3. Enter the package repository URL:
    
     ```
-    https://github.com/vbmobile/AmaShareUltralight
+    https://github.com/vbmobile/AMAShareUltralight
     ```
    
     4. Select the desired version (recommended: exact or up to next major)
-    5. Add the **AmaShareUltralight** product to your app target
+    5. Add the **AMAShareUltralight** product to your app target
 
     __Install using `Package.swift`__
    
@@ -88,7 +88,7 @@ Before integrating Ultralight, ensure you have:
     ``` swift
     dependencies: [
        .package(
-           url: "https://github.com/vbmobile/AmaShareUltralight",
+           url: "https://github.com/vbmobile/AMAShareUltralight",
            exact: "{{ versions.ios_ultralight_provider }}"
        )
     ],
@@ -102,10 +102,13 @@ Before integrating Ultralight, ensure you have:
     .target(
         name: "YourAppTarget",
         dependencies: [
-            .product(name: "AmaShareUltralight", package: "AmaShareUltralight")
+            .product(name: "AMAShareUltralight", package: "AMAShareUltralight")
         ]
     )
     ```
+
+    !!! important "Image size limit"
+        The images you provide to `AMAShareUltralight` as `docPhotoBase64` and `selfieBase64` must each be **smaller than 256 KB**. Larger images are rejected.
 
 	> Replace `YourAppTarget ` with the intended app target you wish to use.
 

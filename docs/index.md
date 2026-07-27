@@ -90,9 +90,9 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	
 	        https://github.com/vbmobile/MobileIdSDKiOS
 	
-	    **AmaShareUltralight** (Optional Provider)
+	    **AMAShareUltralight** (Optional Provider)
 	
-	        https://github.com/vbmobile/AmaShareUltralight
+	        https://github.com/vbmobile/AMAShareUltralight
 	
 	    **AMADocScanMrziOS** (Optional Provider)
 	
@@ -155,7 +155,7 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 
 	***
 	
-	> Repeat the process for `AmaShareUltralight`, `AMADocScanMrziOS` and `AMADocRfid`
+	> Repeat the process for `AMAShareUltralight`, `AMADocScanMrziOS` and `AMADocRfid`
 	
 	Once added, the Enrolment SDK APIs (and any integrated optional modules such as Ultralight or Document Scanning providers) become available to your application through the standard Enrolment SDK integration flow.
 

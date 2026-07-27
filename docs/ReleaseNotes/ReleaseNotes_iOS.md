@@ -1,5 +1,15 @@
 # MobileID SDK - Release Notes
 
+## 9.2.1
+
+### Improvements
+
+- Updated the recommended provider version for AMAShareUltralight to `2.0.13`.
+
+### Bug Fixes
+
+- Fixed an issue: TRAVELERID-15227.
+
 ## 9.2.0
 
 ### What's new

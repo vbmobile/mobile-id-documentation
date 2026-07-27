@@ -16,7 +16,8 @@ To add a preview feature to your app you can follow the example from our sample 
 
     ```swift
     private func showPreview(for report: DocumentReaderReport) {
-        documentImageView.image = report.idDocument.docImageUIImage
-        holderImageView.image = report.idDocument.holderImageUIImage
+        documentImageView.image = report.idDocument.data?.docImageUIImage
+        holderImageView.image = report.idDocument.rfid?.holderImageUIImage
+            ?? report.idDocument.data?.holderImageUIImage
     }
     ```

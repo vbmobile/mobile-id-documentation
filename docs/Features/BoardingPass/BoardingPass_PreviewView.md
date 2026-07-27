@@ -12,5 +12,11 @@ To add a preview feature to your app you can follow the example from our sample 
 
 === "iOS"
 
-    See the public [Boarding Pass result example](BoardingPass_Index.md#handle-result)
-    and present the returned boarding pass in your own preview view.
+    Build the preview from the boarding pass returned by `scanBoardingPass`:
+
+    ```swift
+    private func showPreview(for boardingPass: BoardingPassSummary) {
+        passengerNameLabel.text = boardingPass.passengerName
+        boardingPassTypeLabel.text = boardingPass.type
+    }
+    ```

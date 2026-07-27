@@ -21,5 +21,10 @@ To add a preview feature to your app you can follow the example from our sample 
 
 === "iOS"
 
-    See the public [Face Capture result example](FaceCapture_Index.md#handle-result)
-    and present the returned image in your own preview view.
+    Build the preview from the report returned by `biometricFaceCapture`:
+
+    ```swift
+    private func showPreview(for report: BiometricFaceCaptureReport) {
+        previewImageView.image = report.photo
+    }
+    ```

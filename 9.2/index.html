@@ -2828,8 +2828,52 @@ You're not viewing the latest version.
 <p>To integrate the <strong>Mobile ID SDK</strong> for iOS, the following prerequisites must be met: </p>
 <ul>
 <li>Install or update Xcode to latest version;</li>
-<li>Target iOS 15 or later. <strong>The iOS 15 target grows to iOS 18.2 if the provider <code>AMADocScanMrziOS</code> is used.</strong> </li>
+<li>Target iOS 15 or later.</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Minimum iOS</th>
+<th>Physical devices</th>
+<th>Apple silicon simulator</th>
+<th>Intel simulator</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MobileIdSDKiOS</code></td>
+<td>15</td>
+<td><code>arm64</code></td>
+<td><code>arm64</code></td>
+<td><code>x86_64</code></td>
+</tr>
+<tr>
+<td><code>AMAShareUltralight</code></td>
+<td>15</td>
+<td><code>arm64</code></td>
+<td><code>arm64</code></td>
+<td>Not supported</td>
+</tr>
+<tr>
+<td><code>AMADocScanMrziOS</code></td>
+<td>15</td>
+<td><code>arm64</code></td>
+<td><code>arm64</code></td>
+<td>Not supported</td>
+</tr>
+<tr>
+<td><code>AMADocRFIDReadiOS</code></td>
+<td>15</td>
+<td><code>arm64</code></td>
+<td><code>arm64</code></td>
+<td><code>x86_64</code></td>
+</tr>
+</tbody>
+</table>
+<p>Simulator architecture refers to the Mac architecture on which the iOS
+Simulator runs. Components without an <code>x86_64</code> simulator slice require an
+Apple silicon Mac for simulator builds.</p>
 </div>
 </div>
 </div>
@@ -2895,8 +2939,34 @@ You're not viewing the latest version.
 </code></pre>
 </li>
 <li>
-<p>Select the version to integrate.<br />
-    For new projects, we recommend using the latest available release.</p>
+<p>Select the component versions to integrate. The following versions are the
+    supported set for Mobile ID SDK 9.2:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MobileIdSDKiOS</code></td>
+<td><code>9.2.1</code></td>
+</tr>
+<tr>
+<td><code>AMAShareUltralight</code></td>
+<td><code>2.0.13</code></td>
+</tr>
+<tr>
+<td><code>AMADocScanMrziOS</code></td>
+<td><code>2.0.3</code></td>
+</tr>
+<tr>
+<td><code>AMADocRFIDReadiOS</code></td>
+<td><code>2.0.2</code></td>
+</tr>
+</tbody>
+</table>
 </li>
 <li>
 <p>Choose the project and target to which the package should be added.</p>
@@ -2913,7 +2983,7 @@ You're not viewing the latest version.
 <div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">.</span><span class="n">package</span><span class="p">(</span>
 <span class="w">        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/vbmobile/MobileIdSDKiOS&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">upToNextMinor</span><span class="p">(</span><span class="n">from</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;9.2.1&quot;</span>
+<span class="w">        </span><span class="p">.</span><span class="n">exact</span><span class="p">(</span><span class="s">&quot;9.2.1&quot;</span><span class="p">)</span>
 <span class="w">    </span><span class="p">)</span>
 <span class="p">]</span>
 </code></pre></div>

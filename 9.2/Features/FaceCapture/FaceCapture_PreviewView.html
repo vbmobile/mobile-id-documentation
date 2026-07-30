@@ -2506,7 +2506,11 @@ You're not viewing the latest version.
 </code></pre></div></p>
 </div>
 <div class="tabbed-block">
-<p>Example can be found here: <a href="https://github.com/vbmobile/mobileid-ios-sample-">Sample Project</a></p>
+<p>Build the preview from the report returned by <code>biometricFaceCapture</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">showPreview</span><span class="p">(</span><span class="k">for</span><span class="w"> </span><span class="n">report</span><span class="p">:</span><span class="w"> </span><span class="n">BiometricFaceCaptureReport</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">previewImageView</span><span class="p">.</span><span class="n">image</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">report</span><span class="p">.</span><span class="n">photo</span>
+<span class="p">}</span>
+</code></pre></div>
 </div>
 </div>
 </div>

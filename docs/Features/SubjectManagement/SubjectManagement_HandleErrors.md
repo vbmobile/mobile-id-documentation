@@ -36,4 +36,6 @@ After obtaining the FeatureError, as shown in the Handle Result section of the f
 
 === "iOS"
 
-    See the public [iOS error-handling example](../Common/HandleErrors.md#ios-error-handling-example).
+    Example can be found here: [SubjectHandleErrors](https://github.com/vbmobile/mobileid-ios-sample/tree/main/Sample%20App/ViewControllers/SubjectViewController.swift)
+
+    See also the public [iOS error-handling example](../Common/HandleErrors.md#ios-error-handling-example).

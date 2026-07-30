@@ -19,7 +19,18 @@ hide:
     To integrate the **Mobile ID SDK** for iOS, the following prerequisites must be met: 
     
     - Install or update Xcode to latest version;
-    - Target iOS 15 or later. __The iOS 15 target grows to iOS 18.2 if the provider `AMADocScanMrziOS` is used.__ 
+    - Target iOS 15 or later.
+
+    | Component | Minimum iOS | Physical devices | Apple silicon simulator | Intel simulator |
+    |-----------|-------------|------------------|-------------------------|-----------------|
+    | `MobileIdSDKiOS` | 15 | `arm64` | `arm64` | `x86_64` |
+    | `AMAShareUltralight` | 15 | `arm64` | `arm64` | Not supported |
+    | `AMADocScanMrziOS` | 15 | `arm64` | `arm64` | Not supported |
+    | `AMADocRFIDReadiOS` | 15 | `arm64` | `arm64` | `x86_64` |
+
+    Simulator architecture refers to the Mac architecture on which the iOS
+    Simulator runs. Components without an `x86_64` simulator slice require an
+    Apple silicon Mac for simulator builds.
 
 You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can associate the API key with the application, this way your API key is protected with only authorized applications.
 
@@ -91,8 +102,15 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	
 	        https://github.com/vbmobile/AMADocRfid
 	
-	4.  Select the version to integrate.  
-	    For new projects, we recommend using the latest available release.
+	4.  Select the component versions to integrate. The following versions are the
+	    supported set for Mobile ID SDK 9.2:
+
+	    | Component | Version |
+	    |-----------|---------|
+	    | `MobileIdSDKiOS` | `{{ versions.ios_enrolment_sdk }}` |
+	    | `AMAShareUltralight` | `{{ versions.ios_ultralight_provider }}` |
+	    | `AMADocScanMrziOS` | `{{ versions.ios_doc_scan_mrz_provider }}` |
+	    | `AMADocRFIDReadiOS` | `{{ versions.ios_doc_rfid_read_provider }}` |
 	
 	5.  Choose the project and target to which the package should be added.
 	
@@ -112,7 +130,7 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	dependencies: [
 	    .package(
 	        url: "https://github.com/vbmobile/MobileIdSDKiOS",
-	        upToNextMinor(from: "{{ versions.ios_enrolment_sdk }}"
+	        .exact("{{ versions.ios_enrolment_sdk }}")
 	    )
 	]
 	```

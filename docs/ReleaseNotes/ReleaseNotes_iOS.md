@@ -8,7 +8,7 @@
 
 ### Bug Fixes
 
-- Fixed on callback user experience during RFID processing.
+- Improved callback user experience during RFID processing.
 
 
 ## 9.2.0

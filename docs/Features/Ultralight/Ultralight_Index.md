@@ -168,14 +168,12 @@ initialization, so the provider only needs `initialiseBeamSync(apiKey:)`.
 	func ultralightProvider() -> UltralightProtocol? {
 	    let ultralight = AMAShareUltralight.Ultralight()
 	    ultralight.initialize(config: .init(level: .debug))
-	    ultralight.initialiseBeamSync(apiKey: "<your-ultralight-api-key>")
 	    return ultralight
 	}
 	```
 
-	Call `initialize(config:)` before `initialiseBeamSync(apiKey:)` when
-	diagnostic logging is needed. Use the appropriate log level for the
-	environment.
+	Call `initialize(config:)` when diagnostic logging is needed. Use the
+	appropriate log level for the environment.
                                   
 ### Step 2: Pass Provider to Enrolment Initialization
 
@@ -460,7 +458,6 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	    func ultralightProvider() -> UltralightProtocol? {
 	        let ultralight = AMAShareUltralight.Ultralight()
 	        ultralight.initialize(config: .init(level: .debug))
-	        ultralight.initialiseBeamSync(apiKey: "<your-ultralight-api-key>")
 	        return ultralight
 	    }
 	
@@ -485,7 +482,16 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	    }
 	
 	    func sampleShare(enrolment: EnrolmentProtocol?) {
-	        let passenger = AMAShareUltralight.UltralightBuilders.build(
+	        let passenger1 = Passenger(language: "en",
+	                                  mrz: "<mrz-line-1>\n<mrz-line-2>",
+	                                  boardingPasses: ["<bcbp-barcode-string>"],
+	                                  docPhotoBase64: "<base64-encoded-document-photo>",
+	                                  selfieBase64: "<base64-encoded-selfie>",
+	                                  ePassport: true,
+	                                  tag: nil,
+	                                  ebagtagId: nil)
+
+	        let passenger2 = AMAShareUltralight.UltralightBuilders.build(
 	            paxId: nil, // Defaults to UUID().uuidString
 	            idDocument: nil,
 	            faceCapture: nil,
@@ -493,7 +499,7 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	            language: nil // Defaults to "en"
 	        )
 
-	        enrolment?.share(passengers: [passenger], completionHandler: { result, error in
+	        enrolment?.share(passengers: [passenger1, passenger2], completionHandler: { result, error in
 	            if result {
 	                // Passengers set and Beamsync started successfully
 	            } else {
@@ -508,24 +514,13 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	    }
 	
 	    func prepareAndSharePassenger(enrolment: EnrolmentProtocol?) {
-	        guard EnrolmentData.idDocument != nil else {
-	            print("Precondition failed: Have not read document")
-	            return
-	        }
-	        guard let faceCapture = EnrolmentData.biometricFaceCaptureReport?.photo else {
-	            print("Precondition failed: Have not read face")
-	            return
-	        }
-	        guard EnrolmentData.boardingPass != nil else {
-	            print("Precondition failed: Have not read boarding pass")
-	            return
-	        }
-	        guard let idDocument = EnrolmentData.idDocument else {
-	            print("Precondition failed: idDocument missing")
-	            return
-	        }
-	        let boardPass = EnrolmentData.boardingPass?.raw ?? ""
-	        let passenger = idDocument.mapToPassenger(faceCapture: faceCapture, boardingPasses: [boardPass])
+	        let passenger = AMAShareUltralight.UltralightBuilders.build(
+	            paxId: nil, // Defaults to UUID().uuidString
+	            idDocument: EnrolmentData.idDocument,
+	            faceCapture: EnrolmentData.biometricFaceCaptureReport?.photo,
+	            boardingPass: EnrolmentData.boardingPass?.raw ?? "",
+	            language: nil // Defaults to "en"
+	        )
 	        enrolment?.share(passengers: [passenger], completionHandler: { result, error in
 	            if result {
 	                // Passengers set and Beamsync started successfully

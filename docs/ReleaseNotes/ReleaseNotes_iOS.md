@@ -1,5 +1,12 @@
 # MobileID SDK - Release Notes
 
+## 9.2.2
+
+### Improvements
+
+- Updated the recommended AMAShareUltralight provider version to `2.0.15`.
+- AMAShareUltralight `2.0.15` uses UltralightFramework `3.3.4`.
+
 ## 9.2.1
 
 ### Improvements

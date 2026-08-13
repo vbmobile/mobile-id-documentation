@@ -2821,11 +2821,15 @@ initialization, so the provider only needs <code>initialiseBeamSync(apiKey:)</co
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">ultralightProvider</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">UltralightProtocol</span><span class="p">?</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">Ultralight</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">()</span>
-<span class="w">    </span><span class="n">ultralightProvider</span><span class="p">.</span><span class="n">initialiseBeamSync</span><span class="p">(</span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;your-ultralight-api-key&gt;&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ultralightProvider</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">ultralight</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">Ultralight</span><span class="p">()</span>
+<span class="w">    </span><span class="n">ultralight</span><span class="p">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">level</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">debug</span><span class="p">))</span>
+<span class="w">    </span><span class="n">ultralight</span><span class="p">.</span><span class="n">initialiseBeamSync</span><span class="p">(</span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;your-ultralight-api-key&gt;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ultralight</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>Call <code>initialize(config:)</code> before <code>initialiseBeamSync(apiKey:)</code> when
+diagnostic logging is needed. Use the appropriate log level for the
+environment.</p>
 </div>
 </div>
 </div>
@@ -2959,15 +2963,18 @@ It is asynchronous — provide a completion callback to receive the result
 </code></pre></div>
 </div>
 <div class="tabbed-block">
+<p>Prefer <code>UltralightBuilders.build(...)</code> when creating passengers. It
+normalizes optional values such as the passenger ID and language and keeps
+passenger construction aligned with the Ultralight provider API.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">sampleShare</span><span class="p">(</span><span class="n">enrolment</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentProtocol</span><span class="p">?)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">passenger</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Passenger</span><span class="p">(</span><span class="n">language</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">mrz</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;mrz-line-1&gt;</span><span class="se">\n</span><span class="s">&lt;mrz-line-2&gt;&quot;</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">boardingPasses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;&lt;bcbp-barcode-string&gt;&quot;</span><span class="p">],</span>
-<span class="w">                              </span><span class="n">docPhotoBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-document-photo&gt;&quot;</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">selfieBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-selfie&gt;&quot;</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">ePassport</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">tag</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">ebagtagId</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">passenger</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">UltralightBuilders</span><span class="p">.</span><span class="n">build</span><span class="p">(</span>
+<span class="w">        </span><span class="n">paxId</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="c1">// Defaults to UUID().uuidString</span>
+<span class="w">        </span><span class="n">idDocument</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">faceCapture</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">boardingPass</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;bcbp-barcode-string&gt;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">language</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="c1">// Defaults to &quot;en&quot;</span>
+<span class="w">    </span><span class="p">)</span>
+
 <span class="w">    </span><span class="n">enrolment</span><span class="p">?.</span><span class="n">share</span><span class="p">(</span><span class="n">passengers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">passenger</span><span class="p">],</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">in</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="c1">// Passengers set and Beamsync started successfully</span>
@@ -3125,9 +3132,10 @@ It is asynchronous — provide a completion callback to receive the result
 
 <span class="kd">class</span><span class="w"> </span><span class="nc">UltralightProviderSample</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">ultralightProvider</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">UltralightProtocol</span><span class="p">?</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">Ultralight</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">()</span>
-<span class="w">        </span><span class="n">ultralightProvider</span><span class="p">.</span><span class="n">initialiseBeamSync</span><span class="p">(</span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;your-ultralight-api-key&gt;&quot;</span><span class="p">)</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ultralightProvider</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">ultralight</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">Ultralight</span><span class="p">()</span>
+<span class="w">        </span><span class="n">ultralight</span><span class="p">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">level</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">debug</span><span class="p">))</span>
+<span class="w">        </span><span class="n">ultralight</span><span class="p">.</span><span class="n">initialiseBeamSync</span><span class="p">(</span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;your-ultralight-api-key&gt;&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ultralight</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">initializeEnrolment</span><span class="p">(</span><span class="n">provider</span><span class="p">:</span><span class="w"> </span><span class="n">UltralightProtocol</span><span class="p">?)</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">EnrolmentProtocol</span><span class="w"> </span><span class="p">{</span>
@@ -3151,14 +3159,14 @@ It is asynchronous — provide a completion callback to receive the result
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">sampleShare</span><span class="p">(</span><span class="n">enrolment</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentProtocol</span><span class="p">?)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">passenger</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Passenger</span><span class="p">(</span><span class="n">language</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p">,</span>
-<span class="w">                                  </span><span class="n">mrz</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;mrz-line-1&gt;</span><span class="se">\n</span><span class="s">&lt;mrz-line-2&gt;&quot;</span><span class="p">,</span>
-<span class="w">                                  </span><span class="n">boardingPasses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;&lt;bcbp-barcode-string&gt;&quot;</span><span class="p">],</span>
-<span class="w">                                  </span><span class="n">docPhotoBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-document-photo&gt;&quot;</span><span class="p">,</span>
-<span class="w">                                  </span><span class="n">selfieBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-selfie&gt;&quot;</span><span class="p">,</span>
-<span class="w">                                  </span><span class="n">ePassport</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">                                  </span><span class="n">tag</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
-<span class="w">                                  </span><span class="n">ebagtagId</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">passenger</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">UltralightBuilders</span><span class="p">.</span><span class="n">build</span><span class="p">(</span>
+<span class="w">            </span><span class="n">paxId</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="c1">// Defaults to UUID().uuidString</span>
+<span class="w">            </span><span class="n">idDocument</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">            </span><span class="n">faceCapture</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">            </span><span class="n">boardingPass</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;bcbp-barcode-string&gt;&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">language</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="c1">// Defaults to &quot;en&quot;</span>
+<span class="w">        </span><span class="p">)</span>
+
 <span class="w">        </span><span class="n">enrolment</span><span class="p">?.</span><span class="n">share</span><span class="p">(</span><span class="n">passengers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">passenger</span><span class="p">],</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">in</span>
 <span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                </span><span class="c1">// Passengers set and Beamsync started successfully</span>

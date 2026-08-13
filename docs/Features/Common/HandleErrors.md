@@ -280,6 +280,9 @@ Here you can find a list of all the error codes the SDK sends to the client appl
     | NotReady | 701 | Ultralight | Ultralight is used before initialization completes. |
     | InitFailed | 702 | Ultralight | Ultralight initialization fails. |
     | BluetoothNotGranted | 703 | Ultralight | Bluetooth permission is not granted. |
+    | BluetoothNotEnabled | 704 | Ultralight | Bluetooth is disabled. |
+    | BluetoothNotSupported | 705 | Ultralight | Bluetooth is not supported on the device. |
+    | BluetoothUnknowError | 706 | Ultralight | An unspecified Bluetooth error occurs. |
     | Unknown | 780 | Ultralight | An Ultralight error cannot be mapped to a known code. |
 
 

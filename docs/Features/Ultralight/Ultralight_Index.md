@@ -166,11 +166,16 @@ initialization, so the provider only needs `initialiseBeamSync(apiKey:)`.
 
 	```swift
 	func ultralightProvider() -> UltralightProtocol? {
-	    let ultralightProvider: AMAShareUltralight.Ultralight = .init()
-	    ultralightProvider.initialiseBeamSync(apiKey: "<your-ultralight-api-key>")
-	    return ultralightProvider
+	    let ultralight = AMAShareUltralight.Ultralight()
+	    ultralight.initialize(config: .init(level: .debug))
+	    ultralight.initialiseBeamSync(apiKey: "<your-ultralight-api-key>")
+	    return ultralight
 	}
 	```
+
+	Call `initialize(config:)` before `initialiseBeamSync(apiKey:)` when
+	diagnostic logging is needed. Use the appropriate log level for the
+	environment.
                                   
 ### Step 2: Pass Provider to Enrolment Initialization
 
@@ -269,16 +274,20 @@ It is asynchronous — provide a completion callback to receive the result
 === "iOS"
 
 
+	Prefer `UltralightBuilders.build(...)` when creating passengers. It
+	normalizes optional values such as the passenger ID and language and keeps
+	passenger construction aligned with the Ultralight provider API.
+
 	```swift
     func sampleShare(enrolment: EnrolmentProtocol?) {
-        let passenger = Passenger(language: "en",
-                                  mrz: "<mrz-line-1>\n<mrz-line-2>",
-                                  boardingPasses: ["<bcbp-barcode-string>"],
-                                  docPhotoBase64: "<base64-encoded-document-photo>",
-                                  selfieBase64: "<base64-encoded-selfie>",
-                                  ePassport: true,
-                                  tag: nil,
-                                  ebagtagId: nil)
+        let passenger = AMAShareUltralight.UltralightBuilders.build(
+            paxId: nil, // Defaults to UUID().uuidString
+            idDocument: nil,
+            faceCapture: nil,
+            boardingPass: "<bcbp-barcode-string>",
+            language: nil // Defaults to "en"
+        )
+
         enrolment?.share(passengers: [passenger], completionHandler: { result, error in
             if result {
                 // Passengers set and Beamsync started successfully
@@ -449,9 +458,10 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	
 	class UltralightProviderSample {
 	    func ultralightProvider() -> UltralightProtocol? {
-	        let ultralightProvider: AMAShareUltralight.Ultralight = .init()
-	        ultralightProvider.initialiseBeamSync(apiKey: "<your-ultralight-api-key>")
-	        return ultralightProvider
+	        let ultralight = AMAShareUltralight.Ultralight()
+	        ultralight.initialize(config: .init(level: .debug))
+	        ultralight.initialiseBeamSync(apiKey: "<your-ultralight-api-key>")
+	        return ultralight
 	    }
 	
 	    func initializeEnrolment(provider: UltralightProtocol?) async -> EnrolmentProtocol {
@@ -475,14 +485,14 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	    }
 	
 	    func sampleShare(enrolment: EnrolmentProtocol?) {
-	        let passenger = Passenger(language: "en",
-	                                  mrz: "<mrz-line-1>\n<mrz-line-2>",
-	                                  boardingPasses: ["<bcbp-barcode-string>"],
-	                                  docPhotoBase64: "<base64-encoded-document-photo>",
-	                                  selfieBase64: "<base64-encoded-selfie>",
-	                                  ePassport: true,
-	                                  tag: nil,
-	                                  ebagtagId: nil)
+	        let passenger = AMAShareUltralight.UltralightBuilders.build(
+	            paxId: nil, // Defaults to UUID().uuidString
+	            idDocument: nil,
+	            faceCapture: nil,
+	            boardingPass: "<bcbp-barcode-string>",
+	            language: nil // Defaults to "en"
+	        )
+
 	        enrolment?.share(passengers: [passenger], completionHandler: { result, error in
 	            if result {
 	                // Passengers set and Beamsync started successfully

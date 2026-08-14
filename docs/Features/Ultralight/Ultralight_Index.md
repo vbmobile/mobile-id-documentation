@@ -131,7 +131,12 @@ initialization, so the provider only needs `initialiseBeamSync(apiKey:)`.
     private fun initializeUltralight(): UltralightProvider? {
         val ultralightApiKey = "<your-ultralight-api-key>"
 
-        UltralightSdk.initialize(context = requireContext())
+        UltralightSdk.initialize(
+            context = requireContext(),
+            config = UltralightConfig(
+                logLevel = UltralightLogLevel.ERROR 
+            )
+        )
         val provider = UltralightSdk.getInstance()
         provider.initialiseBeamsync(ultralightApiKey)
         provider.softStart(requireContext(), object : OnSoftStartCompletion {
@@ -340,7 +345,12 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
         private fun initializeUltralight(): UltralightProvider? {
             val ultralightApiKey = "<your-api-key>"
 
-            UltralightSdk.initialize(context = requireContext())
+            UltralightSdk.initialize(
+                context = requireContext(),
+                config = UltralightConfig(
+                    logLevel = UltralightLogLevel.ERROR 
+                )
+            )
             val provider = UltralightSdk.getInstance()
             provider.initialiseBeamsync(ultralightApiKey)
             provider.softStart(requireContext(), object : OnSoftStartCompletion {

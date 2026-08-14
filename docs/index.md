@@ -12,7 +12,7 @@ hide:
 
     - Install or update Android Studio to latest version;
     - Target API level 24 (Marshmallow) or later (no ultralight);
-    - For Ultralight, API level 26 (Orep) or later is needed;
+    - For Ultralight, API level 26 (Oreo) or later is needed;
 
 === "iOS"
 
@@ -56,7 +56,7 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
     implementation("com.amadeus.mdi.mob.sdk:ama-ultralight:{{ versions.android_ultralight_provider }}")
     ```
 
-    Each separated provider dependency requires **Target API level 24 (Marshmallow) or later**.
+    Each separated provider dependency requires **Target API level 24 (Marshmallow) or later but when importing also the Ultralight sdk, the minimum sdk should be 26 (Oreo) or later**.
 
     3. Add these rules to proguard if you have problems running the application with minify enabled:
     ```kotlin
@@ -357,7 +357,7 @@ You can follow this platform specific guide to prepare your application to offli
         context = context, 
         enrolmentConfig = enrolmentConfig,
         documentReaderProvider = documentReaderProvider,
-        rfidReaderProvider = documentReaderProvider,
+        rfidReaderProvider = rfidReaderProvider,
         enrolmentInitializerCallback = callback,
         license = license
     )
@@ -686,7 +686,7 @@ The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig.
         enrolmentConfig = enrolmentConfig,
         enrolmentCustomViews = enrolmentCustomViews,
         documentReaderProvider = documentReaderProvider,
-        rfidReaderProvider = documentReaderProvider,
+        rfidReaderProvider = rfidReaderProvider,
         enrolmentInitializerCallback = enrolmentInitializerCallback
     )
 

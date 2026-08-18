@@ -5,8 +5,12 @@
 ### Improvements
 
 - Updated the recommended DocScanMrz provider version to `2.0.5`.
-- Updated the recommended AMAShareUltralight provider version to `2.0.16`.
-- AMAShareUltralight `2.0.16` uses UltralightFramework `3.3.4`.
+- Updated the recommended AMAShareUltralight provider version to `2.0.17`.
+- AMAShareUltralight `2.0.17` uses UltralightFramework `3.3.4`.
+- AMAShareUltralight `2.0.17` supports `arm64` iOS devices and `arm64` plus
+  `x86_64` iOS Simulators.
+- The Swift package uses automatic linkage; consumers must still resolve and
+  package the provider's required binary dependencies.
 
 ### Bug Fixes
 

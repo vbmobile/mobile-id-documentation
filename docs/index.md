@@ -24,7 +24,7 @@ hide:
     | Component | Minimum iOS | Physical devices | Apple silicon simulator | Intel simulator |
     |-----------|-------------|------------------|-------------------------|-----------------|
     | `MobileIdSDKiOS` | 15 | `arm64` | `arm64` | `x86_64` |
-    | `AMAShareUltralight` | 15 | `arm64` | `arm64` | Not supported |
+    | `AMAShareUltralight` | 15 | `arm64` | `arm64` | `x86_64` |
     | `AMADocScanMrziOS` | 15 | `arm64` | `arm64` | Not supported |
     | `AMADocRFIDReadiOS` | 15 | `arm64` | `arm64` | `x86_64` |
 

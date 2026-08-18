@@ -2853,7 +2853,7 @@ You're not viewing the latest version.
 <td>15</td>
 <td><code>arm64</code></td>
 <td><code>arm64</code></td>
-<td>Not supported</td>
+<td><code>x86_64</code></td>
 </tr>
 <tr>
 <td><code>AMADocScanMrziOS</code></td>
@@ -2885,17 +2885,17 @@ Apple silicon Mac for simulator builds.</p>
 <p>To add the Enrolment SDK to your app, perform the following steps:</p>
 <ol>
 <li>Add these new repositories in your app top level gradle file:
-<div class="highlight"><pre><span></span><code><span class="n">maven</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="s">&quot;https://vbmobileidstorage.blob.core.windows.net/android/&quot;</span><span class="w"> </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="n">maven</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="s">"https://vbmobileidstorage.blob.core.windows.net/android/"</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div></li>
 <li>Declare Mobile ID SDK and document reader provider as a dependency in your app level gradle file:
-<div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.visionbox.mobileid.sdk:mid-sdk-enrolment:9.2.0@aar&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">transitive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">"com.visionbox.mobileid.sdk:mid-sdk-enrolment:9.2.0@aar"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">transitive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
 
 <span class="c1">// Optional dependencies if you want to use the Document Reader feature</span>
-<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:2.0.3&quot;</span><span class="p">)</span>
-<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:2.0.3&quot;</span><span class="p">)</span>
+<span class="n">implementation</span><span class="p">(</span><span class="s">"com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:2.0.3"</span><span class="p">)</span>
+<span class="n">implementation</span><span class="p">(</span><span class="s">"com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:2.0.3"</span><span class="p">)</span>
 
 <span class="c1">// Optional dependencies if you want to use the ultralight share feature</span>
-<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.amadeus.mdi.mob.sdk:ama-ultralight:2.0.3&quot;</span><span class="p">)</span>
+<span class="n">implementation</span><span class="p">(</span><span class="s">"com.amadeus.mdi.mob.sdk:ama-ultralight:2.0.3"</span><span class="p">)</span>
 </code></pre></div></li>
 </ol>
 <p>Each separated provider dependency requires <strong>Target API level 24 (Marshmallow) or later</strong>.</p>
@@ -2951,15 +2951,15 @@ Apple silicon Mac for simulator builds.</p>
 <tbody>
 <tr>
 <td><code>MobileIdSDKiOS</code></td>
-<td><code>9.2.1</code></td>
+<td><code>9.2.2</code></td>
 </tr>
 <tr>
 <td><code>AMAShareUltralight</code></td>
-<td><code>2.0.13</code></td>
+<td><code>2.0.17</code></td>
 </tr>
 <tr>
 <td><code>AMADocScanMrziOS</code></td>
-<td><code>2.0.3</code></td>
+<td><code>2.0.5</code></td>
 </tr>
 <tr>
 <td><code>AMADocRFIDReadiOS</code></td>
@@ -2982,20 +2982,20 @@ Apple silicon Mac for simulator builds.</p>
 <h4 id="1-add-the-dependency">1. Add the dependency<a class="headerlink" href="#1-add-the-dependency" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">.</span><span class="n">package</span><span class="p">(</span>
-<span class="w">        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/vbmobile/MobileIdSDKiOS&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="p">.</span><span class="n">exact</span><span class="p">(</span><span class="s">&quot;9.2.1&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">"https://github.com/vbmobile/MobileIdSDKiOS"</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">exact</span><span class="p">(</span><span class="s">"9.2.2"</span><span class="p">)</span>
 <span class="w">    </span><span class="p">)</span>
 <span class="p">]</span>
 </code></pre></div>
 <blockquote>
-<p>Replace <code>9.2.1</code> with the intended version you wish to use.</p>
+<p>Replace <code>9.2.2</code> with the intended version you wish to use.</p>
 </blockquote>
 <hr />
 <h4 id="2-link-the-product-to-your-target">2. Link the product to your target<a class="headerlink" href="#2-link-the-product-to-your-target" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="n">target</span><span class="p">(</span>
-<span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YourAppTarget&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"YourAppTarget"</span><span class="p">,</span>
 <span class="w">    </span><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MobileIdSDKiOS&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">package</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MobileIdSDKiOS&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"MobileIdSDKiOS"</span><span class="p">,</span><span class="w"> </span><span class="n">package</span><span class="p">:</span><span class="w"> </span><span class="s">"MobileIdSDKiOS"</span><span class="p">)</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">)</span>
 </code></pre></div>
@@ -3020,11 +3020,11 @@ Apple silicon Mac for simulator builds.</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">apiConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">APIConfig</span><span class="p">(</span>
-<span class="w">    </span><span class="n">baseUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">URL</span><span class="p">(</span><span class="s">&quot;YOUR BASE URL&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="n">baseUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">URL</span><span class="p">(</span><span class="s">"YOUR BASE URL"</span><span class="p">),</span>
 <span class="w">    </span><span class="n">timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">30</span><span class="p">,</span><span class="w"> </span><span class="c1">// timeout in seconds</span>
 <span class="w">    </span><span class="n">logLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MobileAPILogLevel</span><span class="p">.</span><span class="na">BASIC</span><span class="p">,</span>
-<span class="w">    </span><span class="n">apiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="n">publicKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Base64</span><span class="p">.</span><span class="na">encodeToString</span><span class="p">(</span><span class="s">&quot;YOUR PUBLIC KEY&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Base64</span><span class="p">.</span><span class="na">DEFAULT</span><span class="p">),</span><span class="w"> </span><span class="c1">// Optional parameter to ensure requests are encrypted</span>
+<span class="w">    </span><span class="n">apiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"YOUR KEY"</span><span class="p">,</span>
+<span class="w">    </span><span class="n">publicKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Base64</span><span class="p">.</span><span class="na">encodeToString</span><span class="p">(</span><span class="s">"YOUR PUBLIC KEY"</span><span class="p">,</span><span class="w"> </span><span class="n">Base64</span><span class="p">.</span><span class="na">DEFAULT</span><span class="p">),</span><span class="w"> </span><span class="c1">// Optional parameter to ensure requests are encrypted</span>
 <span class="p">)</span>
 
 <span class="kd">val</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">(</span><span class="n">apiConfig</span><span class="p">)</span>
@@ -3034,15 +3034,15 @@ Apple silicon Mac for simulator builds.</p>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isAdded</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="n">binding</span><span class="p">.</span><span class="na">state</span><span class="p">.</span><span class="na">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getString</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">sdk_state_ready</span><span class="p">)</span>
 <span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="s">&quot;Enrolment&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;onEnrolmentInitialization: Enrolment initialized successfully!&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="s">"Enrolment"</span><span class="p">,</span><span class="w"> </span><span class="s">"onEnrolmentInitialization: Enrolment initialized successfully!"</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onEnrolmentInitializationError</span><span class="p">(</span><span class="n">error</span><span class="p">:</span><span class="w"> </span><span class="n">FeatureError</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="s">&quot;Enrolment&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;onEnrolmentInitializationError: </span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">description</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="s">"Enrolment"</span><span class="p">,</span><span class="w"> </span><span class="s">"onEnrolmentInitializationError: </span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">description</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
 <span class="w">        </span><span class="n">activity</span><span class="o">?.</span><span class="na">runOnUiThread</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="n">binding</span><span class="p">.</span><span class="na">state</span><span class="p">.</span><span class="na">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getString</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">sdk_state_error</span><span class="p">)</span>
 <span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">builder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AlertDialog</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">requireContext</span><span class="p">())</span>
-<span class="w">            </span><span class="n">builder</span><span class="p">.</span><span class="na">setTitle</span><span class="p">(</span><span class="s">&quot;Enrolment Initialization Error&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="n">builder</span><span class="p">.</span><span class="na">setTitle</span><span class="p">(</span><span class="s">"Enrolment Initialization Error"</span><span class="p">)</span>
 <span class="w">            </span><span class="n">builder</span><span class="p">.</span><span class="na">setMessage</span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="na">description</span><span class="p">)</span>
 <span class="w">            </span><span class="n">builder</span><span class="p">.</span><span class="na">show</span><span class="p">()</span>
 <span class="w">        </span><span class="p">}</span>
@@ -3105,7 +3105,7 @@ The following parameters must always be provided:</p>
 <span class="w">        </span><span class="c1">/// Returns a PSS-based document scanner</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">DocumentReaderScan</span><span class="p">(</span>
 <span class="w">            </span><span class="n">documentType</span><span class="p">:</span><span class="w"> </span><span class="n">documentType</span><span class="p">,</span>
-<span class="w">            </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;YOUR_KEY&gt;&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;YOUR_KEY&gt;"</span><span class="p">,</span>
 <span class="w">            </span><span class="n">pixelWidth</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">width</span><span class="p">),</span>
 <span class="w">            </span><span class="n">pixelHeight</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
 <span class="w">        </span><span class="p">)</span>
@@ -3115,11 +3115,11 @@ The following parameters must always be provided:</p>
 <p>We are now ready to finish the implementation of the Enrolment initial setup </p>
 <div class="highlight"><pre><span></span><code><span class="c1">/// Configuration used by all backend-related SDK modules</span>
 <span class="kd">let</span><span class="w"> </span><span class="nv">apiConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">APIConfig</span><span class="p">(</span>
-<span class="w">    </span><span class="n">baseURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR BASE URL&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Server base URL.</span>
+<span class="w">    </span><span class="n">baseURL</span><span class="p">:</span><span class="w"> </span><span class="s">"YOUR BASE URL"</span><span class="p">,</span><span class="w"> </span><span class="c1">// Server base URL.</span>
 <span class="w">    </span><span class="n">timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="c1">// Network timeout (seconds)</span>
 <span class="w">    </span><span class="n">logLevel</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">basic</span><span class="p">,</span><span class="w"> </span><span class="c1">// SDK logging verbosity</span>
-<span class="w">    </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// API authentication key</span>
-<span class="w">    </span><span class="n">publicKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR PUBLIC KEY&quot;</span><span class="w"> </span><span class="c1">// Public key</span>
+<span class="w">    </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">"YOUR KEY"</span><span class="p">,</span><span class="w"> </span><span class="c1">// API authentication key</span>
+<span class="w">    </span><span class="n">publicKey</span><span class="p">:</span><span class="w"> </span><span class="s">"YOUR PUBLIC KEY"</span><span class="w"> </span><span class="c1">// Public key</span>
 <span class="p">)</span>
 
 <span class="c1">/// High-level enrolment configuration</span>
@@ -3127,7 +3127,7 @@ The following parameters must always be provided:</p>
 
 <span class="c1">/// Ultralight provider used for Bluetooth-based interactions</span>
 <span class="kd">let</span><span class="w"> </span><span class="nv">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">Ultralight</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">()</span>
-<span class="n">ultralightProvider</span><span class="p">.</span><span class="n">initialiseBeamSync</span><span class="p">(</span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR KEY&quot;</span><span class="p">)</span>
+<span class="n">ultralightProvider</span><span class="p">.</span><span class="n">initialiseBeamSync</span><span class="p">(</span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">"YOUR KEY"</span><span class="p">)</span>
 
 <span class="c1">/// Document scanner based on the Amadeus DocScanMrz provider</span>
 <span class="kd">let</span><span class="w"> </span><span class="nv">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="w"> </span><span class="p">=</span>
@@ -3146,9 +3146,9 @@ The following parameters must always be provided:</p>
 <span class="w">    </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
 <span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
-<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;SDK is ready to use&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">"SDK is ready to use"</span><span class="p">)</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
-<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">"Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">"</span><span class="p">)</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">)</span>
@@ -3194,7 +3194,7 @@ You can follow this platform specific guide to prepare your application to offli
 === "Android"
 
     Instead of calling Enrolment.initialize, there's a new method in the facade Enrolment.initializeOffline:
-    <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;YOUR_LICENSE_CONTENT&quot;</span>
+    <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"YOUR_LICENSE_CONTENT"</span>
 <span class="n">Enrolment</span><span class="p">.</span><span class="na">initializeOffline</span><span class="p">(</span>
 <span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">,</span><span class="w"> </span>
 <span class="w">    </span><span class="n">enrolmentConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
@@ -3209,7 +3209,7 @@ You can follow this platform specific guide to prepare your application to offli
     <div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// ...</span>
 <span class="w">    </span><span class="c1">// Use this dependency to bundle the model with your app</span>
-<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="err">&#39;</span><span class="n">com</span><span class="p">.</span><span class="na">google</span><span class="p">.</span><span class="na">mlkit</span><span class="p">:</span><span class="n">face</span><span class="o">-</span><span class="n">detection</span><span class="p">:</span><span class="m">16.1</span><span class="p">.</span><span class="m">7</span><span class="err">&#39;</span>
+<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="err">'</span><span class="n">com</span><span class="p">.</span><span class="na">google</span><span class="p">.</span><span class="na">mlkit</span><span class="p">:</span><span class="n">face</span><span class="o">-</span><span class="n">detection</span><span class="p">:</span><span class="m">16.1</span><span class="p">.</span><span class="m">7</span><span class="err">'</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -3217,7 +3217,7 @@ You can follow this platform specific guide to prepare your application to offli
 
     Instead of calling `Enrolment.shared.initWith`, there's a new method in the facade, `Enrolment.shared.initOffline`:
 
-    <div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nv">license</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;YOUR_LICENSE_CONTENT&quot;</span>
+    <div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nv">license</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"YOUR_LICENSE_CONTENT"</span>
 <span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initOffline</span><span class="p">(</span>
 <span class="w">    </span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
 <span class="w">    </span><span class="n">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">documentScanProvider</span><span class="p">,</span>
@@ -3299,7 +3299,7 @@ key. You can also configure the timeout value for server responses and the log l
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Android</label><label for="__tabbed_5_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="nd">@Deprecated</span><span class="p">(</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;API Log Level is going away. Check out LogConfiguration on EnrolmentConfig&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="nd">@Deprecated</span><span class="p">(</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"API Log Level is going away. Check out LogConfiguration on EnrolmentConfig"</span><span class="p">)</span>
 <span class="kd">enum</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">MobileAPILogLevel</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">    * no logs.</span>
@@ -3390,7 +3390,7 @@ pinning for every network request made by the SDK.</p>
 <span class="k">case</span><span class="w"> </span><span class="n">error</span>
 
 <span class="c1">/// Logs warning messages</span>
-<span class="c1">/// Indicates potential issues that don&#39;t prevent execution</span>
+<span class="c1">/// Indicates potential issues that don't prevent execution</span>
 <span class="k">case</span><span class="w"> </span><span class="n">warn</span>
 
 <span class="c1">/// Logs user or SDK behavior</span>
@@ -3432,16 +3432,16 @@ pinning for every network request made by the SDK.</p>
 <span class="p">}</span><span class="w">   </span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">apiConfig</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">APIConfig</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="bp">fatalError</span><span class="p">(</span><span class="s">&quot;Provide your APIConfig&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="bp">fatalError</span><span class="p">(</span><span class="s">"Provide your APIConfig"</span><span class="p">)</span>
 <span class="p">}</span>
 <span class="kd">func</span><span class="w"> </span><span class="nf">apiSecurityConfig</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">APISecurityConfig</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="bp">fatalError</span><span class="p">(</span><span class="s">&quot;Provide your APISecurityConfig&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="bp">fatalError</span><span class="p">(</span><span class="s">"Provide your APISecurityConfig"</span><span class="p">)</span>
 <span class="p">}</span>
 <span class="kd">func</span><span class="w"> </span><span class="nf">logStrategies</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">VBUtils</span><span class="p">.</span><span class="n">LogStrategy</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="bp">fatalError</span><span class="p">(</span><span class="s">&quot;Provide your LogStrategy&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="bp">fatalError</span><span class="p">(</span><span class="s">"Provide your LogStrategy"</span><span class="p">)</span>
 <span class="p">}</span>
 <span class="kd">func</span><span class="w"> </span><span class="nf">language</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">Locale</span><span class="p">?</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="bp">fatalError</span><span class="p">(</span><span class="s">&quot;Provide your Locale&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="bp">fatalError</span><span class="p">(</span><span class="s">"Provide your Locale"</span><span class="p">)</span>
 <span class="p">}</span>
 <span class="kd">let</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">(</span><span class="n">apiConfig</span><span class="p">:</span><span class="w"> </span><span class="n">apiConfig</span><span class="p">(),</span>
 <span class="w">                                      </span><span class="n">apiSecurityConfig</span><span class="p">:</span><span class="w"> </span><span class="n">apiSecurityConfig</span><span class="p">(),</span>
@@ -3578,9 +3578,9 @@ Check <a href="https://developer.android.com/studio/build/shrink-code#keep-code"
 <span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
 <span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
-<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;SDK is ready to use&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">"SDK is ready to use"</span><span class="p">)</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nv">error</span><span class="p">):</span>
-<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">"Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">"</span><span class="p">)</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
@@ -3625,7 +3625,7 @@ Check <a href="https://developer.android.com/studio/build/shrink-code#keep-code"
 <div class="tabbed-block">
 <p>In order to use the RFID feature, the user must give the NFC permission in runtime, otherwise it won't work. 
 We already handle the permission check and added to the manifest the following:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;uses-permission</span><span class="w"> </span><span class="na">android:name=</span><span class="s">&quot;android.permission.NFC&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;uses-permission</span><span class="w"> </span><span class="na">android:name=</span><span class="s">"android.permission.NFC"</span><span class="w"> </span><span class="nt">/&gt;</span>
 </code></pre></div>
 <p>So when using the RFID feature, the user will be prompted to concede the permission if it hadn't already.</p>
 </div>
@@ -3661,7 +3661,7 @@ must be able to read according to ISO7816:
 <div class="tabbed-block">
 <p>In order to use the camera related features, the user must give the camera permission in runtime, otherwise it won't work. 
 We already handle the permission check and added to the manifest the following:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;uses-permission</span><span class="w"> </span><span class="na">android:name=</span><span class="s">&quot;android.permission.CAMERA&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;uses-permission</span><span class="w"> </span><span class="na">android:name=</span><span class="s">"android.permission.CAMERA"</span><span class="w"> </span><span class="nt">/&gt;</span>
 </code></pre></div>
 <p>So when using any feature that needs the camera, the user will be prompted to concede the permission if it hadn't already.</p>
 </div>
@@ -3687,9 +3687,9 @@ We do not advise to override strings. Our strings’ names in strings.xml end in
 <p>You can apply your app’s own styles to all the provided SDK  layout solutions, which means that the SDK  views can adapt to your app’s design. 
 It brings control and allows the maintenance of consistency in terms of brand communication when using the SDK  custom views for data presentation.</p>
 <p>The following image shows an example of how you could override SDK  values for fonts, colors and strings:
-<div class="highlight"><pre><span></span><code><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">theme</span><span class="p">.</span><span class="n">fonts</span><span class="p">.</span><span class="n">medium</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">FontDescription</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;FontName-Medium&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">theme</span><span class="p">.</span><span class="n">fonts</span><span class="p">.</span><span class="n">medium</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">FontDescription</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"FontName-Medium"</span><span class="p">)</span>
 <span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">theme</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">stateError</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="bp">UIColor</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">colorPrimary</span><span class="p">)</span>
-<span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">theme</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Face Capture Title&quot;</span>
+<span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">theme</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"Face Capture Title"</span>
 </code></pre></div></p>
 <p>Please check the complete list of colors for your reference:</p>
 <table>
@@ -3896,7 +3896,7 @@ It brings control and allows the maintenance of consistency in terms of brand co
 <tbody>
 <tr>
 <td>AMADocModeliOS</td>
-<td>2.0.2</td>
+<td>2.0.3</td>
 <td><a href="https://github.com/vbmobile/AMADocModeliOS">https://github.com/vbmobile/AMADocModeliOS</a></td>
 </tr>
 <tr>

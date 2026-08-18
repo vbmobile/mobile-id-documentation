@@ -2668,7 +2668,7 @@ below. Below is an example of the BiometricFaceCaptureParameters:</p>
 <p>It defaults to PNG but it's possible to pass other formats such as JPEG.</p>
 <p>The <strong>FaceCaptureFrameFormat</strong> is an enum that shapes the frame where the face must be centered to take the selfie. Currently it has two options:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">enum</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">FaceCaptureFrameFormat</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nd">@Deprecated</span><span class="p">(</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;SQUARE shape will be removed in the next major release&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">replaceWith</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReplaceWith</span><span class="p">(</span><span class="s">&quot;OVAL&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="nd">@Deprecated</span><span class="p">(</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"SQUARE shape will be removed in the next major release"</span><span class="p">,</span><span class="w"> </span><span class="n">replaceWith</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReplaceWith</span><span class="p">(</span><span class="s">"OVAL"</span><span class="p">))</span>
 <span class="w">    </span><span class="n">SQUARE</span><span class="p">,</span>
 <span class="w">    </span><span class="n">OVAL</span>
 <span class="p">}</span>
@@ -2700,7 +2700,7 @@ below. Below is an example of the BiometricFaceCaptureParameters:</p>
 <p>The <strong>BiometricFaceCaptureFrameOptions</strong> is an enum that shapes the frame where the face must be centered to take the selfie. Currently it has two options:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">BiometricFaceCaptureFrameOptions</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">oval</span>
-<span class="w">    </span><span class="p">@</span><span class="n">available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">deprecated</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Will be removed in future versions (9.x)&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">@</span><span class="n">available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">deprecated</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">:</span><span class="w"> </span><span class="s">"Will be removed in future versions (9.x)"</span><span class="p">)</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">square</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -2737,12 +2737,12 @@ not too far away, or too close.</p>
 <div class="highlight"><pre><span></span><code><span class="n">enrolment</span><span class="p">?.</span><span class="n">biometricFaceCapture</span><span class="p">(</span><span class="n">parameters</span><span class="p">:</span><span class="w"> </span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="n">view</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nv">report</span><span class="p">):</span>
-<span class="w">        </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Face capture successful.&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="bp">print</span><span class="p">(</span><span class="s">"Face capture successful."</span><span class="p">)</span>
 <span class="w">        </span><span class="n">completion</span><span class="p">(.</span><span class="n">success</span><span class="p">(()))</span>
 
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nv">biometricFaceCaptureError</span><span class="p">):</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">biometricFaceCaptureError</span><span class="p">.</span><span class="n">userCanceled</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Face capture cancelled by user.&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">"Face capture cancelled by user."</span><span class="p">)</span>
 <span class="w">            </span><span class="n">completion</span><span class="p">(.</span><span class="n">failure</span><span class="p">(</span><span class="n">biometricFaceCaptureError</span><span class="p">))</span>
 <span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="n">biometricFaceCaptureError</span><span class="p">.</span><span class="n">featureError</span><span class="p">.</span><span class="n">publicMessage</span><span class="p">)</span>
@@ -2796,7 +2796,7 @@ not too far away, or too close.</p>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">FaceCaptureReportError</span><span class="p">(</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">userCanceled</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="p">,</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">featureError</span><span class="p">:</span><span class="w"> </span><span class="n">FeatureError?,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">featureError</span><span class="p">:</span><span class="w"> </span><span class="n">FeatureError?</span><span class="p">,</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">failedTests</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;?</span><span class="p">,</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">performedTests</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;?</span>
 <span class="p">)</span>

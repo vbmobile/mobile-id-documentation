@@ -2715,6 +2715,15 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;key&gt;</span>NSLocationWhenInUseUsageDescription<span class="nt">&lt;/key&gt;</span>
 <span class="nt">&lt;string&gt;</span>Location<span class="w"> </span>is<span class="w"> </span>required<span class="w"> </span>to<span class="w"> </span>detect<span class="w"> </span>nearby<span class="w"> </span>Bluetooth<span class="w"> </span>devices.<span class="nt">&lt;/string&gt;</span>
 </code></pre></div>
+<p>For Beamsync to continue operating while the app is backgrounded, add these
+background modes to the application target's <code>Info.plist</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;key&gt;</span>UIBackgroundModes<span class="nt">&lt;/key&gt;</span>
+<span class="nt">&lt;array&gt;</span>
+<span class="w">    </span><span class="nt">&lt;string&gt;</span>bluetooth-central<span class="nt">&lt;/string&gt;</span>
+<span class="w">    </span><span class="nt">&lt;string&gt;</span>bluetooth-peripheral<span class="nt">&lt;/string&gt;</span>
+<span class="w">    </span><span class="nt">&lt;string&gt;</span>fetch<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/array&gt;</span>
+</code></pre></div>
 </div>
 </div>
 </div>
@@ -2725,7 +2734,7 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 <p>Ultralight is exposed through the Enrolment SDK integration flow.</p>
 <p>Add the Ultralight provider dependency to your app's <code>build.gradle</code>:</p>
 <div class="highlight"><pre><span></span><code>dependencies {
-    implementation &quot;com.amadeus.mdi.mob.sdk:ama-ultralight:2.0.3&quot;
+    implementation "com.amadeus.mdi.mob.sdk:ama-ultralight:2.0.3"
     // ... other dependencies
 }
 </code></pre></div>
@@ -2751,19 +2760,19 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 <p>If you are managing dependencies manually, add Ultralight to your <code>Package.swift</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">   </span><span class="p">.</span><span class="n">package</span><span class="p">(</span>
-<span class="w">       </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/vbmobile/AMAShareUltralight&quot;</span><span class="p">,</span>
-<span class="w">       </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2.0.13&quot;</span>
+<span class="w">       </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">"https://github.com/vbmobile/AMAShareUltralight"</span><span class="p">,</span>
+<span class="w">       </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">"2.0.17"</span>
 <span class="w">   </span><span class="p">)</span>
 <span class="p">],</span>
 </code></pre></div>
 <blockquote>
-<p>Replace <code>2.0.13</code> with the intended version.</p>
+<p>Replace <code>2.0.17</code> with the intended version.</p>
 </blockquote>
 <p>Then include it in your target dependencies:</p>
 <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="n">target</span><span class="p">(</span>
-<span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YourAppTarget&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"YourAppTarget"</span><span class="p">,</span>
 <span class="w">    </span><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AMAShareUltralight&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">package</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AMAShareUltralight&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"AMAShareUltralight"</span><span class="p">,</span><span class="w"> </span><span class="n">package</span><span class="p">:</span><span class="w"> </span><span class="s">"AMAShareUltralight"</span><span class="p">)</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">)</span>
 </code></pre></div>
@@ -2788,8 +2797,8 @@ initialization, so the provider only needs <code>initialiseBeamSync(apiKey:)</co
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Android</label><label for="__tabbed_3_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">initializeUltralight</span><span class="p">():</span><span class="w"> </span><span class="n">UltralightProvider? </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">ultralightApiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&lt;your-ultralight-api-key&gt;&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">initializeUltralight</span><span class="p">():</span><span class="w"> </span><span class="n">UltralightProvider?</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">ultralightApiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"&lt;your-ultralight-api-key&gt;"</span>
 
 <span class="w">    </span><span class="n">UltralightSdk</span><span class="p">.</span><span class="na">initialize</span><span class="p">(</span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">requireContext</span><span class="p">())</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UltralightSdk</span><span class="p">.</span><span class="na">getInstance</span><span class="p">()</span>
@@ -2800,18 +2809,18 @@ initialization, so the provider only needs <code>initialiseBeamSync(apiKey:)</co
 <span class="w">        </span><span class="p">}</span>
 
 <span class="w">        </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onSoftStartSuccess</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">Log</span><span class="p">.</span><span class="na">i</span><span class="p">(</span><span class="s">&quot;Ultralight&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;softStart onSuccess&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="n">Log</span><span class="p">.</span><span class="na">i</span><span class="p">(</span><span class="s">"Ultralight"</span><span class="p">,</span><span class="w"> </span><span class="s">"softStart onSuccess"</span><span class="p">)</span>
 <span class="w">        </span><span class="p">}</span>
 
 <span class="w">        </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onSoftStartError</span><span class="p">(</span><span class="n">error</span><span class="p">:</span><span class="w"> </span><span class="n">ProviderError</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="s">&quot;Ultralight&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;softStart onError [</span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">errorCode</span><span class="si">}</span><span class="s">] </span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">description</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="s">"Ultralight"</span><span class="p">,</span><span class="w"> </span><span class="s">"softStart onError [</span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">errorCode</span><span class="si">}</span><span class="s">] </span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">description</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">})</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">provider</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>If you don't want to enable Ultralight, simply return <code>null</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">initializeUltralight</span><span class="p">():</span><span class="w"> </span><span class="n">UltralightProvider? </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">initializeUltralight</span><span class="p">():</span><span class="w"> </span><span class="n">UltralightProvider?</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c1">// Your configuration flag</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">enabled</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span>
 
@@ -2821,11 +2830,13 @@ initialization, so the provider only needs <code>initialiseBeamSync(apiKey:)</co
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">ultralightProvider</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">UltralightProtocol</span><span class="p">?</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">Ultralight</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">()</span>
-<span class="w">    </span><span class="n">ultralightProvider</span><span class="p">.</span><span class="n">initialiseBeamSync</span><span class="p">(</span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;your-ultralight-api-key&gt;&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ultralightProvider</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">ultralight</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">Ultralight</span><span class="p">()</span>
+<span class="w">    </span><span class="n">ultralight</span><span class="p">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">level</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">debug</span><span class="p">))</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ultralight</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>Call <code>initialize(config:)</code> when diagnostic logging is needed. Use the
+appropriate log level for the environment.</p>
 </div>
 </div>
 </div>
@@ -2935,11 +2946,11 @@ It is asynchronous — provide a completion callback to receive the result
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">passengers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span>
 <span class="w">    </span><span class="n">Passenger</span><span class="p">(</span>
-<span class="w">        </span><span class="n">language</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">mrz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&lt;mrz-line-1&gt;\n&lt;mrz-line-2&gt;&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">boardingPasses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;&lt;bcbp-barcode-string&gt;&quot;</span><span class="p">),</span>
-<span class="w">        </span><span class="n">docPhotoBase64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-document-photo&gt;&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">selfieBase64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-selfie&gt;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">language</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"en"</span><span class="p">,</span>
+<span class="w">        </span><span class="n">mrz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"&lt;mrz-line-1&gt;\n&lt;mrz-line-2&gt;"</span><span class="p">,</span>
+<span class="w">        </span><span class="n">boardingPasses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="s">"&lt;bcbp-barcode-string&gt;"</span><span class="p">),</span>
+<span class="w">        </span><span class="n">docPhotoBase64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"&lt;base64-encoded-document-photo&gt;"</span><span class="p">,</span>
+<span class="w">        </span><span class="n">selfieBase64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"&lt;base64-encoded-selfie&gt;"</span><span class="p">,</span>
 <span class="w">        </span><span class="n">ePassport</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">        </span><span class="n">eBagTagId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
 <span class="w">        </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
@@ -2953,27 +2964,30 @@ It is asynchronous — provide a completion callback to receive the result
 
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onShareError</span><span class="p">(</span><span class="n">error</span><span class="p">:</span><span class="w"> </span><span class="n">FeatureError</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="c1">// Check error.description for details</span>
-<span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="s">&quot;Ultralight&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Error: </span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">description</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="s">"Ultralight"</span><span class="p">,</span><span class="w"> </span><span class="s">"Error: </span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">description</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">})</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
+<p>Prefer <code>UltralightBuilders.build(...)</code> when creating passengers. It
+normalizes optional values such as the passenger ID and language and keeps
+passenger construction aligned with the Ultralight provider API.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">sampleShare</span><span class="p">(</span><span class="n">enrolment</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentProtocol</span><span class="p">?)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">passenger</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Passenger</span><span class="p">(</span><span class="n">language</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">mrz</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;mrz-line-1&gt;</span><span class="se">\n</span><span class="s">&lt;mrz-line-2&gt;&quot;</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">boardingPasses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;&lt;bcbp-barcode-string&gt;&quot;</span><span class="p">],</span>
-<span class="w">                              </span><span class="n">docPhotoBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-document-photo&gt;&quot;</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">selfieBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-selfie&gt;&quot;</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">ePassport</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">tag</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">ebagtagId</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">passenger</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">UltralightBuilders</span><span class="p">.</span><span class="n">build</span><span class="p">(</span>
+<span class="w">        </span><span class="n">paxId</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="c1">// Defaults to UUID().uuidString</span>
+<span class="w">        </span><span class="n">idDocument</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">faceCapture</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">boardingPass</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;bcbp-barcode-string&gt;"</span><span class="p">,</span>
+<span class="w">        </span><span class="n">language</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="c1">// Defaults to "en"</span>
+<span class="w">    </span><span class="p">)</span>
+
 <span class="w">    </span><span class="n">enrolment</span><span class="p">?.</span><span class="n">share</span><span class="p">(</span><span class="n">passengers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">passenger</span><span class="p">],</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">in</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="c1">// Passengers set and Beamsync started successfully</span>
 <span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="c1">// Check error for details</span>
-<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="s">""</span><span class="p">)</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">})</span>
 <span class="p">}</span>
@@ -3015,8 +3029,8 @@ It is asynchronous — provide a completion callback to receive the result
 <div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">UltralightFragment</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Fragment</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 
 <span class="w">    </span><span class="c1">// Initialize Ultralight provider</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">initializeUltralight</span><span class="p">():</span><span class="w"> </span><span class="n">UltralightProvider? </span><span class="p">{</span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">ultralightApiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&lt;your-api-key&gt;&quot;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">initializeUltralight</span><span class="p">():</span><span class="w"> </span><span class="n">UltralightProvider?</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">ultralightApiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"&lt;your-api-key&gt;"</span>
 
 <span class="w">        </span><span class="n">UltralightSdk</span><span class="p">.</span><span class="na">initialize</span><span class="p">(</span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">requireContext</span><span class="p">())</span>
 <span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UltralightSdk</span><span class="p">.</span><span class="na">getInstance</span><span class="p">()</span>
@@ -3027,11 +3041,11 @@ It is asynchronous — provide a completion callback to receive the result
 <span class="w">            </span><span class="p">}</span>
 
 <span class="w">            </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onSoftStartSuccess</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">Log</span><span class="p">.</span><span class="na">i</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;softStart onSuccess&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="n">Log</span><span class="p">.</span><span class="na">i</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">"softStart onSuccess"</span><span class="p">)</span>
 <span class="w">            </span><span class="p">}</span>
 
 <span class="w">            </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onSoftStartError</span><span class="p">(</span><span class="n">error</span><span class="p">:</span><span class="w"> </span><span class="n">ProviderError</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;softStart onError [</span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">errorCode</span><span class="si">}</span><span class="s">] </span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">description</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">"softStart onError [</span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">errorCode</span><span class="si">}</span><span class="s">] </span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">description</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">})</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">provider</span>
@@ -3050,11 +3064,11 @@ It is asynchronous — provide a completion callback to receive the result
 <span class="w">            </span><span class="n">rfidReaderProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
 <span class="w">            </span><span class="n">enrolmentInitializerCallback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">object</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">EnrolmentInitializerCallback</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onEnrolmentInitialized</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Enrolment initialized successfully&quot;</span><span class="p">)</span>
+<span class="w">                    </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">"Enrolment initialized successfully"</span><span class="p">)</span>
 <span class="w">                </span><span class="p">}</span>
 
 <span class="w">                </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onEnrolmentInitializationError</span><span class="p">(</span><span class="n">error</span><span class="p">:</span><span class="w"> </span><span class="n">FeatureError</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Initialization error: </span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">description</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">                    </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">"Initialization error: </span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">description</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">)</span>
@@ -3067,11 +3081,11 @@ It is asynchronous — provide a completion callback to receive the result
 <span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">boardingPass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EnrolmentData</span><span class="p">.</span><span class="na">boardingPass</span>
 <span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">selfieBitmap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readPhotoFromInternalStorage</span><span class="p">(</span>
 <span class="w">                </span><span class="n">requireContext</span><span class="p">(),</span>
-<span class="w">                </span><span class="n">EnrolmentData</span><span class="p">.</span><span class="na">faceCapturePhotoFilename</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">                </span><span class="n">EnrolmentData</span><span class="p">.</span><span class="na">faceCapturePhotoFilename</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="s">""</span>
 <span class="w">            </span><span class="p">)</span>
 
 <span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">passenger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Passenger</span><span class="p">(</span>
-<span class="w">                </span><span class="n">language</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="n">language</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"en"</span><span class="p">,</span>
 <span class="w">                </span><span class="n">mrz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">idDocument</span><span class="p">.</span><span class="na">mrz</span><span class="p">,</span>
 <span class="w">                </span><span class="n">boardingPasses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="n">boardingPass</span><span class="p">.</span><span class="na">rawBoardingPass</span><span class="p">),</span>
 <span class="w">                </span><span class="n">docPhotoBase64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">documentPhoto</span><span class="p">,</span>
@@ -3081,25 +3095,25 @@ It is asynchronous — provide a completion callback to receive the result
 
 <span class="w">            </span><span class="n">Enrolment</span><span class="p">.</span><span class="na">getInstance</span><span class="p">().</span><span class="na">share</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="n">passenger</span><span class="p">),</span><span class="w"> </span><span class="k">object</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">OnShareCompletion</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onShareSuccess</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Beamsync started&quot;</span><span class="p">)</span>
+<span class="w">                    </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">"Beamsync started"</span><span class="p">)</span>
 <span class="w">                </span><span class="p">}</span>
 
 <span class="w">                </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onShareError</span><span class="p">(</span><span class="n">error</span><span class="p">:</span><span class="w"> </span><span class="n">FeatureError</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                    </span><span class="kd">val</span><span class="w"> </span><span class="nv">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="na">description</span><span class="p">.</span><span class="na">ifBlank</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="n">error</span><span class="p">.</span><span class="na">publicMessage</span><span class="p">.</span><span class="na">ifBlank</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Unknown error&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">                        </span><span class="n">error</span><span class="p">.</span><span class="na">publicMessage</span><span class="p">.</span><span class="na">ifBlank</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">"Unknown error"</span><span class="w"> </span><span class="p">}</span>
 <span class="w">                    </span><span class="p">}</span>
-<span class="w">                    </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Share failed: </span><span class="si">$</span><span class="n">message</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">                    </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">"Share failed: </span><span class="si">$</span><span class="n">message</span><span class="s">"</span><span class="p">)</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">})</span>
 <span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Error preparing passenger&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">)</span>
+<span class="w">            </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">"Error preparing passenger"</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">)</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// Stop Beamsync</span>
 <span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">stopBeamsync</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">Enrolment</span><span class="p">.</span><span class="na">getInstance</span><span class="p">().</span><span class="na">stopSharing</span><span class="p">()</span>
-<span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Beamsync stopped&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">"Beamsync stopped"</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onDestroyView</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -3125,9 +3139,9 @@ It is asynchronous — provide a completion callback to receive the result
 
 <span class="kd">class</span><span class="w"> </span><span class="nc">UltralightProviderSample</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">ultralightProvider</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">UltralightProtocol</span><span class="p">?</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">ultralightProvider</span><span class="p">:</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">Ultralight</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">()</span>
-<span class="w">        </span><span class="n">ultralightProvider</span><span class="p">.</span><span class="n">initialiseBeamSync</span><span class="p">(</span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;your-ultralight-api-key&gt;&quot;</span><span class="p">)</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ultralightProvider</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">ultralight</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">Ultralight</span><span class="p">()</span>
+<span class="w">        </span><span class="n">ultralight</span><span class="p">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">level</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">debug</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ultralight</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">initializeEnrolment</span><span class="p">(</span><span class="n">provider</span><span class="p">:</span><span class="w"> </span><span class="n">UltralightProtocol</span><span class="p">?)</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">EnrolmentProtocol</span><span class="w"> </span><span class="p">{</span>
@@ -3151,20 +3165,29 @@ It is asynchronous — provide a completion callback to receive the result
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">sampleShare</span><span class="p">(</span><span class="n">enrolment</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentProtocol</span><span class="p">?)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">passenger</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Passenger</span><span class="p">(</span><span class="n">language</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="p">,</span>
-<span class="w">                                  </span><span class="n">mrz</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;mrz-line-1&gt;</span><span class="se">\n</span><span class="s">&lt;mrz-line-2&gt;&quot;</span><span class="p">,</span>
-<span class="w">                                  </span><span class="n">boardingPasses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;&lt;bcbp-barcode-string&gt;&quot;</span><span class="p">],</span>
-<span class="w">                                  </span><span class="n">docPhotoBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-document-photo&gt;&quot;</span><span class="p">,</span>
-<span class="w">                                  </span><span class="n">selfieBase64</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;base64-encoded-selfie&gt;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">passenger1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Passenger</span><span class="p">(</span><span class="n">language</span><span class="p">:</span><span class="w"> </span><span class="s">"en"</span><span class="p">,</span>
+<span class="w">                                  </span><span class="n">mrz</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;mrz-line-1&gt;</span><span class="se">\n</span><span class="s">&lt;mrz-line-2&gt;"</span><span class="p">,</span>
+<span class="w">                                  </span><span class="n">boardingPasses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s">"&lt;bcbp-barcode-string&gt;"</span><span class="p">],</span>
+<span class="w">                                  </span><span class="n">docPhotoBase64</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;base64-encoded-document-photo&gt;"</span><span class="p">,</span>
+<span class="w">                                  </span><span class="n">selfieBase64</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;base64-encoded-selfie&gt;"</span><span class="p">,</span>
 <span class="w">                                  </span><span class="n">ePassport</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">                                  </span><span class="n">tag</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">                                  </span><span class="n">ebagtagId</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
-<span class="w">        </span><span class="n">enrolment</span><span class="p">?.</span><span class="n">share</span><span class="p">(</span><span class="n">passengers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">passenger</span><span class="p">],</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">in</span>
+
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">passenger2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">UltralightBuilders</span><span class="p">.</span><span class="n">build</span><span class="p">(</span>
+<span class="w">            </span><span class="n">paxId</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="c1">// Defaults to UUID().uuidString</span>
+<span class="w">            </span><span class="n">idDocument</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">            </span><span class="n">faceCapture</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">            </span><span class="n">boardingPass</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;bcbp-barcode-string&gt;"</span><span class="p">,</span>
+<span class="w">            </span><span class="n">language</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="c1">// Defaults to "en"</span>
+<span class="w">        </span><span class="p">)</span>
+
+<span class="w">        </span><span class="n">enrolment</span><span class="p">?.</span><span class="n">share</span><span class="p">(</span><span class="n">passengers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">passenger1</span><span class="p">,</span><span class="w"> </span><span class="n">passenger2</span><span class="p">],</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">in</span>
 <span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                </span><span class="c1">// Passengers set and Beamsync started successfully</span>
 <span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                </span><span class="c1">// Check error for details</span>
-<span class="w">                </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="s">""</span><span class="p">)</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">})</span>
 <span class="w">    </span><span class="p">}</span>
@@ -3174,30 +3197,19 @@ It is asynchronous — provide a completion callback to receive the result
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">prepareAndSharePassenger</span><span class="p">(</span><span class="n">enrolment</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentProtocol</span><span class="p">?)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">guard</span><span class="w"> </span><span class="n">EnrolmentData</span><span class="p">.</span><span class="n">idDocument</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Precondition failed: Have not read document&quot;</span><span class="p">)</span>
-<span class="w">            </span><span class="k">return</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="k">guard</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">faceCapture</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">EnrolmentData</span><span class="p">.</span><span class="n">biometricFaceCaptureReport</span><span class="p">?.</span><span class="n">photo</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Precondition failed: Have not read face&quot;</span><span class="p">)</span>
-<span class="w">            </span><span class="k">return</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="k">guard</span><span class="w"> </span><span class="n">EnrolmentData</span><span class="p">.</span><span class="n">boardingPass</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Precondition failed: Have not read boarding pass&quot;</span><span class="p">)</span>
-<span class="w">            </span><span class="k">return</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="k">guard</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">idDocument</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">EnrolmentData</span><span class="p">.</span><span class="n">idDocument</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Precondition failed: idDocument missing&quot;</span><span class="p">)</span>
-<span class="w">            </span><span class="k">return</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">boardPass</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">EnrolmentData</span><span class="p">.</span><span class="n">boardingPass</span><span class="p">?.</span><span class="n">raw</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="s">&quot;&quot;</span>
-<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">passenger</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">idDocument</span><span class="p">.</span><span class="n">mapToPassenger</span><span class="p">(</span><span class="n">faceCapture</span><span class="p">:</span><span class="w"> </span><span class="n">faceCapture</span><span class="p">,</span><span class="w"> </span><span class="n">boardingPasses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">boardPass</span><span class="p">])</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">passenger</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">UltralightBuilders</span><span class="p">.</span><span class="n">build</span><span class="p">(</span>
+<span class="w">            </span><span class="n">paxId</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="c1">// Defaults to UUID().uuidString</span>
+<span class="w">            </span><span class="n">idDocument</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentData</span><span class="p">.</span><span class="n">idDocument</span><span class="p">,</span>
+<span class="w">            </span><span class="n">faceCapture</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentData</span><span class="p">.</span><span class="n">biometricFaceCaptureReport</span><span class="p">?.</span><span class="n">photo</span><span class="p">,</span>
+<span class="w">            </span><span class="n">boardingPass</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentData</span><span class="p">.</span><span class="n">boardingPass</span><span class="p">?.</span><span class="n">raw</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="s">""</span><span class="p">,</span>
+<span class="w">            </span><span class="n">language</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="c1">// Defaults to "en"</span>
+<span class="w">        </span><span class="p">)</span>
 <span class="w">        </span><span class="n">enrolment</span><span class="p">?.</span><span class="n">share</span><span class="p">(</span><span class="n">passengers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">passenger</span><span class="p">],</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">in</span>
 <span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                </span><span class="c1">// Passengers set and Beamsync started successfully</span>
 <span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                </span><span class="c1">// Check error for details</span>
-<span class="w">                </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="s">""</span><span class="p">)</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">})</span>
 <span class="w">    </span><span class="p">}</span>

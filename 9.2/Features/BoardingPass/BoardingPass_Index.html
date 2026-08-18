@@ -2811,10 +2811,10 @@ barcode format. Below is the model structure:</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">enum</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">BarcodeFormat</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">AZTEC</span><span class="p">(</span><span class="s">&quot;AZTECCODE&quot;</span><span class="p">),</span>
-<span class="w">    </span><span class="n">PDF417</span><span class="p">(</span><span class="s">&quot;PDF417&quot;</span><span class="p">),</span>
-<span class="w">    </span><span class="n">QR_CODE</span><span class="p">(</span><span class="s">&quot;QR_CODE&quot;</span><span class="p">),</span>
-<span class="w">    </span><span class="n">DATA_MATRIX</span><span class="p">(</span><span class="s">&quot;DataMatrix&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">AZTEC</span><span class="p">(</span><span class="s">"AZTECCODE"</span><span class="p">),</span>
+<span class="w">    </span><span class="n">PDF417</span><span class="p">(</span><span class="s">"PDF417"</span><span class="p">),</span>
+<span class="w">    </span><span class="n">QR_CODE</span><span class="p">(</span><span class="s">"QR_CODE"</span><span class="p">),</span>
+<span class="w">    </span><span class="n">DATA_MATRIX</span><span class="p">(</span><span class="s">"DataMatrix"</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -2858,7 +2858,7 @@ Below is an example of usage:</p>
 <span class="w">            </span><span class="c1">// Handle Success</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nv">error</span><span class="p">):</span>
 <span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">userCanceled</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;onUserCancel&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="bp">print</span><span class="p">(</span><span class="s">"onUserCancel"</span><span class="p">)</span>
 <span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="n">featureError</span><span class="p">.</span><span class="n">publicMessage</span><span class="p">)</span>
 <span class="w">            </span><span class="p">}</span>

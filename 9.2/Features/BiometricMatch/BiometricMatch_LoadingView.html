@@ -2589,8 +2589,8 @@ In this step, a service is called so that the biometric match is done on the ser
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>You can add your own texts and localization by overriding the following string resources:
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;string</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;biometric_face_match_title_sdk_enrolment&quot;</span><span class="nt">&gt;</span>We’re<span class="w"> </span>checking<span class="w"> </span>your<span class="w"> </span>information<span class="nt">&lt;/string&gt;</span>
-<span class="nt">&lt;string</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;common_loading_message_sdk_enrolment&quot;</span><span class="nt">&gt;</span>This<span class="w"> </span>will<span class="w"> </span>only<span class="w"> </span>take<span class="w"> </span>a<span class="w"> </span>moment<span class="nt">&lt;/string&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;string</span><span class="w"> </span><span class="na">name=</span><span class="s">"biometric_face_match_title_sdk_enrolment"</span><span class="nt">&gt;</span>We’re<span class="w"> </span>checking<span class="w"> </span>your<span class="w"> </span>information<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;string</span><span class="w"> </span><span class="na">name=</span><span class="s">"common_loading_message_sdk_enrolment"</span><span class="nt">&gt;</span>This<span class="w"> </span>will<span class="w"> </span>only<span class="w"> </span>take<span class="w"> </span>a<span class="w"> </span>moment<span class="nt">&lt;/string&gt;</span>
 </code></pre></div></p>
 </div>
 <div class="tabbed-block">
@@ -2606,10 +2606,10 @@ In this step, a service is called so that the biometric match is done on the ser
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>You can change the text colors by overriding the following color resource (It affects all texts):
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;color</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;colorFaceCaptureTxtDarkSdkEnrolment&quot;</span><span class="nt">&gt;</span>#1A1C1E<span class="nt">&lt;/color&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;color</span><span class="w"> </span><span class="na">name=</span><span class="s">"colorFaceCaptureTxtDarkSdkEnrolment"</span><span class="nt">&gt;</span>#1A1C1E<span class="nt">&lt;/color&gt;</span>
 </code></pre></div></p>
 <p>You can change the background color by overriding the following color resource:
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;color</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;colorOverlayFeedbackBgSdkEnrolment&quot;</span><span class="nt">&gt;</span>#EAEEF6<span class="nt">&lt;/color&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;color</span><span class="w"> </span><span class="na">name=</span><span class="s">"colorOverlayFeedbackBgSdkEnrolment"</span><span class="nt">&gt;</span>#EAEEF6<span class="nt">&lt;/color&gt;</span>
 </code></pre></div></p>
 </div>
 <div class="tabbed-block">
@@ -2628,8 +2628,8 @@ In this step, a service is called so that the biometric match is done on the ser
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>You can extend the styles we use and override any properties (textColor, textSize, fontFamily, etc...) you want.
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;style</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Theme.Sdk.Enrolment.TextView.Dark.Title.Centered&quot;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;style</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Theme.Sdk.Enrolment.TextView.Dark.Subtitle.Centered&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;style</span><span class="w"> </span><span class="na">name=</span><span class="s">"Theme.Sdk.Enrolment.TextView.Dark.Title.Centered"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;style</span><span class="w"> </span><span class="na">name=</span><span class="s">"Theme.Sdk.Enrolment.TextView.Dark.Subtitle.Centered"</span><span class="nt">&gt;</span>
 </code></pre></div>
 Note: It will affect every component that uses the same style.</p>
 </div>
@@ -2688,13 +2688,13 @@ You can use the functions above to change loading screen texts in runtime, or yo
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onPostFeatureLoading</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">binding</span><span class="p">.</span><span class="na">tvFaceMatchLoadingTitle</span><span class="p">.</span><span class="na">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Initializing Biometric Match&quot;</span>
-<span class="w">        </span><span class="n">binding</span><span class="p">.</span><span class="na">tvFaceMatchLoadingMessage</span><span class="p">.</span><span class="na">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Loading, please wait..&quot;</span>
+<span class="w">        </span><span class="n">binding</span><span class="p">.</span><span class="na">tvFaceMatchLoadingTitle</span><span class="p">.</span><span class="na">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Initializing Biometric Match"</span>
+<span class="w">        </span><span class="n">binding</span><span class="p">.</span><span class="na">tvFaceMatchLoadingMessage</span><span class="p">.</span><span class="na">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Loading, please wait.."</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onPreparingFeature</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">binding</span><span class="p">.</span><span class="na">tvFaceMatchLoadingTitle</span><span class="p">.</span><span class="na">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Matching biometrics&quot;</span>
-<span class="w">        </span><span class="n">binding</span><span class="p">.</span><span class="na">tvFaceMatchLoadingMessage</span><span class="p">.</span><span class="na">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Please wait..&quot;</span>
+<span class="w">        </span><span class="n">binding</span><span class="p">.</span><span class="na">tvFaceMatchLoadingTitle</span><span class="p">.</span><span class="na">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Matching biometrics"</span>
+<span class="w">        </span><span class="n">binding</span><span class="p">.</span><span class="na">tvFaceMatchLoadingMessage</span><span class="p">.</span><span class="na">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Please wait.."</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">hideLoading</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>

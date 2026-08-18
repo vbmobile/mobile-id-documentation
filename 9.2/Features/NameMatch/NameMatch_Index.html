@@ -2579,7 +2579,7 @@ You're not viewing the latest version.
 <span class="p">):</span><span class="w"> </span><span class="kt">Boolean</span>
 
 <span class="cm">/**</span>
-<span class="cm">* Represents a person&#39;s name with first and last name components.</span>
+<span class="cm">* Represents a person's name with first and last name components.</span>
 <span class="cm">*</span>
 <span class="cm">* @property firstName The given/first name(s)</span>
 <span class="cm">* @property lastName  The family/last name(s)</span>
@@ -2617,7 +2617,7 @@ You're not viewing the latest version.
 <span class="w">    </span><span class="n">strategy</span><span class="p">:</span><span class="w"> </span><span class="n">NameMatchStrategy</span>
 <span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Bool</span>
 
-<span class="c1">/// Represents a person&#39;s name with first and last name components.</span>
+<span class="c1">/// Represents a person's name with first and last name components.</span>
 <span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">Name</span><span class="p">:</span><span class="w"> </span><span class="nb">Equatable</span><span class="p">,</span><span class="w"> </span><span class="nb">Hashable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="w"> </span><span class="p">{</span>
 
 <span class="w">    </span><span class="c1">/// The given/first name(s).</span>
@@ -2648,12 +2648,12 @@ You're not viewing the latest version.
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">referenceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Name</span><span class="p">(</span>
-<span class="w">    </span><span class="n">firstName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;JOHN&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="n">lastName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;DOE&quot;</span>
+<span class="w">    </span><span class="n">firstName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"JOHN"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">lastName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"DOE"</span>
 <span class="p">)</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">compareName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Name</span><span class="p">(</span>
-<span class="w">    </span><span class="n">firstName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;JOHN&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="n">lastName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;DOE&quot;</span>
+<span class="w">    </span><span class="n">firstName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"JOHN"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">lastName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"DOE"</span>
 <span class="p">)</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">isExactMatch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Enrolment</span><span class="p">.</span><span class="na">getInstance</span><span class="p">().</span><span class="na">matchNames</span><span class="p">(</span>
 <span class="w">    </span><span class="n">reference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">referenceName</span><span class="p">,</span><span class="w"> </span>
@@ -2669,12 +2669,12 @@ You're not viewing the latest version.
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nv">referenceName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Name</span><span class="p">(</span>
-<span class="w">    </span><span class="n">firstName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;JOHN&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="n">lastName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DOE&quot;</span>
+<span class="w">    </span><span class="n">firstName</span><span class="p">:</span><span class="w"> </span><span class="s">"JOHN"</span><span class="p">,</span>
+<span class="w">    </span><span class="n">lastName</span><span class="p">:</span><span class="w"> </span><span class="s">"DOE"</span>
 <span class="p">)</span>
 <span class="kd">let</span><span class="w"> </span><span class="nv">compareName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Name</span><span class="p">(</span>
-<span class="w">    </span><span class="n">firstName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;JOHN&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="n">lastName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DOE&quot;</span>
+<span class="w">    </span><span class="n">firstName</span><span class="p">:</span><span class="w"> </span><span class="s">"JOHN"</span><span class="p">,</span>
+<span class="w">    </span><span class="n">lastName</span><span class="p">:</span><span class="w"> </span><span class="s">"DOE"</span>
 <span class="p">)</span>
 <span class="kd">let</span><span class="w"> </span><span class="nv">isExactMatch</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">matchNames</span><span class="p">(</span>
 <span class="w">    </span><span class="n">reference</span><span class="p">:</span><span class="w"> </span><span class="n">referenceName</span><span class="p">,</span>

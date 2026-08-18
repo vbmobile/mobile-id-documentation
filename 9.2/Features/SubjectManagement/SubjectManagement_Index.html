@@ -2684,8 +2684,8 @@ that the user must present on the physical gate for a full authentication.</p>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">document</span><span class="p">:</span><span class="w"> </span><span class="n">Document</span><span class="p">,</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">biometrics</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Biometric</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">validationStatus</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationStatus</span><span class="p">,</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">subjectToken</span><span class="p">:</span><span class="w"> </span><span class="n">SubjectToken?,</span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">boardingPass</span><span class="p">:</span><span class="w"> </span><span class="n">BoardingPass? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">subjectToken</span><span class="p">:</span><span class="w"> </span><span class="n">SubjectToken?</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">boardingPass</span><span class="p">:</span><span class="w"> </span><span class="n">BoardingPass?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
 <span class="p">)</span>
 </code></pre></div>
 </div>
@@ -2795,13 +2795,13 @@ data you can create the <code>BuildSubjectParameters</code> object. This object 
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">BuildSubjectParameters</span><span class="p">(</span>
 <span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="nv">idDocument</span><span class="p">:</span><span class="w"> </span><span class="n">IdDocument</span><span class="p">,</span>
-<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentPhoto</span><span class="p">:</span><span class="w"> </span><span class="n">Bitmap?,</span>
+<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentPhoto</span><span class="p">:</span><span class="w"> </span><span class="n">Bitmap?</span><span class="p">,</span>
 <span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="nv">enrolmentPhoto</span><span class="p">:</span><span class="w"> </span><span class="n">Bitmap</span><span class="p">,</span>
-<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="nv">boardingPass</span><span class="p">:</span><span class="w"> </span><span class="n">BoardingPass? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="nv">processReport</span><span class="p">:</span><span class="w"> </span><span class="n">FaceCaptureReport? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="nv">matchReport</span><span class="p">:</span><span class="w"> </span><span class="n">MatchReport? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentReaderReport</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderReport? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="nv">language</span><span class="p">:</span><span class="w"> </span><span class="n">Locale? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="nv">boardingPass</span><span class="p">:</span><span class="w"> </span><span class="n">BoardingPass?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="nv">processReport</span><span class="p">:</span><span class="w"> </span><span class="n">FaceCaptureReport?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="nv">matchReport</span><span class="p">:</span><span class="w"> </span><span class="n">MatchReport?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentReaderReport</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderReport?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="nv">language</span><span class="p">:</span><span class="w"> </span><span class="n">Locale?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
 <span class="w">  </span><span class="p">)</span>
 </code></pre></div>
 </div>
@@ -2978,7 +2978,7 @@ your own layouts and use the information that is relevant for your mobile soluti
 
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
-<span class="w">        </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Add Subject: Success!&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="bp">print</span><span class="p">(</span><span class="s">"Add Subject: Success!"</span><span class="p">)</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nv">error</span><span class="p">):</span>
 <span class="w">        </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="n">featureError</span><span class="p">.</span><span class="n">publicMessage</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
@@ -3047,9 +3047,9 @@ structure of the Biometric data:</p>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">BiometricFormat</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">unknown</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Unknown&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">jpg</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Jpg&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">png</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Png&quot;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">unknown</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"Unknown"</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">jpg</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"Jpg"</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">png</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"Png"</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -3072,9 +3072,9 @@ structure of the Biometric data:</p>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">BiometricSource</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">documentChip</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Chip&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">documentOCR</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Ocr&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">faceCapture</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Face&quot;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">documentChip</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"Chip"</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">documentOCR</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"Ocr"</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">faceCapture</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"Face"</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -3094,8 +3094,8 @@ structure of the Biometric data:</p>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">BiometricType</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">unknown</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Unknown&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">enrolment</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Enrolment&quot;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">unknown</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"Unknown"</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">enrolment</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"Enrolment"</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -3115,8 +3115,8 @@ structure of the Biometric data:</p>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">BiometricTypePosition</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">unknown</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Unknown&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">face</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Face&quot;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">unknown</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"Unknown"</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">face</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"Face"</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -3146,12 +3146,12 @@ structure of the Biometric data:</p>
 <span class="p">}</span>
 
 <span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">Status</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Codable</span><span class="p">{</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">pending</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Pending&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">validating</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Validating&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">invalid</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Invalid&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">enrolled</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Enrolled&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">finished</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Finished&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">expired</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Expired&quot;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">pending</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"Pending"</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">validating</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"Validating"</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">invalid</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"Invalid"</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">enrolled</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"Enrolled"</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">finished</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"Finished"</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">expired</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"Expired"</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -3189,7 +3189,7 @@ structure of the Biometric data:</p>
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Success callback</span>
 <span class="cm">     *</span>
-<span class="cm">     * @param status contains a list of [SubjectStatus] returning the [Subject] id and it&#39;s [SubjectStatus.Status]</span>
+<span class="cm">     * @param status contains a list of [SubjectStatus] returning the [Subject] id and it's [SubjectStatus.Status]</span>
 <span class="cm">     */</span>
 <span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onStatus</span><span class="p">(</span><span class="n">status</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">SubjectStatus</span><span class="o">&gt;</span><span class="p">)</span>
 

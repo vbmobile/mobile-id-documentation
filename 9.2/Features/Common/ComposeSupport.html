@@ -2605,18 +2605,18 @@ This page will briefly explain how you can wrap a composable in a xml layout to 
 <p>First we are going to need a layout file that contains a compose view.</p>
 <p>Since we want to make the whole screen a composable, then it's as simple as adding a Compose View that takes the whole space.
 Create a new layout file, call it, for example, composable_wrapper.xml and paste the following code there:</p>
-<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 <span class="nt">&lt;merge</span>
-<span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
-<span class="na">xmlns:tools=</span><span class="s">&quot;http://schemas.android.com/tools&quot;</span>
-<span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
-<span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span>
-<span class="na">tools:parentTag=</span><span class="s">&quot;androidx.constraintlayout.widget.ConstraintLayout&quot;</span><span class="nt">&gt;</span>
+<span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+<span class="na">xmlns:tools=</span><span class="s">"http://schemas.android.com/tools"</span>
+<span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+<span class="na">android:layout_height=</span><span class="s">"match_parent"</span>
+<span class="na">tools:parentTag=</span><span class="s">"androidx.constraintlayout.widget.ConstraintLayout"</span><span class="nt">&gt;</span>
 
 <span class="w">    </span><span class="nt">&lt;androidx.compose.ui.platform.ComposeView</span>
-<span class="w">        </span><span class="na">android:id=</span><span class="s">&quot;@+id/compose_view&quot;</span>
-<span class="w">        </span><span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
-<span class="w">        </span><span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="na">android:id=</span><span class="s">"@+id/compose_view"</span>
+<span class="w">        </span><span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+<span class="w">        </span><span class="na">android:layout_height=</span><span class="s">"match_parent"</span><span class="nt">&gt;</span>
 
 <span class="w">    </span><span class="nt">&lt;/androidx.compose.ui.platform.ComposeView&gt;</span>
 
@@ -2630,8 +2630,8 @@ Create a new layout file, call it, for example, composable_wrapper.xml and paste
 <div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">CustomLoadingView</span><span class="p">(</span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="n">Context</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ConstraintLayout</span><span class="p">(</span><span class="n">context</span><span class="p">),</span><span class="w"> </span><span class="n">ICustomDocumentReader</span><span class="p">.</span><span class="na">LoadingView</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
 <span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">binding</span><span class="p">:</span><span class="w"> </span><span class="n">ComposeWrapperBinding</span>
 <span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">isLoading</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">title</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">message</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">title</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">mutableStateOf</span><span class="p">(</span><span class="s">""</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">message</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">mutableStateOf</span><span class="p">(</span><span class="s">""</span><span class="p">)</span>
 
 <span class="w">    </span><span class="k">init</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ComposeWrapperBinding</span><span class="p">.</span><span class="na">inflate</span><span class="p">(</span>
@@ -2645,26 +2645,26 @@ Create a new layout file, call it, for example, composable_wrapper.xml and paste
 
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onPreFeatureLoading</span><span class="p">(</span><span class="n">message</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">isLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Loading...&quot;</span>
+<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Loading..."</span>
 <span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">message</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onPostFeatureLoading</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">isLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
-<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
-<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onDownloadProgressChanged</span><span class="p">(</span><span class="n">progress</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">isLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Downloading Resources&quot;</span>
-<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Progress: </span><span class="si">$</span><span class="n">progress</span><span class="s">%&quot;</span>
+<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Downloading Resources"</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Progress: </span><span class="si">$</span><span class="n">progress</span><span class="s">%"</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">hideLoading</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">isLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
-<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
-<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="nd">@Composable</span>

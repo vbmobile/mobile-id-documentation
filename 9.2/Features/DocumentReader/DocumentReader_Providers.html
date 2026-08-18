@@ -2645,7 +2645,7 @@ You're not viewing the latest version.
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Android</label><label for="__tabbed_4_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:2.0.3&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">"com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:2.0.3"</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2665,7 +2665,7 @@ You're not viewing the latest version.
 </li>
 <li>
 <p>Select the version to integrate.<br />
-    For new projects, we recommend using the latest available release (for example: <strong><code>2.0.3</code></strong>).</p>
+    For new projects, we recommend using the latest available release (for example: <strong><code>2.0.5</code></strong>).</p>
 </li>
 <li>
 <p>Choose the project and target to which the package should be added.</p>
@@ -2681,20 +2681,20 @@ You're not viewing the latest version.
 <h4 id="1-add-the-dependency">1. Add the dependency<a class="headerlink" href="#1-add-the-dependency" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">.</span><span class="n">package</span><span class="p">(</span>
-<span class="w">        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/vbmobile/AMADocScanMrziOS&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2.0.3&quot;</span>
+<span class="w">        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">"https://github.com/vbmobile/AMADocScanMrziOS"</span><span class="p">,</span>
+<span class="w">        </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">"2.0.5"</span>
 <span class="w">    </span><span class="p">)</span>
 <span class="p">]</span>
 </code></pre></div>
 <blockquote>
-<p>Replace <code>2.0.3</code> with the intended version you wish to use.</p>
+<p>Replace <code>2.0.5</code> with the intended version you wish to use.</p>
 </blockquote>
 <hr />
 <h4 id="2-link-the-product-to-your-target">2. Link the product to your target<a class="headerlink" href="#2-link-the-product-to-your-target" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="n">target</span><span class="p">(</span>
-<span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YourAppTarget&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"YourAppTarget"</span><span class="p">,</span>
 <span class="w">    </span><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AMADocScanMrziOS&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">package</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AMADocScanMrziOS&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"AMADocScanMrziOS"</span><span class="p">,</span><span class="w"> </span><span class="n">package</span><span class="p">:</span><span class="w"> </span><span class="s">"AMADocScanMrziOS"</span><span class="p">)</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">)</span>
 </code></pre></div>
@@ -2729,11 +2729,11 @@ You're not viewing the latest version.
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onProgressChanged</span><span class="p">(</span><span class="n">progress</span><span class="p">:</span><span class="w"> </span><span class="n">Progress</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* not emitted by DocScanMrz */</span><span class="w"> </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onSoftStartSuccess</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">i</span><span class="p">(</span><span class="s">&quot;DocScanMrz&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;softStart onSuccess&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">i</span><span class="p">(</span><span class="s">"DocScanMrz"</span><span class="p">,</span><span class="w"> </span><span class="s">"softStart onSuccess"</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onSoftStartError</span><span class="p">(</span><span class="n">error</span><span class="p">:</span><span class="w"> </span><span class="n">ProviderError</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="s">&quot;DocScanMrz&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;softStart onError [</span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">errorCode</span><span class="si">}</span><span class="s">] </span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">description</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="s">"DocScanMrz"</span><span class="p">,</span><span class="w"> </span><span class="s">"softStart onError [</span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">errorCode</span><span class="si">}</span><span class="s">] </span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">description</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">})</span>
 
@@ -2760,7 +2760,7 @@ You're not viewing the latest version.
 <span class="w">        </span><span class="c1">/// Returns a PSS-based document scanner</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">DocumentReaderScan</span><span class="p">(</span>
 <span class="w">            </span><span class="n">documentType</span><span class="p">:</span><span class="w"> </span><span class="n">documentType</span><span class="p">,</span>
-<span class="w">            </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;YOUR_KEY&gt;&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;YOUR_KEY&gt;"</span><span class="p">,</span>
 <span class="w">            </span><span class="n">pixelWidth</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">width</span><span class="p">),</span>
 <span class="w">            </span><span class="n">pixelHeight</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
 <span class="w">        </span><span class="p">)</span>
@@ -2774,10 +2774,10 @@ You're not viewing the latest version.
 <span class="w">                              </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
 <span class="w">                                  </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                                  </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
-<span class="w">                                      </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;SDK is ready to use&quot;</span><span class="p">)</span>
+<span class="w">                                      </span><span class="bp">print</span><span class="p">(</span><span class="s">"SDK is ready to use"</span><span class="p">)</span>
 
 <span class="w">                                  </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
-<span class="w">                                      </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">                                      </span><span class="bp">print</span><span class="p">(</span><span class="s">"Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">"</span><span class="p">)</span>
 <span class="w">                                  </span><span class="p">}</span>
 <span class="w">                              </span><span class="p">})</span>
 <span class="p">}</span>
@@ -2820,7 +2820,7 @@ You're not viewing the latest version.
 <span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
 <span class="w">     </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="n">report</span><span class="p">):</span>
-<span class="w">         </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Document Read: Success!&quot;</span><span class="p">)</span>
+<span class="w">         </span><span class="bp">print</span><span class="p">(</span><span class="s">"Document Read: Success!"</span><span class="p">)</span>
 <span class="w">         </span><span class="bp">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
 <span class="w">         </span><span class="bp">print</span><span class="p">(</span><span class="n">report</span><span class="p">.</span><span class="n">idDocument</span><span class="p">)</span>
 <span class="w">         </span><span class="bp">print</span><span class="p">(</span><span class="n">report</span><span class="p">.</span><span class="n">documentStatuses</span><span class="p">)</span>
@@ -2838,7 +2838,7 @@ You're not viewing the latest version.
 <div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Android</label><label for="__tabbed_7_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:2.0.3&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">"com.amadeus.mdi.mob.sdk:ama-doc-rfid-read:2.0.3"</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2873,8 +2873,8 @@ You're not viewing the latest version.
 <h4 id="1-add-the-dependency_1">1. Add the dependency<a class="headerlink" href="#1-add-the-dependency_1" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">.</span><span class="n">package</span><span class="p">(</span>
-<span class="w">        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/vbmobile/AMADocRfid&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2.0.2&quot;</span>
+<span class="w">        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">"https://github.com/vbmobile/AMADocRfid"</span><span class="p">,</span>
+<span class="w">        </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">"2.0.2"</span>
 <span class="w">    </span><span class="p">)</span>
 <span class="p">]</span>
 </code></pre></div>
@@ -2884,9 +2884,9 @@ You're not viewing the latest version.
 <hr />
 <h4 id="2-link-the-product-to-your-target_1">2. Link the product to your target<a class="headerlink" href="#2-link-the-product-to-your-target_1" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="n">target</span><span class="p">(</span>
-<span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YourAppTarget&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"YourAppTarget"</span><span class="p">,</span>
 <span class="w">    </span><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AMADocRfid&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">package</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AMADocRfid&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"AMADocRfid"</span><span class="p">,</span><span class="w"> </span><span class="n">package</span><span class="p">:</span><span class="w"> </span><span class="s">"AMADocRfid"</span><span class="p">)</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">)</span>
 </code></pre></div>
@@ -2905,7 +2905,7 @@ You're not viewing the latest version.
 <span class="w">        </span><span class="n">apiConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DocRfidReadApiConfig</span><span class="p">(</span>
 <span class="w">            </span><span class="n">baseUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">YOUR</span><span class="w"> </span><span class="n">DOC</span><span class="w"> </span><span class="n">RFID</span><span class="w"> </span><span class="n">READ</span><span class="w"> </span><span class="n">BASE</span><span class="w"> </span><span class="n">URL</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="w">            </span><span class="n">apiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">YOUR</span><span class="w"> </span><span class="n">DOC</span><span class="w"> </span><span class="n">RFID</span><span class="w"> </span><span class="n">READ</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="n">KEY</span><span class="o">&gt;</span><span class="p">,</span>
-<span class="w">            </span><span class="n">publicKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Base64</span><span class="p">.</span><span class="na">encodeToString</span><span class="p">(</span><span class="s">&quot;YOUR PUBLIC KEY&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Base64</span><span class="p">.</span><span class="na">DEFAULT</span><span class="p">),</span>
+<span class="w">            </span><span class="n">publicKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Base64</span><span class="p">.</span><span class="na">encodeToString</span><span class="p">(</span><span class="s">"YOUR PUBLIC KEY"</span><span class="p">,</span><span class="w"> </span><span class="n">Base64</span><span class="p">.</span><span class="na">DEFAULT</span><span class="p">),</span>
 <span class="w">        </span><span class="p">),</span>
 <span class="w">        </span><span class="n">enableLogs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">ENABLE</span><span class="w"> </span><span class="n">LOGS</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="w">    </span><span class="p">)</span>
@@ -2925,11 +2925,11 @@ You're not viewing the latest version.
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onProgressChanged</span><span class="p">(</span><span class="n">progress</span><span class="p">:</span><span class="w"> </span><span class="n">Progress</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* not emitted by DocRfidRead */</span><span class="w"> </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onSoftStartSuccess</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">i</span><span class="p">(</span><span class="s">&quot;DocRfidRead&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;softStart onSuccess&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">i</span><span class="p">(</span><span class="s">"DocRfidRead"</span><span class="p">,</span><span class="w"> </span><span class="s">"softStart onSuccess"</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onSoftStartError</span><span class="p">(</span><span class="n">error</span><span class="p">:</span><span class="w"> </span><span class="n">ProviderError</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">w</span><span class="p">(</span><span class="s">&quot;DocRfidRead&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;softStart onError [</span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">errorCode</span><span class="si">}</span><span class="s">] </span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">description</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">w</span><span class="p">(</span><span class="s">"DocRfidRead"</span><span class="p">,</span><span class="w"> </span><span class="s">"softStart onError [</span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">errorCode</span><span class="si">}</span><span class="s">] </span><span class="si">${</span><span class="n">error</span><span class="p">.</span><span class="na">description</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">})</span>
 
@@ -2950,9 +2950,9 @@ You're not viewing the latest version.
 <span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">!</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">documentRFIDProvider</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">DocumentReaderRFIDProtocol</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">apiConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">APIConfig</span><span class="p">(</span>
-<span class="w">            </span><span class="n">baseURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;YOUR_BASE_URL&gt;&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;YOUR_API_KEY&gt;&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="n">publicKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="n">baseURL</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;YOUR_BASE_URL&gt;"</span><span class="p">,</span>
+<span class="w">            </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;YOUR_API_KEY&gt;"</span><span class="p">,</span>
+<span class="w">            </span><span class="n">publicKey</span><span class="p">:</span><span class="w"> </span><span class="s">""</span><span class="p">)</span>
 <span class="w">        </span><span class="k">return</span><span class="w">  </span><span class="n">AMADocRFIDRead</span><span class="p">(</span><span class="w"> </span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">DocRfidReadConfig</span><span class="p">(</span><span class="w"> </span><span class="n">apiConfig</span><span class="p">:</span><span class="w"> </span><span class="n">apiConfig</span><span class="p">,</span><span class="w"> </span><span class="n">enableLogs</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">))</span>
 <span class="w">    </span><span class="p">}</span>
 
@@ -2964,10 +2964,10 @@ You're not viewing the latest version.
 <span class="w">                              </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
 <span class="w">                                  </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                                  </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
-<span class="w">                                      </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;SDK is ready to use&quot;</span><span class="p">)</span>
+<span class="w">                                      </span><span class="bp">print</span><span class="p">(</span><span class="s">"SDK is ready to use"</span><span class="p">)</span>
 
 <span class="w">                                  </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
-<span class="w">                                      </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">                                      </span><span class="bp">print</span><span class="p">(</span><span class="s">"Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">"</span><span class="p">)</span>
 <span class="w">                                  </span><span class="p">}</span>
 <span class="w">                              </span><span class="p">})</span>
 <span class="p">}</span>
@@ -3004,13 +3004,13 @@ You're not viewing the latest version.
 <span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">viewController</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">!</span>
 
 <span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">formatter</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DateFormatter</span><span class="p">()</span>
-<span class="w">    </span><span class="n">formatter</span><span class="p">.</span><span class="n">timeZone</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">TimeZone</span><span class="p">(</span><span class="n">identifier</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;UTC&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="n">formatter</span><span class="p">.</span><span class="n">dateFormat</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;YY-MM-dd&quot;</span>
+<span class="w">    </span><span class="n">formatter</span><span class="p">.</span><span class="n">timeZone</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">TimeZone</span><span class="p">(</span><span class="n">identifier</span><span class="p">:</span><span class="w"> </span><span class="s">"UTC"</span><span class="p">)</span>
+<span class="w">    </span><span class="n">formatter</span><span class="p">.</span><span class="n">dateFormat</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"YY-MM-dd"</span>
 <span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">parameters</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">ReadRFIDDocumentParameters</span><span class="p">(</span>
-<span class="w">        </span><span class="n">documentNumber</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;DOCUMENT_NUMBER&gt;&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="n">documentMRZ</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;DOCUMENT_MRZ&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">//</span>
-<span class="w">        </span><span class="n">dateOfExpiry</span><span class="p">:</span><span class="w"> </span><span class="n">formatter</span><span class="p">.</span><span class="n">date</span><span class="p">(</span><span class="n">from</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;DATE_OF_EXPIRY&gt;&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="n">Date</span><span class="p">(),</span>
-<span class="w">        </span><span class="n">dateOfBirth</span><span class="p">:</span><span class="w"> </span><span class="n">formatter</span><span class="p">.</span><span class="n">date</span><span class="p">(</span><span class="n">from</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;DATE_OF_BIRTH&gt;&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="n">Date</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">documentNumber</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;DOCUMENT_NUMBER&gt;"</span><span class="p">,</span>
+<span class="w">        </span><span class="n">documentMRZ</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;DOCUMENT_MRZ&gt;"</span><span class="p">,</span><span class="w"> </span><span class="c1">//</span>
+<span class="w">        </span><span class="n">dateOfExpiry</span><span class="p">:</span><span class="w"> </span><span class="n">formatter</span><span class="p">.</span><span class="n">date</span><span class="p">(</span><span class="n">from</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;DATE_OF_EXPIRY&gt;"</span><span class="p">)</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="n">Date</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">dateOfBirth</span><span class="p">:</span><span class="w"> </span><span class="n">formatter</span><span class="p">.</span><span class="n">date</span><span class="p">(</span><span class="n">from</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;DATE_OF_BIRTH&gt;"</span><span class="p">)</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="n">Date</span><span class="p">(),</span>
 <span class="w">        </span><span class="n">showRFIDStatus</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
 <span class="w">        </span><span class="n">rfidTimeout</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">)</span>
 
@@ -3020,7 +3020,7 @@ You're not viewing the latest version.
 <span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
 <span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="n">report</span><span class="p">):</span>
-<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">&quot;Document Read: Success!&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">"Document Read: Success!"</span><span class="p">)</span>
 <span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="n">report</span><span class="p">.</span><span class="n">idDocument</span><span class="p">)</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
 <span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="n">featureError</span><span class="p">.</span><span class="n">description</span><span class="p">)</span>

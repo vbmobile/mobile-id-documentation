@@ -46,6 +46,18 @@ Before integrating Ultralight, ensure you have:
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Location is required to detect nearby Bluetooth devices.</string>
 	```
+
+	For Beamsync to continue operating while the app is backgrounded, add these
+	background modes to the application target's `Info.plist`:
+
+	``` xml
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+		<string>bluetooth-peripheral</string>
+		<string>fetch</string>
+	</array>
+	```
         
 ## How to Import
 

@@ -961,7 +961,7 @@ In order for the SDK to use the camera, the user must grant permission to do so.
 
 	| Name                   | Version    | Repository                                                |
 	| ---------------------- | ---------- | --------------------------------------------------------- |
-	| AMADocModeliOS         | 2.0.2      | <https://github.com/vbmobile/AMADocModeliOS>              |
+	| AMADocModeliOS         | 2.0.3      | <https://github.com/vbmobile/AMADocModeliOS>              |
 	| CwlCatchException      | 2.2.1      | <https://github.com/mattgallagher/CwlCatchException>      |
 	| CwlPreconditionTesting | 2.2.2      | <https://github.com/mattgallagher/CwlPreconditionTesting> |
 	| Lottie (SPM)           | 4.4.1      | <https://github.com/airbnb/lottie-spm>                    |

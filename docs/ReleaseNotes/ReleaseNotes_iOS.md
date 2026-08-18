@@ -4,8 +4,15 @@
 
 ### Improvements
 
-- Updated the recommended AMAShareUltralight provider version to `2.0.15`.
-- AMAShareUltralight `2.0.15` uses UltralightFramework `3.3.4`.
+- Updated the recommended DocScanMrz provider version to `2.0.5`.
+- Updated the recommended AMAShareUltralight provider version to `2.0.16`.
+- AMAShareUltralight `2.0.16` uses UltralightFramework `3.3.4`.
+
+### Bug Fixes
+
+- Improved DocScanMrz scanner cleanup and re-initialization behavior.
+- Replaced run-loop-dependent MRZ processing timeouts with cancellable timeouts.
+- Corrected VIZ document-type mapping with a forward-compatible unknown-value fallback.
 
 ## 9.2.1
 

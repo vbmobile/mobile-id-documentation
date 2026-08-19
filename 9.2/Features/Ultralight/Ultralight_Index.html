@@ -2734,7 +2734,7 @@ background modes to the application target's <code>Info.plist</code>:</p>
 <p>Ultralight is exposed through the Enrolment SDK integration flow.</p>
 <p>Add the Ultralight provider dependency to your app's <code>build.gradle</code>:</p>
 <div class="highlight"><pre><span></span><code>dependencies {
-    implementation "com.amadeus.mdi.mob.sdk:ama-ultralight:2.0.3"
+    implementation "com.amadeus.mdi.mob.sdk:ama-ultralight:2.0.5"
     // ... other dependencies
 }
 </code></pre></div>
@@ -2800,7 +2800,12 @@ initialization, so the provider only needs <code>initialiseBeamSync(apiKey:)</co
 <div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">initializeUltralight</span><span class="p">():</span><span class="w"> </span><span class="n">UltralightProvider?</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">ultralightApiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"&lt;your-ultralight-api-key&gt;"</span>
 
-<span class="w">    </span><span class="n">UltralightSdk</span><span class="p">.</span><span class="na">initialize</span><span class="p">(</span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">requireContext</span><span class="p">())</span>
+<span class="w">    </span><span class="n">UltralightSdk</span><span class="p">.</span><span class="na">initialize</span><span class="p">(</span>
+<span class="w">        </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">requireContext</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UltralightConfig</span><span class="p">(</span>
+<span class="w">            </span><span class="n">logLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UltralightLogLevel</span><span class="p">.</span><span class="na">ERROR</span><span class="w"> </span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UltralightSdk</span><span class="p">.</span><span class="na">getInstance</span><span class="p">()</span>
 <span class="w">    </span><span class="n">provider</span><span class="p">.</span><span class="na">initialiseBeamsync</span><span class="p">(</span><span class="n">ultralightApiKey</span><span class="p">)</span>
 <span class="w">    </span><span class="n">provider</span><span class="p">.</span><span class="na">softStart</span><span class="p">(</span><span class="n">requireContext</span><span class="p">(),</span><span class="w"> </span><span class="k">object</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">OnSoftStartCompletion</span><span class="w"> </span><span class="p">{</span>
@@ -3032,7 +3037,12 @@ passenger construction aligned with the Ultralight provider API.</p>
 <span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">initializeUltralight</span><span class="p">():</span><span class="w"> </span><span class="n">UltralightProvider?</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">ultralightApiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"&lt;your-api-key&gt;"</span>
 
-<span class="w">        </span><span class="n">UltralightSdk</span><span class="p">.</span><span class="na">initialize</span><span class="p">(</span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">requireContext</span><span class="p">())</span>
+<span class="w">        </span><span class="n">UltralightSdk</span><span class="p">.</span><span class="na">initialize</span><span class="p">(</span>
+<span class="w">            </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">requireContext</span><span class="p">(),</span>
+<span class="w">            </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UltralightConfig</span><span class="p">(</span>
+<span class="w">                </span><span class="n">logLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UltralightLogLevel</span><span class="p">.</span><span class="na">ERROR</span><span class="w"> </span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
 <span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UltralightSdk</span><span class="p">.</span><span class="na">getInstance</span><span class="p">()</span>
 <span class="w">        </span><span class="n">provider</span><span class="p">.</span><span class="na">initialiseBeamsync</span><span class="p">(</span><span class="n">ultralightApiKey</span><span class="p">)</span>
 <span class="w">        </span><span class="n">provider</span><span class="p">.</span><span class="na">softStart</span><span class="p">(</span><span class="n">requireContext</span><span class="p">(),</span><span class="w"> </span><span class="k">object</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">OnSoftStartCompletion</span><span class="w"> </span><span class="p">{</span>

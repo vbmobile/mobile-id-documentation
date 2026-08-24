@@ -26,7 +26,8 @@
 
 ### Bug Fixes
 
-- Fixed an issue: TRAVELERID-15227.
+- Improved callback user experience during RFID processing.
+
 
 ## 9.2.0
 

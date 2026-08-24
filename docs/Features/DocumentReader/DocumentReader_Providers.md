@@ -120,6 +120,7 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
 
     val docScanMrzConfig = DocScanMrzConfig(
         enableLogs = <true>,
+        documentType = DocumentType.PASSPORT,
         docScanMrzKey: <YOUR DOC SCAN MRZ KEY>,
     )
 
@@ -150,7 +151,7 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
         context = context, 
         enrolmentConfig = enrolmentConfig,
         documentReaderProvider = documentReaderProvider,
-        callback = callback
+        enrolmentInitializerCallback = callback
     )
     ```
     
@@ -355,7 +356,7 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
         context = context, 
         enrolmentConfig = enrolmentConfig,
         rfidReaderProvider = documentRfidReaderProvider,
-        callback = callback
+        enrolmentInitializerCallback = callback
     )
     ```
 

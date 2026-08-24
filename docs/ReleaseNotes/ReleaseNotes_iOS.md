@@ -1,6 +1,9 @@
 # MobileID SDK - Release Notes
 
-## 9.2.2
+## 9.2.3
+
+> Version 9.2.2 was an internal release and was not published to clients.
+> The official public release sequence jumps from 9.2.1 to 9.2.3.
 
 ### Improvements
 

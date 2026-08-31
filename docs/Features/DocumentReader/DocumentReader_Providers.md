@@ -48,8 +48,14 @@ This provider uses Amadeus services and supports MRZ Document Reading functional
 
 === "Android"
 
+    1. Add the following dependency to your `build.gradle` file:
     ```kotlin
     implementation("com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:{{ versions.android_doc_scan_mrz_provider }}")
+    ```
+
+    2. Add this rule to proguard if you have problems running the application with minify enabled:
+    ```kotlin
+    -keep class com.amadeus.docscanner.** { *; }
     ```
 
 === "iOS"

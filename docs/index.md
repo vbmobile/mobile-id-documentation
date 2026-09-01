@@ -66,6 +66,9 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
     
     # Keep Data classes so we can use Moshi to parse the internal BuildSubjectParameters from firebase to spoof document, bcbp and face capture data
     -keep class com.visionbox.mobileid.sdk.enrolment.data.** { *; }
+
+    # If using DocScanMrz also add the following rule
+    -keep class com.amadeus.docscanner.** { *; }
     ```
     4. Sync gradle.
     

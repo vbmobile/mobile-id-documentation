@@ -2645,8 +2645,18 @@ You're not viewing the latest version.
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Android</label><label for="__tabbed_4_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
+<ol>
+<li>
+<p>Add the following dependency to your <code>build.gradle</code> file:
 <div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">"com.amadeus.mdi.mob.sdk:ama-doc-scan-mrz:2.0.7"</span><span class="p">)</span>
-</code></pre></div>
+</code></pre></div></p>
+</li>
+<li>
+<p>Add this rule to proguard if you have problems running the application with minify enabled:
+<div class="highlight"><pre><span></span><code><span class="o">-</span><span class="n">keep</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">com</span><span class="p">.</span><span class="na">amadeus</span><span class="p">.</span><span class="na">docscanner</span><span class="p">.</span><span class="o">**</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">*</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></p>
+</li>
+</ol>
 </div>
 <div class="tabbed-block">
 <h3 id="install-using-xcode">Install using Xcode<a class="headerlink" href="#install-using-xcode" title="Permanent link">&para;</a></h3>

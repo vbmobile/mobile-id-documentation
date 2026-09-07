@@ -937,23 +937,28 @@ In order for the SDK to use the camera, the user must grant permission to do so.
         
 === "iOS"
 
-	| Name                   | Version    | Repository                                                |
-	| ---------------------- | ---------- | --------------------------------------------------------- |
-	| AMADocModeliOS         | 2.0.2      | <https://github.com/vbmobile/AMADocModeliOS>              |
-	| CwlCatchException      | 2.2.1      | <https://github.com/mattgallagher/CwlCatchException>      |
-	| CwlPreconditionTesting | 2.2.2      | <https://github.com/mattgallagher/CwlPreconditionTesting> |
-	| Lottie (SPM)           | 4.4.1      | <https://github.com/airbnb/lottie-spm>                    |
-	| Matomo SDK iOS         | 7.7.0      | <https://github.com/vbmobile/matomo-sdk-ios>              |
-	| Nimble                 | 12.3.0     | <https://github.com/Quick/Nimble>                         |
-	| OHHTTPStubs            | 9.1.0      | <https://github.com/AliSoftware/OHHTTPStubs>              |
-	| Quick                  | 7.6.2      | <https://github.com/Quick/Quick>                          |
-	| Swift Algorithms       | 1.2.1      | <https://github.com/apple/swift-algorithms>               |
-	| Swift Argument Parser  | 1.7.1      | <https://github.com/apple/swift-argument-parser>          |
-	| Swift Numerics         | 1.1.1      | <https://github.com/apple/swift-numerics>                 |
-	| VBDependencyInjector   | 1.0.7      | <https://github.com/vbmobile/VBDependencyInjector>        |
-	| VBImageProcessor       | 1.2.2      | <https://github.com/vbmobile/VBImageProcessor>            |
-	| VBNetworkClient        | 5.1.1      | <https://github.com/vbmobile/VBNetworkClient>             |
-	| VBUtils                | 2.0.2      | <https://github.com/vbmobile/VBUtils>                     |
+	| Name                                | Version   | Repository                                                               |
+	| ----------------------------------- | --------- | ------------------------------------------------------------------------ |
+	| AMADocModel                         | 3.1.0     | <https://github.com/vbmobile/AMADocModel>                                |
+	| AMADocRfid                          | 3.1.0     | <https://github.com/vbmobile/AMADocRfid>                                 |
+	| AMADocScanMrz                       | 3.1.0     | <https://github.com/vbmobile/AMADocScanMrz>                              |
+	| AMADocScanner                       | 5.0.2     | <https://github.com/vbmobile/AMADocScanner>                              |
+	| AMAMRZOCRReadRegula                 | 1.1.0     | <https://github.com/vbmobile/AMAMRZOCRReadRegula>                        |
+	| AMANetworkClient                    | 6.0.1     | <https://github.com/vbmobile/AMANetworkClient>                           |
+	| AMARFIDReadRegula                   | 1.1.0     | <https://github.com/vbmobile/AMARFIDReadRegula>                          |
+	| AmaShareUltralight                  | 3.1.0     | <https://github.com/vbmobile/AmaShareUltralight>                         |
+	| AMAUtils                            | 3.0.5     | <https://github.com/vbmobile/AMAUtils>                                   |
+	| CocoaLumberjack                     | 3.9.1     | <https://github.com/CocoaLumberjack/CocoaLumberjack>                     |
+	| DocumentReader-Swift-Package        | 9.7.6818  | <https://github.com/regulaforensics/DocumentReader-Swift-Package>        |
+	| DocumentReaderOCRRFID-Swift-Package | 9.7.19698 | <https://github.com/regulaforensics/DocumentReaderOCRRFID-Swift-Package> |
+	| lottie-spm                          | 4.4.1     | <https://github.com/airbnb/lottie-spm>                                   |
+	| NFCPassportReader                   | 2.1.2     | <https://github.com/AndyQ/NFCPassportReader>                             |
+	| OHHTTPStubs                         | 9.1.0     | <https://github.com/AliSoftware/OHHTTPStubs>                             |
+	| OpenSSL                             | 1.1.2301  | <https://github.com/krzyzanowskim/OpenSSL>                               |
+	| RegulaCommon-Swift-Package          | 9.7.2626  | <https://github.com/regulaforensics/RegulaCommon-Swift-Package>          |
+	| swift-log                           | 1.15.0    | <https://github.com/apple/swift-log>                                     |
+	| ultralight-native-sdk               | 3.3.4     | <https://github.com/vbmobile/ultralight-native-sdk>                      |
+	| VBImageProcessor                    | 2.0.5     | <https://github.com/vbmobile/VBImageProcessor>                           |
 	  
 
 ## Glossary and Terminology

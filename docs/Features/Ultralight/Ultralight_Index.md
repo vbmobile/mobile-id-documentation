@@ -245,6 +245,7 @@ It is asynchronous — provide a completion callback to receive the result
 
 | Field             | Type           | Description                              |
 |-------------------|----------------|------------------------------------------|
+| `paxId`           | `String?`      | Optional passenger ID (UUID v4). Defaults to a random UUID when omitted |
 | `language`        | `String`       | Language code (e.g., `"en"`, `"fr"`)     |
 | `mrz`             | `String`       | MRZ string (`\n` separating lines)       |
 | `boardingPasses`  | `List<String>` | Raw BCBP barcode strings                 |
@@ -263,6 +264,7 @@ It is asynchronous — provide a completion callback to receive the result
 
     val passengers = listOf(
         Passenger(
+            paxId = null, // Defaults to UUID.randomUUID().toString()
             language = "en",
             mrz = "<mrz-line-1>\n<mrz-line-2>",
             boardingPasses = listOf("<bcbp-barcode-string>"),
@@ -422,6 +424,7 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
                 )
 
                 val passenger = Passenger(
+                    paxId = null, // Defaults to UUID.randomUUID().toString()
                     language = "en",
                     mrz = idDocument.mrz,
                     boardingPasses = listOf(boardingPass.rawBoardingPass),

@@ -2901,6 +2901,11 @@ It is asynchronous — provide a completion callback to receive the result
 </thead>
 <tbody>
 <tr>
+<td><code>paxId</code></td>
+<td><code>String?</code></td>
+<td>Optional passenger ID (UUID v4). Defaults to a random UUID when omitted</td>
+</tr>
+<tr>
 <td><code>language</code></td>
 <td><code>String</code></td>
 <td>Language code (e.g., <code>"en"</code>, <code>"fr"</code>)</td>
@@ -2951,6 +2956,7 @@ It is asynchronous — provide a completion callback to receive the result
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">passengers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span>
 <span class="w">    </span><span class="n">Passenger</span><span class="p">(</span>
+<span class="w">        </span><span class="n">paxId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="c1">// Defaults to UUID.randomUUID().toString()</span>
 <span class="w">        </span><span class="n">language</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"en"</span><span class="p">,</span>
 <span class="w">        </span><span class="n">mrz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"&lt;mrz-line-1&gt;\n&lt;mrz-line-2&gt;"</span><span class="p">,</span>
 <span class="w">        </span><span class="n">boardingPasses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="s">"&lt;bcbp-barcode-string&gt;"</span><span class="p">),</span>
@@ -3095,6 +3101,7 @@ passenger construction aligned with the Ultralight provider API.</p>
 <span class="w">            </span><span class="p">)</span>
 
 <span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">passenger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Passenger</span><span class="p">(</span>
+<span class="w">                </span><span class="n">paxId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="c1">// Defaults to UUID.randomUUID().toString()</span>
 <span class="w">                </span><span class="n">language</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"en"</span><span class="p">,</span>
 <span class="w">                </span><span class="n">mrz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">idDocument</span><span class="p">.</span><span class="na">mrz</span><span class="p">,</span>
 <span class="w">                </span><span class="n">boardingPasses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="n">boardingPass</span><span class="p">.</span><span class="na">rawBoardingPass</span><span class="p">),</span>

@@ -1,5 +1,21 @@
 # MobileID SDK - Release Notes
 
+## 9.2.4
+
+### Improvements
+
+- Removed the Matomo analytics dependency; the SDK no longer links `MatomoTracker`.
+  A `Matomo` log strategy in the server configuration is now ignored.
+- Updated VBUtils to `2.0.3` and VBImageProcessor to `1.2.3`.
+- Updated the recommended DocScanMrz provider version to `2.0.6`.
+- Updated the recommended DocRFID provider version to `2.0.8`, which requires
+  AMADocModeliOS `2.0.3`.
+
+### Bug Fixes
+
+- DocScanMrz `2.0.6` dismisses the scanner before delivering the result.
+- DocScanMrz `2.0.6` returns the correct best-frame document image.
+
 ## 9.2.3
 
 ### Improvements

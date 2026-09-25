@@ -106,7 +106,7 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	        https://github.com/vbmobile/AMADocRfid
 	
 	4.  Select the component versions to integrate. The following versions are the
-	    supported set for Mobile ID SDK 9.2.3:
+	    supported set for Mobile ID SDK 9.2.4:
 
 	    | Component | Version |
 	    |-----------|---------|
@@ -968,7 +968,6 @@ In order for the SDK to use the camera, the user must grant permission to do so.
 	| CwlCatchException      | 2.2.1      | <https://github.com/mattgallagher/CwlCatchException>      |
 	| CwlPreconditionTesting | 2.2.2      | <https://github.com/mattgallagher/CwlPreconditionTesting> |
 	| Lottie (SPM)           | 4.4.1      | <https://github.com/airbnb/lottie-spm>                    |
-	| Matomo SDK iOS         | 7.7.0      | <https://github.com/vbmobile/matomo-sdk-ios>              |
 	| Nimble                 | 12.3.0     | <https://github.com/Quick/Nimble>                         |
 	| OHHTTPStubs            | 9.1.0      | <https://github.com/AliSoftware/OHHTTPStubs>              |
 	| Quick                  | 7.6.2      | <https://github.com/Quick/Quick>                          |
@@ -976,9 +975,9 @@ In order for the SDK to use the camera, the user must grant permission to do so.
 	| Swift Argument Parser  | 1.7.1      | <https://github.com/apple/swift-argument-parser>          |
 	| Swift Numerics         | 1.1.1      | <https://github.com/apple/swift-numerics>                 |
 	| VBDependencyInjector   | 1.0.7      | <https://github.com/vbmobile/VBDependencyInjector>        |
-	| VBImageProcessor       | 1.2.2      | <https://github.com/vbmobile/VBImageProcessor>            |
+	| VBImageProcessor       | 1.2.3      | <https://github.com/vbmobile/VBImageProcessor>            |
 	| VBNetworkClient        | 5.1.1      | <https://github.com/vbmobile/VBNetworkClient>             |
-	| VBUtils                | 2.0.2      | <https://github.com/vbmobile/VBUtils>                     |
+	| VBUtils                | 2.0.3      | <https://github.com/vbmobile/VBUtils>                     |
 	  
 
 ## Glossary and Terminology

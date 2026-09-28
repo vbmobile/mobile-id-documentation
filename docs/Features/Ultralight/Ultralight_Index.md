@@ -4,9 +4,9 @@ Ultralight enables **Beamsync**, a proximity-based data transmission mechanism t
 This allows passengers to pass through airport processes without re-scanning their documents at each step.
 
 In the current SDK architecture, Ultralight is integrated through the Enrolment SDK facade.
-You provide your own `UltralightProvider` during initialization, and Enrolment exposes two methods to
-control the sharing lifecycle: `share()` (sets passengers and starts broadcasting, asynchronously
-reporting its result through a completion callback) and `stopSharing()`.
+You provide your own `UltralightProvider` during initialization, and Enrolment exposes two methods:
+`share()` (sets passengers and starts broadcasting, asynchronously reporting its result through a
+completion callback) and `stopSharing()`, needed only when the user revokes their consent.
 
 ## Prerequisites
 

@@ -1,11 +1,60 @@
 # MobileID SDK - Release Notes
 
+## 9.2.4
+
+### Improvements
+
+- Removed the Matomo analytics dependency; the SDK no longer links `MatomoTracker`.
+  A `Matomo` log strategy in the server configuration is now ignored.
+- Updated VBUtils to `2.0.3` and VBImageProcessor to `1.2.3`.
+- Updated the recommended DocScanMrz provider version to `2.0.6`.
+- Updated the recommended DocRFID provider version to `2.0.8`, which requires
+  AMADocModeliOS `2.0.3`.
+
+### Bug Fixes
+
+- DocScanMrz `2.0.6` dismisses the scanner before delivering the result.
+- DocScanMrz `2.0.6` returns the correct best-frame document image.
+
+## 9.2.3
+
+### Improvements
+
+- Updated the recommended DocScanMrz provider version to `2.0.5`.
+- Updated the recommended AMAShareUltralight provider version to `2.0.17`.
+- AMAShareUltralight `2.0.17` uses UltralightFramework `3.3.4`.
+- AMAShareUltralight `2.0.17` supports `arm64` iOS devices and `arm64` plus
+  `x86_64` iOS Simulators.
+- The Swift package uses automatic linkage; consumers must still resolve and
+  package the provider's required binary dependencies.
+
+### Bug Fixes
+
+- Improved DocScanMrz scanner cleanup and re-initialization behavior.
+- Replaced run-loop-dependent MRZ processing timeouts with cancellable timeouts.
+- Corrected VIZ document-type mapping with a forward-compatible unknown-value fallback.
+
+## 9.2.1
+
+### Improvements
+
+- Updated the recommended provider version for AMAShareUltralight to `2.0.13`.
+
+### Bug Fixes
+
+- Improved callback user experience during RFID processing.
+
+
 ## 9.2.0
 
 ### What's new
 
 - General bug fixes.
-- Funtion `func share(passengers: [AMADocModeliOS.Passenger]) async -> (result: Bool?, error: FeatureError?)` is now `func share(passengers: [AMADocModeliOS.Passenger], completionHandler: @escaping (Bool, FeatureError?) -> Void)`
+- Function `func share(passengers: [AMADocModeliOS.Passenger]) async -> (result: Bool?, error: FeatureError?)` is now `func share(passengers: [AMADocModeliOS.Passenger], completionHandler: @escaping (Bool, FeatureError?) -> Void)`
+
+### Improvements
+
+- Updated the recommended provider versions: DocScanMrz `2.0.3`, Doc RFID Read `2.0.2`, and Ultralight `2.0.4`.
 
 
 ## 9.1.0

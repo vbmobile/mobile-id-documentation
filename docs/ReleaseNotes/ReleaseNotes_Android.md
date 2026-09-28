@@ -1,5 +1,12 @@
 # MobileID SDK - Release Notes
 
+## 9.2.1
+
+### What's new
+
+- Added a refresh token system 
+- Fixed bug when license expired
+
 ## 9.2.0
 
 ### What's new

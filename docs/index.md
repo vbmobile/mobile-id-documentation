@@ -11,14 +11,26 @@ hide:
     To integrate the Mobile ID SDK for Android, the following prerequisites must be met:
 
     - Install or update Android Studio to latest version;
-    - Target API level 24 (Marshmallow) or later;
+    - Target API level 24 (Marshmallow) or later (no ultralight);
+    - For Ultralight, API level 26 (Oreo) or later is needed;
 
 === "iOS"
 
     To integrate the **Mobile ID SDK** for iOS, the following prerequisites must be met: 
     
     - Install or update Xcode to latest version;
-    - Target iOS 15 or later. __The iOS 15 target grows to iOS 18.2 if the provider `AMADocScanMrziOS` is used.__ 
+    - Target iOS 15 or later.
+
+    | Component | Minimum iOS | Physical devices | Apple silicon simulator | Intel simulator |
+    |-----------|-------------|------------------|-------------------------|-----------------|
+    | `MobileIdSDKiOS` | 15 | `arm64` | `arm64` | `x86_64` |
+    | `AMAShareUltralight` | 15 | `arm64` | `arm64` | `x86_64` |
+    | `AMADocScanMrziOS` | 15 | `arm64` | `arm64` | Not supported |
+    | `AMADocRFIDReadiOS` | 15 | `arm64` | `arm64` | `x86_64` |
+
+    Simulator architecture refers to the Mac architecture on which the iOS
+    Simulator runs. Components without an `x86_64` simulator slice require an
+    Apple silicon Mac for simulator builds.
 
 You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can associate the API key with the application, this way your API key is protected with only authorized applications.
 
@@ -43,6 +55,9 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
     // Optional dependencies if you want to use the ultralight share feature
     implementation("com.amadeus.mdi.mob.sdk:ama-ultralight:{{ versions.android_ultralight_provider }}")
     ```
+
+    Each separated provider dependency requires **Target API level 24 (Marshmallow) or later but when importing also the Ultralight sdk, the minimum sdk should be 26 (Oreo) or later**.
+
     3. Add these rules to proguard if you have problems running the application with minify enabled:
     ```kotlin
     -keepclassmembers enum * { *; }
@@ -51,6 +66,9 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
     
     # Keep Data classes so we can use Moshi to parse the internal BuildSubjectParameters from firebase to spoof document, bcbp and face capture data
     -keep class com.visionbox.mobileid.sdk.enrolment.data.** { *; }
+
+    # If using DocScanMrz also add the following rule
+    -keep class com.amadeus.docscanner.** { *; }
     ```
     4. Sync gradle.
     
@@ -75,9 +93,9 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	
 	        https://github.com/vbmobile/MobileIdSDKiOS
 	
-	    **AmaShareUltralight** (Optional Provider)
+	    **AMAShareUltralight** (Optional Provider)
 	
-	        https://github.com/vbmobile/AmaShareUltralight
+	        https://github.com/vbmobile/AMAShareUltralight
 	
 	    **AMADocScanMrziOS** (Optional Provider)
 	
@@ -87,8 +105,15 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	
 	        https://github.com/vbmobile/AMADocRfid
 	
-	4.  Select the version to integrate.  
-	    For new projects, we recommend using the latest available release.
+	4.  Select the component versions to integrate. The following versions are the
+	    supported set for Mobile ID SDK 9.2.4:
+
+	    | Component | Version |
+	    |-----------|---------|
+	    | `MobileIdSDKiOS` | `{{ versions.ios_enrolment_sdk }}` |
+	    | `AMAShareUltralight` | `{{ versions.ios_ultralight_provider }}` |
+	    | `AMADocScanMrziOS` | `{{ versions.ios_doc_scan_mrz_provider }}` |
+	    | `AMADocRFIDReadiOS` | `{{ versions.ios_doc_rfid_read_provider }}` |
 	
 	5.  Choose the project and target to which the package should be added.
 	
@@ -108,7 +133,7 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	dependencies: [
 	    .package(
 	        url: "https://github.com/vbmobile/MobileIdSDKiOS",
-	        upToNextMinor(from: "{{ versions.ios_enrolment_sdk }}"
+	        .exact("{{ versions.ios_enrolment_sdk }}")
 	    )
 	]
 	```
@@ -133,7 +158,7 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 
 	***
 	
-	> Repeat the process for `AmaShareUltralight`, `AMADocScanMrziOS` and `AMADocRfid`
+	> Repeat the process for `AMAShareUltralight`, `AMADocScanMrziOS` and `AMADocRfid`
 	
 	Once added, the Enrolment SDK APIs (and any integrated optional modules such as Ultralight or Document Scanning providers) become available to your application through the standard Enrolment SDK integration flow.
 
@@ -335,7 +360,7 @@ You can follow this platform specific guide to prepare your application to offli
         context = context, 
         enrolmentConfig = enrolmentConfig,
         documentReaderProvider = documentReaderProvider,
-        rfidReaderProvider = documentReaderProvider,
+        rfidReaderProvider = rfidReaderProvider,
         enrolmentInitializerCallback = callback,
         license = license
     )
@@ -664,7 +689,7 @@ The EnrolmentConfig is where you set the apiConfig and the apiSecurityConfig.
         enrolmentConfig = enrolmentConfig,
         enrolmentCustomViews = enrolmentCustomViews,
         documentReaderProvider = documentReaderProvider,
-        rfidReaderProvider = documentReaderProvider,
+        rfidReaderProvider = rfidReaderProvider,
         enrolmentInitializerCallback = enrolmentInitializerCallback
     )
 
@@ -937,23 +962,23 @@ In order for the SDK to use the camera, the user must grant permission to do so.
         
 === "iOS"
 
-	| Name                   | Version    | Repository                                                |
-	| ---------------------- | ---------- | --------------------------------------------------------- |
-	| AMADocModeliOS         | 2.0.2      | <https://github.com/vbmobile/AMADocModeliOS>              |
-	| CwlCatchException      | 2.2.1      | <https://github.com/mattgallagher/CwlCatchException>      |
-	| CwlPreconditionTesting | 2.2.2      | <https://github.com/mattgallagher/CwlPreconditionTesting> |
-	| Lottie (SPM)           | 4.4.1      | <https://github.com/airbnb/lottie-spm>                    |
-	| Matomo SDK iOS         | 7.7.0      | <https://github.com/vbmobile/matomo-sdk-ios>              |
-	| Nimble                 | 12.3.0     | <https://github.com/Quick/Nimble>                         |
-	| OHHTTPStubs            | 9.1.0      | <https://github.com/AliSoftware/OHHTTPStubs>              |
-	| Quick                  | 7.6.2      | <https://github.com/Quick/Quick>                          |
-	| Swift Algorithms       | 1.2.1      | <https://github.com/apple/swift-algorithms>               |
-	| Swift Argument Parser  | 1.7.1      | <https://github.com/apple/swift-argument-parser>          |
-	| Swift Numerics         | 1.1.1      | <https://github.com/apple/swift-numerics>                 |
-	| VBDependencyInjector   | 1.0.7      | <https://github.com/vbmobile/VBDependencyInjector>        |
-	| VBImageProcessor       | 1.2.2      | <https://github.com/vbmobile/VBImageProcessor>            |
-	| VBNetworkClient        | 5.1.1      | <https://github.com/vbmobile/VBNetworkClient>             |
-	| VBUtils                | 2.0.2      | <https://github.com/vbmobile/VBUtils>                     |
+	| Name                 | Version  | Repository                                           | Pulled in by       |
+	| -------------------- | -------- | ---------------------------------------------------- | ------------------ |
+	| AMADocModeliOS       | 2.0.3    | <https://github.com/vbmobile/AMADocModeliOS>         | SDK                |
+	| Lottie (SPM)         | 4.4.1    | <https://github.com/airbnb/lottie-spm>               | SDK                |
+	| VBDependencyInjector | 1.0.7    | <https://github.com/vbmobile/VBDependencyInjector>   | SDK                |
+	| VBImageProcessor     | 1.2.3    | <https://github.com/vbmobile/VBImageProcessor>       | SDK                |
+	| VBNetworkClient      | 5.1.1    | <https://github.com/vbmobile/VBNetworkClient>        | SDK                |
+	| VBUtils              | 2.0.3    | <https://github.com/vbmobile/VBUtils>                | SDK                |
+	| AMADocScanMrziOS     | 2.0.6    | <https://github.com/vbmobile/AMADocScanMrziOS>       | Optional provider  |
+	| AMADocScanneriOS     | 5.0.2    | <https://github.com/vbmobile/AMADocScanneriOS>       | AMADocScanMrziOS   |
+	| AMADocRfid           | 2.0.8    | <https://github.com/vbmobile/AMADocRfid>             | Optional provider  |
+	| CocoaLumberjack      | 3.10.0   | <https://github.com/CocoaLumberjack/CocoaLumberjack> | AMADocRfid         |
+	| NFCPassportReader    | 2.1.2    | <https://github.com/AndyQ/NFCPassportReader>         | AMADocRfid         |
+	| OpenSSL              | 1.1.2301 | <https://github.com/krzyzanowskim/OpenSSL>           | AMADocRfid         |
+	| Swift Log            | 1.15.1   | <https://github.com/apple/swift-log>                 | AMADocRfid         |
+	| AMAShareUltralight   | 2.0.17   | <https://github.com/vbmobile/AMAShareUltralight>     | Optional provider  |
+	| UltralightFramework  | 3.3.4    | <https://github.com/vbmobile/ultralight-native-sdk>  | AMAShareUltralight |
 	  
 
 ## Glossary and Terminology

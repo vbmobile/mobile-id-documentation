@@ -3,3 +3,6 @@
 /site
 /venv/
 /update-plans/
+/.claude/
+AGENTS.MD
+CLAUDE.MD

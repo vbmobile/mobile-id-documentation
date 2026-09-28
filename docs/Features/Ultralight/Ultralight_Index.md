@@ -4,9 +4,9 @@ Ultralight enables **Beamsync**, a proximity-based data transmission mechanism t
 This allows passengers to pass through airport processes without re-scanning their documents at each step.
 
 In the current SDK architecture, Ultralight is integrated through the Enrolment SDK facade.
-You provide your own `UltralightProvider` during initialization, and Enrolment exposes two methods to
-control the sharing lifecycle: `share()` (sets passengers and starts broadcasting, asynchronous via
-`OnShareCompletion` callback) and `stopSharing()`.
+You provide your own `UltralightProvider` during initialization, and Enrolment exposes two methods:
+`share()` (sets passengers and starts broadcasting, asynchronously reporting its result through a
+completion callback) and `stopSharing()`, needed only when the user revokes their consent.
 
 ## Prerequisites
 
@@ -46,6 +46,18 @@ Before integrating Ultralight, ensure you have:
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Location is required to detect nearby Bluetooth devices.</string>
 	```
+
+	For Beamsync to continue operating while the app is backgrounded, add these
+	background modes to the application target's `Info.plist`:
+
+	``` xml
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+		<string>bluetooth-peripheral</string>
+		<string>fetch</string>
+	</array>
+	```
         
 ## How to Import
 
@@ -62,6 +74,8 @@ Before integrating Ultralight, ensure you have:
     }
     ```
 
+    - Target API level 26 (Oreo) or later;
+
 === "iOS"
    
       Ultralight is distributed for iOS via **Swift Package Manager (SPM)**.
@@ -73,11 +87,11 @@ Before integrating Ultralight, ensure you have:
     3. Enter the package repository URL:
    
     ```
-    https://github.com/vbmobile/AmaShareUltralight
+    https://github.com/vbmobile/AMAShareUltralight
     ```
    
     4. Select the desired version (recommended: exact or up to next major)
-    5. Add the **AmaShareUltralight** product to your app target
+    5. Add the **AMAShareUltralight** product to your app target
 
     __Install using `Package.swift`__
    
@@ -86,7 +100,7 @@ Before integrating Ultralight, ensure you have:
     ``` swift
     dependencies: [
        .package(
-           url: "https://github.com/vbmobile/AmaShareUltralight",
+           url: "https://github.com/vbmobile/AMAShareUltralight",
            exact: "{{ versions.ios_ultralight_provider }}"
        )
     ],
@@ -100,7 +114,7 @@ Before integrating Ultralight, ensure you have:
     .target(
         name: "YourAppTarget",
         dependencies: [
-            .product(name: "AmaShareUltralight", package: "AmaShareUltralight")
+            .product(name: "AMAShareUltralight", package: "AMAShareUltralight")
         ]
     )
     ```
@@ -113,9 +127,12 @@ Before integrating Ultralight, ensure you have:
 
 ### Step 1: Create and Initialize UltralightProvider
 
-Before initializing Enrolment, create and configure your `UltralightProvider` instance.
-After `initialiseBeamsync()`, you must call `softStart()`;
-report success and errors through `OnSoftStartCompletion`.
+Before initializing Enrolment, create and configure your `UltralightProvider` instance by calling
+`initialiseBeamsync()` with your API key.
+
+On **Android**, you then call `softStart()` yourself and report success and errors through
+`OnSoftStartCompletion`. On **iOS**, the Enrolment SDK runs the soft start for you during
+initialization, so the provider only needs `initialiseBeamSync(apiKey:)`.
 
 === "Android"
 
@@ -123,7 +140,12 @@ report success and errors through `OnSoftStartCompletion`.
     private fun initializeUltralight(): UltralightProvider? {
         val ultralightApiKey = "<your-ultralight-api-key>"
 
-        UltralightSdk.initialize(context = requireContext())
+        UltralightSdk.initialize(
+            context = requireContext(),
+            config = UltralightConfig(
+                logLevel = UltralightLogLevel.ERROR 
+            )
+        )
         val provider = UltralightSdk.getInstance()
         provider.initialiseBeamsync(ultralightApiKey)
         provider.softStart(requireContext(), object : OnSoftStartCompletion {
@@ -158,15 +180,18 @@ report success and errors through `OnSoftStartCompletion`.
 
 	```swift
 	func ultralightProvider() -> UltralightProtocol? {
-	    let ultralightProvider: AMAShareUltralight.Ultralight = .init()
-	    ultralightProvider.initialiseBeamSync(apiKey: "<your-ultralight-api-key>")
-	    return ultralightProvider
+	    let ultralight = AMAShareUltralight.Ultralight()
+	    ultralight.initialize(config: .init(level: .debug))
+	    return ultralight
 	}
 	```
+
+	Call `initialize(config:)` when diagnostic logging is needed. Use the
+	appropriate log level for the environment.
                                   
 ### Step 2: Pass Provider to Enrolment Initialization
 
-Pass the `UltralightProvider` to `Enrolment.initialize()`:
+Pass the `UltralightProvider` when you initialize Enrolment:
 
 === "Android"
 
@@ -210,12 +235,14 @@ Pass the `UltralightProvider` to `Enrolment.initialize()`:
 ## Share Passenger Data
 
 The `share()` method sets the passenger list **and** starts sharing in a single call.
-It is asynchronous — pass an `OnShareCompletion` callback to receive the result.
+It is asynchronous — provide a completion callback to receive the result
+(`OnShareCompletion` on Android, a `(Bool, FeatureError?)` completion handler on iOS).
 
 **Passenger model:**
 
 | Field             | Type           | Description                              |
 |-------------------|----------------|------------------------------------------|
+| `paxId`           | `String?`      | Optional passenger ID (UUID v4). Defaults to a random UUID when omitted |
 | `language`        | `String`       | Language code (e.g., `"en"`, `"fr"`)     |
 | `mrz`             | `String`       | MRZ string (`\n` separating lines)       |
 | `boardingPasses`  | `List<String>` | Raw BCBP barcode strings                 |
@@ -231,6 +258,7 @@ It is asynchronous — pass an `OnShareCompletion` callback to receive the resul
 
     val passengers = listOf(
         Passenger(
+            paxId = null, // Defaults to UUID.randomUUID().toString()
             language = "en",
             mrz = "<mrz-line-1>\n<mrz-line-2>",
             boardingPasses = listOf("<bcbp-barcode-string>"),
@@ -257,21 +285,25 @@ It is asynchronous — pass an `OnShareCompletion` callback to receive the resul
 === "iOS"
 
 
+	Prefer `UltralightBuilders.build(...)` when creating passengers. It
+	normalizes optional values such as the passenger ID and language and keeps
+	passenger construction aligned with the Ultralight provider API.
+
 	```swift
     func sampleShare(enrolment: EnrolmentProtocol?) {
-        let passenger = Passenger(language: "en",
-                                  mrz: "<mrz-line-1>\n<mrz-line-2>",
-                                  boardingPasses: ["<bcbp-barcode-string>"],
-                                  docPhotoBase64: "<base64-encoded-document-photo>",
-                                  selfieBase64: "<base64-encoded-selfie>",
-                                  ePassport: true,
-                                  tag: nil,
-                                  ebagtagId: nil)
+        let passenger = AMAShareUltralight.UltralightBuilders.build(
+            paxId: nil, // Defaults to UUID().uuidString
+            idDocument: nil,
+            faceCapture: nil,
+            boardingPass: "<bcbp-barcode-string>",
+            language: nil // Defaults to "en"
+        )
+
         enrolment?.share(passengers: [passenger], completionHandler: { result, error in
             if result {
                 // Passengers set and Beamsync started successfully
             } else {
-                // Check error.for details
+                // Check error for details
                 print(error ?? "")
             }
         })
@@ -280,7 +312,7 @@ It is asynchronous — pass an `OnShareCompletion` callback to receive the resul
 
 ## Stop Beamsync
 
-Stop Beamsync when the flow ends (for example, when leaving the screen or destroying the view):
+The SDK handles stopping Beamsync automatically. The only time this API should be called is if the user has revoked their consent (i.e. the user no longer wishes to use the benefits of Beamsync to share the selfie, boarding pass or documents).
 
 === "Android"
 
@@ -288,32 +320,11 @@ Stop Beamsync when the flow ends (for example, when leaving the screen or destro
     Enrolment.getInstance().stopSharing()
     ```
 
-    It's recommended to call `stopSharing()` in your fragment/activity lifecycle:
-
-    ```kotlin
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Enrolment.getInstance().stopSharing()
-    }
-    ```
-
 === "iOS"
 
-
-	It's recommended to call `stopSharing()` in your view lifecycle:
-	
-	
-	```swift
-	deinit {
-	    presenter?.shouldStopSharing() // MVP Design Pattern
-	}
-	```
-	
-	or call it ha hoc 
-	
-	```swift
-	enrolment?.stopSharing()
-	```
+    ```swift
+    Enrolment.shared.stopSharing()
+    ```
 
 ## Complete Example
 
@@ -328,7 +339,12 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
         private fun initializeUltralight(): UltralightProvider? {
             val ultralightApiKey = "<your-api-key>"
 
-            UltralightSdk.initialize(context = requireContext())
+            UltralightSdk.initialize(
+                context = requireContext(),
+                config = UltralightConfig(
+                    logLevel = UltralightLogLevel.ERROR 
+                )
+            )
             val provider = UltralightSdk.getInstance()
             provider.initialiseBeamsync(ultralightApiKey)
             provider.softStart(requireContext(), object : OnSoftStartCompletion {
@@ -381,6 +397,7 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
                 )
 
                 val passenger = Passenger(
+                    paxId = null, // Defaults to UUID.randomUUID().toString()
                     language = "en",
                     mrz = idDocument.mrz,
                     boardingPasses = listOf(boardingPass.rawBoardingPass),
@@ -406,15 +423,10 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
             }
         }
 
-        // Stop Beamsync
+        // Only needed when the user revokes their consent
         private fun stopBeamsync() {
             Enrolment.getInstance().stopSharing()
             Log.d(TAG, "Beamsync stopped")
-        }
-
-        override fun onDestroyView() {
-            super.onDestroyView()
-            Enrolment.getInstance().stopSharing()
         }
     }
     ```
@@ -426,7 +438,6 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	- `share()` is **asynchronous** — results are delivered via `OnShareCompletion`; safe to call from the main thread
 	- `share()` both sets the passenger data **and** starts Beamsync (there is no separate `startSharing()` step)
 	- The SDK performs pre-flight checks for Bluetooth and Location before starting Beamsync
-	- Always call `stopSharing()` when cleaning up (e.g., in `onDestroyView()`)
 
 === "iOS"
 
@@ -437,9 +448,9 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	
 	class UltralightProviderSample {
 	    func ultralightProvider() -> UltralightProtocol? {
-	        let ultralightProvider: AMAShareUltralight.Ultralight = .init()
-	        ultralightProvider.initialiseBeamSync(apiKey: "<your-ultralight-api-key>")
-	        return ultralightProvider
+	        let ultralight = AMAShareUltralight.Ultralight()
+	        ultralight.initialize(config: .init(level: .debug))
+	        return ultralight
 	    }
 	
 	    func initializeEnrolment(provider: UltralightProtocol?) async -> EnrolmentProtocol {
@@ -463,7 +474,7 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	    }
 	
 	    func sampleShare(enrolment: EnrolmentProtocol?) {
-	        let passenger = Passenger(language: "en",
+	        let passenger1 = Passenger(language: "en",
 	                                  mrz: "<mrz-line-1>\n<mrz-line-2>",
 	                                  boardingPasses: ["<bcbp-barcode-string>"],
 	                                  docPhotoBase64: "<base64-encoded-document-photo>",
@@ -471,44 +482,43 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	                                  ePassport: true,
 	                                  tag: nil,
 	                                  ebagtagId: nil)
-	        enrolment?.share(passengers: [passenger], completionHandler: { result, error in
+
+	        let passenger2 = AMAShareUltralight.UltralightBuilders.build(
+	            paxId: nil, // Defaults to UUID().uuidString
+	            idDocument: nil,
+	            faceCapture: nil,
+	            boardingPass: "<bcbp-barcode-string>",
+	            language: nil // Defaults to "en"
+	        )
+
+	        enrolment?.share(passengers: [passenger1, passenger2], completionHandler: { result, error in
 	            if result {
 	                // Passengers set and Beamsync started successfully
 	            } else {
-	                // Check error.for details
+	                // Check error for details
 	                print(error ?? "")
 	            }
 	        })
 	    }
 	
+	    // Only needed when the user revokes their consent
 	    func stopSharing(enrolment: EnrolmentProtocol?) {
 	        enrolment?.stopSharing()
 	    }
 	
 	    func prepareAndSharePassenger(enrolment: EnrolmentProtocol?) {
-	        guard EnrolmentData.idDocument != nil else {
-	            print("Precondition failed: Have not read document")
-	            return
-	        }
-	        guard let faceCapture = EnrolmentData.biometricFaceCaptureReport?.photo else {
-	            print("Precondition failed: Have not read face")
-	            return
-	        }
-	        guard EnrolmentData.boardingPass != nil else {
-	            print("Precondition failed: Have not read boarding pass")
-	            return
-	        }
-	        guard let idDocument = EnrolmentData.idDocument else {
-	            print("Precondition failed: idDocument missing")
-	            return
-	        }
-	        let boardPass = EnrolmentData.boardingPass?.raw ?? ""
-	        let passenger = idDocument.mapToPassenger(faceCapture: faceCapture, boardingPasses: [boardPass])
+	        let passenger = AMAShareUltralight.UltralightBuilders.build(
+	            paxId: nil, // Defaults to UUID().uuidString
+	            idDocument: EnrolmentData.idDocument,
+	            faceCapture: EnrolmentData.biometricFaceCaptureReport?.photo,
+	            boardingPass: EnrolmentData.boardingPass?.raw ?? "",
+	            language: nil // Defaults to "en"
+	        )
 	        enrolment?.share(passengers: [passenger], completionHandler: { result, error in
 	            if result {
 	                // Passengers set and Beamsync started successfully
 	            } else {
-	                // Check error.for details
+	                // Check error for details
 	                print(error ?? "")
 	            }
 	        })
@@ -518,9 +528,8 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 
 	### Notes
 	
-	- The `UltralightProvider` must be initialized **before** passing it to `Enrolment.initialize()`
-	- Ultralight is **not available** in offline mode (`initializeOffline`)
-	- `share()` is **asynchronous** — results are delivered through the `OnShareCompletion` callback
+	- The `UltralightProvider` must be initialized **before** passing it to `Enrolment.shared.initWith(...)`
+	- Ultralight is **not available** in offline mode (`initOffline`)
+	- `share()` is **asynchronous** — the result is delivered through the `completionHandler` closure
 	- `share()` both sets the passenger data **and** starts Beamsync (there is no separate `startSharing()` step)
-	- The SDK performs pre-flight checks for Bluetooth and Location before starting Beamsync
-	- Always call `stopSharing()` when cleaning up (e.g., in `deinit()`)
+	- Beamsync requires Bluetooth permission; `share()` fails with a `bluetoothNotGranted` error if it hasn't been granted

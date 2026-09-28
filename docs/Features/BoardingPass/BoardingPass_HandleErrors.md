@@ -38,4 +38,4 @@ After obtaining the FeatureError, as shown in the Handle Result section of the f
 
 === "iOS"
 
-    Example can be found here: [Sample Project](https://github.com/vbmobile/mobileid-ios-sample-)
+    See the public [iOS error-handling example](../Common/HandleErrors.md#ios-error-handling-example).

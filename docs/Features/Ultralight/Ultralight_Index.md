@@ -4,9 +4,9 @@ Ultralight enables **Beamsync**, a proximity-based data transmission mechanism t
 This allows passengers to pass through airport processes without re-scanning their documents at each step.
 
 In the current SDK architecture, Ultralight is integrated through the Enrolment SDK facade.
-You provide your own `UltralightProvider` during initialization, and Enrolment exposes two methods to
-control the sharing lifecycle: `share()` (sets passengers and starts broadcasting, asynchronously
-reporting its result through a completion callback) and `stopSharing()`.
+You provide your own `UltralightProvider` during initialization, and Enrolment exposes two methods:
+`share()` (sets passengers and starts broadcasting, asynchronously reporting its result through a
+completion callback) and `stopSharing()`, needed only when the user revokes their consent.
 
 ## Prerequisites
 
@@ -118,9 +118,6 @@ Before integrating Ultralight, ensure you have:
         ]
     )
     ```
-
-    !!! important "Image size limit"
-        The images you provide to `AMAShareUltralight` as `docPhotoBase64` and `selfieBase64` must each be **smaller than 256 KB**. Larger images are rejected.
 
 	> Replace `YourAppTarget ` with the intended app target you wish to use.
 
@@ -255,9 +252,6 @@ It is asynchronous — provide a completion callback to receive the result
 | `eBagTagId`       | `String?`      | Optional electronic bag tag ID           |
 | `tag`             | `String?`      | Optional custom tag                      |
 
-!!! warning "Selfie image size"
-    Ensure `selfieBase64` and `docPhotoBase64` are **smaller than 256 KB**. Larger images are rejected.
-
 === "Android"
 
     ```kotlin
@@ -318,7 +312,7 @@ It is asynchronous — provide a completion callback to receive the result
 
 ## Stop Beamsync
 
-Stop Beamsync when the flow ends (for example, when leaving the screen or destroying the view):
+The SDK handles stopping Beamsync automatically. The only time this API should be called is if the user has revoked their consent (i.e. the user no longer wishes to use the benefits of Beamsync to share the selfie, boarding pass or documents).
 
 === "Android"
 
@@ -326,32 +320,11 @@ Stop Beamsync when the flow ends (for example, when leaving the screen or destro
     Enrolment.getInstance().stopSharing()
     ```
 
-    It's recommended to call `stopSharing()` in your fragment/activity lifecycle:
-
-    ```kotlin
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Enrolment.getInstance().stopSharing()
-    }
-    ```
-
 === "iOS"
 
-
-	It's recommended to call `stopSharing()` in your view lifecycle:
-	
-	
-	```swift
-	deinit {
-	    presenter?.shouldStopSharing() // MVP Design Pattern
-	}
-	```
-	
-	or call it ad hoc
-	
-	```swift
-	enrolment?.stopSharing()
-	```
+    ```swift
+    Enrolment.shared.stopSharing()
+    ```
 
 ## Complete Example
 
@@ -450,15 +423,10 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
             }
         }
 
-        // Stop Beamsync
+        // Only needed when the user revokes their consent
         private fun stopBeamsync() {
             Enrolment.getInstance().stopSharing()
             Log.d(TAG, "Beamsync stopped")
-        }
-
-        override fun onDestroyView() {
-            super.onDestroyView()
-            Enrolment.getInstance().stopSharing()
         }
     }
     ```
@@ -470,7 +438,6 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	- `share()` is **asynchronous** — results are delivered via `OnShareCompletion`; safe to call from the main thread
 	- `share()` both sets the passenger data **and** starts Beamsync (there is no separate `startSharing()` step)
 	- The SDK performs pre-flight checks for Bluetooth and Location before starting Beamsync
-	- Always call `stopSharing()` when cleaning up (e.g., in `onDestroyView()`)
 
 === "iOS"
 
@@ -534,6 +501,7 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	        })
 	    }
 	
+	    // Only needed when the user revokes their consent
 	    func stopSharing(enrolment: EnrolmentProtocol?) {
 	        enrolment?.stopSharing()
 	    }
@@ -565,4 +533,3 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	- `share()` is **asynchronous** — the result is delivered through the `completionHandler` closure
 	- `share()` both sets the passenger data **and** starts Beamsync (there is no separate `startSharing()` step)
 	- Beamsync requires Bluetooth permission; `share()` fails with a `bluetoothNotGranted` error if it hasn't been granted
-	- Always call `stopSharing()` when cleaning up (e.g., in `deinit()`)

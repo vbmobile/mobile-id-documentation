@@ -2669,9 +2669,9 @@ You're not viewing the latest version.
 <p>Ultralight enables <strong>Beamsync</strong>, a proximity-based data transmission mechanism that broadcasts passenger data to nearby airport touchpoints (for example, e-gates or self-service kiosks).
 This allows passengers to pass through airport processes without re-scanning their documents at each step.</p>
 <p>In the current SDK architecture, Ultralight is integrated through the Enrolment SDK facade.
-You provide your own <code>UltralightProvider</code> during initialization, and Enrolment exposes two methods to
-control the sharing lifecycle: <code>share()</code> (sets passengers and starts broadcasting, asynchronously
-reporting its result through a completion callback) and <code>stopSharing()</code>.</p>
+You provide your own <code>UltralightProvider</code> during initialization, and Enrolment exposes two methods:
+<code>share()</code> (sets passengers and starts broadcasting, asynchronously reporting its result through a
+completion callback) and <code>stopSharing()</code>, needed only when the user revokes their consent.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>Before integrating Ultralight, ensure you have:</p>
 <ul>
@@ -2776,10 +2776,6 @@ background modes to the application target's <code>Info.plist</code>:</p>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">)</span>
 </code></pre></div>
-<div class="admonition important">
-<p class="admonition-title">Image size limit</p>
-<p>The images you provide to <code>AMAShareUltralight</code> as <code>docPhotoBase64</code> and <code>selfieBase64</code> must each be <strong>smaller than 256 KB</strong>. Larger images are rejected.</p>
-</div>
 <blockquote>
 <p>Replace <code>YourAppTarget</code> with the intended app target you wish to use.</p>
 </blockquote>
@@ -2947,10 +2943,6 @@ It is asynchronous — provide a completion callback to receive the result
 </tr>
 </tbody>
 </table>
-<div class="admonition warning">
-<p class="admonition-title">Selfie image size</p>
-<p>Ensure <code>selfieBase64</code> and <code>docPhotoBase64</code> are <strong>smaller than 256 KB</strong>. Larger images are rejected.</p>
-</div>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Android</label><label for="__tabbed_5_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -3007,27 +2999,15 @@ passenger construction aligned with the Ultralight provider API.</p>
 </div>
 </div>
 <h2 id="stop-beamsync">Stop Beamsync<a class="headerlink" href="#stop-beamsync" title="Permanent link">&para;</a></h2>
-<p>Stop Beamsync when the flow ends (for example, when leaving the screen or destroying the view):</p>
+<p>The SDK handles stopping Beamsync automatically. The only time this API should be called is if the user has revoked their consent (i.e. the user no longer wishes to use the benefits of Beamsync to share the selfie, boarding pass or documents).</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Android</label><label for="__tabbed_6_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="n">Enrolment</span><span class="p">.</span><span class="na">getInstance</span><span class="p">().</span><span class="na">stopSharing</span><span class="p">()</span>
 </code></pre></div>
-<p>It's recommended to call <code>stopSharing()</code> in your fragment/activity lifecycle:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onDestroyView</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">super</span><span class="p">.</span><span class="na">onDestroyView</span><span class="p">()</span>
-<span class="w">    </span><span class="n">Enrolment</span><span class="p">.</span><span class="na">getInstance</span><span class="p">().</span><span class="na">stopSharing</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>It's recommended to call <code>stopSharing()</code> in your view lifecycle:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">deinit</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">presenter</span><span class="p">?.</span><span class="n">shouldStopSharing</span><span class="p">()</span><span class="w"> </span><span class="c1">// MVP Design Pattern</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>or call it ad hoc</p>
-<div class="highlight"><pre><span></span><code><span class="n">enrolment</span><span class="p">?.</span><span class="n">stopSharing</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">stopSharing</span><span class="p">()</span>
 </code></pre></div>
 </div>
 </div>
@@ -3127,15 +3107,10 @@ passenger construction aligned with the Ultralight provider API.</p>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// Stop Beamsync</span>
+<span class="w">    </span><span class="c1">// Only needed when the user revokes their consent</span>
 <span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">stopBeamsync</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">Enrolment</span><span class="p">.</span><span class="na">getInstance</span><span class="p">().</span><span class="na">stopSharing</span><span class="p">()</span>
 <span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">"Beamsync stopped"</span><span class="p">)</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onDestroyView</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">super</span><span class="p">.</span><span class="na">onDestroyView</span><span class="p">()</span>
-<span class="w">        </span><span class="n">Enrolment</span><span class="p">.</span><span class="na">getInstance</span><span class="p">().</span><span class="na">stopSharing</span><span class="p">()</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -3146,7 +3121,6 @@ passenger construction aligned with the Ultralight provider API.</p>
 <li><code>share()</code> is <strong>asynchronous</strong> — results are delivered via <code>OnShareCompletion</code>; safe to call from the main thread</li>
 <li><code>share()</code> both sets the passenger data <strong>and</strong> starts Beamsync (there is no separate <code>startSharing()</code> step)</li>
 <li>The SDK performs pre-flight checks for Bluetooth and Location before starting Beamsync</li>
-<li>Always call <code>stopSharing()</code> when cleaning up (e.g., in <code>onDestroyView()</code>)</li>
 </ul>
 </div>
 <div class="tabbed-block">
@@ -3209,6 +3183,7 @@ passenger construction aligned with the Ultralight provider API.</p>
 <span class="w">        </span><span class="p">})</span>
 <span class="w">    </span><span class="p">}</span>
 
+<span class="w">    </span><span class="c1">// Only needed when the user revokes their consent</span>
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">stopSharing</span><span class="p">(</span><span class="n">enrolment</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentProtocol</span><span class="p">?)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">enrolment</span><span class="p">?.</span><span class="n">stopSharing</span><span class="p">()</span>
 <span class="w">    </span><span class="p">}</span>
@@ -3239,7 +3214,6 @@ passenger construction aligned with the Ultralight provider API.</p>
 <li><code>share()</code> is <strong>asynchronous</strong> — the result is delivered through the <code>completionHandler</code> closure</li>
 <li><code>share()</code> both sets the passenger data <strong>and</strong> starts Beamsync (there is no separate <code>startSharing()</code> step)</li>
 <li>Beamsync requires Bluetooth permission; <code>share()</code> fails with a <code>bluetoothNotGranted</code> error if it hasn't been granted</li>
-<li>Always call <code>stopSharing()</code> when cleaning up (e.g., in <code>deinit()</code>)</li>
 </ul>
 </div>
 </div>

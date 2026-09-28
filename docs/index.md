@@ -962,22 +962,23 @@ In order for the SDK to use the camera, the user must grant permission to do so.
         
 === "iOS"
 
-	| Name                   | Version    | Repository                                                |
-	| ---------------------- | ---------- | --------------------------------------------------------- |
-	| AMADocModeliOS         | 2.0.3      | <https://github.com/vbmobile/AMADocModeliOS>              |
-	| CwlCatchException      | 2.2.1      | <https://github.com/mattgallagher/CwlCatchException>      |
-	| CwlPreconditionTesting | 2.2.2      | <https://github.com/mattgallagher/CwlPreconditionTesting> |
-	| Lottie (SPM)           | 4.4.1      | <https://github.com/airbnb/lottie-spm>                    |
-	| Nimble                 | 12.3.0     | <https://github.com/Quick/Nimble>                         |
-	| OHHTTPStubs            | 9.1.0      | <https://github.com/AliSoftware/OHHTTPStubs>              |
-	| Quick                  | 7.6.2      | <https://github.com/Quick/Quick>                          |
-	| Swift Algorithms       | 1.2.1      | <https://github.com/apple/swift-algorithms>               |
-	| Swift Argument Parser  | 1.7.1      | <https://github.com/apple/swift-argument-parser>          |
-	| Swift Numerics         | 1.1.1      | <https://github.com/apple/swift-numerics>                 |
-	| VBDependencyInjector   | 1.0.7      | <https://github.com/vbmobile/VBDependencyInjector>        |
-	| VBImageProcessor       | 1.2.3      | <https://github.com/vbmobile/VBImageProcessor>            |
-	| VBNetworkClient        | 5.1.1      | <https://github.com/vbmobile/VBNetworkClient>             |
-	| VBUtils                | 2.0.3      | <https://github.com/vbmobile/VBUtils>                     |
+	| Name                 | Version  | Repository                                           | Pulled in by       |
+	| -------------------- | -------- | ---------------------------------------------------- | ------------------ |
+	| AMADocModeliOS       | 2.0.3    | <https://github.com/vbmobile/AMADocModeliOS>         | SDK                |
+	| Lottie (SPM)         | 4.4.1    | <https://github.com/airbnb/lottie-spm>               | SDK                |
+	| VBDependencyInjector | 1.0.7    | <https://github.com/vbmobile/VBDependencyInjector>   | SDK                |
+	| VBImageProcessor     | 1.2.3    | <https://github.com/vbmobile/VBImageProcessor>       | SDK                |
+	| VBNetworkClient      | 5.1.1    | <https://github.com/vbmobile/VBNetworkClient>        | SDK                |
+	| VBUtils              | 2.0.3    | <https://github.com/vbmobile/VBUtils>                | SDK                |
+	| AMADocScanMrziOS     | 2.0.6    | <https://github.com/vbmobile/AMADocScanMrziOS>       | Optional provider  |
+	| AMADocScanneriOS     | 5.0.2    | <https://github.com/vbmobile/AMADocScanneriOS>       | AMADocScanMrziOS   |
+	| AMADocRfid           | 2.0.8    | <https://github.com/vbmobile/AMADocRfid>             | Optional provider  |
+	| CocoaLumberjack      | 3.10.0   | <https://github.com/CocoaLumberjack/CocoaLumberjack> | AMADocRfid         |
+	| NFCPassportReader    | 2.1.2    | <https://github.com/AndyQ/NFCPassportReader>         | AMADocRfid         |
+	| OpenSSL              | 1.1.2301 | <https://github.com/krzyzanowskim/OpenSSL>           | AMADocRfid         |
+	| Swift Log            | 1.15.1   | <https://github.com/apple/swift-log>                 | AMADocRfid         |
+	| AMAShareUltralight   | 2.0.17   | <https://github.com/vbmobile/AMAShareUltralight>     | Optional provider  |
+	| UltralightFramework  | 3.3.4    | <https://github.com/vbmobile/ultralight-native-sdk>  | AMAShareUltralight |
 	  
 
 ## Glossary and Terminology

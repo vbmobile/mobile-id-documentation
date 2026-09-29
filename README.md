@@ -1,14 +1,14 @@
-# mobile-id-documentation
-This repo contains documentation regarding our MobileID SDK for both Android and iOS with sample applications
-
 # MobileID SDK Documentation
 
-This repo will be used to store mkdocs project.
+This repo contains the MkDocs project for the MobileID SDK documentation, for both Android and iOS.
 
 ## Commands
 
 - mkdocs build - Generate a folder "site" with the static content of the current markdown files and assets.
+- mkdocs build --strict - Same build, but it aborts on any warning, such as a link to a page that does not exist. Run it before pushing.
 - mkdocs serve - Creates a local server that automatic renders the changes in markdown files to help in development mode.
+- ./mkdocs_serve.sh - Creates a `venv` with the dependencies on first use and runs `mkdocs serve` at http://127.0.0.1:8000/mobile-id-documentation/. It first stops whatever is listening on port 8000.
+- ./mkdocs_re-install_env.sh - Deletes the `venv` and installs the dependencies again.
 
 ## Setup
 
@@ -48,16 +48,22 @@ Currently we have 4 main tabs in the website:
 
 ## Project Structure
 MKDocs uses an YML file for configuration that can be found in the root folder.
+Theme overrides (main.html and partials) live in the overrides folder in the root.
 In the gitignore should be everything else (IDE files, generated website from command) to keep the repo clean.
 All the markdown files and assets have to be inside the docs folder.
 Inside the docs folder we have the following structure:
-- Assets - Contains general assets (Logo, css files etc..) to use in the website.
+- assets - Contains the logo and favicon used by the website.
+- images - Contains the images used by the Getting Started page.
+- stylesheets - Contains the custom CSS (extra.css).
 - Features:
+    - Common - Contains markdown files that apply across features (error handling, Compose support).
     - Biometric Match - Contains markdown files and assets related to Biometric Match.
     - Boarding Pass - Contains markdown files and assets related to Boarding Pass.
     - Document Reader - Contains markdown files and assets related to Document Reader.
     - Face Capture - Contains markdown files and assets related to Face Capture.
+    - Name Match - Contains markdown files related to Name Match.
     - Subject Management - Contains markdown files and assets related to Subject Management.
+    - Ultralight - Contains markdown files related to Ultralight (the Share tab).
 - Release Notes - Contains markdown files and assets related to release notes.
 - Migration Guide - Contains markdown files and assets related to migration guide.
 

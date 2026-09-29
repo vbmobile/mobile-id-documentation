@@ -210,7 +210,7 @@
     - HTTP responses are signed and verifiable
 
 ### What's new
-- [Form](../Features/Form/Form_Index.md) feature
+- Form feature
 
 ## 7.0.2
 

@@ -6,3 +6,4 @@
 /.claude/
 AGENTS.MD
 CLAUDE.MD
+__pycache__/

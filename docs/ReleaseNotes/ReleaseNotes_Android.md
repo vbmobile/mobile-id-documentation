@@ -1,5 +1,11 @@
 # MobileID SDK - Release Notes
 
+## 9.2.2
+
+### Improvements
+
+- Fixed parsing boarding passes whose conditional section contains unique conditional fields but no repeated conditional fields.
+
 ## 9.2.1
 
 ### What's new

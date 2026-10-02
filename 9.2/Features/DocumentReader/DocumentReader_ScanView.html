@@ -2557,7 +2557,7 @@ You're not viewing the latest version.
 
 <h1 id="scan-view">Scan View<a class="headerlink" href="#scan-view" title="Permanent link">&para;</a></h1>
 <p>The second view of the document reader flow is the scan view, it's the camera screen that detects the document and reads it's data through OCR method.
-This screen belongs to Regula and it does not allow us to change, only some small customization is possible.</p>
+This screen belongs to the document scan provider, so only the customization that provider exposes is possible.</p>
 <p><img alt="Document Reader Example" src="Assets/DR_Document_Scan.png" style="height:600px;width:300px;display: block; margin: 0 auto" title="Document Reader Default Scan Screen" /></p>
 <p>It contains a title(1), a message(2), a frame(3) and a cancel button (4) that can be customized.</p>
 <h2 id="branding">Branding<a class="headerlink" href="#branding" title="Permanent link">&para;</a></h2>
@@ -2569,11 +2569,37 @@ This screen belongs to Regula and it does not allow us to change, only some smal
 <p>This is not customizable in Android yet</p>
 </div>
 <div class="tabbed-block">
-<p>You can change the frame color by overriding the following color in Theme class (It other screens in the app):</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// Default state</span>
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">common</span><span class="p">.</span><span class="n">black</span>
+<p>The SDK's <code>Theme</code> does not apply to this screen, because the scan provider draws it.</p>
+<p>With the <strong>AMADocScanMrziOS</strong> provider, set the colors on its <code>ScannerTheme</code> before starting the scan. Any property left <code>nil</code> keeps the provider's default:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">import</span><span class="w"> </span><span class="nc">AMADocScanMrziOS</span>
+
+<span class="c1">// Frame</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">frameDefault</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">frameSuccess</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">frameError</span>
+<span class="c1">// Screen, overlay and instructions</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">background</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">overlayColor</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">overlayOpacity</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">instructionText</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">tooltipText</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">tooltipBackground</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">tooltipBackgroundOpacity</span>
+<span class="c1">// Navigation bar and buttons</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">navigationTitle</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">navigationCloseButton</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">navigationBackground</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">primaryButtonBackground</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">helpButtonText</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">helpButtonBackground</span>
+</code></pre></div>
+<p>With the <strong>AMADocScanRegulaiOS</strong> provider, use that provider's own <code>Theme</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">import</span><span class="w"> </span><span class="nc">AMADocScanRegulaiOS</span>
+
+<span class="c1">// Default state</span>
+<span class="n">AMADocScanRegulaiOS</span><span class="p">.</span><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">cameraFrameDefaultColor</span>
 <span class="c1">// Valid state</span>
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">stateValid</span>
+<span class="n">AMADocScanRegulaiOS</span><span class="p">.</span><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">cameraFrameActiveColor</span>
 </code></pre></div>
 </div>
 </div>
@@ -2585,9 +2611,12 @@ This screen belongs to Regula and it does not allow us to change, only some smal
 <p>This is not customizable in Android yet</p>
 </div>
 <div class="tabbed-block">
-<p>You can change the font through the theme class (this will affect all text in the app):</p>
-<div class="highlight"><pre><span></span><code><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">fonts</span><span class="p">.</span><span class="n">bold</span>
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">fonts</span><span class="p">.</span><span class="n">regular</span>
+<p>With the <strong>AMADocScanMrziOS</strong> provider, set the fonts on its <code>ScannerTheme</code>. Any property left <code>nil</code> keeps the provider's default:</p>
+<div class="highlight"><pre><span></span><code><span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">fonts</span><span class="p">.</span><span class="n">navigationTitle</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">fonts</span><span class="p">.</span><span class="n">instructionText</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">fonts</span><span class="p">.</span><span class="n">tooltipText</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">fonts</span><span class="p">.</span><span class="n">tipsTitle</span>
+<span class="n">ScannerTheme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">fonts</span><span class="p">.</span><span class="n">tipsMessage</span>
 </code></pre></div>
 </div>
 </div>

@@ -2707,7 +2707,7 @@ and returns a descriptive <code>FeatureError</code> if either is disabled.</p>
 <div class="tabbed-block">
 <ul>
 <li><strong>Minimum iOS Version: 15</strong> (same as Enrolment SDK)</li>
-<li><strong>Required permissions on Info.plist</strong> (brought transitively by the Ultralight provider dependency):</li>
+<li><strong>Required permissions:</strong> add the following keys to your app's Info.plist:</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;key&gt;</span>NSBluetoothAlwaysUsageDescription<span class="nt">&lt;/key&gt;</span>
 <span class="nt">&lt;string&gt;</span>Bluetooth<span class="w"> </span>is<span class="w"> </span>used<span class="w"> </span>to<span class="w"> </span>communicate<span class="w"> </span>with<span class="w"> </span>nearby<span class="w"> </span>UltraLight<span class="w"> </span>devices<span class="nt">&lt;/string&gt;</span>
@@ -2833,6 +2833,7 @@ initialization, so the provider only needs <code>initialiseBeamSync(apiKey:)</co
 <div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">ultralightProvider</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">UltralightProtocol</span><span class="p">?</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">ultralight</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">Ultralight</span><span class="p">()</span>
 <span class="w">    </span><span class="n">ultralight</span><span class="p">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">level</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">debug</span><span class="p">))</span>
+<span class="w">    </span><span class="n">ultralight</span><span class="p">.</span><span class="n">initialiseBeamSync</span><span class="p">(</span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;YOUR_ULTRALIGHT_API_KEY&gt;"</span><span class="p">)</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ultralight</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -2878,6 +2879,7 @@ appropriate log level for the environment.</p>
 <span class="w">                                      </span><span class="p">}</span>
 <span class="w">                                  </span><span class="p">})</span>
 <span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -2943,6 +2945,7 @@ It is asynchronous — provide a completion callback to receive the result
 </tr>
 </tbody>
 </table>
+<p>On iOS, every <code>Passenger</code> field is optional and the bag tag field is named <code>ebagtagId</code>.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Android</label><label for="__tabbed_5_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -3132,6 +3135,7 @@ passenger construction aligned with the Ultralight provider API.</p>
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">ultralightProvider</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">UltralightProtocol</span><span class="p">?</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">ultralight</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">AMAShareUltralight</span><span class="p">.</span><span class="n">Ultralight</span><span class="p">()</span>
 <span class="w">        </span><span class="n">ultralight</span><span class="p">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">level</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">debug</span><span class="p">))</span>
+<span class="w">        </span><span class="n">ultralight</span><span class="p">.</span><span class="n">initialiseBeamSync</span><span class="p">(</span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;YOUR_ULTRALIGHT_API_KEY&gt;"</span><span class="p">)</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ultralight</span>
 <span class="w">    </span><span class="p">}</span>
 
@@ -3209,7 +3213,7 @@ passenger construction aligned with the Ultralight provider API.</p>
 </code></pre></div>
 <h3 id="notes_1">Notes<a class="headerlink" href="#notes_1" title="Permanent link">&para;</a></h3>
 <ul>
-<li>The <code>UltralightProvider</code> must be initialized <strong>before</strong> passing it to <code>Enrolment.shared.initWith(...)</code></li>
+<li>The <code>Ultralight</code> provider (<code>UltralightProtocol</code>) must be initialized with <code>initialiseBeamSync(apiKey:)</code> <strong>before</strong> passing it to <code>Enrolment.shared.initWith(...)</code></li>
 <li>Ultralight is <strong>not available</strong> in offline mode (<code>initOffline</code>)</li>
 <li><code>share()</code> is <strong>asynchronous</strong> — the result is delivered through the <code>completionHandler</code> closure</li>
 <li><code>share()</code> both sets the passenger data <strong>and</strong> starts Beamsync (there is no separate <code>startSharing()</code> step)</li>

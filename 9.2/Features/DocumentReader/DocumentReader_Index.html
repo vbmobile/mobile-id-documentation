@@ -2710,10 +2710,9 @@ travel documents from different countries, by calling the readDocument method.</
 <span class="c1">///   - completionHandler: The completion handler to call when the document reader feature is finished.</span>
 <span class="c1">///     This completion handler takes the following parameter:</span>
 <span class="c1">///</span>
-<span class="c1">///     Result&lt;DocumentReaderReport, FeatureError&gt;</span>
+<span class="c1">///     Result&lt;DocumentReaderReport, DocumentReaderError&gt;</span>
 <span class="c1">///     Where `DocumentReaderReport` contains  the results of the document reader</span>
-<span class="c1">///     operation and `FeatureError` the possible errors that may occur during the process.</span>
-<span class="c1">///     throws a</span>
+<span class="c1">///     operation and `DocumentReaderError` the possible errors that may occur during the process.</span>
 <span class="kr">final</span><span class="w"> </span><span class="kd">public</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">readDocument</span><span class="p">(</span><span class="n">parameters</span><span class="p">:</span><span class="w"> </span><span class="n">MobileIdSDKiOS</span><span class="p">.</span><span class="n">ReadDocumentParameters</span><span class="p">,</span><span class="w"> </span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">,</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">@</span><span class="n">escaping</span><span class="w"> </span><span class="p">(</span><span class="n">Result</span><span class="p">&lt;</span><span class="n">MobileIdSDKiOS</span><span class="p">.</span><span class="n">DocumentReaderReport</span><span class="p">,</span><span class="w"> </span><span class="n">MobileIdSDKiOS</span><span class="p">.</span><span class="n">DocumentReaderError</span><span class="p">&gt;)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Void</span><span class="p">)</span>
 </code></pre></div>
 </div>
@@ -2769,7 +2768,7 @@ travel documents from different countries, by calling the readDocument method.</
 </div>
 </div>
 </div>
-<p>Both mrzReadTimeout and rfidReadTimeout values must be between 10 and 60 seconds, otherwise an InvalidParameters error will occur.
+<p>Both mrzReadTimeout and rfidReadTimeout values (<code>scannerTimeout</code> and <code>rfidTimeout</code> on iOS) must be between 10 and 60 seconds, otherwise an InvalidParameters error (141 on iOS) will occur.
 It's no longer possible to disable either of this timeout.</p>
 <p>If both scans are enabled and the RFID scan fails for some reason, the MRZ scan data is always
 returned as the default set of data read from the travel document. The mrzReadTimeout is the timeout
@@ -3621,7 +3620,7 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h4 id="rridsection">RRIDSection<a class="headerlink" href="#rridsection" title="Permanent link">&para;</a></h4>
+<h4 id="rfidsection">RFIDSection<a class="headerlink" href="#rfidsection" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kr">final</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">RFIDSection</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="p">,</span><span class="w"> </span><span class="n">Sendable</span><span class="p">,</span><span class="w"> </span><span class="nb">Equatable</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// MARK: - Nested Types</span>
 
@@ -3694,6 +3693,9 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">    </span><span class="c1">/// RFID validations</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">validations</span><span class="p">:</span><span class="w"> </span><span class="n">RFIDValidation</span><span class="p">?</span>
 
+<span class="w">    </span><span class="c1">/// Raw data groups (DG1-DG16, SOD, COM) read from the chip, with their read statuses</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">datagroups</span><span class="p">:</span><span class="w"> </span><span class="n">RFIDDataGroups</span><span class="p">?</span>
+
 <span class="w">    </span><span class="c1">// MARK: - Computed Properties</span>
 
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">holderImageUIImage</span><span class="p">:</span><span class="w"> </span><span class="bp">UIImage</span><span class="p">?</span><span class="w"> </span><span class="p">{</span>
@@ -3721,7 +3723,8 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">        </span><span class="n">mrzType</span><span class="p">:</span><span class="w"> </span><span class="n">ValidatiomMrzType</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">unknown</span><span class="p">,</span>
 <span class="w">        </span><span class="n">holderImage</span><span class="p">:</span><span class="w"> </span><span class="bp">UIImage</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
 <span class="w">        </span><span class="n">holderImageData</span><span class="p">:</span><span class="w"> </span><span class="n">Data</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
-<span class="w">        </span><span class="n">validations</span><span class="p">:</span><span class="w"> </span><span class="n">RFIDValidation</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">RFIDValidation</span><span class="p">()</span>
+<span class="w">        </span><span class="n">validations</span><span class="p">:</span><span class="w"> </span><span class="n">RFIDValidation</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">RFIDValidation</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">datagroups</span><span class="p">:</span><span class="w"> </span><span class="n">RFIDDataGroups</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span>
 <span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">mrzString</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mrzString</span>
 <span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">docType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">docType</span>
@@ -3740,6 +3743,7 @@ The DocumentReaderError has the following structure:</p>
 <span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">optionalDataDigit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">optionalDataDigit</span>
 <span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">mrzType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mrzType</span>
 <span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">validations</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">validations</span>
+<span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">datagroups</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">datagroups</span>
 <span class="w">        </span><span class="kc">self</span><span class="p">.</span><span class="n">holderImage</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">holderImageData</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="n">holderImage</span><span class="p">?.</span><span class="n">pngData</span><span class="p">()</span>
 <span class="w">    </span><span class="p">}</span>
 
@@ -3950,7 +3954,7 @@ The DocumentReaderError has the following structure:</p>
 <p>The SDK provides default UI solutions for the document reader feature flow, as
 shown in the following images:
 <img alt="Document Reader Flow" src="Assets/DR_Flow.png" style="display: block; margin: 0 auto" title="Document Reader Flow" /></p>
-<p>The use of the rfid related layouts depends on the <strong>rfidRead</strong> flag in the DocumentReaderParameters.</p>
+<p>The use of the rfid related layouts depends on the <strong>rfidRead</strong> flag in the DocumentReaderParameters (<code>readRFID</code> in <code>ReadDocumentParameters</code> on iOS).</p>
 <p>You can also apply your app’s colors and fonts to these layout solutions, to keep your brand’s image consistent.
 Check Customization tab to learn more about branding of each view.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Android</label><label for="__tabbed_8_2">iOS</label></div>

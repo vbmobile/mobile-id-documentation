@@ -2641,7 +2641,7 @@ and liveness checks without document matching—the <code>biometricFaceCapture</
 <span class="c1">///   - completionHandler: The completion handler to call when the face capture feature is finished.</span>
 <span class="c1">///     This completion handler takes the following parameter:</span>
 <span class="c1">///</span>
-<span class="c1">///     Result&lt;BiometricFaceCaptureReport, BiometricFaceCaptureError&gt;</span>
+<span class="c1">///     Result&lt;BiometricFaceCaptureReport, FaceCaptureReportError&gt;</span>
 <span class="c1">///     Where `BiometricFaceCaptureReport` contains  the results of the face capture</span>
 <span class="c1">///     operation and `FaceCaptureReportError` the possible errors that may occur during the process.</span>
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">biometricFaceCapture</span><span class="p">(</span><span class="n">parameters</span><span class="p">:</span><span class="w"> </span><span class="n">BiometricFaceCaptureParameters</span><span class="p">,</span><span class="w"> </span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">,</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">@</span><span class="n">escaping</span><span class="w"> </span><span class="p">(</span><span class="n">Result</span><span class="p">&lt;</span><span class="n">BiometricFaceCaptureReport</span><span class="p">,</span><span class="w"> </span><span class="n">FaceCaptureReportError</span><span class="p">&gt;)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Void</span><span class="p">)</span>
@@ -2697,6 +2697,7 @@ below. Below is an example of the BiometricFaceCaptureParameters:</p>
 </code></pre></div>
 <p>The <strong>fillAnimationDuration</strong> has a default value of 1 second and allows you to control the duration that the frame takes to fill after the liveness result or the total time in case the liveness is not active</p>
 <p>The <strong>resultAnimationDuration</strong> has a default value of 1 second and allows you to control the duration that the success or failure symbol takes to appear after the frame is filled</p>
+<p>The <strong>faceCaptureTimeout</strong> is optional. When set, it must be at least 30 seconds, otherwise the face capture fails with an invalid parameter error (440)</p>
 <p>The <strong>BiometricFaceCaptureFrameOptions</strong> is an enum that shapes the frame where the face must be centered to take the selfie. Currently it has two options:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">BiometricFaceCaptureFrameOptions</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">oval</span>
@@ -2704,7 +2705,7 @@ below. Below is an example of the BiometricFaceCaptureParameters:</p>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">square</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>The <strong>CameraConfig</strong> is an enum that struct the frame where the face must be centered to take the selfie. Currently it has two options:</p>
+<p>The <strong>CameraConfig</strong> is a struct that controls whether the camera toggle button is shown (<code>toggleCameraEnable</code>) and which camera starts (<code>defaultCamera</code>):</p>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">CameraConfig</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">toggleCameraEnable</span><span class="p">:</span><span class="w"> </span><span class="nb">Bool</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">defaultCamera</span><span class="p">:</span><span class="w"> </span><span class="bp">AVCaptureDevice</span><span class="p">.</span><span class="n">Position</span>
@@ -2755,7 +2756,7 @@ not too far away, or too close.</p>
 </div>
 </div>
 <h3 id="face-capture-report">Face Capture Report<a class="headerlink" href="#face-capture-report" title="Permanent link">&para;</a></h3>
-<p>You will receive a model of the type FaceCaptureReport that will contain the success data.</p>
+<p>You will receive a model of the type FaceCaptureReport (<code>BiometricFaceCaptureReport</code> on iOS) that will contain the success data.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Android</label><label for="__tabbed_4_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2814,7 +2815,7 @@ not too far away, or too close.</p>
 </div>
 </div>
 </div>
-<p>The <code>FaceCaptureReportSuccess</code> includes a <code>biometricHash</code> attribute that needs to be included in the <a href="../BiometricMatch/BiometricMatch_Index.html">Match</a> operation to verify data integrity. It also used when building a <a href="../SubjectManagement/SubjectManagement_Index.html">Subject</a>.</p>
+<p>The <code>FaceCaptureReportSuccess</code> (<code>BiometricFaceCaptureReport</code> on iOS) includes a <code>biometricHash</code> attribute that needs to be included in the <a href="../BiometricMatch/BiometricMatch_Index.html">Match</a> operation to verify data integrity. It also used when building a <a href="../SubjectManagement/SubjectManagement_Index.html">Subject</a>.</p>
 <p>The failed tests might include one or more of the following tests:</p>
 <table>
 <thead>
@@ -2884,10 +2885,22 @@ not too far away, or too close.</p>
 <td style="text-align: left;">LivenessCheckProbabilityTest</td>
 <td style="text-align: left;">Error indicating that the liveness probability test failed.</td>
 </tr>
+<tr>
+<td style="text-align: left;">DarkGlassesTest</td>
+<td style="text-align: left;">Reported by iOS. Error indicating that the user is wearing dark glasses.</td>
+</tr>
+<tr>
+<td style="text-align: left;">LowQualityTest</td>
+<td style="text-align: left;">Reported by iOS. Error indicating that the face quality is too low.</td>
+</tr>
+<tr>
+<td style="text-align: left;">BlurTest</td>
+<td style="text-align: left;">Reported by iOS. Error indicating that the image is blurred.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="biometricfacecapturecustomviews">BiometricFaceCaptureCustomViews<a class="headerlink" href="#biometricfacecapturecustomviews" title="Permanent link">&para;</a></h2>
-<p>The SDK provides default UI solutions for the document reader feature flow, as shown in the following images:</p>
+<p>The SDK provides default UI solutions for the biometric face capture feature flow, as shown in the following images:</p>
 <p><img alt="Biometric Face Capture Example" src="Assets/FC_Flow.png" style="height:600px;width:300px;display: block; margin: 0 auto" title="Biometric Face Capture Default Error Screen" /></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Android</label><label for="__tabbed_6_2">iOS</label></div>
 <div class="tabbed-content">
@@ -2911,7 +2924,7 @@ not too far away, or too close.</p>
 </div>
 <p>You can use your own custom views in the biometric face capture functionality. Your view must
 implement the SDK view interfaces. For example, if you want to add a custom loadingView, your view
-class must implement the ICustomBiometricFaceCapture.LoadingView interface.</p>
+class must implement the ICustomBiometricFaceCapture.LoadingView interface (Android) or conform to <code>FaceCaptureLoadingViewInterface</code> (iOS).</p>
 <p>In the customization tab you will also find examples to create your own custom views.</p>
 
 

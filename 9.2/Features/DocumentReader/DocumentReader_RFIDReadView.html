@@ -2738,6 +2738,10 @@ The image we are using is 208x208dp.</p>
 <span class="w">        </span><span class="c1">//add any UI customization you need</span>
 <span class="w">    </span><span class="p">}</span>
 
+<span class="w">    </span><span class="kr">required</span><span class="w"> </span><span class="kd">init</span><span class="p">?(</span><span class="n">coder</span><span class="p">:</span><span class="w"> </span><span class="bp">NSCoder</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kc">super</span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">coder</span><span class="p">:</span><span class="w"> </span><span class="n">coder</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
 <span class="c1">// MARK: - Actions</span>
 
 <span class="w">    </span><span class="kr">@objc</span><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">readChipButtonTapped</span><span class="p">(</span><span class="n">button</span><span class="p">:</span><span class="w"> </span><span class="bp">UIButton</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -2745,7 +2749,7 @@ The image we are using is 208x208dp.</p>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kr">@objc</span><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">skipButtonTapped</span><span class="p">(</span><span class="n">button</span><span class="p">:</span><span class="w"> </span><span class="bp">UIButton</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">delegate</span><span class="p">?.</span><span class="w"> </span><span class="n">didPressSkipButton</span><span class="p">()</span>
+<span class="w">        </span><span class="n">delegate</span><span class="p">?.</span><span class="n">didPressSkipButton</span><span class="p">()</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="c1">// MARK: - Functions</span>

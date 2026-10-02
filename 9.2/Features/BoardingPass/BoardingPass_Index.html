@@ -2639,7 +2639,7 @@ start the barcode scanner, you must call the following method:</p>
 </div>
 </div>
 </div>
-<p>The BoardingPassScanParameters has the following structure:</p>
+<p>The BoardingPassScanParameters (<code>ScanBoardingPassParameters</code> on iOS) has the following structure:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Android</label><label for="__tabbed_2_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2659,7 +2659,7 @@ start the barcode scanner, you must call the following method:</p>
 </div>
 </div>
 </div>
-<p>The <strong>validate</strong> flag controls validation of parsed Bar-Coded Boarding Pass (BCBP)
+<p>The <strong>validate</strong> flag (<code>validateBoardingPass</code> on iOS) controls validation of parsed Bar-Coded Boarding Pass (BCBP)
 data.</p>
 <p>When set to <code>true</code>, the SDK validates parsed 2D BCBP data against IATA BCBP field
 constraints. Validation runs after a successful barcode parse. If any validation check
@@ -2690,8 +2690,8 @@ otherwise usable boarding passes.</p>
 </div>
 <p>If you want to use your own boarding pass scanner, you can also provide the raw result of the scan and pass it to the facade’s parser method. It will return the
 BoardingPass object. The raw result must be passed to the BoardingPassData, which has to be included
-in the BoardingPassParserParameters.</p>
-<p>From version 7 onwards there is a new way to parse a boarding pass, by giving us an image URI and if the boarding pass is detected in it, it will be parsed and you will receive a BoardingPass object without requiring to provide us the format.</p>
+in the BoardingPassParserParameters (<code>ParseBoardingPassParameters</code> on iOS).</p>
+<p>From Mobile ID SDK 7 onwards there is a new way to parse a boarding pass, by giving us an image URI and if the boarding pass is detected in it, it will be parsed and you will receive a BoardingPass object without requiring to provide us the format.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Android</label><label for="__tabbed_3_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2723,12 +2723,12 @@ in the BoardingPassParserParameters.</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">parseBoardingPass</span><span class="p">(</span><span class="n">parameters</span><span class="p">:</span><span class="w"> </span><span class="n">ParseBoardingPassParameters</span><span class="p">,</span><span class="w"> </span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">,</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">@</span><span class="n">escaping</span><span class="w"> </span><span class="p">(</span><span class="n">Result</span><span class="p">&lt;</span><span class="n">BoardingPass</span><span class="p">,</span><span class="w"> </span><span class="n">BoardingPassParserError</span><span class="p">&gt;)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Void</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nf">parseBoardingPass</span><span class="p">(</span><span class="n">parameters</span><span class="p">:</span><span class="w"> </span><span class="n">ParseBoardingPassParameters</span><span class="p">,</span><span class="w"> </span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">,</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">@</span><span class="n">escaping</span><span class="w"> </span><span class="p">(</span><span class="n">Result</span><span class="p">&lt;</span><span class="n">BoardingPassFull</span><span class="p">,</span><span class="w"> </span><span class="n">BoardingPassError</span><span class="p">&gt;)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Void</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </div>
 </div>
-<p>The BoardingPassParserParameters object has the following structure:</p>
+<p>The BoardingPassParserParameters (<code>ParseBoardingPassParameters</code> on iOS) object has the following structure:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Android</label><label for="__tabbed_4_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2772,11 +2772,11 @@ in the BoardingPassParserParameters.</p>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">ParseBoardingPassParameters</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">validateBoardingPass</span><span class="p">:</span><span class="w"> </span><span class="nb">Bool</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">boardingPassData</span><span class="p">:</span><span class="w"> </span><span class="n">BoardingPassData</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">boardingPassData</span><span class="p">:</span><span class="w"> </span><span class="n">BoardingPassData</span><span class="p">?</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">boardingPassImage</span><span class="p">:</span><span class="w"> </span><span class="bp">UIImage</span><span class="p">?</span>
 
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">init</span><span class="p">(</span><span class="n">validateBoardingPass</span><span class="p">:</span><span class="w"> </span><span class="nb">Bool</span><span class="p">,</span>
-<span class="w">                </span><span class="n">boardingPassData</span><span class="p">:</span><span class="w"> </span><span class="n">BoardingPassData</span><span class="p">,</span>
+<span class="w">                </span><span class="n">boardingPassData</span><span class="p">:</span><span class="w"> </span><span class="n">BoardingPassData</span><span class="p">?,</span>
 <span class="w">                </span><span class="n">boardingPassImage</span><span class="p">:</span><span class="w"> </span><span class="bp">UIImage</span><span class="p">?)</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -2848,7 +2848,7 @@ barcode format. Below is the model structure:</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>These method’s completion handler passes a result <BoardingPass, BoardingPassScanError>, where the BoardingPass contains the boarding pass data and BoardingPassScanError contains the possible errors that may occur during the process.
+<p>These method’s completion handler passes a result <BoardingPassFull, BoardingPassError>, where the BoardingPassFull contains the boarding pass data and BoardingPassError contains the possible errors that may occur during the process.
 Below is an example of usage:</p>
 <p><div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nv">parameters</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">ScanBoardingPassParameters</span><span class="p">(</span><span class="w"> </span><span class="n">validateBoardingPass</span><span class="p">:</span><span class="w"> </span><span class="n">preferences</span><span class="p">.</span><span class="n">useIataStandards</span><span class="p">())</span>
 
@@ -2865,7 +2865,7 @@ Below is an example of usage:</p>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 </code></pre></div>
-The BoardingPassScanError and BoardingPassError has the following structure:</p>
+The BoardingPassError has the following structure:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">BoardingPassError</span><span class="p">:</span><span class="w"> </span><span class="n">Error</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">userCanceled</span><span class="p">:</span><span class="w"> </span><span class="nb">Bool</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">termsAndConditionsAccepted</span><span class="p">:</span><span class="w"> </span><span class="nb">Bool</span>
@@ -3025,7 +3025,7 @@ implement the ICustomBoardingPass.LoadingView interface.</p>
 </code></pre></div>
 <p>Our SDK also allows you to pass your own custom views. The only requirement is that your view must implement the
 SDK view protocols. For example, if you want to add a custom loading view, your view class must
-implement the BoardingPassLoadingViewType.</p>
+conform to the BoardingPassLoadingViewInterface protocol.</p>
 </div>
 </div>
 </div>

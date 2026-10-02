@@ -2986,7 +2986,7 @@ Apple silicon Mac for simulator builds.</p>
 <div class="highlight"><pre><span></span><code><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">.</span><span class="n">package</span><span class="p">(</span>
 <span class="w">        </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">"https://github.com/vbmobile/MobileIdSDKiOS"</span><span class="p">,</span>
-<span class="w">        </span><span class="p">.</span><span class="n">exact</span><span class="p">(</span><span class="s">"9.2.6"</span><span class="p">)</span>
+<span class="w">        </span><span class="n">exact</span><span class="p">:</span><span class="w"> </span><span class="s">"9.2.6"</span>
 <span class="w">    </span><span class="p">)</span>
 <span class="p">]</span>
 </code></pre></div>
@@ -3007,7 +3007,9 @@ Apple silicon Mac for simulator builds.</p>
 </blockquote>
 <hr />
 <blockquote>
-<p>Repeat the process for <code>AMAShareUltralight</code>, <code>AMADocScanMrziOS</code> and <code>AMADocRfid</code></p>
+<p>Repeat the process for <code>AMAShareUltralight</code>, <code>AMADocScanMrziOS</code> and <code>AMADocRfid</code>.
+The <code>AMADocRfid</code> package's product and module are named <code>AMADocRFIDReadiOS</code>:
+<code>.product(name: "AMADocRFIDReadiOS", package: "AMADocRfid")</code>.</p>
 </blockquote>
 <p>Once added, the Enrolment SDK APIs (and any integrated optional modules such as Ultralight or Document Scanning providers) become available to your application through the standard Enrolment SDK integration flow.</p>
 </div>
@@ -3085,9 +3087,13 @@ The following parameters must always be provided:</p>
 <ul>
 <li>Document and RFID reader provider - The preferred provider for document and rfid read operations. More info in <a href="#custom-providers">custom providers</a></li>
 </ul>
+<p>The following parameter must be provided if you want to use the Ultralight share feature:</p>
+<ul>
+<li>ultralightProvider - Any provider conforming to <code>UltralightProtocol</code>, such as <code>Ultralight</code> from <code>AMAShareUltralight</code>.</li>
+</ul>
 <p>The following parameters must be provided if you want customize the screens:</p>
 <ul>
-<li>EnrolmentCustomViews - Will overwrite any default view from the Enrolment SDK</li>
+<li>viewRegister - An <code>EnrolmentViewRegister</code> with your custom views. Any view you do not register keeps the SDK's default UI.</li>
 </ul>
 <p>As for the provider for document read operations, the user can choose any, as long as it complies with <code>DocumentReaderScanProtocol</code>. See example bellow: </p>
 <div class="highlight"><pre><span></span><code><span class="kd">import</span><span class="w"> </span><span class="nc">UIKit</span>
@@ -3117,7 +3123,7 @@ The following parameters must always be provided:</p>
 </code></pre></div>
 <p>We are now ready to finish the implementation of the Enrolment initial setup </p>
 <div class="highlight"><pre><span></span><code><span class="c1">/// Configuration used by all backend-related SDK modules</span>
-<span class="kd">let</span><span class="w"> </span><span class="nv">apiConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">APIConfig</span><span class="p">(</span>
+<span class="kd">let</span><span class="w"> </span><span class="nv">apiConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">MobileIdSDKiOS</span><span class="p">.</span><span class="n">APIConfig</span><span class="p">(</span>
 <span class="w">    </span><span class="n">baseURL</span><span class="p">:</span><span class="w"> </span><span class="s">"YOUR BASE URL"</span><span class="p">,</span><span class="w"> </span><span class="c1">// Server base URL.</span>
 <span class="w">    </span><span class="n">timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="c1">// Network timeout (seconds)</span>
 <span class="w">    </span><span class="n">logLevel</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">basic</span><span class="p">,</span><span class="w"> </span><span class="c1">// SDK logging verbosity</span>
@@ -3136,9 +3142,15 @@ The following parameters must always be provided:</p>
 <span class="kd">let</span><span class="w"> </span><span class="nv">documentScanProvider</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderScanProtocol</span><span class="w"> </span><span class="p">=</span>
 <span class="w">    </span><span class="n">DocumentScanProviderSampleBuilder</span><span class="p">.</span><span class="n">amaDocScanMrziOS</span><span class="p">()</span>
 
-<span class="c1">/// RFID reader based on the Amadeus Doc RFID Read provider</span>
+<span class="c1">/// RFID reader based on the Amadeus Doc RFID Read provider.</span>
+<span class="c1">/// It takes its own AMADocRFIDReadiOS.APIConfig, not the SDK's APIConfig.</span>
+<span class="kd">let</span><span class="w"> </span><span class="nv">rfidAPIConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">AMADocRFIDReadiOS</span><span class="p">.</span><span class="n">APIConfig</span><span class="p">(</span>
+<span class="w">    </span><span class="n">baseURL</span><span class="p">:</span><span class="w"> </span><span class="s">"YOUR BASE URL"</span><span class="p">,</span>
+<span class="w">    </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">"YOUR KEY"</span><span class="p">,</span>
+<span class="w">    </span><span class="n">publicKey</span><span class="p">:</span><span class="w"> </span><span class="s">"YOUR PUBLIC KEY"</span>
+<span class="p">)</span>
 <span class="kd">let</span><span class="w"> </span><span class="nv">documentRFIDProvider</span><span class="p">:</span><span class="w"> </span><span class="n">DocumentReaderRFIDProtocol</span><span class="w"> </span><span class="p">=</span>
-<span class="w">    </span><span class="n">AMADocRFIDRead</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">DocRfidReadConfig</span><span class="p">(</span><span class="n">apiConfig</span><span class="p">:</span><span class="w"> </span><span class="n">apiConfig</span><span class="p">,</span><span class="w"> </span><span class="n">enableLogs</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">))</span>
+<span class="w">    </span><span class="n">AMADocRFIDRead</span><span class="p">(</span><span class="n">config</span><span class="p">:</span><span class="w"> </span><span class="n">DocRfidReadConfig</span><span class="p">(</span><span class="n">apiConfig</span><span class="p">:</span><span class="w"> </span><span class="n">rfidAPIConfig</span><span class="p">,</span><span class="w"> </span><span class="n">enableLogs</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">))</span>
 
 <span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">initWith</span><span class="p">(</span>
 <span class="w">    </span><span class="n">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentConfig</span><span class="p">,</span>
@@ -3149,6 +3161,11 @@ The following parameters must always be provided:</p>
 <span class="w">    </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
 <span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
+<span class="w">            </span><span class="c1">/// The AMADocRFIDReadiOS provider only reads chips after it receives</span>
+<span class="w">            </span><span class="c1">/// the licence token returned by the SDK initialisation.</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">token</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">currentJwtToken</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">AMADocReadManager</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">checkJwt</span><span class="p">(</span><span class="n">jwtToken</span><span class="p">:</span><span class="w"> </span><span class="n">token</span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
 <span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">"SDK is ready to use"</span><span class="p">)</span>
 <span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
 <span class="w">            </span><span class="bp">print</span><span class="p">(</span><span class="s">"Failure: </span><span class="si">\(</span><span class="n">error</span><span class="si">)</span><span class="s">"</span><span class="p">)</span>
@@ -3168,7 +3185,7 @@ The following parameters must always be provided:</p>
 <p>If an error occurs during the initialize method, for example internet connection during the fetch configurations, you will receive via callback an InitFailed error(012 - Error while fetching configurations. Please check your internet connection and API URL/API Key.)</p>
 </li>
 </ul>
-<p>If you try to call a feature while the Enrolment is not ready you will receive a NotReady error (013 - Enrolment is not ready yet. Wait for the callback.)</p>
+<p>If you try to call a feature while the Enrolment is not ready you will receive a NotReady error (013 - Enrolment is not ready yet. Call the initialize method and wait for the callback.)</p>
 </div>
 </div>
 </div>
@@ -3287,6 +3304,26 @@ key. You can also configure the timeout value for server responses and the log l
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">apiKey</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span>
 <span class="w">    </span><span class="c1">/// Public Key</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">publicKey</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span>
+<span class="w">    </span><span class="c1">/// API Gateway base URL used for authorisation token management. If nil, token management is skipped.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">gatewayURL</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span>
+<span class="w">    </span><span class="c1">/// Client identifier used to request gateway access tokens.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">clientId</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span>
+<span class="w">    </span><span class="c1">/// Client secret used to request gateway access tokens.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">clientSecret</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span>
+<span class="w">    </span><span class="c1">/// Gateway access token to start with. The SDK fetches a new one when this is missing or expired.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">authToken</span><span class="p">:</span><span class="w"> </span><span class="n">AuthToken</span><span class="p">?</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">init</span><span class="p">(</span>
+<span class="w">        </span><span class="n">baseURL</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span>
+<span class="w">        </span><span class="n">timeout</span><span class="p">:</span><span class="w"> </span><span class="n">TimeInterval</span><span class="p">,</span>
+<span class="w">        </span><span class="n">logLevel</span><span class="p">:</span><span class="w"> </span><span class="n">APILogLevel</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="kr">none</span><span class="p">,</span>
+<span class="w">        </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span>
+<span class="w">        </span><span class="n">publicKey</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">gatewayURL</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">clientId</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">clientSecret</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="n">authToken</span><span class="p">:</span><span class="w"> </span><span class="n">AuthToken</span><span class="p">?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span>
+<span class="w">    </span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -3298,6 +3335,7 @@ key. You can also configure the timeout value for server responses and the log l
 <li>logLevel: log level for requests; (Deprecated in favor of <a href="#log-configuration">Log Configuration</a>)</li>
 <li>apiKey: key to authorize communication with Mobile API;</li>
 <li>publicKey: key to use for ciphering/deciphering for secure communications. It needs to be encoded in Base64.</li>
+<li>gatewayURL, clientId, clientSecret, authToken (iOS only, optional): API Gateway token management. When <code>gatewayURL</code>, <code>clientId</code> and <code>clientSecret</code> are all set, the SDK requests and refreshes the gateway access token itself; <code>authToken</code> lets you start with a token you already have.</li>
 </ul>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Android</label><label for="__tabbed_5_2">iOS</label></div>
 <div class="tabbed-content">
@@ -3374,7 +3412,8 @@ pinning for every network request made by the SDK.</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>A log strategy  can be passed to the <code>Enrolment.initWith</code> to get additional info on some of the operations of the SDK. Console and File strategies are available, this can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.</p>
+<p>Log strategies can be passed to the <code>EnrolmentConfig</code> (<code>logStrategies</code>, default <code>[.console(level: .info)]</code>) to get additional info on some of the operations of the SDK. Console and File strategies are available, this can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.
+<code>LogStrategy</code> and <code>LogLevel</code> are declared in <code>VBUtils</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">LogStrategy</span><span class="w"> </span><span class="p">{</span>
 <span class="c1">/// Outputs logs to the console/standard output</span>
 <span class="c1">///</span>
@@ -3382,6 +3421,8 @@ pinning for every network request made by the SDK.</p>
 <span class="c1">///   this level will be filtered out. For example, if set to `.warn`,</span>
 <span class="c1">///   only warning and error messages will be logged.</span>
 <span class="k">case</span><span class="w"> </span><span class="n">console</span><span class="p">(</span><span class="n">level</span><span class="p">:</span><span class="w"> </span><span class="n">LogLevel</span><span class="p">)</span>
+<span class="c1">/// Writes logs to a file, with the same level filtering</span>
+<span class="k">case</span><span class="w"> </span><span class="n">file</span><span class="p">(</span><span class="n">level</span><span class="p">:</span><span class="w"> </span><span class="n">LogLevel</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">LogLevel</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="w"> </span><span class="p">{</span>
@@ -3691,7 +3732,7 @@ We do not advise to override strings. Our strings’ names in strings.xml end in
 It brings control and allows the maintenance of consistency in terms of brand communication when using the SDK  custom views for data presentation.</p>
 <p>The following image shows an example of how you could override SDK  values for fonts, colors and strings:
 <div class="highlight"><pre><span></span><code><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">theme</span><span class="p">.</span><span class="n">fonts</span><span class="p">.</span><span class="n">medium</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">FontDescription</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"FontName-Medium"</span><span class="p">)</span>
-<span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">theme</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">stateError</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="bp">UIColor</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">colorPrimary</span><span class="p">)</span>
+<span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">theme</span><span class="p">.</span><span class="n">colors</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">stateError</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="bp">UIColor</span><span class="p">(</span><span class="n">named</span><span class="p">:</span><span class="w"> </span><span class="s">"ColorPrimary"</span><span class="p">)</span>
 <span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">theme</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"Face Capture Title"</span>
 </code></pre></div></p>
 <p>Please check the complete list of colors for your reference:</p>
@@ -3712,6 +3753,16 @@ It brings control and allows the maintenance of consistency in terms of brand co
 <tr>
 <td>common.black</td>
 <td>Black_SdkEnrolment</td>
+<td>Base</td>
+</tr>
+<tr>
+<td>common.primary</td>
+<td>Primary_SdkEnrolment</td>
+<td>Base</td>
+</tr>
+<tr>
+<td>common.backgroundCards</td>
+<td>Background_Cards_SdkEnrolment</td>
 <td>Base</td>
 </tr>
 <tr>
@@ -3750,6 +3801,11 @@ It brings control and allows the maintenance of consistency in terms of brand co
 <td>Base</td>
 </tr>
 <tr>
+<td>datafield.line</td>
+<td>DataFieldLine_SdkEnrolment</td>
+<td>Base</td>
+</tr>
+<tr>
 <td>button.primaryTitle</td>
 <td>ButtonPrimaryTitle_SdkEnrolment</td>
 <td>Button</td>
@@ -3781,7 +3837,7 @@ It brings control and allows the maintenance of consistency in terms of brand co
 </tr>
 <tr>
 <td>documentData.title</td>
-<td>DocumentDataTitleSdkEnrolment</td>
+<td>DocumentDataTitle_SdkEnrolment</td>
 <td>Document read</td>
 </tr>
 <tr>
@@ -3815,8 +3871,23 @@ It brings control and allows the maintenance of consistency in terms of brand co
 <td>Face capture</td>
 </tr>
 <tr>
+<td>faceCapture.backgroundOverlay</td>
+<td>FaceCaptureBackgroundOverlay_SdkEnrolment</td>
+<td>Face capture</td>
+</tr>
+<tr>
 <td>faceCapture.title</td>
 <td>FaceCaptureTitle_SdkEnrolment</td>
+<td>Face capture</td>
+</tr>
+<tr>
+<td>faceCapture.titleDark</td>
+<td>FaceCaptureTitleDark_SdkEnrolment</td>
+<td>Face capture</td>
+</tr>
+<tr>
+<td>faceCapture.takePhotoButton</td>
+<td>FaceCaptureTakePhotoButton_SdkEnrolment</td>
 <td>Face capture</td>
 </tr>
 <tr>
@@ -3845,19 +3916,99 @@ It brings control and allows the maintenance of consistency in terms of brand co
 <td>Face capture</td>
 </tr>
 <tr>
+<td>faceCapture.maskColor</td>
+<td>FaceCaptureOval_SdkEnrolment</td>
+<td>Face capture</td>
+</tr>
+<tr>
+<td>faceCapture.stateLoading</td>
+<td>FaceCaptureOvalLoading_SdkEnrolment</td>
+<td>Face capture</td>
+</tr>
+<tr>
+<td>faceCapture.cameraSwitchButtonImageTint</td>
+<td>FaceCaptureCameraSwitchButtonImageTint_SdkEnrolment</td>
+<td>Face capture</td>
+</tr>
+<tr>
+<td>faceCapture.cameraSwitchButtonBackground</td>
+<td>FaceCaptureCameraSwitchButtonBackground_SdkEnrolment</td>
+<td>Face capture</td>
+</tr>
+<tr>
+<td>faceMatch.background</td>
+<td>FaceMatchBackground_SdkEnrolment</td>
+<td>Face match</td>
+</tr>
+<tr>
+<td>faceMatch.loadingTitle</td>
+<td>FaceMatchLoadingTitle_SdkEnrolment</td>
+<td>Face match</td>
+</tr>
+<tr>
+<td>faceMatch.loadingMessage</td>
+<td>FaceMatchLoadingMessage_SdkEnrolment</td>
+<td>Face match</td>
+</tr>
+<tr>
+<td>faceMatch.errorTitle</td>
+<td>FaceMatchErrorTitle_SdkEnrolment</td>
+<td>Face match</td>
+</tr>
+<tr>
+<td>subject.background</td>
+<td>SubjectBackground_SdkEnrolment</td>
+<td>Subject</td>
+</tr>
+<tr>
+<td>subject.loadingTitle</td>
+<td>SubjectLoadingTitle_SdkEnrolment</td>
+<td>Subject</td>
+</tr>
+<tr>
+<td>subject.loadingMessage</td>
+<td>SubjectLoadingMessage_SdkEnrolment</td>
+<td>Subject</td>
+</tr>
+<tr>
+<td>subject.errorTitle</td>
+<td>SubjectErrorTitle_SdkEnrolment</td>
+<td>Subject</td>
+</tr>
+<tr>
 <td>boardingPassScan.background</td>
 <td>BoardingPassScanBackground_SdkEnrolment</td>
 <td>Boarding pass scan</td>
 </tr>
 <tr>
-<td>boardingPassPreview.background</td>
-<td>BoardingPassPreviewBackground_SdkEnrolment</td>
+<td>boardingPassScan.title</td>
+<td>FaceCaptureTitle_SdkEnrolment</td>
 <td>Boarding pass scan</td>
 </tr>
 <tr>
-<td>boardingPassPreview.legHeader</td>
-<td>BoardingPassPreviewLegHeader_SdkEnrolment</td>
-<td>Boarding pass scan</td>
+<td>boardingPassParser.background</td>
+<td>BoardingPassParserBackground_SdkEnrolment</td>
+<td>Boarding pass parser</td>
+</tr>
+<tr>
+<td>checkPermission.title</td>
+<td>CheckPermissionTitle_SdkEnrolment</td>
+<td>Permissions</td>
+</tr>
+<tr>
+<td>checkPermission.subtitle</td>
+<td>CheckPermissionSubtitle_SdkEnrolment</td>
+<td>Permissions</td>
+</tr>
+<tr>
+<td>checkPermission.background</td>
+<td>CheckPermissionBackground_SdkEnrolment</td>
+<td>Permissions</td>
+</tr>
+<tr>
+<td>checkPermission.alfabBackground</td>
+<td>CheckPermissionAlfaBackground_SdkEnrolment</td>
+<td>Permissions</td>
 </tr>
 </tbody>
 </table>
@@ -3888,6 +4039,7 @@ It brings control and allows the maintenance of consistency in terms of brand co
 </ul>
 </div>
 <div class="tabbed-block">
+<p>These are the packages a client app resolves for <code>MobileIdSDKiOS</code> 9.2.6:</p>
 <table>
 <thead>
 <tr>
@@ -3899,53 +4051,13 @@ It brings control and allows the maintenance of consistency in terms of brand co
 <tbody>
 <tr>
 <td>AMADocModeliOS</td>
-<td>2.0.3</td>
+<td>2.0.x, 2.0.3 or later</td>
 <td><a href="https://github.com/vbmobile/AMADocModeliOS">https://github.com/vbmobile/AMADocModeliOS</a></td>
-</tr>
-<tr>
-<td>CwlCatchException</td>
-<td>2.2.1</td>
-<td><a href="https://github.com/mattgallagher/CwlCatchException">https://github.com/mattgallagher/CwlCatchException</a></td>
-</tr>
-<tr>
-<td>CwlPreconditionTesting</td>
-<td>2.2.2</td>
-<td><a href="https://github.com/mattgallagher/CwlPreconditionTesting">https://github.com/mattgallagher/CwlPreconditionTesting</a></td>
 </tr>
 <tr>
 <td>Lottie (SPM)</td>
 <td>4.4.1</td>
 <td><a href="https://github.com/airbnb/lottie-spm">https://github.com/airbnb/lottie-spm</a></td>
-</tr>
-<tr>
-<td>Nimble</td>
-<td>12.3.0</td>
-<td><a href="https://github.com/Quick/Nimble">https://github.com/Quick/Nimble</a></td>
-</tr>
-<tr>
-<td>OHHTTPStubs</td>
-<td>9.1.0</td>
-<td><a href="https://github.com/AliSoftware/OHHTTPStubs">https://github.com/AliSoftware/OHHTTPStubs</a></td>
-</tr>
-<tr>
-<td>Quick</td>
-<td>7.6.2</td>
-<td><a href="https://github.com/Quick/Quick">https://github.com/Quick/Quick</a></td>
-</tr>
-<tr>
-<td>Swift Algorithms</td>
-<td>1.2.1</td>
-<td><a href="https://github.com/apple/swift-algorithms">https://github.com/apple/swift-algorithms</a></td>
-</tr>
-<tr>
-<td>Swift Argument Parser</td>
-<td>1.7.1</td>
-<td><a href="https://github.com/apple/swift-argument-parser">https://github.com/apple/swift-argument-parser</a></td>
-</tr>
-<tr>
-<td>Swift Numerics</td>
-<td>1.1.1</td>
-<td><a href="https://github.com/apple/swift-numerics">https://github.com/apple/swift-numerics</a></td>
 </tr>
 <tr>
 <td>VBDependencyInjector</td>
@@ -3969,6 +4081,8 @@ It brings control and allows the maintenance of consistency in terms of brand co
 </tr>
 </tbody>
 </table>
+<p>Adding <code>AMADocRfid</code> 2.0.8 pins AMADocModeliOS to exactly 2.0.3.
+The optional providers bring their own dependencies, which Swift Package Manager resolves with them.</p>
 </div>
 </div>
 </div>

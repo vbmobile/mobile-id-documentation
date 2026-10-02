@@ -2662,7 +2662,7 @@ is the BiometricMatchParameters structure:</p>
 </div>
 </div>
 <p>The <code>candidateHash</code> and <code>referenceHash</code> are the hashes provided by either the <a href="../FaceCapture/FaceCapture_Index.html#face-capture-report">FaceCaptureReport</a> and/or the <a href="../DocumentReader/DocumentReader_Index.html#document-reader-report">DocumentReaderReport</a> needed to verify data integrity.</p>
-<p>You can expect either a MatchError response or a MatchReport response. </p>
+<p>You can expect either a MatchError (<code>MatchReportError</code> on iOS) response or a MatchReport response. </p>
 <p>To start the biometric matching, you must call the following method:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Android</label><label for="__tabbed_3_2">iOS</label></div>
 <div class="tabbed-content">
@@ -2769,7 +2769,7 @@ information on the request’s duration and also the templates, if they were req
 </div>
 </div>
 <h2 id="custom-views">Custom Views<a class="headerlink" href="#custom-views" title="Permanent link">&para;</a></h2>
-<p>The SDK provides default UI solutions for the boarding pass feature flow, as 
+<p>The SDK provides default UI solutions for the biometric match feature flow, as 
 shown in the following images:</p>
 <p><img alt="Biometric Match Example" src="Assets/BM_Flow.png" style="height:600px;width:300px;display: block; margin: 0 auto" title="Biometric Match Flow" /></p>
 <p>You can also apply your app’s colors and fonts to these layout solutions, to keep your brand’s image consistent.
@@ -2797,7 +2797,7 @@ implement the ICustomBiometricFaceMatch.LoadingView interface.</p>
 </code></pre></div>
 <p>You can use your own custom views in the face match functionality. Your view must implement the
 SDK view protocols. For example, if you want to add a custom loading view, your view class must
-implement the BiometricMatchLoadingViewType interface.</p>
+conform to the BiometricMatchLoadingViewInterface protocol.</p>
 </div>
 </div>
 </div>

@@ -2897,7 +2897,7 @@ You're not viewing the latest version.
 <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="n">target</span><span class="p">(</span>
 <span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"YourAppTarget"</span><span class="p">,</span>
 <span class="w">    </span><span class="n">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"AMADocRfid"</span><span class="p">,</span><span class="w"> </span><span class="n">package</span><span class="p">:</span><span class="w"> </span><span class="s">"AMADocRfid"</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"AMADocRFIDReadiOS"</span><span class="p">,</span><span class="w"> </span><span class="n">package</span><span class="p">:</span><span class="w"> </span><span class="s">"AMADocRfid"</span><span class="p">)</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">)</span>
 </code></pre></div>
@@ -2960,7 +2960,8 @@ You're not viewing the latest version.
 <span class="kd">func</span><span class="w"> </span><span class="nf">docScanRfidProviderSetup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">enrolmentConfig</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentConfig</span><span class="p">!</span><span class="w"> </span><span class="c1">// Not relevant for this example</span>
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">documentRFIDProvider</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="n">DocumentReaderRFIDProtocol</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">apiConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">APIConfig</span><span class="p">(</span>
+<span class="w">        </span><span class="c1">// AMADocRFIDReadiOS.APIConfig, not the SDK's APIConfig</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nv">apiConfig</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">AMADocRFIDReadiOS</span><span class="p">.</span><span class="n">APIConfig</span><span class="p">(</span>
 <span class="w">            </span><span class="n">baseURL</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;YOUR_BASE_URL&gt;"</span><span class="p">,</span>
 <span class="w">            </span><span class="n">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;YOUR_API_KEY&gt;"</span><span class="p">,</span>
 <span class="w">            </span><span class="n">publicKey</span><span class="p">:</span><span class="w"> </span><span class="s">""</span><span class="p">)</span>
@@ -2975,6 +2976,11 @@ You're not viewing the latest version.
 <span class="w">                              </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">in</span>
 <span class="w">                                  </span><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                                  </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
+<span class="w">                                      </span><span class="c1">// The provider only reads chips after it receives</span>
+<span class="w">                                      </span><span class="c1">// the licence token returned by the SDK initialisation.</span>
+<span class="w">                                      </span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">token</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Enrolment</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">currentJwtToken</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                                          </span><span class="n">AMADocReadManager</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">checkJwt</span><span class="p">(</span><span class="n">jwtToken</span><span class="p">:</span><span class="w"> </span><span class="n">token</span><span class="p">)</span>
+<span class="w">                                      </span><span class="p">}</span>
 <span class="w">                                      </span><span class="bp">print</span><span class="p">(</span><span class="s">"SDK is ready to use"</span><span class="p">)</span>
 
 <span class="w">                                  </span><span class="k">case</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">.</span><span class="n">failure</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
@@ -3016,7 +3022,7 @@ You're not viewing the latest version.
 
 <span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">formatter</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">DateFormatter</span><span class="p">()</span>
 <span class="w">    </span><span class="n">formatter</span><span class="p">.</span><span class="n">timeZone</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">TimeZone</span><span class="p">(</span><span class="n">identifier</span><span class="p">:</span><span class="w"> </span><span class="s">"UTC"</span><span class="p">)</span>
-<span class="w">    </span><span class="n">formatter</span><span class="p">.</span><span class="n">dateFormat</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"YY-MM-dd"</span>
+<span class="w">    </span><span class="n">formatter</span><span class="p">.</span><span class="n">dateFormat</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"yy-MM-dd"</span>
 <span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">parameters</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">ReadRFIDDocumentParameters</span><span class="p">(</span>
 <span class="w">        </span><span class="n">documentNumber</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;DOCUMENT_NUMBER&gt;"</span><span class="p">,</span>
 <span class="w">        </span><span class="n">documentMRZ</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;DOCUMENT_MRZ&gt;"</span><span class="p">,</span><span class="w"> </span><span class="c1">//</span>

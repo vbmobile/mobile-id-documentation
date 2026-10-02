@@ -2598,7 +2598,7 @@ You're not viewing the latest version.
 <p>The best way to override strings is by adding your key through the Theme class</p>
 <div class="highlight"><pre><span></span><code><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">documentReader</span><span class="p">.</span><span class="n">initialization</span>
 <span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">documentReader</span><span class="p">.</span><span class="n">initializationSubtitle</span>
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">documentReaderdownloadProgress</span>
+<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">documentReader</span><span class="p">.</span><span class="n">downloadProgress</span>
 </code></pre></div>
 </div>
 </div>
@@ -2736,6 +2736,10 @@ hideLoading is called when the view is dismissed.</p>
 <span class="w">    </span><span class="kr">override</span><span class="w"> </span><span class="kd">init</span><span class="p">(</span><span class="n">frame</span><span class="p">:</span><span class="w"> </span><span class="n">CGRect</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kc">super</span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">frame</span><span class="p">:</span><span class="w"> </span><span class="n">frame</span><span class="p">)</span>
 <span class="w">        </span><span class="c1">//add any UI customization you need</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kr">required</span><span class="w"> </span><span class="kd">init</span><span class="p">?(</span><span class="n">coder</span><span class="p">:</span><span class="w"> </span><span class="bp">NSCoder</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kc">super</span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">coder</span><span class="p">:</span><span class="w"> </span><span class="n">coder</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// MARK: - Functions</span>

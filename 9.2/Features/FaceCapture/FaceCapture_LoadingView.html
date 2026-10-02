@@ -2598,9 +2598,9 @@ You're not viewing the latest version.
 </div>
 <div class="tabbed-block">
 <p>The best way to override strings is by adding your key through the Theme class</p>
-<div class="highlight"><pre><span></span><code><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">initialization</span><span class="p">.</span><span class="n">localized</span><span class="p">()</span>
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">processingTitle</span><span class="p">.</span><span class="n">localized</span><span class="p">()</span>
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">checkPermission</span><span class="p">.</span><span class="n">loadingMessage</span><span class="p">.</span><span class="n">localized</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">initialization</span>
+<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">processingTitle</span>
+<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">checkPermission</span><span class="p">.</span><span class="n">loadingMessage</span>
 </code></pre></div>
 </div>
 </div>
@@ -2654,8 +2654,8 @@ Note: It will affect every component that uses the same style.</p>
 </code></pre></div></p>
 </div>
 <div class="tabbed-block">
-<p>You can change the loading image by overriding the following image name in Theme class
-<div class="highlight"><pre><span></span><code><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">images</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">faceCaptureLoading</span>
+<p>You can change the loading animation by overriding the following animation names in Theme class
+<div class="highlight"><pre><span></span><code><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">animations</span><span class="p">.</span><span class="n">faceCapture</span><span class="p">.</span><span class="n">loadingFaceCapture</span>
 <span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">animations</span><span class="p">.</span><span class="n">common</span><span class="p">.</span><span class="n">loading</span>
 </code></pre></div></p>
 </div>
@@ -2729,6 +2729,10 @@ You can these functions to change loading screen texts in runtime, or you can op
 <span class="w">    </span><span class="kr">override</span><span class="w"> </span><span class="kd">init</span><span class="p">(</span><span class="n">frame</span><span class="p">:</span><span class="w"> </span><span class="n">CGRect</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kc">super</span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">frame</span><span class="p">:</span><span class="w"> </span><span class="n">frame</span><span class="p">)</span>
 <span class="w">        </span><span class="c1">//add any UI customization you need</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kr">required</span><span class="w"> </span><span class="kd">init</span><span class="p">?(</span><span class="n">coder</span><span class="p">:</span><span class="w"> </span><span class="bp">NSCoder</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kc">super</span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">coder</span><span class="p">:</span><span class="w"> </span><span class="n">coder</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// MARK: - Functions</span>

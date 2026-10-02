@@ -2603,21 +2603,6 @@ You're not viewing the latest version.
 <p>The best way to override strings is by adding your key through the Theme class
 <div class="highlight"><pre><span></span><code><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">subject</span><span class="p">.</span><span class="n">addSubjectLoadingTitle</span>
 <span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">subject</span><span class="p">.</span><span class="n">addSubjectLoadingMessage</span>
-
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">subject</span><span class="p">.</span><span class="n">getSubjectLoadingTitle</span>
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">subject</span><span class="p">.</span><span class="n">getSubjectLoadingMessage</span>
-
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">subject</span><span class="p">.</span><span class="n">updateSubjectLoadingTitle</span>
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">subject</span><span class="p">.</span><span class="n">updateSubjectLoadingMessage</span>
-
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">subject</span><span class="p">.</span><span class="n">deleteSubjectLoadingTitle</span>
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">subject</span><span class="p">.</span><span class="n">deleteSubjectLoadingMessage</span>
-
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">subject</span><span class="p">.</span><span class="n">addSubjectBoardingPassLoadingTitle</span>
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">subject</span><span class="p">.</span><span class="n">addSubjectBoardingPassLoadingMessage</span>
-
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">subject</span><span class="p">.</span><span class="n">deleteSubjectBoardingPassLoadingTitle</span>
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">subject</span><span class="p">.</span><span class="n">deleteSubjectBoardingPassLoadingMessage</span>
 </code></pre></div></p>
 </div>
 </div>
@@ -2747,7 +2732,7 @@ You can use these functions to change loading screen texts, or you can opt to ig
 <p>You need to register a class of type <strong>SubjectLoadingViewType</strong> through the following function of <strong>EnrolmentViewRegister</strong>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">registerSubjectLoadingView</span><span class="p">(</span><span class="kc">_</span><span class="w"> </span><span class="n">viewType</span><span class="p">:</span><span class="w"> </span><span class="n">SubjectLoadingViewType</span><span class="p">)</span>
 </code></pre></div></p>
-<p>The <strong>SubjectLoadingOverlayViewType</strong> class needs to respect the following protocols:</p>
+<p>The <strong>SubjectLoadingViewType</strong> class needs to respect the following protocols:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">protocol</span><span class="w"> </span><span class="nc">FeatureLoadingViewInterface</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">onPreFeatureLoading</span><span class="p">()</span>
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">onPostFeatureLoading</span><span class="p">()</span>
@@ -2757,16 +2742,8 @@ You can use these functions to change loading screen texts, or you can opt to ig
 <span class="kd">public</span><span class="w"> </span><span class="kd">typealias</span><span class="w"> </span><span class="n">FeatureLoadingViewType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">FeatureLoadingView</span><span class="p">.</span><span class="kr">Type</span>
 <span class="kd">public</span><span class="w"> </span><span class="kd">typealias</span><span class="w"> </span><span class="n">FeatureLoadingView</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="bp">UIView</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">FeatureLoadingViewInterface</span>
 
-<span class="kd">public</span><span class="w"> </span><span class="kd">typealias</span><span class="w"> </span><span class="n">LoadingOverlayViewType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">LoadingOverlayView</span><span class="p">.</span><span class="kr">Type</span>
-<span class="kd">public</span><span class="w"> </span><span class="kd">typealias</span><span class="w"> </span><span class="n">LoadingOverlayView</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="bp">UIView</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">LoadingOverlayViewInterface</span>
-
 <span class="kd">public</span><span class="w"> </span><span class="kd">protocol</span><span class="w"> </span><span class="nc">SubjectLoadingViewInterface</span><span class="p">:</span><span class="w"> </span><span class="n">FeatureLoadingViewInterface</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">onAddingSubject</span><span class="p">()</span>
-<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">onGettingSubject</span><span class="p">()</span>
-<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">onUpdatingSubject</span><span class="p">()</span>
-<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">onDeletingSubjec</span><span class="p">()</span>
-<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">onAddingBoardingPass</span><span class="p">()</span>
-<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">onDeletingBoardingPass</span><span class="p">()</span>
 <span class="p">}</span>
 
 <span class="kd">public</span><span class="w"> </span><span class="kd">typealias</span><span class="w"> </span><span class="n">SubjectLoadingViewType</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">SubjectLoadingView</span><span class="p">.</span><span class="kr">Type</span>
@@ -2779,6 +2756,10 @@ You can use these functions to change loading screen texts, or you can opt to ig
 <span class="w">    </span><span class="kr">override</span><span class="w"> </span><span class="kd">init</span><span class="p">(</span><span class="n">frame</span><span class="p">:</span><span class="w"> </span><span class="n">CGRect</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kc">super</span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">frame</span><span class="p">:</span><span class="w"> </span><span class="n">frame</span><span class="p">)</span>
 <span class="w">        </span><span class="c1">//add any UI customization you need</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kr">required</span><span class="w"> </span><span class="kd">init</span><span class="p">?(</span><span class="n">coder</span><span class="p">:</span><span class="w"> </span><span class="bp">NSCoder</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kc">super</span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">coder</span><span class="p">:</span><span class="w"> </span><span class="n">coder</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="c1">// MARK: - Functions</span>
@@ -2796,26 +2777,6 @@ You can use these functions to change loading screen texts, or you can opt to ig
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">onAddingSubject</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">//add any UI customization you need</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">onGettingSubject</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">//add any UI customization you need</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">onUpdatingSubject</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">//add any UI customization you need</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">onDeletingSubjec</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">//add any UI customization you need</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">onAddingBoardingPass</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">//add any UI customization you need</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="nf">onDeletingBoardingPass</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="c1">//add any UI customization you need</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>

@@ -2691,10 +2691,10 @@ that the user must present on the physical gate for a full authentication.</p>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="nc">Subject</span><span class="p">:</span><span class="w"> </span><span class="n">Codable</span><span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">document</span><span class="p">:</span><span class="w"> </span><span class="n">Document</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">?</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">document</span><span class="p">:</span><span class="w"> </span><span class="n">IdDocument</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">biometrics</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">Biometric</span><span class="p">]?</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">boardingPass</span><span class="p">:</span><span class="w"> </span><span class="n">BoardingPass</span><span class="p">?</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">boardingPass</span><span class="p">:</span><span class="w"> </span><span class="n">BoardingPassSummary</span><span class="p">?</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">validationStatus</span><span class="p">:</span><span class="w"> </span><span class="n">ValidationStatus</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">subjectToken</span><span class="p">:</span><span class="w"> </span><span class="n">SubjectToken</span><span class="p">?</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">language</span><span class="p">:</span><span class="w"> </span><span class="n">Locale</span>
@@ -2777,9 +2777,9 @@ need to call the method getQRCodeImage().</p>
 <span class="c1">///   - completionHandler: The completion handler to call when the add subject operation is finished.</span>
 <span class="c1">///     This completion handler takes the following parameter:</span>
 <span class="c1">///</span>
-<span class="c1">///     Result&lt;Void, SubjectError&gt;</span>
-<span class="c1">///     Where `SubjectError` contains the possible errors that may occur during the process.</span>
-<span class="kd">func</span><span class="w"> </span><span class="nf">addSubject</span><span class="p">(</span><span class="n">parameters</span><span class="p">:</span><span class="w"> </span><span class="n">AddSubjectParameters</span><span class="p">,</span><span class="w"> </span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">,</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">@</span><span class="n">escaping</span><span class="w"> </span><span class="p">(</span><span class="n">Result</span><span class="p">&lt;</span><span class="nb">Void</span><span class="p">,</span><span class="w"> </span><span class="n">SubjectError</span><span class="p">&gt;)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Void</span><span class="p">)</span>
+<span class="c1">///     Result&lt;Subject, SubjectError&gt;</span>
+<span class="c1">///     Where `Subject` is the saved subject and `SubjectError` contains the possible errors that may occur during the process.</span>
+<span class="kd">func</span><span class="w"> </span><span class="nf">addSubject</span><span class="p">(</span><span class="n">parameters</span><span class="p">:</span><span class="w"> </span><span class="n">AddSubjectParameters</span><span class="p">,</span><span class="w"> </span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">,</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">@</span><span class="n">escaping</span><span class="w"> </span><span class="p">(</span><span class="n">Result</span><span class="p">&lt;</span><span class="n">Subject</span><span class="p">,</span><span class="w"> </span><span class="n">SubjectError</span><span class="p">&gt;)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Void</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </div>
@@ -2855,7 +2855,7 @@ data you can create the <code>BuildSubjectParameters</code> object. This object 
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nv">parameters</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">BuildSubjectParameters</span><span class="p">(</span>
-<span class="w">    </span><span class="n">documentData</span><span class="p">:</span><span class="w"> </span><span class="n">documentData</span><span class="p">,</span>
+<span class="w">    </span><span class="n">idDocument</span><span class="p">:</span><span class="w"> </span><span class="n">idDocument</span><span class="p">,</span>
 <span class="w">    </span><span class="n">documentImage</span><span class="p">:</span><span class="w"> </span><span class="n">documentImage</span><span class="p">,</span>
 <span class="w">    </span><span class="n">enrolmentImage</span><span class="p">:</span><span class="w"> </span><span class="n">enrolmentImage</span><span class="p">,</span>
 <span class="w">    </span><span class="n">boardingPass</span><span class="p">:</span><span class="w"> </span><span class="n">EnrolmentData</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">boardingPass</span><span class="p">,</span>
@@ -2922,7 +2922,7 @@ your own layouts and use the information that is relevant for your mobile soluti
 <span class="c1">///   - completionHandler: The completion handler to call when the build subject operation is finished.</span>
 <span class="c1">///     This completion handler takes the following parameter:</span>
 <span class="c1">///</span>
-<span class="c1">///     Result&lt;Subject, SubjectBuilderError&gt;</span>
+<span class="c1">///     Result&lt;Subject, SubjectError&gt;</span>
 <span class="c1">///     Where `Subject` contains  the subject information and `SubjectError`</span>
 <span class="c1">///     the possible errors that may occur during the process.</span>
 <span class="kd">func</span><span class="w"> </span><span class="nf">buildSubject</span><span class="p">(</span><span class="n">parameters</span><span class="p">:</span><span class="w"> </span><span class="n">BuildSubjectParameters</span><span class="p">,</span><span class="w"> </span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">,</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">@</span><span class="n">escaping</span><span class="w"> </span><span class="p">(</span><span class="n">Result</span><span class="p">&lt;</span><span class="n">Subject</span><span class="p">,</span><span class="w"> </span><span class="n">SubjectError</span><span class="p">&gt;)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Void</span><span class="p">)</span>
@@ -2934,9 +2934,9 @@ your own layouts and use the information that is relevant for your mobile soluti
 <span class="c1">///   - completionHandler: The completion handler to call when the add subject operation is finished.</span>
 <span class="c1">///     This completion handler takes the following parameter:</span>
 <span class="c1">///</span>
-<span class="c1">///     Result&lt;Void, SubjectError&gt;</span>
-<span class="c1">///     Where `SubjectError` contains the possible errors that may occur during the process.</span>
-<span class="kd">func</span><span class="w"> </span><span class="nf">addSubject</span><span class="p">(</span><span class="n">parameters</span><span class="p">:</span><span class="w"> </span><span class="n">AddSubjectParameters</span><span class="p">,</span><span class="w"> </span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">,</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">@</span><span class="n">escaping</span><span class="w"> </span><span class="p">(</span><span class="n">Result</span><span class="p">&lt;</span><span class="nb">Void</span><span class="p">,</span><span class="w"> </span><span class="n">SubjectError</span><span class="p">&gt;)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Void</span><span class="p">)</span>
+<span class="c1">///     Result&lt;Subject, SubjectError&gt;</span>
+<span class="c1">///     Where `Subject` is the saved subject and `SubjectError` contains the possible errors that may occur during the process.</span>
+<span class="kd">func</span><span class="w"> </span><span class="nf">addSubject</span><span class="p">(</span><span class="n">parameters</span><span class="p">:</span><span class="w"> </span><span class="n">AddSubjectParameters</span><span class="p">,</span><span class="w"> </span><span class="n">viewController</span><span class="p">:</span><span class="w"> </span><span class="bp">UIViewController</span><span class="p">,</span><span class="w"> </span><span class="n">completionHandler</span><span class="p">:</span><span class="w"> </span><span class="p">@</span><span class="n">escaping</span><span class="w"> </span><span class="p">(</span><span class="n">Result</span><span class="p">&lt;</span><span class="n">Subject</span><span class="p">,</span><span class="w"> </span><span class="n">SubjectError</span><span class="p">&gt;)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Void</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </div>
@@ -3157,7 +3157,7 @@ structure of the Biometric data:</p>
 </div>
 </div>
 </div>
-<p>The <code>SubjectStatus</code> is accessible through the <code>Enrolment</code> by calling one these methods below and registering the <code>OnSubjectStatusResult</code> callback.</p>
+<p>The <code>SubjectStatus</code> is accessible through the <code>Enrolment</code> by calling one these methods below and handling the result in the <code>OnSubjectStatusResult</code> callback (Android) or the completion handler (iOS).</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="17:2"><input checked="checked" id="__tabbed_17_1" name="__tabbed_17" type="radio" /><input id="__tabbed_17_2" name="__tabbed_17" type="radio" /><div class="tabbed-labels"><label for="__tabbed_17_1">Android</label><label for="__tabbed_17_2">iOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -3245,13 +3245,13 @@ implement the ICustomSubject.LoadingView interface.</p>
 <span class="w">    </span><span class="p">...</span>
 
 <span class="w">    </span><span class="c1">// MARK: - Subject Operations</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">registerSubjectLoadingOverlayView</span><span class="p">(</span><span class="kc">_</span><span class="w"> </span><span class="n">viewType</span><span class="p">:</span><span class="w"> </span><span class="n">SubjectLoadingOverlayViewType</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">func</span><span class="w"> </span><span class="nf">registerSubjectLoadingView</span><span class="p">(</span><span class="kc">_</span><span class="w"> </span><span class="n">viewType</span><span class="p">:</span><span class="w"> </span><span class="n">SubjectLoadingViewType</span><span class="p">)</span>
 <span class="w">    </span><span class="p">...</span>
 <span class="p">}</span>
 </code></pre></div>
 You can use your own custom views in the subject functionality. Your view must implement the
 SDK view protocols. For example, if you want to add a custom loading view, your view class must
-implement the ICustomSubject.LoadingView interface.</p>
+conform to <code>SubjectLoadingViewInterface</code> (<code>SubjectLoadingView = UIView &amp; SubjectLoadingViewInterface</code>).</p>
 </div>
 </div>
 </div>

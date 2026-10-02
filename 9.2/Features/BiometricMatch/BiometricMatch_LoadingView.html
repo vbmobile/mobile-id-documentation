@@ -2595,8 +2595,8 @@ In this step, a service is called so that the biometric match is done on the ser
 </div>
 <div class="tabbed-block">
 <p>The best way to override strings is by adding your key through the Theme class</p>
-<div class="highlight"><pre><span></span><code><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">faceMatch</span><span class="p">.</span><span class="n">loadingTitle</span><span class="p">.</span><span class="n">localized</span><span class="p">()</span>
-<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">faceMatch</span><span class="p">.</span><span class="n">loadingMessage</span><span class="p">.</span><span class="n">localized</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">faceMatch</span><span class="p">.</span><span class="n">loadingTitle</span>
+<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">faceMatch</span><span class="p">.</span><span class="n">loadingMessage</span>
 </code></pre></div>
 </div>
 </div>
@@ -2651,8 +2651,9 @@ Note: It will affect every component that uses the same style.</p>
 The image we are using is 240x240dp.</p>
 </div>
 <div class="tabbed-block">
-<p>You can change the loading image by overriding the following image name in Theme class
-<div class="highlight"><pre><span></span><code><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">images</span><span class="p">.</span><span class="n">faceMatch</span><span class="p">.</span><span class="n">matchLoading</span>
+<p>You can change the loading animation by overriding the following animation names in Theme class
+<div class="highlight"><pre><span></span><code><span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">animations</span><span class="p">.</span><span class="n">faceMatch</span><span class="p">.</span><span class="n">loadingFacematch</span>
+<span class="n">Theme</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">animations</span><span class="p">.</span><span class="n">common</span><span class="p">.</span><span class="n">loading</span>
 </code></pre></div></p>
 </div>
 </div>
@@ -2725,12 +2726,16 @@ You can use the functions above to change loading screen texts in runtime, or yo
 <span class="kd">public</span><span class="w"> </span><span class="kd">typealias</span><span class="w"> </span><span class="n">FeatureLoadingView</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="bp">UIView</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">FeatureLoadingViewInterface</span>
 </code></pre></div>
 <p>Example:
-<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">LoadingView</span><span class="p">:</span><span class="w"> </span><span class="n">LoadingOverlayView</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">LoadingView</span><span class="p">:</span><span class="w"> </span><span class="n">BiometricMatchLoadingView</span><span class="w"> </span><span class="p">{</span>
 <span class="c1">// MARK: - Initialization</span>
 
 <span class="w">    </span><span class="kr">override</span><span class="w"> </span><span class="kd">init</span><span class="p">(</span><span class="n">frame</span><span class="p">:</span><span class="w"> </span><span class="n">CGRect</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kc">super</span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">frame</span><span class="p">:</span><span class="w"> </span><span class="n">frame</span><span class="p">)</span>
 <span class="w">        </span><span class="c1">//add any UI customization you need</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kr">required</span><span class="w"> </span><span class="kd">init</span><span class="p">?(</span><span class="n">coder</span><span class="p">:</span><span class="w"> </span><span class="bp">NSCoder</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kc">super</span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">coder</span><span class="p">:</span><span class="w"> </span><span class="n">coder</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="c1">// MARK: - Functions</span>

@@ -2781,7 +2781,7 @@ You're not viewing the latest version.
 <h4 id="required-changes_1">Required Changes<a class="headerlink" href="#required-changes_1" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Replace old provider dependency with v9 provider dependency. Check the updated <a href="../Features/DocumentReader/DocumentReader_Providers.html">Document Reader Providers</a> page for more details on the new providers.</li>
-<li>Update provider initialization to the new model. The Document Reader is now provider-based: you pick a scan provider (<code>AMADocScanMrziOS</code>) and, optionally, an RFID provider (<code>AMADocRfid</code>).</li>
+<li>Update provider initialization to the new model. The Document Reader is now provider-based: you pick a scan provider (<code>AMADocScanMrziOS</code> or <code>AMADocScanRegulaiOS</code>) and, optionally, an RFID provider (module <code>AMADocRFIDReadiOS</code>, package <code>AMADocRfid</code>).</li>
 <li>Update the <code>Enrolment.shared.initWith(...)</code> call to the new parameter set, passing your chosen <code>documentScanProvider</code> and <code>documentRFIDProvider</code>. Check the updated <a href="../index.html">Getting Started</a> page for more details.</li>
 </ul>
 <h2 id="from-720-to-800">From 7.2.0 to 8.0.0<a class="headerlink" href="#from-720-to-800" title="Permanent link">&para;</a></h2>
@@ -2793,7 +2793,7 @@ You're not viewing the latest version.
 <h2 id="from-712-to-720">From 7.1.2 to 7.2.0<a class="headerlink" href="#from-712-to-720" title="Permanent link">&para;</a></h2>
 <h4 id="optional-changes">Optional Changes<a class="headerlink" href="#optional-changes" title="Permanent link">&para;</a></h4>
 <ul>
-<li>faceCaptureTimeout have been added to the <a href="../Features/FaceCapture/FaceCapture_Index.html#initiate-face-capture">BiometricFaceCaptureParameters</a>, to be able to start the RFID scan automatically</li>
+<li>faceCaptureTimeout has been added to the <a href="../Features/FaceCapture/FaceCapture_Index.html#initiating-face-capture">BiometricFaceCaptureParameters</a>, to set a time limit for the face capture</li>
 <li>If you mention the ScanTimeout Error type somewhere, you need to change it to Timeout due to the name change.</li>
 </ul>
 <h2 id="from-710-to-711">From 7.1.0 to 7.1.1<a class="headerlink" href="#from-710-to-711" title="Permanent link">&para;</a></h2>

@@ -1,5 +1,43 @@
 # MobileID SDK - Release Notes
 
+## 9.2.6
+
+### Improvements
+
+- Updated the recommended DocScanMrz provider version to `2.0.8`.
+- DocScanMrz `2.0.8` crops the image sent to the MRZ engine around the on-screen
+  frame, so passports are read on the smallest iPhones and at large text sizes.
+
+### Bug Fixes
+
+- A document read calls the completion handler exactly once, whichever of the scan
+  and chip timeouts fires first. A scan result that arrives after a timeout is
+  ignored and no longer opens the chip reading screen.
+- When the DocScanMrz provider's own scan timeout expires, the SDK now returns
+  `MrzTimeout` (`152`) instead of `Unknown` (`180`).
+- DocScanMrz `2.0.8` no longer reports a parsing failure before the MRZ has been
+  fully read.
+- DocScanMrz `2.0.8` keeps the scan running while the help sheet is shown.
+
+## 9.2.5
+
+### Improvements
+
+- Boarding pass validation accepts BCBP version numbers `1` to `9` (previously `6`
+  and `7`).
+- Updated the recommended DocScanMrz provider version to `2.0.7`.
+
+### Bug Fixes
+
+- Boarding passes that repeat the conditional data block, such as Jetstar boarding
+  passes, no longer fail with `BoardingPassItemParserError` (`251`).
+- A truncated boarding pass barcode no longer crashes the SDK.
+- Face capture follows a container or sheet that resizes after presentation; the
+  preview, the oval and the captured photo adapt to the new size.
+- Portrait-only screens return to portrait orientation on iOS 15.
+- The boarding pass scan viewfinder redraws when the screen is resized.
+- DocScanMrz `2.0.7` keeps the MRZ hint on one line at every text size.
+
 ## 9.2.4
 
 ### Improvements

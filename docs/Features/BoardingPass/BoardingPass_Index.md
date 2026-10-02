@@ -75,7 +75,7 @@ The validation checks the following values when they are present in the BCBP pay
 
 - Header values: format code (`M`), encoded number of legs (`1` to `4`), and electronic
   ticket indicator (`E` or `L`).
-- Version and passenger values: version prefix (`>`), version number (`6` or `7`),
+- Version and passenger values: version prefix (`>`), version number (`1` to `9` on iOS, `6` or `7` on Android),
   passenger description (`0` to `7`), check-in source, and boarding pass issuance source.
 - Issuer and security values: issue date as a Julian day (`001` to `366`), document type
   (`B` or `I`), airline designator length (`2` or `3` characters), numeric baggage-tag

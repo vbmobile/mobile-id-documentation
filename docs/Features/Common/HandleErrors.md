@@ -283,7 +283,7 @@ Here you can find a list of all the error codes the SDK sends to the client appl
     | BluetoothNotEnabled | 704 | Ultralight | Bluetooth is disabled. |
     | BluetoothNotSupported | 705 | Ultralight | Bluetooth is not supported on the device. |
     | BluetoothUnknowError | 706 | Ultralight | An unspecified Bluetooth error occurs. |
-    | Unknown | 780 | Ultralight | An Ultralight error cannot be mapped to a known code. |
+    | GenericError | 780 | Ultralight | An Ultralight error cannot be mapped to a known code. |
 
 
 You can use the result code to provide accurate feedback to the user or use the new property inside **FeatureError**, called **errorType** that classifies the type of error.

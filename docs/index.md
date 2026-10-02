@@ -133,7 +133,7 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	dependencies: [
 	    .package(
 	        url: "https://github.com/vbmobile/MobileIdSDKiOS",
-	        .exact("{{ versions.ios_enrolment_sdk }}")
+	        exact: "{{ versions.ios_enrolment_sdk }}"
 	    )
 	]
 	```
@@ -158,7 +158,9 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 
 	***
 	
-	> Repeat the process for `AMAShareUltralight`, `AMADocScanMrziOS` and `AMADocRfid`
+	> Repeat the process for `AMAShareUltralight`, `AMADocScanMrziOS` and `AMADocRfid`.
+	> The `AMADocRfid` package's product and module are named `AMADocRFIDReadiOS`:
+	> `.product(name: "AMADocRFIDReadiOS", package: "AMADocRfid")`.
 	
 	Once added, the Enrolment SDK APIs (and any integrated optional modules such as Ultralight or Document Scanning providers) become available to your application through the standard Enrolment SDK integration flow.
 
@@ -240,9 +242,13 @@ The SDK also allows client apps to use their own custom views for its functional
 	
 	- Document and RFID reader provider - The preferred provider for document and rfid read operations. More info in [custom providers](#custom-providers)
 	    
+	The following parameter must be provided if you want to use the Ultralight share feature:
+	
+	- ultralightProvider - Any provider conforming to `UltralightProtocol`, such as `Ultralight` from `AMAShareUltralight`.
+	    
 	The following parameters must be provided if you want customize the screens:
 	
-	- EnrolmentCustomViews - Will overwrite any default view from the Enrolment SDK
+	- viewRegister - An `EnrolmentViewRegister` with your custom views. Any view you do not register keeps the SDK's default UI.
 	    
 
 
@@ -279,7 +285,7 @@ The SDK also allows client apps to use their own custom views for its functional
 
 	```swift
     /// Configuration used by all backend-related SDK modules
-    let apiConfig = APIConfig(
+    let apiConfig = MobileIdSDKiOS.APIConfig(
         baseURL: "YOUR BASE URL", // Server base URL.
         timeout: 30, // Network timeout (seconds)
         logLevel: .basic, // SDK logging verbosity
@@ -298,9 +304,15 @@ The SDK also allows client apps to use their own custom views for its functional
     let documentScanProvider: DocumentReaderScanProtocol =
         DocumentScanProviderSampleBuilder.amaDocScanMrziOS()
 
-    /// RFID reader based on the Amadeus Doc RFID Read provider
+    /// RFID reader based on the Amadeus Doc RFID Read provider.
+    /// It takes its own AMADocRFIDReadiOS.APIConfig, not the SDK's APIConfig.
+    let rfidAPIConfig = AMADocRFIDReadiOS.APIConfig(
+        baseURL: "YOUR BASE URL",
+        apiKey: "YOUR KEY",
+        publicKey: "YOUR PUBLIC KEY"
+    )
     let documentRFIDProvider: DocumentReaderRFIDProtocol =
-        AMADocRFIDRead(config: DocRfidReadConfig(apiConfig: apiConfig, enableLogs: true))
+        AMADocRFIDRead(config: DocRfidReadConfig(apiConfig: rfidAPIConfig, enableLogs: true))
 
     Enrolment.shared.initWith(
         enrolmentConfig: enrolmentConfig,
@@ -311,6 +323,11 @@ The SDK also allows client apps to use their own custom views for its functional
         completionHandler: { result in
             switch result {
             case .success:
+                /// The AMADocRFIDReadiOS provider only reads chips after it receives
+                /// the licence token returned by the SDK initialisation.
+                if let token = Enrolment.shared.currentJwtToken {
+                    AMADocReadManager.shared.checkJwt(jwtToken: token)
+                }
                 print("SDK is ready to use")
             case let .failure(error):
                 print("Failure: \(error)")
@@ -327,7 +344,7 @@ The SDK also allows client apps to use their own custom views for its functional
 	
 	- If an error occurs during the initialize method, for example internet connection during the fetch configurations, you will receive via callback an InitFailed error(012 - Error while fetching configurations. Please check your internet connection and API URL/API Key.)
 	
-	If you try to call a feature while the Enrolment is not ready you will receive a NotReady error (013 - Enrolment is not ready yet. Wait for the callback.)
+	If you try to call a feature while the Enrolment is not ready you will receive a NotReady error (013 - Enrolment is not ready yet. Call the initialize method and wait for the callback.)
 
 <!--
 
@@ -462,6 +479,26 @@ key. You can also configure the timeout value for server responses and the log l
 	    public let apiKey: String
 	    /// Public Key
 	    public let publicKey: String?
+	    /// API Gateway base URL used for authorisation token management. If nil, token management is skipped.
+	    public let gatewayURL: String?
+	    /// Client identifier used to request gateway access tokens.
+	    public let clientId: String?
+	    /// Client secret used to request gateway access tokens.
+	    public let clientSecret: String?
+	    /// Gateway access token to start with. The SDK fetches a new one when this is missing or expired.
+	    public let authToken: AuthToken?
+
+	    public init(
+	        baseURL: String,
+	        timeout: TimeInterval,
+	        logLevel: APILogLevel = .none,
+	        apiKey: String,
+	        publicKey: String? = nil,
+	        gatewayURL: String? = nil,
+	        clientId: String? = nil,
+	        clientSecret: String? = nil,
+	        authToken: AuthToken? = nil
+	    )
 	}
     ```
 
@@ -470,6 +507,7 @@ key. You can also configure the timeout value for server responses and the log l
 - logLevel: log level for requests; (Deprecated in favor of [Log Configuration](#log-configuration))
 - apiKey: key to authorize communication with Mobile API;
 - publicKey: key to use for ciphering/deciphering for secure communications. It needs to be encoded in Base64.
+- gatewayURL, clientId, clientSecret, authToken (iOS only, optional): API Gateway token management. When `gatewayURL`, `clientId` and `clientSecret` are all set, the SDK requests and refreshes the gateway access token itself; `authToken` lets you start with a token you already have.
 
 === "Android"
 
@@ -551,7 +589,8 @@ pinning for every network request made by the SDK.
 
 === "iOS"
 
-    A log strategy  can be passed to the `Enrolment.initWith` to get additional info on some of the operations of the SDK. Console and File strategies are available, this can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.
+    Log strategies can be passed to the `EnrolmentConfig` (`logStrategies`, default `[.console(level: .info)]`) to get additional info on some of the operations of the SDK. Console and File strategies are available, this can be useful when integrating this solution and can sometimes provide more information about certain behaviours or errors.
+    `LogStrategy` and `LogLevel` are declared in `VBUtils`.
     
     ```swift
     public enum LogStrategy {
@@ -561,6 +600,8 @@ pinning for every network request made by the SDK.
     ///   this level will be filtered out. For example, if set to `.warn`,
     ///   only warning and error messages will be logged.
     case console(level: LogLevel)
+    /// Writes logs to a file, with the same level filtering
+    case file(level: LogLevel)
     }
 
     public enum LogLevel: Int {
@@ -906,45 +947,67 @@ In order for the SDK to use the camera, the user must grant permission to do so.
     The following image shows an example of how you could override SDK  values for fonts, colors and strings:
     ```swift
     Enrolment.shared.theme.fonts.medium = FontDescription(name: "FontName-Medium")
-    Enrolment.shared.theme.colors.faceCapture.stateError = UIColor(name: .colorPrimary)
+    Enrolment.shared.theme.colors.faceCapture.stateError = UIColor(named: "ColorPrimary")
     Enrolment.shared.theme.strings.faceCapture.title = "Face Capture Title"
     ```
 
     Please check the complete list of colors for your reference:
 
-    | Name                                   | Value                                      | Section            |
-    |----------------------------------------|--------------------------------------------|--------------------|
-    | common.clear                           | Clear_SdkEnrolment                         | Base               |
-    | common.black                           | Black_SdkEnrolment                         | Base               |
-    | component.dismissButton                | DismissButton_SdkEnrolment                 | Base               |
-    | component.transparentOverlay           | TransparentOverlay_SdkEnrolment            | Base               |
-    | component.animationIndicatorBackground | AnimationIndicationBackgroud_SdkEnrolment  | Base               |
-    | component.animationIndicatorMessage    | AnimationIndicatorMessage_SdkEnrolment     | Base               |
-    | datafield.title                        | DataFieldTitle_SdkEnrolment                | Base               |
-    | datafield.value                        | DataFieldValue_SdkEnrolment                | Base               |
-    | datafield.error                        | DataFieldError_SdkEnrolment                | Base               |
-    | button.primaryTitle                    | ButtonPrimaryTitle_SdkEnrolment            | Button             |
-    | button.primaryBackground               | ButtonPrimaryBackground_SdkEnrolment       | Button             |
-    | button.secondaryTitle                  | ButtonSecondaryTitle_SdkEnrolment          | Button             |
-    | button.secondaryBackground             | ButtonSecondaryBackground_SdkEnrolment     | Button             |
-    | button.secondaryBorder                 | ButtonSecondaryBorder_SdkEnrolment         | Button             |
-    | documentData.background                | DocumentDataBackground_SdkEnrolment        | Document read      |
-    | documentData.title                     | DocumentDataTitleSdkEnrolment              | Document read      |
-    | documentData.subtitle                  | DocumentDataSubtitle_SdkEnrolment          | Document read      |
-    | documentData.detailBackground          | DocumentDataDetailBackground_SdkEnrolment  | Document read      |
-    | rfidData.background                    | RfidDataBackground_SdkEnrolment            | Document read      |
-    | rfidData.title                         | RfidDataTitle_SdkEnrolment                 | Document read      |
-    | rfidData.subtitle                      | RfidDataSubtitle_SdkEnrolment              | Document read      |
-    | faceCapture.background                 | FaceCaptureBackground_SdkEnrolment         | Face capture       |
-    | faceCapture.title                      | FaceCaptureTitle_SdkEnrolment              | Face capture       |
-    | faceCapture.flash                      | FaceCaptureFlash_SdkEnrolment              | Face capture       |
-    | faceCapture.stateLabel                 | FaceCaptureStateLabel_SdkEnrolment         | Face capture       |
-    | faceCapture.stateValid                 | FaceCaptureStateValid_SdkEnrolment         | Face capture       |
-    | faceCapture.stateError                 | FaceCaptureStateError_SdkEnrolment         | Face capture       |
-    | faceCapture.stateNeutral               | FaceCaptureStateNeutral_SdkEnrolment       | Face capture       |
-    | boardingPassScan.background            | BoardingPassScanBackground_SdkEnrolment    | Boarding pass scan |
-    | boardingPassPreview.background         | BoardingPassPreviewBackground_SdkEnrolment | Boarding pass scan |
-    | boardingPassPreview.legHeader          | BoardingPassPreviewLegHeader_SdkEnrolment  | Boarding pass scan |
+    | Name                                     | Value                                                | Section              |
+    |------------------------------------------|------------------------------------------------------|----------------------|
+    | common.clear                             | Clear_SdkEnrolment                                   | Base                 |
+    | common.black                             | Black_SdkEnrolment                                   | Base                 |
+    | common.primary                           | Primary_SdkEnrolment                                 | Base                 |
+    | common.backgroundCards                   | Background_Cards_SdkEnrolment                        | Base                 |
+    | component.dismissButton                  | DismissButton_SdkEnrolment                           | Base                 |
+    | component.transparentOverlay             | TransparentOverlay_SdkEnrolment                      | Base                 |
+    | component.animationIndicatorBackground   | AnimationIndicationBackgroud_SdkEnrolment            | Base                 |
+    | component.animationIndicatorMessage      | AnimationIndicatorMessage_SdkEnrolment               | Base                 |
+    | datafield.title                          | DataFieldTitle_SdkEnrolment                          | Base                 |
+    | datafield.value                          | DataFieldValue_SdkEnrolment                          | Base                 |
+    | datafield.error                          | DataFieldError_SdkEnrolment                          | Base                 |
+    | datafield.line                           | DataFieldLine_SdkEnrolment                           | Base                 |
+    | button.primaryTitle                      | ButtonPrimaryTitle_SdkEnrolment                      | Button               |
+    | button.primaryBackground                 | ButtonPrimaryBackground_SdkEnrolment                 | Button               |
+    | button.secondaryTitle                    | ButtonSecondaryTitle_SdkEnrolment                    | Button               |
+    | button.secondaryBackground               | ButtonSecondaryBackground_SdkEnrolment               | Button               |
+    | button.secondaryBorder                   | ButtonSecondaryBorder_SdkEnrolment                   | Button               |
+    | documentData.background                  | DocumentDataBackground_SdkEnrolment                  | Document read        |
+    | documentData.title                       | DocumentDataTitle_SdkEnrolment                       | Document read        |
+    | documentData.subtitle                    | DocumentDataSubtitle_SdkEnrolment                    | Document read        |
+    | documentData.detailBackground            | DocumentDataDetailBackground_SdkEnrolment            | Document read        |
+    | rfidData.background                      | RfidDataBackground_SdkEnrolment                      | Document read        |
+    | rfidData.title                           | RfidDataTitle_SdkEnrolment                           | Document read        |
+    | rfidData.subtitle                        | RfidDataSubtitle_SdkEnrolment                        | Document read        |
+    | faceCapture.background                   | FaceCaptureBackground_SdkEnrolment                   | Face capture         |
+    | faceCapture.backgroundOverlay            | FaceCaptureBackgroundOverlay_SdkEnrolment            | Face capture         |
+    | faceCapture.title                        | FaceCaptureTitle_SdkEnrolment                        | Face capture         |
+    | faceCapture.titleDark                    | FaceCaptureTitleDark_SdkEnrolment                    | Face capture         |
+    | faceCapture.takePhotoButton              | FaceCaptureTakePhotoButton_SdkEnrolment              | Face capture         |
+    | faceCapture.flash                        | FaceCaptureFlash_SdkEnrolment                        | Face capture         |
+    | faceCapture.stateLabel                   | FaceCaptureStateLabel_SdkEnrolment                   | Face capture         |
+    | faceCapture.stateValid                   | FaceCaptureStateValid_SdkEnrolment                   | Face capture         |
+    | faceCapture.stateError                   | FaceCaptureStateError_SdkEnrolment                   | Face capture         |
+    | faceCapture.stateNeutral                 | FaceCaptureStateNeutral_SdkEnrolment                 | Face capture         |
+    | faceCapture.maskColor                    | FaceCaptureOval_SdkEnrolment                         | Face capture         |
+    | faceCapture.stateLoading                 | FaceCaptureOvalLoading_SdkEnrolment                  | Face capture         |
+    | faceCapture.cameraSwitchButtonImageTint  | FaceCaptureCameraSwitchButtonImageTint_SdkEnrolment  | Face capture         |
+    | faceCapture.cameraSwitchButtonBackground | FaceCaptureCameraSwitchButtonBackground_SdkEnrolment | Face capture         |
+    | faceMatch.background                     | FaceMatchBackground_SdkEnrolment                     | Face match           |
+    | faceMatch.loadingTitle                   | FaceMatchLoadingTitle_SdkEnrolment                   | Face match           |
+    | faceMatch.loadingMessage                 | FaceMatchLoadingMessage_SdkEnrolment                 | Face match           |
+    | faceMatch.errorTitle                     | FaceMatchErrorTitle_SdkEnrolment                     | Face match           |
+    | subject.background                       | SubjectBackground_SdkEnrolment                       | Subject              |
+    | subject.loadingTitle                     | SubjectLoadingTitle_SdkEnrolment                     | Subject              |
+    | subject.loadingMessage                   | SubjectLoadingMessage_SdkEnrolment                   | Subject              |
+    | subject.errorTitle                       | SubjectErrorTitle_SdkEnrolment                       | Subject              |
+    | boardingPassScan.background              | BoardingPassScanBackground_SdkEnrolment              | Boarding pass scan   |
+    | boardingPassScan.title                   | FaceCaptureTitle_SdkEnrolment                        | Boarding pass scan   |
+    | boardingPassParser.background            | BoardingPassParserBackground_SdkEnrolment            | Boarding pass parser |
+    | checkPermission.title                    | CheckPermissionTitle_SdkEnrolment                    | Permissions          |
+    | checkPermission.subtitle                 | CheckPermissionSubtitle_SdkEnrolment                 | Permissions          |
+    | checkPermission.background               | CheckPermissionBackground_SdkEnrolment               | Permissions          |
+    | checkPermission.alfabBackground          | CheckPermissionAlfaBackground_SdkEnrolment           | Permissions          |
 
 ## Dependencies
 
@@ -962,23 +1025,19 @@ In order for the SDK to use the camera, the user must grant permission to do so.
         
 === "iOS"
 
+	These are the packages a client app resolves for `MobileIdSDKiOS` {{ versions.ios_enrolment_sdk }}:
+
 	| Name                   | Version    | Repository                                                |
 	| ---------------------- | ---------- | --------------------------------------------------------- |
-	| AMADocModeliOS         | 2.0.3      | <https://github.com/vbmobile/AMADocModeliOS>              |
-	| CwlCatchException      | 2.2.1      | <https://github.com/mattgallagher/CwlCatchException>      |
-	| CwlPreconditionTesting | 2.2.2      | <https://github.com/mattgallagher/CwlPreconditionTesting> |
+	| AMADocModeliOS         | 2.0.x, 2.0.3 or later | <https://github.com/vbmobile/AMADocModeliOS>   |
 	| Lottie (SPM)           | 4.4.1      | <https://github.com/airbnb/lottie-spm>                    |
-	| Nimble                 | 12.3.0     | <https://github.com/Quick/Nimble>                         |
-	| OHHTTPStubs            | 9.1.0      | <https://github.com/AliSoftware/OHHTTPStubs>              |
-	| Quick                  | 7.6.2      | <https://github.com/Quick/Quick>                          |
-	| Swift Algorithms       | 1.2.1      | <https://github.com/apple/swift-algorithms>               |
-	| Swift Argument Parser  | 1.7.1      | <https://github.com/apple/swift-argument-parser>          |
-	| Swift Numerics         | 1.1.1      | <https://github.com/apple/swift-numerics>                 |
 	| VBDependencyInjector   | 1.0.7      | <https://github.com/vbmobile/VBDependencyInjector>        |
 	| VBImageProcessor       | 1.2.3      | <https://github.com/vbmobile/VBImageProcessor>            |
 	| VBNetworkClient        | 5.1.1      | <https://github.com/vbmobile/VBNetworkClient>             |
 	| VBUtils                | 2.0.3      | <https://github.com/vbmobile/VBUtils>                     |
-	  
+
+	Adding `AMADocRfid` 2.0.8 pins AMADocModeliOS to exactly 2.0.3.
+	The optional providers bring their own dependencies, which Swift Package Manager resolves with them.
 
 ## Glossary and Terminology
 

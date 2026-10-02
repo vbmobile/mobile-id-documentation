@@ -29,9 +29,9 @@ You can apply your own branding to our screens by overriding the resources we us
     The best way to override strings is by adding your key through the Theme class
 
     ``` swift
-    Theme.shared.strings.faceCapture.initialization.localized()
-    Theme.shared.strings.faceCapture.processingTitle.localized()
-    Theme.shared.strings.checkPermission.loadingMessage.localized()
+    Theme.shared.strings.faceCapture.initialization
+    Theme.shared.strings.faceCapture.processingTitle
+    Theme.shared.strings.checkPermission.loadingMessage
     ```
 
 ### Colors
@@ -92,9 +92,9 @@ You can apply your own branding to our screens by overriding the resources we us
 
 === "iOS"
 
-    You can change the loading image by overriding the following image name in Theme class
+    You can change the loading animation by overriding the following animation names in Theme class
     ``` swift
-    Theme.shared.images.faceCapture.faceCaptureLoading
+    Theme.shared.animations.faceCapture.loadingFaceCapture
     Theme.shared.animations.common.loading
     ```
 
@@ -178,6 +178,10 @@ You can apply your own branding to our screens by overriding the resources we us
         override init(frame: CGRect) {
             super.init(frame: frame)
             //add any UI customization you need
+        }
+
+        required init?(coder: NSCoder) {
+            super.init(coder: coder)
         }
 
         // MARK: - Functions

@@ -35,7 +35,7 @@ Before integrating Ultralight, ensure you have:
 === "iOS"
 
     - **Minimum iOS Version: 15** (same as Enrolment SDK)
-    - **Required permissions on Info.plist** (brought transitively by the Ultralight provider dependency):
+    - **Required permissions:** add the following keys to your app's Info.plist:
 
     ``` xml
     <key>NSBluetoothAlwaysUsageDescription</key>
@@ -182,6 +182,7 @@ initialization, so the provider only needs `initialiseBeamSync(apiKey:)`.
 	func ultralightProvider() -> UltralightProtocol? {
 	    let ultralight = AMAShareUltralight.Ultralight()
 	    ultralight.initialize(config: .init(level: .debug))
+	    ultralight.initialiseBeamSync(apiKey: "<YOUR_ULTRALIGHT_API_KEY>")
 	    return ultralight
 	}
 	```
@@ -229,7 +230,8 @@ Pass the `UltralightProvider` when you initialize Enrolment:
 	                                          continuation.resume(returning: Enrolment.shared)
 	                                      }
 	                                  })
-        }
+	    }
+	}
 	```
 
 ## Share Passenger Data
@@ -251,6 +253,8 @@ It is asynchronous — provide a completion callback to receive the result
 | `ePassport`       | `Boolean`      | Whether the document is an e-Passport    |
 | `eBagTagId`       | `String?`      | Optional electronic bag tag ID           |
 | `tag`             | `String?`      | Optional custom tag                      |
+
+On iOS, every `Passenger` field is optional and the bag tag field is named `ebagtagId`.
 
 === "Android"
 
@@ -450,6 +454,7 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 	    func ultralightProvider() -> UltralightProtocol? {
 	        let ultralight = AMAShareUltralight.Ultralight()
 	        ultralight.initialize(config: .init(level: .debug))
+	        ultralight.initialiseBeamSync(apiKey: "<YOUR_ULTRALIGHT_API_KEY>")
 	        return ultralight
 	    }
 	
@@ -528,7 +533,7 @@ Here's a complete example integrating Ultralight with the Enrolment SDK:
 
 	### Notes
 	
-	- The `UltralightProvider` must be initialized **before** passing it to `Enrolment.shared.initWith(...)`
+	- The `Ultralight` provider (`UltralightProtocol`) must be initialized with `initialiseBeamSync(apiKey:)` **before** passing it to `Enrolment.shared.initWith(...)`
 	- Ultralight is **not available** in offline mode (`initOffline`)
 	- `share()` is **asynchronous** — the result is delivered through the `completionHandler` closure
 	- `share()` both sets the passenger data **and** starts Beamsync (there is no separate `startSharing()` step)

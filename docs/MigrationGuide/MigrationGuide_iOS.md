@@ -10,7 +10,7 @@
 ## From 8.0.0 to 9.0.0
 #### Required Changes
 - Replace old provider dependency with v9 provider dependency. Check the updated [Document Reader Providers](../Features/DocumentReader/DocumentReader_Providers.md) page for more details on the new providers.
-- Update provider initialization to the new model. The Document Reader is now provider-based: you pick a scan provider (`AMADocScanMrziOS`) and, optionally, an RFID provider (`AMADocRfid`).
+- Update provider initialization to the new model. The Document Reader is now provider-based: you pick a scan provider (`AMADocScanMrziOS` or `AMADocScanRegulaiOS`) and, optionally, an RFID provider (module `AMADocRFIDReadiOS`, package `AMADocRfid`).
 - Update the `Enrolment.shared.initWith(...)` call to the new parameter set, passing your chosen `documentScanProvider` and `documentRFIDProvider`. Check the updated [Getting Started](../index.md) page for more details.
 
 ## From 7.2.0 to 8.0.0
@@ -20,7 +20,7 @@
 
 ## From 7.1.2 to 7.2.0
 #### Optional Changes
-- faceCaptureTimeout have been added to the [BiometricFaceCaptureParameters](../Features/FaceCapture/FaceCapture_Index.md#initiate-face-capture), to be able to start the RFID scan automatically
+- faceCaptureTimeout has been added to the [BiometricFaceCaptureParameters](../Features/FaceCapture/FaceCapture_Index.md#initiating-face-capture), to set a time limit for the face capture
 - If you mention the ScanTimeout Error type somewhere, you need to change it to Timeout due to the name change.
 
 ## From 7.1.0 to 7.1.1

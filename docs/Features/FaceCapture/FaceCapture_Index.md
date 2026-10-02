@@ -51,7 +51,7 @@ and liveness checks without document matching—the `biometricFaceCapture` metho
     ///   - completionHandler: The completion handler to call when the face capture feature is finished.
     ///     This completion handler takes the following parameter:
     ///
-    ///     Result<BiometricFaceCaptureReport, BiometricFaceCaptureError>
+    ///     Result<BiometricFaceCaptureReport, FaceCaptureReportError>
     ///     Where `BiometricFaceCaptureReport` contains  the results of the face capture
     ///     operation and `FaceCaptureReportError` the possible errors that may occur during the process.
         func biometricFaceCapture(parameters: BiometricFaceCaptureParameters, viewController: UIViewController, completionHandler: @escaping (Result<BiometricFaceCaptureReport, FaceCaptureReportError>) -> Void)
@@ -121,6 +121,8 @@ below. Below is an example of the BiometricFaceCaptureParameters:
     
     The **resultAnimationDuration** has a default value of 1 second and allows you to control the duration that the success or failure symbol takes to appear after the frame is filled
     
+    The **faceCaptureTimeout** is optional. When set, it must be at least 30 seconds, otherwise the face capture fails with an invalid parameter error (440)
+    
     The **BiometricFaceCaptureFrameOptions** is an enum that shapes the frame where the face must be centered to take the selfie. Currently it has two options:
     
     ```swift
@@ -131,7 +133,7 @@ below. Below is an example of the BiometricFaceCaptureParameters:
     }
     ```
     
-    The **CameraConfig** is an enum that struct the frame where the face must be centered to take the selfie. Currently it has two options:
+    The **CameraConfig** is a struct that controls whether the camera toggle button is shown (`toggleCameraEnable`) and which camera starts (`defaultCamera`):
     
     ```swift
     public struct CameraConfig {
@@ -185,7 +187,7 @@ not too far away, or too close.
     
 ### Face Capture Report 
 
-You will receive a model of the type FaceCaptureReport that will contain the success data.
+You will receive a model of the type FaceCaptureReport (`BiometricFaceCaptureReport` on iOS) that will contain the success data.
 
 === "Android"
 
@@ -246,7 +248,7 @@ The FaceCaptureReportError has the following structure:
     }
     ```
 
-The `FaceCaptureReportSuccess` includes a `biometricHash` attribute that needs to be included in the [Match](../BiometricMatch/BiometricMatch_Index.md) operation to verify data integrity. It also used when building a [Subject](../SubjectManagement/SubjectManagement_Index.md).
+The `FaceCaptureReportSuccess` (`BiometricFaceCaptureReport` on iOS) includes a `biometricHash` attribute that needs to be included in the [Match](../BiometricMatch/BiometricMatch_Index.md) operation to verify data integrity. It also used when building a [Subject](../SubjectManagement/SubjectManagement_Index.md).
 
 The failed tests might include one or more of the following tests:
 
@@ -267,9 +269,12 @@ The failed tests might include one or more of the following tests:
 | FaceCropFailedTest           | Error indicating that the face crop failed.                                                                                                                            |
 | LivenessCheckQualityTest     | Error indicating that the liveness quality test failed.                                                                                                                |
 | LivenessCheckProbabilityTest | Error indicating that the liveness probability test failed.                                                                                                            |
+| DarkGlassesTest              | Reported by iOS. Error indicating that the user is wearing dark glasses.                                                                                               |
+| LowQualityTest               | Reported by iOS. Error indicating that the face quality is too low.                                                                                                    |
+| BlurTest                     | Reported by iOS. Error indicating that the image is blurred.                                                                                                           |
 
 ## BiometricFaceCaptureCustomViews
-The SDK provides default UI solutions for the document reader feature flow, as shown in the following images:
+The SDK provides default UI solutions for the biometric face capture feature flow, as shown in the following images:
 
 ![Biometric Face Capture Example](Assets/FC_Flow.png "Biometric Face Capture Default Error Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
 
@@ -296,6 +301,6 @@ The SDK provides default UI solutions for the document reader feature flow, as s
 
 You can use your own custom views in the biometric face capture functionality. Your view must
 implement the SDK view interfaces. For example, if you want to add a custom loadingView, your view
-class must implement the ICustomBiometricFaceCapture.LoadingView interface.
+class must implement the ICustomBiometricFaceCapture.LoadingView interface (Android) or conform to `FaceCaptureLoadingViewInterface` (iOS).
 
 In the customization tab you will also find examples to create your own custom views.

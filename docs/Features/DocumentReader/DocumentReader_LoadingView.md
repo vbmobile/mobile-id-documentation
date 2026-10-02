@@ -29,7 +29,7 @@ You can apply your own branding to our screens by overriding the resources we us
     ``` swift
     Theme.shared.strings.documentReader.initialization
     Theme.shared.strings.documentReader.initializationSubtitle
-    Theme.shared.strings.documentReaderdownloadProgress
+    Theme.shared.strings.documentReader.downloadProgress
     ```
 
 ### Colors
@@ -185,6 +185,10 @@ You can apply your own branding to our screens by overriding the resources we us
         override init(frame: CGRect) {
             super.init(frame: frame)
             //add any UI customization you need
+        }
+
+        required init?(coder: NSCoder) {
+            super.init(coder: coder)
         }
 
         // MARK: - Functions

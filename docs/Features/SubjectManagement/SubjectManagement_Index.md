@@ -32,10 +32,10 @@ that the user must present on the physical gate for a full authentication.
 
     ``` swift
     public struct Subject: Codable  {
-        public let id: String
-        public let document: Document
+        public var id: String?
+        public let document: IdDocument
         public let biometrics: [Biometric]?
-        public var boardingPass: BoardingPass?
+        public var boardingPass: BoardingPassSummary?
         public var validationStatus: ValidationStatus
         public var subjectToken: SubjectToken?
         public var language: Locale
@@ -125,9 +125,9 @@ You can create a new subject using the `addSubject` method.
     ///   - completionHandler: The completion handler to call when the add subject operation is finished.
     ///     This completion handler takes the following parameter:
     ///
-    ///     Result<Void, SubjectError>
-    ///     Where `SubjectError` contains the possible errors that may occur during the process.
-    func addSubject(parameters: AddSubjectParameters, viewController: UIViewController, completionHandler: @escaping (Result<Void, SubjectError>) -> Void)
+    ///     Result<Subject, SubjectError>
+    ///     Where `Subject` is the saved subject and `SubjectError` contains the possible errors that may occur during the process.
+    func addSubject(parameters: AddSubjectParameters, viewController: UIViewController, completionHandler: @escaping (Result<Subject, SubjectError>) -> Void)
     ```
     
 If you just need to build a subject, you must have the IdDocument object. The `idDocument` must be
@@ -204,7 +204,7 @@ The following example shows how you can build a subject:
 
     ```swift
     let parameters = BuildSubjectParameters(
-        documentData: documentData,
+        idDocument: idDocument,
         documentImage: documentImage,
         enrolmentImage: enrolmentImage,
         boardingPass: EnrolmentData.shared.boardingPass,
@@ -274,7 +274,7 @@ These are all the subject methods:
     ///   - completionHandler: The completion handler to call when the build subject operation is finished.
     ///     This completion handler takes the following parameter:
     ///
-    ///     Result<Subject, SubjectBuilderError>
+    ///     Result<Subject, SubjectError>
     ///     Where `Subject` contains  the subject information and `SubjectError`
     ///     the possible errors that may occur during the process.
     func buildSubject(parameters: BuildSubjectParameters, viewController: UIViewController, completionHandler: @escaping (Result<Subject, SubjectError>) -> Void)
@@ -286,9 +286,9 @@ These are all the subject methods:
     ///   - completionHandler: The completion handler to call when the add subject operation is finished.
     ///     This completion handler takes the following parameter:
     ///
-    ///     Result<Void, SubjectError>
-    ///     Where `SubjectError` contains the possible errors that may occur during the process.
-    func addSubject(parameters: AddSubjectParameters, viewController: UIViewController, completionHandler: @escaping (Result<Void, SubjectError>) -> Void)
+    ///     Result<Subject, SubjectError>
+    ///     Where `Subject` is the saved subject and `SubjectError` contains the possible errors that may occur during the process.
+    func addSubject(parameters: AddSubjectParameters, viewController: UIViewController, completionHandler: @escaping (Result<Subject, SubjectError>) -> Void)
     ```
     
 Adding a `Subject` required the AddSubjectParameters which have the following structure:   
@@ -517,7 +517,7 @@ After adding a `Subject`, the `id` will be returned. This `id` can be used to ge
     }
     ```
 
-The `SubjectStatus` is accessible through the `Enrolment` by calling one these methods below and registering the `OnSubjectStatusResult` callback.
+The `SubjectStatus` is accessible through the `Enrolment` by calling one these methods below and handling the result in the `OnSubjectStatusResult` callback (Android) or the completion handler (iOS).
 
 === "Android"
 
@@ -612,11 +612,11 @@ You can also apply your app’s colors and fonts to these layout solutions, to k
         ...
 
         // MARK: - Subject Operations
-        public func registerSubjectLoadingOverlayView(_ viewType: SubjectLoadingOverlayViewType)
+        public func registerSubjectLoadingView(_ viewType: SubjectLoadingViewType)
         ...
     }
     ```
     You can use your own custom views in the subject functionality. Your view must implement the
     SDK view protocols. For example, if you want to add a custom loading view, your view class must
-    implement the ICustomSubject.LoadingView interface.
+    conform to `SubjectLoadingViewInterface` (`SubjectLoadingView = UIView & SubjectLoadingViewInterface`).
 

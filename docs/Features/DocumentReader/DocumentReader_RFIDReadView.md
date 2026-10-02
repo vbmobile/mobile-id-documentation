@@ -186,6 +186,10 @@ You can apply your own branding to our screens by overriding the resources we us
             super.init(frame: frame)
             //add any UI customization you need
         }
+
+        required init?(coder: NSCoder) {
+            super.init(coder: coder)
+        }
         
     // MARK: - Actions
 
@@ -194,7 +198,7 @@ You can apply your own branding to our screens by overriding the resources we us
         }
 
         @objc private func skipButtonTapped(button: UIButton) {
-            delegate?. didPressSkipButton()
+            delegate?.didPressSkipButton()
         }
     
     // MARK: - Functions

@@ -311,7 +311,7 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
 	.target(
 	    name: "YourAppTarget",
 	    dependencies: [
-	        .product(name: "AMADocRfid", package: "AMADocRfid")
+	        .product(name: "AMADocRFIDReadiOS", package: "AMADocRfid")
 	    ]
 	)
 	```
@@ -377,7 +377,8 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
     func docScanRfidProviderSetup() {
         var enrolmentConfig: EnrolmentConfig! // Not relevant for this example
         func documentRFIDProvider() -> DocumentReaderRFIDProtocol {
-            let apiConfig = APIConfig(
+            // AMADocRFIDReadiOS.APIConfig, not the SDK's APIConfig
+            let apiConfig = AMADocRFIDReadiOS.APIConfig(
                 baseURL: "<YOUR_BASE_URL>",
                 apiKey: "<YOUR_API_KEY>",
                 publicKey: "")
@@ -392,6 +393,11 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
                                   completionHandler: { result in
                                       switch result {
                                       case .success:
+                                          // The provider only reads chips after it receives
+                                          // the licence token returned by the SDK initialisation.
+                                          if let token = Enrolment.shared.currentJwtToken {
+                                              AMADocReadManager.shared.checkJwt(jwtToken: token)
+                                          }
                                           print("SDK is ready to use")
 
                                       case let .failure(error):
@@ -434,7 +440,7 @@ This provider uses Amadeus services and supports RFID scanning functionalities.
         
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone(identifier: "UTC")
-        formatter.dateFormat = "YY-MM-dd"
+        formatter.dateFormat = "yy-MM-dd"
         let parameters = ReadRFIDDocumentParameters(
             documentNumber: "<DOCUMENT_NUMBER>",
             documentMRZ: "<DOCUMENT_MRZ>", //

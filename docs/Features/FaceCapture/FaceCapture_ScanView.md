@@ -1,7 +1,7 @@
 # Scan View
 
 The camera screen is no longer a custom view in order to allow us to better control the user flow.
-You can still apply any branding you want to the screen and change the frame format by using our FaceCaptureFrameFormat enum in the feature parameters.
+You can still apply any branding you want to the screen and change the frame format by using our FaceCaptureFrameFormat enum (Android) or the `frameShape` parameter (`BiometricFaceCaptureFrameOptions`, iOS) in the feature parameters.
 
 ![Biometric Face Capture Example](Assets/FC_Capture.png "Biometric Face Capture Default Scan Screen"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
 
@@ -56,28 +56,25 @@ You can apply your own branding to our screens by overriding the resources we us
     
     ``` swift
     //Possible title messages
-    Theme.shared.strings.faceCapture.titleNoFace.localized()
-    Theme.shared.strings.faceCapture.titleCountDown.localized()
-    Theme.shared.strings.faceCapture.titleDone.localized()
-    Theme.shared.strings.faceCapture.title.localized()
+    Theme.shared.strings.faceCapture.titleNoFace
+    Theme.shared.strings.faceCapture.titleCountDown
+    Theme.shared.strings.faceCapture.titleDone
+    Theme.shared.strings.faceCapture.title
 
     
     //Possible subtitle messages
-    Theme.shared.strings.faceCapture.info.localized()
-    Theme.shared.strings.faceCapture.infoCountDown.localized()
-    Theme.shared.strings.faceCapture.noFaceDetected.localized()
-    Theme.shared.strings.faceCapture.turnedHead.localized()
-    Theme.shared.strings.faceCapture.closedEyes.localized()
-    Theme.shared.strings.faceCapture.smiling.localized()
-    Theme.shared.strings.faceCapture.openMouth.localized()
-    Theme.shared.strings.faceCapture.headOffCenter.localized()
-    Theme.shared.strings.faceCapture.tooClose.localized()
-    Theme.shared.strings.faceCapture.tooFar.localized()
-    Theme.shared.strings.faceCapture.ready.localized()
-    Theme.shared.strings.faceCapture.multipleFaces.localized()
-    Theme.shared.strings.faceCapture.darkGlasses.localized()
-    Theme.shared.strings.faceCapture.lowFaceQuality.localized()
-    Theme.shared.strings.faceCapture.imageBlurredError.localized()
+    Theme.shared.strings.faceCapture.info
+    Theme.shared.strings.faceCapture.noFaceDetectedNotCenteredCropFail
+    Theme.shared.strings.faceCapture.turnedHead
+    Theme.shared.strings.faceCapture.eyesClosed
+    Theme.shared.strings.faceCapture.smiling
+    Theme.shared.strings.faceCapture.mouthOpen
+    Theme.shared.strings.faceCapture.tooClose
+    Theme.shared.strings.faceCapture.tooFar
+    Theme.shared.strings.faceCapture.ready
+    Theme.shared.strings.faceCapture.darkGlasses
+    Theme.shared.strings.faceCapture.lowFaceQuality
+    Theme.shared.strings.faceCapture.imageBlurredError
     ```
 
 ### Colors

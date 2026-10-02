@@ -103,10 +103,9 @@ travel documents from different countries, by calling the readDocument method.
     ///   - completionHandler: The completion handler to call when the document reader feature is finished.
     ///     This completion handler takes the following parameter:
     ///
-    ///     Result<DocumentReaderReport, FeatureError>
+    ///     Result<DocumentReaderReport, DocumentReaderError>
     ///     Where `DocumentReaderReport` contains  the results of the document reader
-    ///     operation and `FeatureError` the possible errors that may occur during the process.
-    ///     throws a
+    ///     operation and `DocumentReaderError` the possible errors that may occur during the process.
     final public func readDocument(parameters: MobileIdSDKiOS.ReadDocumentParameters, viewController: UIViewController, completionHandler: @escaping (Result<MobileIdSDKiOS.DocumentReaderReport, MobileIdSDKiOS.DocumentReaderError>) -> Void)
     ```
 
@@ -160,7 +159,7 @@ This method can perform a full travel document read in two steps:
 	}
     ```
 
-Both mrzReadTimeout and rfidReadTimeout values must be between 10 and 60 seconds, otherwise an InvalidParameters error will occur.
+Both mrzReadTimeout and rfidReadTimeout values (`scannerTimeout` and `rfidTimeout` on iOS) must be between 10 and 60 seconds, otherwise an InvalidParameters error (141 on iOS) will occur.
 It's no longer possible to disable either of this timeout.
 
 If both scans are enabled and the RFID scan fails for some reason, the MRZ scan data is always
@@ -1053,7 +1052,7 @@ You can check the structure here:
 	}
     ```
     
-    #### RRIDSection
+    #### RFIDSection
     
     ```swift
 	public final class RFIDSection: Codable, Sendable, Equatable {
@@ -1127,6 +1126,9 @@ You can check the structure here:
 	
 	    /// RFID validations
 	    public let validations: RFIDValidation?
+
+	    /// Raw data groups (DG1-DG16, SOD, COM) read from the chip, with their read statuses
+	    public let datagroups: RFIDDataGroups?
 	
 	    // MARK: - Computed Properties
 	
@@ -1155,7 +1157,8 @@ You can check the structure here:
 	        mrzType: ValidatiomMrzType? = .unknown,
 	        holderImage: UIImage? = nil,
 	        holderImageData: Data? = nil,
-	        validations: RFIDValidation? = RFIDValidation()
+	        validations: RFIDValidation? = RFIDValidation(),
+	        datagroups: RFIDDataGroups? = nil
 	    ) {
 	        self.mrzString = mrzString
 	        self.docType = docType
@@ -1174,6 +1177,7 @@ You can check the structure here:
 	        self.optionalDataDigit = optionalDataDigit
 	        self.mrzType = mrzType
 	        self.validations = validations
+	        self.datagroups = datagroups
 	        self.holderImage = holderImageData ?? holderImage?.pngData()
 	    }
 	
@@ -1383,7 +1387,7 @@ The SDK provides default UI solutions for the document reader feature flow, as
 shown in the following images:
 ![Document Reader Flow](Assets/DR_Flow.png "Document Reader Flow"){: style="display: block; margin: 0 auto"}
 
-The use of the rfid related layouts depends on the **rfidRead** flag in the DocumentReaderParameters.
+The use of the rfid related layouts depends on the **rfidRead** flag in the DocumentReaderParameters (`readRFID` in `ReadDocumentParameters` on iOS).
 
 You can also apply your app’s colors and fonts to these layout solutions, to keep your brand’s image consistent.
 Check Customization tab to learn more about branding of each view.

@@ -198,7 +198,7 @@ You can apply your own branding to our screens by overriding the resources we us
         }
 
         @objc private func skipButtonTapped(button: UIButton) {
-            delegate?. didPressSkipButton()
+            delegate?.didPressSkipButton()
         }
     
     // MARK: - Functions

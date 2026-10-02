@@ -106,7 +106,7 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
 	        https://github.com/vbmobile/AMADocRfid
 	
 	4.  Select the component versions to integrate. The following versions are the
-	    supported set for Mobile ID SDK 9.2.4:
+	    supported set for Mobile ID SDK {{ versions.ios_enrolment_sdk }}:
 
 	    | Component | Version |
 	    |-----------|---------|

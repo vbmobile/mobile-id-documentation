@@ -68,7 +68,7 @@ TemplateOptions is an enumeration and it contains the following cases.
 
 The `candidateHash` and `referenceHash` are the hashes provided by either the [FaceCaptureReport](../FaceCapture/FaceCapture_Index.md#face-capture-report ) and/or the [DocumentReaderReport](../DocumentReader/DocumentReader_Index.md#document-reader-report) needed to verify data integrity.
 
-You can expect either a MatchError response or a MatchReport response. 
+You can expect either a MatchError (`MatchReportError` on iOS) response or a MatchReport response. 
 
 To start the biometric matching, you must call the following method:
 
@@ -188,7 +188,7 @@ In case of success, the MatchReport has the following structure:
     
 ## Custom Views
 
-The SDK provides default UI solutions for the boarding pass feature flow, as 
+The SDK provides default UI solutions for the biometric match feature flow, as 
 shown in the following images:
 
 ![Biometric Match Example](Assets/BM_Flow.png "Biometric Match Flow"){: style="height:600px;width:300px;display: block; margin: 0 auto"}
@@ -221,6 +221,6 @@ Check Customization tab to learn more about branding of each view.
 
     You can use your own custom views in the face match functionality. Your view must implement the
     SDK view protocols. For example, if you want to add a custom loading view, your view class must
-    implement the BiometricMatchLoadingViewType interface.
+    conform to the BiometricMatchLoadingViewInterface protocol.
 
 In the customization tab you will also find examples to create your own custom views.

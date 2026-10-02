@@ -45,7 +45,7 @@ start the barcode scanner, you must call the following method:
     func scanBoardingPass(parameters: ScanBoardingPassParameters, viewController: UIViewController, completionHandler: @escaping (Result<BoardingPassFull, BoardingPassError>) -> Void)
     ```   
 
-The BoardingPassScanParameters has the following structure:
+The BoardingPassScanParameters (`ScanBoardingPassParameters` on iOS) has the following structure:
 === "Android"
     ```kotlin
     @Parcelize
@@ -64,7 +64,7 @@ The BoardingPassScanParameters has the following structure:
     }
     ```  
 
-The **validate** flag controls validation of parsed Bar-Coded Boarding Pass (BCBP)
+The **validate** flag (`validateBoardingPass` on iOS) controls validation of parsed Bar-Coded Boarding Pass (BCBP)
 data.
 
 When set to `true`, the SDK validates parsed 2D BCBP data against IATA BCBP field
@@ -97,7 +97,7 @@ signature, or flight status.
 
 If you want to use your own boarding pass scanner, you can also provide the raw result of the scan and pass it to the facade’s parser method. It will return the
 BoardingPass object. The raw result must be passed to the BoardingPassData, which has to be included
-in the BoardingPassParserParameters.
+in the BoardingPassParserParameters (`ParseBoardingPassParameters` on iOS).
 
 From Mobile ID SDK 7 onwards there is a new way to parse a boarding pass, by giving us an image URI and if the boarding pass is detected in it, it will be parsed and you will receive a BoardingPass object without requiring to provide us the format.
 
@@ -134,10 +134,10 @@ From Mobile ID SDK 7 onwards there is a new way to parse a boarding pass, by giv
 === "iOS"
 
     ``` swift
-    func parseBoardingPass(parameters: ParseBoardingPassParameters, viewController: UIViewController, completionHandler: @escaping (Result<BoardingPass, BoardingPassParserError>) -> Void)
+    func parseBoardingPass(parameters: ParseBoardingPassParameters, viewController: UIViewController, completionHandler: @escaping (Result<BoardingPassFull, BoardingPassError>) -> Void)
     ```
 
-The BoardingPassParserParameters object has the following structure:
+The BoardingPassParserParameters (`ParseBoardingPassParameters` on iOS) object has the following structure:
 === "Android"
 
     ```kotlin
@@ -183,11 +183,11 @@ The BoardingPassParserParameters object has the following structure:
     ``` swift
     public struct ParseBoardingPassParameters {
         public let validateBoardingPass: Bool
-        public let boardingPassData: BoardingPassData
+        public let boardingPassData: BoardingPassData?
         public let boardingPassImage: UIImage?
     
         public init(validateBoardingPass: Bool,
-                    boardingPassData: BoardingPassData,
+                    boardingPassData: BoardingPassData?,
                     boardingPassImage: UIImage?)
     }
     ```
@@ -264,7 +264,7 @@ BarcodeFormat is an enumeration and it contains the following cases.
 
 === "iOS"
 
-    These method’s completion handler passes a result <BoardingPass, BoardingPassScanError>, where the BoardingPass contains the boarding pass data and BoardingPassScanError contains the possible errors that may occur during the process.
+    These method’s completion handler passes a result <BoardingPassFull, BoardingPassError>, where the BoardingPassFull contains the boarding pass data and BoardingPassError contains the possible errors that may occur during the process.
     Below is an example of usage:
 
     ```swift
@@ -283,7 +283,7 @@ BarcodeFormat is an enumeration and it contains the following cases.
             }
         }
     ```
-    The BoardingPassScanError and BoardingPassError has the following structure:
+    The BoardingPassError has the following structure:
     
     ```swift
     public class BoardingPassError: Error {
@@ -449,6 +449,6 @@ Check Customization tab to learn more about branding of each view.
 
     Our SDK also allows you to pass your own custom views. The only requirement is that your view must implement the
     SDK view protocols. For example, if you want to add a custom loading view, your view class must
-    implement the BoardingPassLoadingViewType.
+    conform to the BoardingPassLoadingViewInterface protocol.
 
 In the customization tab you will also find examples to create your own custom views.

@@ -187,6 +187,10 @@ You can apply your own branding to our screens by overriding the resources we us
             //add any UI customization you need
         }
 
+        required init?(coder: NSCoder) {
+            super.init(coder: coder)
+        }
+
         // MARK: - Functions
 
         func onDownloadProgressChanged(progress: Int) {

@@ -33,21 +33,6 @@ You can apply your own branding to our screens by overriding the resources we us
     ``` swift
     Theme.shared.strings.subject.addSubjectLoadingTitle
     Theme.shared.strings.subject.addSubjectLoadingMessage
-   
-    Theme.shared.strings.subject.getSubjectLoadingTitle
-    Theme.shared.strings.subject.getSubjectLoadingMessage
-    
-    Theme.shared.strings.subject.updateSubjectLoadingTitle
-    Theme.shared.strings.subject.updateSubjectLoadingMessage
-    
-    Theme.shared.strings.subject.deleteSubjectLoadingTitle
-    Theme.shared.strings.subject.deleteSubjectLoadingMessage
-    
-    Theme.shared.strings.subject.addSubjectBoardingPassLoadingTitle
-    Theme.shared.strings.subject.addSubjectBoardingPassLoadingMessage
-    
-    Theme.shared.strings.subject.deleteSubjectBoardingPassLoadingTitle
-    Theme.shared.strings.subject.deleteSubjectBoardingPassLoadingMessage
     ```
 
     
@@ -188,7 +173,7 @@ You can apply your own branding to our screens by overriding the resources we us
     public func registerSubjectLoadingView(_ viewType: SubjectLoadingViewType)
     ```
     
-    The **SubjectLoadingOverlayViewType** class needs to respect the following protocols:
+    The **SubjectLoadingViewType** class needs to respect the following protocols:
     
     ``` swift
     public protocol FeatureLoadingViewInterface {
@@ -199,17 +184,9 @@ You can apply your own branding to our screens by overriding the resources we us
 
     public typealias FeatureLoadingViewType = FeatureLoadingView.Type
     public typealias FeatureLoadingView = UIView & FeatureLoadingViewInterface
-
-    public typealias LoadingOverlayViewType = LoadingOverlayView.Type
-    public typealias LoadingOverlayView = UIView & LoadingOverlayViewInterface
     
     public protocol SubjectLoadingViewInterface: FeatureLoadingViewInterface {
         func onAddingSubject()
-        func onGettingSubject()
-        func onUpdatingSubject()
-        func onDeletingSubjec()
-        func onAddingBoardingPass()
-        func onDeletingBoardingPass()
     }
 
     public typealias SubjectLoadingViewType = SubjectLoadingView.Type
@@ -224,6 +201,10 @@ You can apply your own branding to our screens by overriding the resources we us
         override init(frame: CGRect) {
             super.init(frame: frame)
             //add any UI customization you need
+        }
+
+        required init?(coder: NSCoder) {
+            super.init(coder: coder)
         }
         
     // MARK: - Functions
@@ -241,26 +222,6 @@ You can apply your own branding to our screens by overriding the resources we us
         }
         
         func onAddingSubject() {
-            //add any UI customization you need
-        }
-    
-        func onGettingSubject() {
-            //add any UI customization you need
-        }
-    
-        func onUpdatingSubject() {
-            //add any UI customization you need
-        }
-    
-        func onDeletingSubjec() {
-            //add any UI customization you need
-        }
-    
-        func onAddingBoardingPass() {
-            //add any UI customization you need
-        }
-    
-        func onDeletingBoardingPass() {
             //add any UI customization you need
         }
     }

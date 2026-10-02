@@ -5,7 +5,7 @@ Name Match is a feature that allows you to do a names match comparison between a
 This strategy might be one of these two options:
 
 - Exact (The names are identical)
-- Approximate (Compare names must contain or be equal to the reference names)
+- Approximate (Reference names must contain or be equal to the compared names, for both first and last names)
 
 
 === "Android"

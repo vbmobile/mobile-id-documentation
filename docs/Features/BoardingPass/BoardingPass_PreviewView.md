@@ -1,6 +1,6 @@
 # Preview View
 
-**From version 8 onwards, the preview management changed in the SDK to make it easier to integrate.**
+**From Mobile ID SDK 8 onwards, the preview management changed in the SDK to make it easier to integrate.**
 
 To improve flexibility in the preview screen, the optional preview screen has been removed.
 

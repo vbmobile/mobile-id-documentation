@@ -99,7 +99,7 @@ If you want to use your own boarding pass scanner, you can also provide the raw 
 BoardingPass object. The raw result must be passed to the BoardingPassData, which has to be included
 in the BoardingPassParserParameters.
 
-From version 7 onwards there is a new way to parse a boarding pass, by giving us an image URI and if the boarding pass is detected in it, it will be parsed and you will receive a BoardingPass object without requiring to provide us the format.
+From Mobile ID SDK 7 onwards there is a new way to parse a boarding pass, by giving us an image URI and if the boarding pass is detected in it, it will be parsed and you will receive a BoardingPass object without requiring to provide us the format.
 
 === "Android"
 

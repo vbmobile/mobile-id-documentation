@@ -1032,7 +1032,7 @@ In order for the SDK to use the camera, the user must grant permission to do so.
 	| AMADocModeliOS         | 2.0.x, 2.0.3 or later | <https://github.com/vbmobile/AMADocModeliOS>   |
 	| Lottie (SPM)           | 4.4.1      | <https://github.com/airbnb/lottie-spm>                    |
 	| VBDependencyInjector   | 1.0.7      | <https://github.com/vbmobile/VBDependencyInjector>        |
-	| VBImageProcessor       | 1.2.3      | <https://github.com/vbmobile/VBImageProcessor>            |
+	| VBImageProcessor       | 1.2.4      | <https://github.com/vbmobile/VBImageProcessor>            |
 	| VBNetworkClient        | 5.1.1      | <https://github.com/vbmobile/VBNetworkClient>             |
 	| VBUtils                | 2.0.3      | <https://github.com/vbmobile/VBUtils>                     |
 

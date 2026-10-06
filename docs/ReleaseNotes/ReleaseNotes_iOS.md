@@ -1,5 +1,12 @@
 # MobileID SDK - Release Notes
 
+## 9.2.7
+
+### Improvements
+
+- Updated VBImageProcessor to `1.2.4`, a rebuild of 1.2.2 with VBUtils `2.0.3`; no
+  functional changes.
+
 ## 9.2.6
 
 ### Improvements

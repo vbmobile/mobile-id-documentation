@@ -3,7 +3,7 @@ VERSIONS = {
     "android_doc_scan_mrz_provider": "2.0.9",
     "android_doc_rfid_read_provider": "2.0.9",
     "android_ultralight_provider": "2.0.9",
-    "ios_enrolment_sdk": "9.2.7",
+    "ios_enrolment_sdk": "9.2.8",
     "ios_doc_scan_regula_provider": "2.0.2",
     "ios_doc_scan_mrz_provider": "2.0.8",
     "ios_doc_rfid_read_provider": "2.0.8",

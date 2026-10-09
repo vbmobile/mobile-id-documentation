@@ -506,7 +506,7 @@ key. You can also configure the timeout value for server responses and the log l
 - timeout: timeout of a request in seconds;
 - logLevel: log level for requests; (Deprecated in favor of [Log Configuration](#log-configuration))
 - apiKey: key to authorize communication with Mobile API;
-- publicKey: key to use for ciphering/deciphering for secure communications. It needs to be encoded in Base64. On iOS, pass the bare base64 SubjectPublicKeyInfo body without the BEGIN/END lines; from 9.2.8 `initWith` also verifies the licence with this key, and with the built-in key when none is passed.
+- publicKey: key to use for ciphering/deciphering for secure communications. It needs to be encoded in Base64. On iOS, pass the bare base64 SubjectPublicKeyInfo body without the BEGIN/END lines; from 9.2.8 `initWith` also verifies the licence with this key, and with the built-in key when none is passed or the value is not a key.
 - gatewayURL, clientId, clientSecret, authToken (iOS only, optional): API Gateway token management. When `gatewayURL`, `clientId` and `clientSecret` are all set, the SDK requests and refreshes the gateway access token itself; `authToken` lets you start with a token you already have.
 
 === "Android"

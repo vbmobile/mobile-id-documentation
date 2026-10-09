@@ -506,7 +506,7 @@ key. You can also configure the timeout value for server responses and the log l
 - timeout: timeout of a request in seconds;
 - logLevel: log level for requests; (Deprecated in favor of [Log Configuration](#log-configuration))
 - apiKey: key to authorize communication with Mobile API;
-- publicKey: key to use for ciphering/deciphering for secure communications. It needs to be encoded in Base64.
+- publicKey: key to use for ciphering/deciphering for secure communications. It needs to be encoded in Base64. On iOS, pass the bare base64 SubjectPublicKeyInfo body without the BEGIN/END lines; from 9.2.8 `initWith` also verifies the licence with this key, and with the built-in key when none is passed or the value is not a key.
 - gatewayURL, clientId, clientSecret, authToken (iOS only, optional): API Gateway token management. When `gatewayURL`, `clientId` and `clientSecret` are all set, the SDK requests and refreshes the gateway access token itself; `authToken` lets you start with a token you already have.
 
 === "Android"
@@ -1032,7 +1032,7 @@ In order for the SDK to use the camera, the user must grant permission to do so.
 	| AMADocModeliOS         | 2.0.x, 2.0.3 or later | <https://github.com/vbmobile/AMADocModeliOS>   |
 	| Lottie (SPM)           | 4.4.1      | <https://github.com/airbnb/lottie-spm>                    |
 	| VBDependencyInjector   | 1.0.7      | <https://github.com/vbmobile/VBDependencyInjector>        |
-	| VBImageProcessor       | 1.2.4      | <https://github.com/vbmobile/VBImageProcessor>            |
+	| VBImageProcessor       | 1.2.5      | <https://github.com/vbmobile/VBImageProcessor>            |
 	| VBNetworkClient        | 5.1.1      | <https://github.com/vbmobile/VBNetworkClient>             |
 	| VBUtils                | 2.0.3      | <https://github.com/vbmobile/VBUtils>                     |
 

@@ -1,5 +1,18 @@
 # MobileID SDK - Release Notes
 
+## 9.2.8
+
+### Improvements
+
+- `initWith` verifies the licence with the `APIConfig.publicKey` you pass, so an
+  environment with its own key pair is accepted. When no `publicKey` is passed, or
+  the value is not a key, the SDK uses its built-in key, as before. `initOffline` is
+  unchanged.
+- Pass `publicKey` as the bare base64 SubjectPublicKeyInfo body, without the
+  `-----BEGIN PUBLIC KEY-----` and `-----END PUBLIC KEY-----` lines; a PEM key is
+  ignored for header encryption.
+- Updated VBImageProcessor to `1.2.5`.
+
 ## 9.2.7
 
 ### Improvements

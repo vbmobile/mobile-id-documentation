@@ -7,6 +7,7 @@
 - Fixed an issue where the biometric face capture could return the wrong feature result when the liveness check failed.
 - Fixed an issue validating the public key used for encrypted communications.
 - Fixed an issue scanning boarding pass barcodes from large images.
+- Fixed an issue deriving the chip access key from the MRZ during RFID scan, which could cause the RFID read to fail.
 
 ## 9.2.2
 

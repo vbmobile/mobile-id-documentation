@@ -1,5 +1,5 @@
 VERSIONS = {
-    "android_enrolment_sdk": "9.2.1",
+    "android_enrolment_sdk": "9.2.3",
     "android_doc_scan_mrz_provider": "2.0.9",
     "android_doc_rfid_read_provider": "2.0.9",
     "android_ultralight_provider": "2.0.9",

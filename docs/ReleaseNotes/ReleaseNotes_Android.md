@@ -1,5 +1,12 @@
 # MobileID SDK - Release Notes
 
+## 9.2.4
+
+### Improvements
+
+- Fixed the document validation check performed after an RFID read: a document is now considered valid only when the chip was read and Passive Authentication succeeded, without Active or Chip Authentication failures.
+- Fixed the scanning of boarding pass barcodes from large images by downscaling them before processing.
+
 ## 9.2.3
 
 ### Improvements

@@ -950,7 +950,7 @@ In order for the SDK to use the camera, the user must grant permission to do so.
 	| Swift Algorithms       | 1.2.1      | <https://github.com/apple/swift-algorithms>               |
 	| Swift Argument Parser  | 1.7.1      | <https://github.com/apple/swift-argument-parser>          |
 	| Swift Numerics         | 1.1.1      | <https://github.com/apple/swift-numerics>                 |
-	| VBDependencyInjector   | 1.0.7      | <https://github.com/vbmobile/VBDependencyInjector>        |
+	| VBDependencyInjector   | 1.0.7, no longer used by the SDK since 9.2.1; still declared by the public MobileIdSDKiOS 9.2 package until the next 9.2.x release | <https://github.com/vbmobile/VBDependencyInjector>        |
 	| VBImageProcessor       | 1.2.2      | <https://github.com/vbmobile/VBImageProcessor>            |
 	| VBNetworkClient        | 5.1.1      | <https://github.com/vbmobile/VBNetworkClient>             |
 	| VBUtils                | 2.0.2      | <https://github.com/vbmobile/VBUtils>                     |

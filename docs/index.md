@@ -63,6 +63,10 @@ You must also send an ID (Bundle ID or Application ID) to Amadeus so that we can
     -keepclassmembers enum * { *; }
     -dontwarn org.joda.convert.FromString
     -dontwarn org.joda.convert.ToString
+    -keep class net.sf.scuba.** { *; }
+    -keep class org.jmrtd.** { *; }
+    -keep class org.bouncycastle.** { *; }
+    -keep class org.ejbca.cvc.** { *; }
     
     # Keep Data classes so we can use Moshi to parse the internal BuildSubjectParameters from firebase to spoof document, bcbp and face capture data
     -keep class com.visionbox.mobileid.sdk.enrolment.data.** { *; }

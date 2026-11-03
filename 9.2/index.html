@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="assets/1a-favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -27,10 +27,10 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.fb2fffe2.min.css">
       
       
   
@@ -2904,6 +2904,10 @@ Apple silicon Mac for simulator builds.</p>
 <div class="highlight"><pre><span></span><code><span class="o">-</span><span class="n">keepclassmembers</span><span class="w"> </span><span class="n">enum</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">*</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 <span class="o">-</span><span class="n">dontwarn</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">joda</span><span class="p">.</span><span class="na">convert</span><span class="p">.</span><span class="na">FromString</span>
 <span class="o">-</span><span class="n">dontwarn</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">joda</span><span class="p">.</span><span class="na">convert</span><span class="p">.</span><span class="na">ToString</span>
+<span class="o">-</span><span class="n">keep</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">net</span><span class="p">.</span><span class="na">sf</span><span class="p">.</span><span class="na">scuba</span><span class="p">.</span><span class="o">**</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">*</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="o">-</span><span class="n">keep</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">org</span><span class="p">.</span><span class="na">jmrtd</span><span class="p">.</span><span class="o">**</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">*</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="o">-</span><span class="n">keep</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">org</span><span class="p">.</span><span class="na">bouncycastle</span><span class="p">.</span><span class="o">**</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">*</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="o">-</span><span class="n">keep</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">org</span><span class="p">.</span><span class="na">ejbca</span><span class="p">.</span><span class="na">cvc</span><span class="p">.</span><span class="o">**</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">*</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
 <span class="err">#</span><span class="w"> </span><span class="n">Keep</span><span class="w"> </span><span class="n">Data</span><span class="w"> </span><span class="n">classes</span><span class="w"> </span><span class="n">so</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">Moshi</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">parse</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">internal</span><span class="w"> </span><span class="n">BuildSubjectParameters</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">firebase</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">spoof</span><span class="w"> </span><span class="n">document</span><span class="p">,</span><span class="w"> </span><span class="n">bcbp</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">face</span><span class="w"> </span><span class="n">capture</span><span class="w"> </span><span class="n">data</span>
 <span class="o">-</span><span class="n">keep</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">com</span><span class="p">.</span><span class="na">visionbox</span><span class="p">.</span><span class="na">mobileid</span><span class="p">.</span><span class="na">sdk</span><span class="p">.</span><span class="na">enrolment</span><span class="p">.</span><span class="na">data</span><span class="p">.</span><span class="o">**</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">*</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
@@ -4218,10 +4222,10 @@ The optional providers bring their own dependencies, which Swift Package Manager
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "content.tabs.link", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "content.tabs.link", "content.code.copy"], "search": "assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   </body>

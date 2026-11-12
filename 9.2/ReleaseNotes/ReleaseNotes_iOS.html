@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../assets/1a-favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
     
     
       
@@ -3409,6 +3409,19 @@ You're not viewing the latest version.
 
 <h1 id="mobileid-sdk-release-notes">MobileID SDK - Release Notes<a class="headerlink" href="#mobileid-sdk-release-notes" title="Permanent link">&para;</a></h1>
 <h2 id="928">9.2.8<a class="headerlink" href="#928" title="Permanent link">&para;</a></h2>
+<h3 id="provider-updates">Provider updates<a class="headerlink" href="#provider-updates" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Updated the recommended AMADocRFIDReadiOS provider version to <code>2.0.11</code>. It works
+  with SDK <code>9.2.8</code>; no SDK update is needed.</li>
+<li>AMADocRFIDReadiOS <code>2.0.9</code> reads the chip faster, so slow chips such as Dutch
+  passports finish before the chip reading timeout.</li>
+<li>AMADocRFIDReadiOS <code>2.0.10</code> fills the <code>rfid</code> section (check digits, optional data
+  and MRZ type) from the chip MRZ (DG1), and no <code>validations</code> field is <code>nil</code> after
+  a chip read any more: a check the chip cannot answer is <code>unknown</code>.</li>
+<li>AMADocRFIDReadiOS <code>2.0.11</code> takes the surname and given names from the chip MRZ
+  (DG1), so passports that store the name in national characters in DG11, such as
+  Chinese passports, return it in Latin characters.</li>
+</ul>
 <h3 id="improvements">Improvements<a class="headerlink" href="#improvements" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>initWith</code> verifies the licence with the <code>APIConfig.publicKey</code> you pass, so an
@@ -3838,7 +3851,7 @@ You're not viewing the latest version.
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "content.tabs.link", "content.code.copy"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   </body>

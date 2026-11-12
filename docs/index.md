@@ -1040,7 +1040,7 @@ In order for the SDK to use the camera, the user must grant permission to do so.
 	| VBNetworkClient        | 5.1.1      | <https://github.com/vbmobile/VBNetworkClient>             |
 	| VBUtils                | 2.0.3      | <https://github.com/vbmobile/VBUtils>                     |
 
-	Adding `AMADocRfid` 2.0.8 pins AMADocModeliOS to exactly 2.0.3.
+	Adding `AMADocRfid` {{ versions.ios_doc_rfid_read_provider }} pins AMADocModeliOS to exactly 2.0.3.
 	The optional providers bring their own dependencies, which Swift Package Manager resolves with them.
 
 ## Glossary and Terminology

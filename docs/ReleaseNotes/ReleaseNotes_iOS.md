@@ -2,6 +2,19 @@
 
 ## 9.2.8
 
+### Provider updates
+
+- Updated the recommended AMADocRFIDReadiOS provider version to `2.0.11`. It works
+  with SDK `9.2.8`; no SDK update is needed.
+- AMADocRFIDReadiOS `2.0.9` reads the chip faster, so slow chips such as Dutch
+  passports finish before the chip reading timeout.
+- AMADocRFIDReadiOS `2.0.10` fills the `rfid` section (check digits, optional data
+  and MRZ type) from the chip MRZ (DG1), and no `validations` field is `nil` after
+  a chip read any more: a check the chip cannot answer is `unknown`.
+- AMADocRFIDReadiOS `2.0.11` takes the surname and given names from the chip MRZ
+  (DG1), so passports that store the name in national characters in DG11, such as
+  Chinese passports, return it in Latin characters.
+
 ### Improvements
 
 - `initWith` verifies the licence with the `APIConfig.publicKey` you pass, so an

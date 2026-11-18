@@ -3411,7 +3411,7 @@ You're not viewing the latest version.
 <h2 id="928">9.2.8<a class="headerlink" href="#928" title="Permanent link">&para;</a></h2>
 <h3 id="provider-updates">Provider updates<a class="headerlink" href="#provider-updates" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Updated the recommended AMADocRFIDReadiOS provider version to <code>2.0.11</code>. It works
+<li>Updated the recommended AMADocRFIDReadiOS provider version to <code>2.0.12</code>. It works
   with SDK <code>9.2.8</code>; no SDK update is needed.</li>
 <li>AMADocRFIDReadiOS <code>2.0.9</code> reads the chip faster, so slow chips such as Dutch
   passports finish before the chip reading timeout.</li>
@@ -3421,6 +3421,8 @@ You're not viewing the latest version.
 <li>AMADocRFIDReadiOS <code>2.0.11</code> takes the surname and given names from the chip MRZ
   (DG1), so passports that store the name in national characters in DG11, such as
   Chinese passports, return it in Latin characters.</li>
+<li>AMADocRFIDReadiOS <code>2.0.12</code> keeps the scanned <code>info.ICAOCode</code> after a chip read;
+  it was empty before.</li>
 </ul>
 <h3 id="improvements">Improvements<a class="headerlink" href="#improvements" title="Permanent link">&para;</a></h3>
 <ul>
